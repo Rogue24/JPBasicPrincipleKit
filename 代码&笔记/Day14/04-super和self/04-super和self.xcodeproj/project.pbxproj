@@ -25,7 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1A0C68102385809500BF70EC /* 04-super */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "04-super"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0C68102385809500BF70EC /* 04-super和self */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "04-super和self"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A0C68132385809500BF70EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1A0C681A238580A700BF70EC /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
 		1A0C681B238580A700BF70EC /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		1A0C68072385809500BF70EC = {
 			isa = PBXGroup;
 			children = (
-				1A0C68122385809500BF70EC /* 04-super */,
+				1A0C68122385809500BF70EC /* 04-super和self */,
 				1A0C68112385809500BF70EC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,12 +56,12 @@
 		1A0C68112385809500BF70EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A0C68102385809500BF70EC /* 04-super */,
+				1A0C68102385809500BF70EC /* 04-super和self */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1A0C68122385809500BF70EC /* 04-super */ = {
+		1A0C68122385809500BF70EC /* 04-super和self */ = {
 			isa = PBXGroup;
 			children = (
 				1A0C68132385809500BF70EC /* main.m */,
@@ -71,15 +71,15 @@
 				1A0C6821238580C200BF70EC /* JPStudent.m */,
 				1A0C68232385857D00BF70EC /* JPStudent-arm64.cpp */,
 			);
-			path = "04-super";
+			path = "04-super和self";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1A0C680F2385809500BF70EC /* 04-super */ = {
+		1A0C680F2385809500BF70EC /* 04-super和self */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1A0C68172385809500BF70EC /* Build configuration list for PBXNativeTarget "04-super" */;
+			buildConfigurationList = 1A0C68172385809500BF70EC /* Build configuration list for PBXNativeTarget "04-super和self" */;
 			buildPhases = (
 				1A0C680C2385809500BF70EC /* Sources */,
 				1A0C680D2385809500BF70EC /* Frameworks */,
@@ -89,9 +89,9 @@
 			);
 			dependencies = (
 			);
-			name = "04-super";
+			name = "04-super和self";
 			productName = "04-super";
-			productReference = 1A0C68102385809500BF70EC /* 04-super */;
+			productReference = 1A0C68102385809500BF70EC /* 04-super和self */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +108,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1A0C680B2385809500BF70EC /* Build configuration list for PBXProject "04-super" */;
+			buildConfigurationList = 1A0C680B2385809500BF70EC /* Build configuration list for PBXProject "04-super和self" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -121,7 +121,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1A0C680F2385809500BF70EC /* 04-super */,
+				1A0C680F2385809500BF70EC /* 04-super和self */,
 			);
 		};
 /* End PBXProject section */
@@ -268,7 +268,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1A0C680B2385809500BF70EC /* Build configuration list for PBXProject "04-super" */ = {
+		1A0C680B2385809500BF70EC /* Build configuration list for PBXProject "04-super和self" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A0C68152385809500BF70EC /* Debug */,
@@ -277,7 +277,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1A0C68172385809500BF70EC /* Build configuration list for PBXNativeTarget "04-super" */ = {
+		1A0C68172385809500BF70EC /* Build configuration list for PBXNativeTarget "04-super和self" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A0C68182385809500BF70EC /* Debug */,

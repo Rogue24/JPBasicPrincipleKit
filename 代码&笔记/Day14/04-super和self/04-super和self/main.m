@@ -17,6 +17,7 @@ int main(int argc, const char * argv[]) {
         
         JPStudent *stu = [[JPStudent alloc] init];
         [stu run];
+        [stu eat];
     }
     return 0;
 }
