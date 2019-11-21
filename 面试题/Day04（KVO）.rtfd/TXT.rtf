@@ -1,0 +1,128 @@
+{\rtf1\ansi\ansicpg936\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset134 PingFangSC-Semibold;\f2\fnil\fcharset0 HelveticaNeue;
+\f3\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat2\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid101\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\partightenfactor0
+
+\f0\b\fs34 \cf0 Day04
+\f1 \'a3\'a8
+\f0 KVO
+\f1 \'a3\'a9
+\f0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f2\b0\fs24 \cf0 \
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 1.iOS
+\f3 \'d3\'c3\'ca\'b2\'c3\'b4\'b7\'bd\'ca\'bd\'ca\'b5\'cf\'d6\'b6\'d4\'d2\'bb\'b8\'f6\'b6\'d4\'cf\'f3\'b5\'c4
+\f2 KVO
+\f3 \'a3\'bf\'a3\'a8
+\f2 KVO
+\f3 \'b5\'c4\'b1\'be\'d6\'ca\'ca\'c7\'ca\'b2\'c3\'b4\'a3\'a9
+\f2 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0  	\'b7 
+\f3 \'ca\'b9\'d3\'c3
+\f2 RuntimeAPI
+\f3 \'b6\'af\'cc\'ac\'c9\'fa\'b3\'c9\'d2\'bb\'b8\'f6\'d7\'d3\'c0\'e0
+\f2 (NSKVONotifying_XXX)
+\f3 \'a3\'ac\'b2\'a2\'c7\'d2\'c8\'c3
+\f2 instance
+\f3 \'b6\'d4\'cf\'f3\'b5\'c4
+\f2 isa
+\f3 \'d6\'b8\'cf\'f2\'d5\'e2\'b8\'f6\'c8\'ab\'d0\'c2\'b5\'c4\'d7\'d3\'c0\'e0
+\f2 \
+ 	\'b7 
+\f3 \'b5\'b1\'d0\'de\'b8\'c4
+\f2 instance
+\f3 \'b6\'d4\'cf\'f3\'b5\'c4\'d5\'e2\'b8\'f6\'ca\'f4\'d0\'d4\'ca\'b1\'a3\'ac\'bb\'e1\'b5\'f7\'d3\'c3
+\f2 Foundation
+\f3 \'b5\'c4
+\f2 _NSSetXXXValueAndNotify
+\f3 \'ba\'af\'ca\'fd
+\f2 \
+		\'b7 
+\f0\b -
+\f2\b0 willChangeValueForKey: \
+			\'b7 
+\f3 \'bc\'c7\'c2\'bc\'be\'c9\'d6\'b5\'a3\'ac\'b4\'a5\'b7\'a2\'d6\'ae\'ba\'f3\'b5\'c4
+\f2 didChangeValueForKey\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0     		\'b7 
+\f3 \'d4\'ad\'b1\'be\'b8\'b8\'c0\'e0\'b5\'c4
+\f2 setter
+\f3 \'b7\'bd\'b7\'a8
+\f2 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 			\'b7 
+\f3 \'b8\'b3\'d6\'b5
+\f2 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0    		\'b7 -didChangeValueForKey:  \
+			\'b7 
+\f3 \'c4\'da\'b2\'bf\'b4\'a5\'b7\'a2\'bc\'e0\'cc\'fd\'c6\'f7
+\f2 Observer
+\f3 \'b5\'c4\'bc\'e0\'cc\'fd\'b7\'bd\'b7\'a8
+\f2 (-observeValueForKeyPath:ofObject:change:context:)\
+\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 PS
+\f3 \'a3\'ba\'d6\'b1\'bd\'d3\'bc\'e0\'cc\'fd\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf\'b2\'bb\'c6\'f0\'d0\'a7\'a3\'ac\'b3\'fd\'b7\'c7\'d3\'d0\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf\'b5\'c4
+\f2 setXXX:
+\f3 \'b7\'bd\'b7\'a8\'a3\'ac\'d2\'f2\'ce\'aa\'c9\'fa\'b3\'c9\'b5\'c4\'d7\'d3\'c0\'e0\'d2\'aa\'d6\'d8\'d0\'b4\'d5\'e2\'b8\'f6\'b7\'bd\'b7\'a8\'c0\'b4\'bd\'f8\'d0\'d0\'bc\'e0\'cc\'fd
+\f2 \
+		// 
+\f3 \'d6\'b1\'bd\'d3\'d0\'de\'b8\'c4\'b2\'bb\'bb\'e1\'b4\'a5\'b7\'a2
+\f2 KVO\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\f0\b \cf0 		self
+\f2\b0 .per1->_height += 1;\
+		// 
+\f3 \'d5\'e2\'d1\'f9\'b2\'c5\'bb\'e1\'b4\'a5\'b7\'a2
+\f2 KVO
+\f3 \'a3\'ac\'cb\'b5\'c3\'f7
+\f2 NSKVONotifying_XXX
+\f3 \'c4\'da\'b2\'bf\'d6\'d8\'d0\'b4\'b5\'c4\'ca\'c7
+\f2 setXXX:
+\f3 \'b7\'bd\'b7\'a8
+\f2 \
+		 [
+\f0\b self
+\f2\b0 .per1 setHeight:10];\
+\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls2\ilvl0\cf0 2.
+\f3 \'c8\'e7\'ba\'ce\'ca\'d6\'b6\'af\'b4\'a5\'b7\'a2
+\f2 KVO\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 	\'b7 
+\f3 \'ca\'d6\'b6\'af\'b5\'f7\'d3\'c3
+\f2 -willChangeValueForKey:
+\f3 \'b7\'bd\'b7\'a8\'ba\'cd
+\f2 -didChangeValueForKey:
+\f3 \'b7\'bd\'b7\'a8
+\f2 \
+	\'b7 
+\f3 \'b1\'d8\'d0\'eb\'cf\'c8
+\f2 -willChangeValueForKey:
+\f3 \'ba\'f3
+\f2 -didChangeValueForKey:
+\f3 \'a3\'ac\'c7\'d2\'c8\'b1\'d2\'bb\'b2\'bb\'bf\'c9
+\f2 \
+\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic.png \width17440 \height9360 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sb160\sa160\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic _NSSetIntValueAndNotify.jpg \width12240 \height6180 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\pardeftab560\sb160\sa160\pardirnatural\partightenfactor0
+\cf0 \
+}

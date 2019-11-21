@@ -1,0 +1,396 @@
+{\rtf1\ansi\ansicpg936\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset134 PingFangSC-Regular;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat2\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid101\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid201\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat2\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid301\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat3\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid401\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat4\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid501\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid6}
+{\list\listtemplateid7\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat5\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid601\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid7}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs28 \cf0 KVC\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f1\b0\fs24 \cf0 1. 
+\f2 \'cd\'a8\'b9\'fd
+\f1 KVC
+\f2 \'d0\'de\'b8\'c4\'ca\'f4\'d0\'d4\'bb\'e1\'b4\'a5\'b7\'a2
+\f1 KVO
+\f2 \'c3\'b4\'a3\'bf
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 
+\f2 \'bb\'e1\'b4\'a5\'b7\'a2
+\f1 \
+	// 
+\f2 \'cd\'a8\'b9\'fd
+\f1 -_isKVOA
+\f2 \'b7\'bd\'b7\'a8\'c5\'d0\'b6\'a8\'ca\'c7\'b7\'f1\'d3\'d0\'bc\'e0\'cc\'fd\'c6\'f7\'a3\'a8
+\f1 _isKVOA
+\f2 \'ce\'aa
+\f1 KVO
+\f2 \'c9\'fa\'b3\'c9\'b5\'c4
+\f1 NSKVONotifying_XXX
+\f2 \'b5\'c4\'b7\'bd\'b7\'a8\'a3\'a9
+\f1 \
+	// 
+\f2 \'c4\'da\'b2\'bf\'ca\'b5\'cf\'d6\'a3\'ba
+\f1 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0         // 1. [per willChangeValueForKey:@"age"]; // 
+\f2 \'b1\'a3\'b4\'e6\'be\'c9\'d6\'b5\'a3\'ac\'b1\'ea\'ca\'b6\'b5\'c8\'bb\'e1\'b5\'f7\'d3\'c3
+\f1 didChangeValueForKey\
+        // 2. 
+\f2 \'d6\'b4\'d0\'d0
+\f1 setter
+\f2 \'b7\'bd\'b7\'a8\'a3\'ac\'c3\'bb\'d3\'d0\'d4\'f2\'d6\'b1\'bd\'d3\'b6\'d4\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf\'b8\'b3\'d6\'b5\'a3\'ba
+\f1 per->_age = 20;\
+        // 3. [per didChangeValueForKey:@"age"]; // 
+\f2 \'cd\'a8\'d6\'aa\'bc\'e0\'cc\'fd\'c6\'f7\'a3\'ac
+\f1 XX
+\f2 \'ca\'f4\'d0\'d4\'d6\'b5\'b7\'a2\'cb\'cd\'c1\'cb\'b8\'c4\'b1\'e4
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls2\ilvl0\cf0 2. KVC
+\f2 \'b5\'c4\'b8\'b3\'d6\'b5\'ba\'cd\'c8\'a1\'d6\'b5\'b9\'fd\'b3\'cc\'ca\'c7\'d4\'f5\'d1\'f9\'b5\'c4\'a3\'bf\'d4\'ad\'c0\'ed\'ca\'c7\'ca\'b2\'c3\'b4\'a3\'bf
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 
+\f2 \'b8\'b3\'d6\'b5
+\f1  -setValue:forKey: 
+\f2 \'b5\'c4\'b9\'fd\'b3\'cc\'a3\'ba
+\f1 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 		1. 
+\f2 \'b0\'b4\'d5\'d5\'d3\'c5\'cf\'c8\'bc\'b6\'ce\'aa
+\f1  -setKey: 
+\f2 \'a1\'a2
+\f1 -_setKey: 
+\f2 \'b5\'c4\'cb\'b3\'d0\'f2\'b2\'e9\'d5\'d2\'b7\'bd\'b7\'a8
+\f1 \
+		1.1 
+\f2 \'d5\'d2\'b5\'bd\'a3\'ba\'b4\'ab\'b5\'dd\'b2\'ce\'ca\'fd\'a3\'ac\'b5\'f7\'d3\'c3\'b7\'bd\'b7\'a8
+\f1 \
+		2. 
+\f2 \'d5\'d2\'b2\'bb\'b5\'bd\'a3\'ac\'b2\'e9\'bf\'b4
+\f1  +accessInstanceVariablesDirectly 
+\f2 \'b7\'bd\'b7\'a8\'ca\'c7\'b7\'f1\'ce\'aa
+\f1 YES\
+		2.1 NO
+\f2 \'a3\'ac\'b2\'bb\'d4\'ca\'d0\'ed\'a3\'ba\'c5\'d7\'b3\'f6
+\f1 NSUnknownKeyException
+\f2 \'d2\'ec\'b3\'a3
+\f1 \
+		3. YES
+\f2 \'a3\'ac\'d4\'ca\'d0\'ed\'a3\'ac\'b0\'b4\'d5\'d5\'d3\'c5\'cf\'c8\'bc\'b6\'ce\'aa
+\f1  _key
+\f2 \'a1\'a2
+\f1 _isKey
+\f2 \'a1\'a2
+\f1 key
+\f2 \'a1\'a2
+\f1 isKey 
+\f2 \'b5\'c4\'cb\'b3\'d0\'f2\'b2\'e9\'d5\'d2\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf
+\f1 \
+		3.1 
+\f2 \'d5\'d2\'b5\'bd\'a3\'ba\'d6\'b1\'bd\'d3\'b8\'b3\'d6\'b5
+\f1 \
+		3.2 
+\f2 \'d5\'d2\'b2\'bb\'b5\'bd\'a3\'ba\'c5\'d7\'b3\'f6
+\f1 NSUnknownKeyException
+\f2 \'d2\'ec\'b3\'a3
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 
+\f2 \'c8\'a1\'d6\'b5
+\f1  -valueForKey: 
+\f2 \'b5\'c4\'b9\'fd\'b3\'cc\'a3\'ba
+\f1 \
+		1. 
+\f2 \'b0\'b4\'d5\'d5\'d3\'c5\'cf\'c8\'bc\'b6\'ce\'aa
+\f1  -getKey 
+\f2 \'a1\'a2
+\f1 -key
+\f2 \'a1\'a2
+\f1 -isKey
+\f2 \'a1\'a2
+\f1 -_key 
+\f2 \'b5\'c4\'cb\'b3\'d0\'f2\'b2\'e9\'d5\'d2\'b7\'bd\'b7\'a8
+\f1 \
+		1.1 
+\f2 \'d5\'d2\'b5\'bd\'a3\'ba\'b5\'f7\'d3\'c3\'b7\'bd\'b7\'a8\'a3\'ac\'c8\'a1\'d6\'b5
+\f1 \
+		2. 
+\f2 \'d5\'d2\'b2\'bb\'b5\'bd\'a3\'ac\'b2\'e9\'bf\'b4
+\f1  +accessInstanceVariablesDirectly 
+\f2 \'b7\'bd\'b7\'a8\'ca\'c7\'b7\'f1\'ce\'aa
+\f1 YES\
+		2.1 NO
+\f2 \'a3\'ac\'b2\'bb\'d4\'ca\'d0\'ed\'a3\'ba\'c5\'d7\'b3\'f6
+\f1 NSUnknownKeyException
+\f2 \'d2\'ec\'b3\'a3
+\f1 \
+		3. YES
+\f2 \'a3\'ac\'d4\'ca\'d0\'ed\'a3\'ac\'b0\'b4\'d5\'d5\'d3\'c5\'cf\'c8\'bc\'b6\'ce\'aa
+\f1  _key
+\f2 \'a1\'a2
+\f1 _isKey
+\f2 \'a1\'a2
+\f1 key
+\f2 \'a1\'a2
+\f1 isKey 
+\f2 \'b5\'c4\'cb\'b3\'d0\'f2\'b2\'e9\'d5\'d2\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf
+\f1 \
+		3.1 
+\f2 \'d5\'d2\'b5\'bd\'a3\'ba\'d6\'b1\'bd\'d3\'c8\'a1\'d6\'b5
+\f1 \
+		3.2 
+\f2 \'d5\'d2\'b2\'bb\'b5\'bd\'a3\'ba\'c5\'d7\'b3\'f6
+\f1 NSUnknownKeyException
+\f2 \'d2\'ec\'b3\'a3
+\f1 \
+	\'b7 PS
+\f2 \'a3\'ba
+\f1 +accessInstanceVariablesDirectly
+\f2 \'a3\'ba\'ca\'c7\'b7\'f1\'d4\'ca\'d0\'ed\'b7\'c3\'ce\'ca\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf\'a3\'ac\'c4\'ac\'c8\'cf\'ce\'aa
+\f1 YES\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic KVC取值原理.jpg \width17680 \height8120 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}�}\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic KVC设值原理.jpg \width17600 \height8380 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}�}\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs28 \cf0 Cateogry\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls3\ilvl0
+\f1\b0\fs24 \cf0 1. Category
+\f2 \'b5\'c4\'ca\'b5\'cf\'d6\'d4\'ad\'c0\'ed\'a1\'a3
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 Category
+\f2 \'b1\'e0\'d2\'eb\'d6\'ae\'ba\'f3\'b5\'c4\'b5\'d7\'b2\'e3\'bd\'e1\'b9\'b9\'ca\'c7
+\f1 struct category_t
+\f2 \'a3\'ac\'c0\'ef\'c3\'e6\'b4\'e6\'b4\'a2\'d7\'c5\'b7\'d6\'c0\'e0\'b5\'c4\'ca\'b5\'c0\'fd\'b7\'bd\'b7\'a8\'a1\'a2\'c0\'e0\'b7\'bd\'b7\'a8\'a1\'a2\'ca\'f4\'d0\'d4\'a1\'a2\'d0\'ad\'d2\'e9\'d0\'c5\'cf\'a2
+\f1 \
+	\'b7 
+\f2 \'d4\'da\'b3\'cc\'d0\'f2\'d4\'cb\'d0\'d0\'b5\'c4\'ca\'b1\'ba\'f2\'a3\'ac
+\f1 Runtime
+\f2 \'bb\'e1\'bd\'ab
+\f1 Category
+\f2 \'b5\'c4\'ca\'fd\'be\'dd\'a3\'ac\'ba\'cf\'b2\'a2\'b8\'bd\'bc\'d3\'b5\'bd\'c0\'e0\'d0\'c5\'cf\'a2\'d6\'d0\'a3\'a8
+\f1 class
+\f2 \'b6\'d4\'cf\'f3\'a1\'a2
+\f1 meta-class
+\f2 \'b6\'d4\'cf\'f3\'a3\'a9
+\f1 \
+\
+	\'b7 PS1
+\f2 \'a3\'ba
+\f1 Runtime
+\f2 \'bd\'ab\'b7\'d6\'c0\'e0\'b5\'c4\'b7\'bd\'b7\'a8\'b7\'c5\'d4\'da\'d4\'ad\'c0\'b4\'b5\'c4\'b7\'bd\'b7\'a8\'b5\'c4\'c7\'b0\'c3\'e6\'a3\'ac\'d2\'f2\'b4\'cb\'b7\'d6\'c0\'e0\'b5\'c4\'b7\'bd\'b7\'a8\'d3\'c5\'cf\'c8\'bc\'b6\'b8\'fc\'b8\'df\'a3\'ac\'cb\'f9\'d2\'d4\'c8\'e7\'b9\'fb\'d3\'d0\'d6\'d8\'c3\'fb\'b5\'c4\'b7\'bd\'b7\'a8\'a3\'ac\'bb\'e1\'d3\'c5\'cf\'c8\'b5\'f7\'d3\'c3\'b7\'d6\'c0\'e0\'b5\'c4\'b7\'bd\'b7\'a8
+\f1 \
+       \'b7 PS2
+\f2 \'a3\'ba\'c8\'e7\'b9\'fb\'b6\'e0\'b8\'f6\'b7\'d6\'c0\'e0\'d3\'d0\'d6\'d8\'c3\'fb\'b5\'c4\'b7\'bd\'b7\'a8\'a3\'ac\'a1\'be\'ba\'f3\'a1\'bf\'b1\'e0\'d2\'eb\'b5\'c4\'b7\'d6\'c0\'e0\'b5\'c4\'b7\'bd\'b7\'a8\'d3\'c5\'cf\'c8\'bc\'b6\'b8\'fc\'b8\'df\'a3\'ac\'d2\'f2\'ce\'aa
+\f1 Runtime
+\f2 \'c0\'ef\'c3\'e6\'b5\'c4\'b7\'bd\'b7\'a8\'c1\'d0\'b1\'ed\'b8\'bd\'bc\'d3\'b2\'d9\'d7\'f7\'b5\'c4\'cb\'b3\'d0\'f2\'ca\'c7\'cf\'c2\'b1\'ea\'b4\'d3\'b4\'f3\'b5\'bd\'d0\'a1\'bd\'f8\'d0\'d0\'b5\'c4\'a3\'ac\'d4\'bd\'cd\'f9\'ba\'f3\'d4\'bd\'bf\'bf\'c7\'b0
+\f1 \
+	\'b7 PS3
+\f2 \'a3\'ba\'d4\'da
+\f1  Tatgets -> Build Phases -> Compile Sources 
+\f2 \'d6\'d0\'bf\'c9\'d2\'d4\'bf\'d8\'d6\'c6\'b1\'e0\'d2\'eb\'cb\'b3\'d0\'f2\'a3\'ac\'b1\'e0\'d2\'eb\'ca\'c7\'b4\'d3\'c9\'cf\'b5\'bd\'cf\'c2\'b5\'c4\'cb\'b3\'d0\'f2\'a3\'ac\'cf\'eb\'b5\'f7\'d3\'c3\'b5\'c4\'d3\'c5\'cf\'c8\'bc\'b6\'b8\'df\'b5\'c4\'be\'cd\'cd\'f9\'cf\'c2\'b7\'c5
+\f1 \
+\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls4\ilvl0\cf0 2. Category
+\f2 \'ba\'cd
+\f1 Class Extension
+\f2 \'b5\'c4\'c7\'f8\'b1\'f0\'ca\'c7\'ca\'b2\'c3\'b4\'a3\'bf
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 Class Extension
+\f2 \'d4\'da\'b1\'e0\'d2\'eb\'b5\'c4\'ca\'b1\'ba\'f2\'a3\'ac\'cb\'fc\'b5\'c4\'ca\'fd\'be\'dd\'be\'cd\'d2\'d1\'be\'ad\'b0\'fc\'ba\'ac\'d4\'da\'c0\'e0\'d0\'c5\'cf\'a2\'d6\'d0
+\f1 \
+	\'b7 Category
+\f2 \'ca\'c7\'d4\'da\'d4\'cb\'d0\'d0\'ca\'b1\'a3\'ac\'b2\'c5\'bb\'e1\'bd\'ab\'ca\'fd\'be\'dd\'ba\'cf\'b2\'a2\'b5\'bd\'c0\'e0\'d0\'c5\'cf\'a2\'d6\'d0
+\f1 \
+\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls5\ilvl0\cf0 3. Category
+\f2 \'d6\'d0\'d3\'d0
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'c2\'f0\'a3\'bf
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'ca\'c7\'ca\'b2\'c3\'b4\'ca\'b1\'ba\'f2\'b5\'f7\'d3\'c3\'b5\'c4\'a3\'bf
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'c4\'dc\'bc\'cc\'b3\'d0\'c2\'f0\'a3\'bf
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 
+\f2 \'d3\'d0\'a1\'a3
+\f1 \
+	\'b7 load
+\f2 \'b7\'bd\'b7\'a8\'d4\'da
+\f1 Runtime
+\f2 \'bc\'d3\'d4\'d8\'c0\'e0\'a1\'a2\'b7\'d6\'c0\'e0\'b5\'c4\'ca\'b1\'ba\'f2\'b5\'f7\'d3\'c3
+\f1 \
+	\'b7 load
+\f2 \'b7\'bd\'b7\'a8\'bf\'c9\'d2\'d4\'bc\'cc\'b3\'d0\'a3\'ac\'d4\'da\'d7\'d3\'c0\'e0\'c3\'bb\'d3\'d0\'d6\'d8\'d0\'b4
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'a3\'ac\'d6\'f7\'b6\'af\'c8\'a5\'b5\'f7\'d3\'c3
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'ca\'b1\'bb\'e1\'b5\'f7\'d3\'c3\'b8\'b8\'c0\'e0\'b5\'c4
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'a3\'ac\'cb\'b5\'c3\'f7\'ca\'c7\'d3\'d0\'bc\'cc\'b3\'d0\'b9\'d8\'cf\'b5\'b5\'c4\'a3\'ac\'b5\'ab\'ca\'c7\'d2\'bb\'b0\'e3\'c7\'e9\'bf\'f6\'cf\'c2\'b2\'bb\'bb\'e1\'d6\'f7\'b6\'af\'c8\'a5\'b5\'f7\'b6\'af
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'a3\'ac\'b6\'bc\'ca\'c7\'c8\'c3\'cf\'b5\'cd\'b3\'d7\'d4\'b6\'af\'b5\'f7\'d3\'c3\'a3\'a8
+\f1 Runtime
+\f2 \'bc\'d3\'d4\'d8\'ca\'b1\'ca\'c7\'d6\'b1\'bd\'d3\'c4\'c3\'b5\'bd
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'b5\'d8\'d6\'b7\'c8\'a5\'b5\'f7\'d3\'c3\'a3\'ac\'c3\'bb\'d3\'d0\'be\'cd\'b2\'bb\'b5\'f7\'d3\'c3\'a3\'ac\'d6\'ae\'ba\'f3\'ca\'d6\'b6\'af\'b5\'f7\'d3\'c3\'ca\'b1\'c6\'e4\'ca\'b5\'be\'cd\'ca\'c7\'c0\'fb\'d3\'c3\'cf\'fb\'cf\'a2\'b7\'a2\'cb\'cd\'bb\'fa\'d6\'c6\'a3\'ac\'d7\'d3\'c0\'e0\'c3\'bb\'d3\'d0
+\f1 load
+\f2 \'b7\'bd\'b7\'a8\'be\'cd\'bb\'e1\'c8\'a5\'b8\'b8\'c0\'e0\'b5\'c4\'b7\'bd\'b7\'a8\'c1\'d0\'b1\'ed\'c0\'ef\'c3\'e6\'d5\'d2\'a3\'a9
+\f1 \
+\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls6\ilvl0\cf0 4. load
+\f2 \'a1\'a2
+\f1 initialize
+\f2 \'b7\'bd\'b7\'a8\'b5\'c4\'c7\'f8\'b1\'f0\'ca\'c7\'ca\'b2\'c3\'b4\'a3\'bf\'cb\'fc\'c3\'c7\'d4\'da
+\f1 Category
+\f2 \'d6\'d0\'b5\'c4\'b5\'f7\'d3\'c3\'b5\'c4\'cb\'b3\'d0\'f2\'a3\'bf\'d2\'d4\'bc\'b0\'b3\'f6\'cf\'d6\'bc\'cc\'b3\'d0\'ca\'b1\'cb\'fc\'c3\'c7\'d6\'ae\'bc\'e4\'b5\'c4\'b5\'f7\'d3\'c3\'b9\'fd\'b3\'cc\'a3\'bf
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 
+\f2 \'c7\'f8\'b1\'f0\'a3\'ba
+\f1 \
+		1. 
+\f2 \'b5\'f7\'d3\'c3\'b7\'bd\'ca\'bd
+\f1 \
+			\'b7 1.1 load
+\f2 \'ca\'c7\'b8\'f9\'be\'dd\'ba\'af\'ca\'fd\'b5\'d8\'d6\'b7\'d6\'b1\'bd\'d3\'b5\'f7\'d3\'c3
+\f1 \
+			\'b7 1.2 initialize
+\f2 \'ca\'c7\'cd\'a8\'b9\'fd
+\f1 objc_msgSend
+\f2 \'b5\'f7\'d3\'c3
+\f1 \
+		2. 
+\f2 \'b5\'f7\'d3\'c3\'ca\'b1\'bf\'cc
+\f1 \
+			\'b7 2.1 load
+\f2 \'ca\'c7
+\f1 Runtime
+\f2 \'bc\'d3\'d4\'d8\'c0\'e0\'a1\'a2\'b7\'d6\'c0\'e0\'b5\'c4\'ca\'b1\'ba\'f2\'b5\'f7\'d3\'c3\'a3\'ac\'d6\'bb\'bb\'e1\'b5\'f7\'d3\'c3
+\f1 1
+\f2 \'b4\'ce
+\f1 \
+			\'b7 2.2 initialize
+\f2 \'ca\'c7\'c0\'e0\'b5\'da\'d2\'bb\'b4\'ce\'bd\'d3\'ca\'d5\'b5\'bd\'cf\'fb\'cf\'a2\'b5\'c4\'ca\'b1\'ba\'f2\'b5\'f7\'d3\'c3\'a3\'ac\'c3\'bf\'d2\'bb\'b8\'f6\'c0\'e0\'d6\'bb\'bb\'e1\'b5\'f7\'d3\'c3
+\f1 initialize
+\f2 \'d2\'bb\'b4\'ce\'a3\'ac\'b5\'ab\'b8\'b8\'c0\'e0\'b5\'c4
+\f1 initialize
+\f2 \'b7\'bd\'b7\'a8\'bf\'c9\'c4\'dc\'bb\'e1\'b1\'bb\'b5\'f7\'d3\'c3\'b6\'e0\'b4\'ce\'a3\'a8\'c0\'fd\'c8\'e7\'a3\'ba\'d7\'d3\'c0\'e0\'ba\'cd\'d7\'d3\'c0\'e0\'b5\'c4\'b7\'d6\'c0\'e0\'b6\'bc\'c3\'bb\'d3\'d0\'ca\'b5\'cf\'d6
+\f1 initialize
+\f2 \'b7\'bd\'b7\'a8\'ca\'b1\'be\'cd\'bb\'e1\'c8\'a5\'b5\'f7\'d3\'c3\'b8\'b8\'c0\'e0\'b5\'c4
+\f1 initialize
+\f2 \'b7\'bd\'b7\'a8\'a3\'a9
+\f1 \
+	\'b7 
+\f2 \'b5\'f7\'d3\'c3\'cb\'b3\'d0\'f2
+\f1 \
+		1. load
+\f2 \'a3\'ba
+\f1 \
+			1. 
+\f2 \'cf\'c8\'b5\'f7\'d3\'c3\'c0\'e0\'b5\'c4
+\f1 load\
+				1. 
+\f2 \'cf\'c8\'b1\'e0\'d2\'eb\'b5\'c4\'c0\'e0\'a3\'ac\'d3\'c5\'cf\'c8\'b5\'f7\'d3\'c3
+\f1 load\
+				2. 
+\f2 \'b5\'f7\'d3\'c3\'d7\'d3\'c0\'e0\'b5\'c4
+\f1 load
+\f2 \'d6\'ae\'c7\'b0\'a3\'ac\'bb\'e1\'cf\'c8\'b5\'f7\'d3\'c3\'b8\'b8\'c0\'e0\'b5\'c4
+\f1 load\
+			2. 
+\f2 \'d4\'d9\'b5\'f7\'d3\'c3\'b7\'d6\'c0\'e0\'b5\'c4
+\f1 load\
+				1. 
+\f2 \'cf\'c8\'b1\'e0\'d2\'eb\'b5\'c4\'b7\'d6\'c0\'e0\'a3\'ac\'d3\'c5\'cf\'c8\'b5\'f7\'d3\'c3
+\f1 load\
+		2. initialize
+\f2 \'a3\'ba
+\f1 \
+			1. 
+\f2 \'b5\'f7\'d3\'c3\'b8\'b8\'c0\'e0\'b5\'c4
+\f1 initialize
+\f2 \'a3\'a8\'b3\'f5\'ca\'bc\'bb\'af\'a3\'a9
+\f1 \
+			2. 
+\f2 \'d4\'d9\'b5\'f7\'d3\'c3\'d7\'d3\'c0\'e0\'b5\'c4
+\f1 initialize
+\f2 \'a3\'a8\'b3\'f5\'ca\'bc\'bb\'af\'a3\'a9\'a3\'ac
+\f1 \
+\
+
+\f2 \'bf\'c9\'c4\'dc\'d7\'ee\'d6\'d5\'b5\'f7\'d3\'c3\'b5\'c4\'ca\'c7\'b8\'b8\'c0\'e0\'b5\'c4
+\f1 initialize
+\f2 \'a3\'a8\'d7\'d3\'c0\'e0\'c3\'bb\'d3\'d0\'ca\'b5\'cf\'d6
+\f1 initialize
+\f2 \'a3\'a9
+\f1 \
+\
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls7\ilvl0\cf0 5. Category
+\f2 \'c4\'dc\'b7\'f1\'cc\'ed\'bc\'d3\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf\'a3\'bf\'c8\'e7\'b9\'fb\'bf\'c9\'d2\'d4\'a3\'ac\'c8\'e7\'ba\'ce\'b8\'f8
+\f1 Category
+\f2 \'cc\'ed\'bc\'d3\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf\'a3\'bf
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'b7 
+\f2 \'b2\'bb\'c4\'dc\'d6\'b1\'bd\'d3\'b8\'f8
+\f1 Category
+\f2 \'cc\'ed\'bc\'d3\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf\'a3\'ac\'b5\'ab\'ca\'c7\'bf\'c9\'d2\'d4\'bc\'e4\'bd\'d3\'ca\'b5\'cf\'d6
+\f1 Category
+\f2 \'d3\'d0\'b3\'c9\'d4\'b1\'b1\'e4\'c1\'bf\'b5\'c4\'d0\'a7\'b9\'fb\'a3\'a8\'b9\'d8\'c1\'aa\'b6\'d4\'cf\'f3\'a3\'a9\'a1\'a3
+\f1 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 {{\NeXTGraphic Category底层结构.jpg \width9900 \height6480 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}�}\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 {{\NeXTGraphic objc_AssociationPolicy对应表.jpg \width10520 \height3160 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}�}\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 {{\NeXTGraphic Runtime关联对象关系图.jpg \width16480 \height8160 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}�}\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
