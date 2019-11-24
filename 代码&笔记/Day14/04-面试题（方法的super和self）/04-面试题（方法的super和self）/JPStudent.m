@@ -35,6 +35,13 @@
         __unsafe_unretained _Nonnull Class super_class;
     };
  
+ * objc_msgSendSuper函数：
+    objc_msgSendSuper(struct objc_super * _Nonnull super, SEL _Nonnull op, ...)
+                                ↓↓↓                            ↓↓↓         ↓↓↓
+                    【struct objc_super】结构体                 方法名      方法参数（多数，以“,”分隔）
+                                ↓↓↓
+          存放着消息接收者(receiver)和消息接收者的父类(super_class)
+ 
  * [super run]编译的C++的代码：
     static void _I_JPStudent_run(JPStudent * self, SEL _cmd) {
         ((void (*)(__rw_objc_super *, SEL))(void *)objc_msgSendSuper)((__rw_objc_super){(id)self, (id)class_getSuperclass(objc_getClass("JPStudent"))}, sel_registerName("run"));
@@ -50,10 +57,11 @@
         // super关键字是将self和父类的类对象包装成objc_super结构体去执行objc_msgSendSuper函数
     
         // objc_msgSendSuper：self直接去到arg的super_class里查找run方法并执行
-        // 也就是子类对象直接去到父类的方法列表里查找方法，不需要先通过isa找到父类
+        // 也就是子类对象直接去到父类的方法列表里查找方法
+        // 不再需要先通过isa找到类对象再通过superclass找到父类这个过程，直接绕过
         // 并不是父类对象去执行父类方法
         // PS：父类已经在struct objc_super的super_class给到
-        // 所以是使用arg的self去调用父类方法，这时候父类方法里的self并不是父类的对象，而是消息接收者自身
+        // 所以是使用arg的self去调用父类方法，这时候父类方法里的self并不是父类的对象，而是消息接收者自身（子类）
     }
  
  * [super run] ==> 使用super调用方法的本质：

@@ -19,36 +19,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // ↓↓↓↓
     /*
-     * 编译的C++代码：
-     objc_msgSendSuper({self, class_getSuperclass(objc_getClass("ViewController"))},
-                       sel_registerName("viewDidLoad"));
+     * 查看编译的C++代码：
+         objc_msgSendSuper({self, class_getSuperclass(objc_getClass("ViewController"))},
+                            sel_registerName("viewDidLoad"));
+     * 然而，这里打个断点然后查看汇编代码的话，可以看到这里实际上并不是调用【objc_msgSendSuper】
+     * 而是调用了【objc_msgSendSuper2】！
+                        ↓↓↓
+                        ↓↓↓
+                        ↓↓↓
+     * super调用，其实底层会转换为【objc_msgSendSuper2】函数的调用，接收2个参数：1.struct objc_super2，2.SEL
+     * 注意：编译的C++代码只能用作参考，并不是所有代码都是肯定对的（只是大部分是对的），查看汇编肯定是对的（只是看不懂）
      
-     * 打个断点，然后查看汇编代码，可以看到这里实际上并不是调用objc_msgSendSuper，而是调用了objc_msgSendSuper2
-     *【super调用，其实底层会转换为objc_msgSendSuper2函数的调用】，接收2个参数：1.struct objc_super2，2.SEL
+     *【objc_msgSendSuper】和【objc_msgSendSuper2】的区别：
      
-     * objc_msgSendSuper和objc_msgSendSuper2的区别：
+         objc_msgSendSuper({
+             self;
+             class_getSuperclass(objc_getClass("ViewController");
+         }, sel_registerName("viewDidLoad"));
+         ↓↓↓
+         第一个参数是这种结构体
+         ↓↓↓
+         struct objc_super {
+             __unsafe_unretained _Nonnull id receiver;
+             __unsafe_unretained _Nonnull Class super_class; ==> 父类
+         };
      
-     objc_msgSendSuper({
-         self;
-         class_getSuperclass(objc_getClass("ViewController");
-     }, sel_registerName("viewDidLoad"));
-     ↓↓↓↓↓第一个参数是这种结构体↓↓↓↓↓
-     struct objc_super {
-         __unsafe_unretained _Nonnull id receiver;
-         __unsafe_unretained _Nonnull Class super_class; ==> 父类
-     };
-     
-     objc_msgSendSuper2({
-         self;
-         objc_getClass("ViewController");
-     }, sel_registerName("viewDidLoad"));
-     ↓↓↓↓↓第一个参数是这种结构体↓↓↓↓↓
-     struct objc_super2 {
-         id receiver;
-         Class current_class; ==> 自己类，objc_msgSendSuper2内部会通过该类的superclass查找父类
-     };
+         objc_msgSendSuper2({
+             self;
+             objc_getClass("ViewController");
+         }, sel_registerName("viewDidLoad"));
+         ↓↓↓
+         第一个参数是这种结构体
+         ↓↓↓
+         struct objc_super2 {
+             id receiver;
+             Class current_class; ==> 自己类，objc_msgSendSuper2内部会通过该类的superclass查找父类
+         };
      
      */
     
