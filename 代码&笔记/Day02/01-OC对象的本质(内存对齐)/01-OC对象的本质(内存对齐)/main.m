@@ -57,14 +57,14 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         NSLog(@"Hello, World!");
         
-        NSLog(@"per %zd", sizeof(struct Person_IMPL));
+        NSLog(@"per %zd", sizeof(struct Person_IMPL)); // 24
         
         Person *per = [Person new];
         
-        NSLog(@"per %zd", sizeof(per)); // per这个指针的大小
+        NSLog(@"per %zd", sizeof(per)); // 8 是per这个指针变量的大小
         
-        NSLog(@"per %zd", class_getInstanceSize(per.class));
-        NSLog(@"per %zd", malloc_size((__bridge const void *)(per)));
+        NSLog(@"per %zd", class_getInstanceSize(per.class)); // 24
+        NSLog(@"per %zd", malloc_size((__bridge const void *)(per))); // 32
         
         // sizeof：是一个运算符，程序编译时就转成常数，计算的是类型的大小（int、size_t、结构体、指针变量等）
         // class_getInstanceSize：是一个函数，程序运行时才获取，计算的是类的大小（至少需要的大小）
