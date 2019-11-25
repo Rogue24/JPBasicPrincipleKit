@@ -162,6 +162,7 @@ int main(int argc, char * argv[]) {
                                0、8、16、20 ==> 参数从函数地址的第x个字节开始排列
  
          MethodListIMP imp; // 指向函数的指针（函数地址）
+                            //【using MethodListIMP = IMP】==> IMP代表函数的具体实现
          
          // 其他方法...
      };
