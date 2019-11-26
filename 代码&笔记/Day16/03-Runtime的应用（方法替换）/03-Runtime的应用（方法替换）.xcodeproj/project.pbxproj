@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A8BF45C238CB8FB00ED511E /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8BF45B238CB8FB00ED511E /* JPPerson.m */; };
 		1AD93E74238C16FF007BC234 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD93E73238C16FF007BC234 /* main.m */; };
 /* End PBXBuildFile section */
 
@@ -23,7 +24,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1AD93E70238C16FF007BC234 /* 03-Runtime的应用（方法交换） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "03-Runtime的应用（方法交换）"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A8BF45A238CB8FB00ED511E /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
+		1A8BF45B238CB8FB00ED511E /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
+		1AD93E70238C16FF007BC234 /* 03-Runtime的应用（方法替换） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "03-Runtime的应用（方法替换）"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AD93E73238C16FF007BC234 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,7 +44,7 @@
 		1AD93E67238C16FF007BC234 = {
 			isa = PBXGroup;
 			children = (
-				1AD93E72238C16FF007BC234 /* 03-Runtime的应用（方法交换） */,
+				1AD93E72238C16FF007BC234 /* 03-Runtime的应用（方法替换） */,
 				1AD93E71238C16FF007BC234 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,25 +52,27 @@
 		1AD93E71238C16FF007BC234 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1AD93E70238C16FF007BC234 /* 03-Runtime的应用（方法交换） */,
+				1AD93E70238C16FF007BC234 /* 03-Runtime的应用（方法替换） */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1AD93E72238C16FF007BC234 /* 03-Runtime的应用（方法交换） */ = {
+		1AD93E72238C16FF007BC234 /* 03-Runtime的应用（方法替换） */ = {
 			isa = PBXGroup;
 			children = (
 				1AD93E73238C16FF007BC234 /* main.m */,
+				1A8BF45A238CB8FB00ED511E /* JPPerson.h */,
+				1A8BF45B238CB8FB00ED511E /* JPPerson.m */,
 			);
-			path = "03-Runtime的应用（方法交换）";
+			path = "03-Runtime的应用（方法替换）";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1AD93E6F238C16FF007BC234 /* 03-Runtime的应用（方法交换） */ = {
+		1AD93E6F238C16FF007BC234 /* 03-Runtime的应用（方法替换） */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1AD93E77238C16FF007BC234 /* Build configuration list for PBXNativeTarget "03-Runtime的应用（方法交换）" */;
+			buildConfigurationList = 1AD93E77238C16FF007BC234 /* Build configuration list for PBXNativeTarget "03-Runtime的应用（方法替换）" */;
 			buildPhases = (
 				1AD93E6C238C16FF007BC234 /* Sources */,
 				1AD93E6D238C16FF007BC234 /* Frameworks */,
@@ -77,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = "03-Runtime的应用（方法交换）";
+			name = "03-Runtime的应用（方法替换）";
 			productName = "03-Runtime的应用（方法交换）";
-			productReference = 1AD93E70238C16FF007BC234 /* 03-Runtime的应用（方法交换） */;
+			productReference = 1AD93E70238C16FF007BC234 /* 03-Runtime的应用（方法替换） */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -96,7 +101,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1AD93E6B238C16FF007BC234 /* Build configuration list for PBXProject "03-Runtime的应用（方法交换）" */;
+			buildConfigurationList = 1AD93E6B238C16FF007BC234 /* Build configuration list for PBXProject "03-Runtime的应用（方法替换）" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -109,7 +114,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1AD93E6F238C16FF007BC234 /* 03-Runtime的应用（方法交换） */,
+				1AD93E6F238C16FF007BC234 /* 03-Runtime的应用（方法替换） */,
 			);
 		};
 /* End PBXProject section */
@@ -119,6 +124,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A8BF45C238CB8FB00ED511E /* JPPerson.m in Sources */,
 				1AD93E74238C16FF007BC234 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,7 +260,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1AD93E6B238C16FF007BC234 /* Build configuration list for PBXProject "03-Runtime的应用（方法交换）" */ = {
+		1AD93E6B238C16FF007BC234 /* Build configuration list for PBXProject "03-Runtime的应用（方法替换）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AD93E75238C16FF007BC234 /* Debug */,
@@ -263,7 +269,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1AD93E77238C16FF007BC234 /* Build configuration list for PBXNativeTarget "03-Runtime的应用（方法交换）" */ = {
+		1AD93E77238C16FF007BC234 /* Build configuration list for PBXNativeTarget "03-Runtime的应用（方法替换）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AD93E78238C16FF007BC234 /* Debug */,
