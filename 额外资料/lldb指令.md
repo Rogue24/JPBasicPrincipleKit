@@ -35,5 +35,5 @@ p (IMP)0x109924060 ==> (IMP) $1 = 0x0000000109924060 (01-KVO`-[JPPerson setAge:]
 ```
 
 ```swift
-查看完整的函数调用栈：bt
+查看完整的函数调用栈：bt ---> breakpoint tree
 ```

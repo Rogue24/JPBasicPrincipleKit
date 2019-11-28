@@ -15,7 +15,23 @@
 @implementation ViewController
 
 /*
- * RunLoop对象的底层结构：
+ *【RunLoop与线程】
+ * 每条线程都有唯一的一个与之对应的RunLoop对象
+ * RunLoop 保存在全局的Dictionary，线程作为key，RunLoop作为value ==> @ {线程：RunLoop}
+ * 线程刚创建时并没有RunLoop对象，RunLoop会在第一次获取它时创建（懒加载，主线程的RunLoop是在UIApplicationMain()里面获取过的）
+ * RunLoop会在线程结束时销毁（一对一的关系，共生体）
+ * 主线程的RunLoop已经自动获取（创建），子线程默认没有开启RunLoop
+
+ *【获取RunLoop对象】
+ * 获取当前线程的RunLoop：<<子线程的RunLoop第一次获取时才创建>>
+    - OC：NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+    - C：CFRunLoopRef runLoopRef = CFRunLoopGetCurrent();
+ * 获取主线程的RunLoop：<<主线程的RunLoop在UIApplicationMain()已经获取/创建过了>>
+    - OC：NSRunLoop *runLoop = [NSRunLoop mainRunLoop];
+    - C：CFRunLoopRef runLoopRef = CFRunLoopGetMain();
+ * <<NSRunLoop是对CFRunLoop的一层OC包装（跟NSOperationQueue类似）>>
+ 
+ *【RunLoop对象的底层结构】
     struct __CFRunLoop {
 //        CFRuntimeBase _base;
 //        pthread_mutex_t _lock;
@@ -45,7 +61,8 @@
         CFMutableSetRef _modes; // 包含所有mode的一个集合（里面放的是CFRunLoopModeRef）
     };
  
- * CFRunLoopModeRef结构（简化过，这些是主要了解的）：
+ *【CFRunLoopModeRef的底层结构】
+ * 简化过，以下这些是主要了解的：
      struct __CFRunLoopMode {
          CFStringRef _name;
          CFMutableSetRef _sources0;
@@ -74,7 +91,7 @@
         0x6080000bd820: 0x00000001016d7ff0 0x00006040001f5600 --> c对象地址
         0x6080000bd830: 0x00006080002539e0 0x0000608000253f20
      * 可以看到有存放着c对象的地址
-     * 得出结论：NSRunLoop是对CFRunLoop的一层包装（跟NSOperationQueue类似）
+     * 得出结论：NSRunLoop是对CFRunLoop的一层OC包装（跟NSOperationQueue类似）
      */
 }
 

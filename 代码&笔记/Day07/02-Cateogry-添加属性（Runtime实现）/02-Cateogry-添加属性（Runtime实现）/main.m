@@ -58,9 +58,9 @@ int main(int argc, const char * argv[]) {
  _object_set_associative_reference(object, (void *)key, value, policy)
  ↓
  AssociationsManager
- AssociationsHashMap
- ObjectAssociationMap
- ObjcAssociation
+    - AssociationsHashMap <disguised_ptr_t, ObjectAssociationMap>
+        - AssociationsMap(ObjectAssociationMap) <void *, ObjcAssociation>
+            - ObjcAssociation <uintptr_t _policy, id _value>
  
  AssociationsManager：
  class AssociationsManager {
