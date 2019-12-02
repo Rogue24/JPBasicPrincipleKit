@@ -80,7 +80,7 @@
      * 将 Timer 放入到 _commonModeItems集合 中
      * runLoop._commonModes = [kCFRunLoopDefaultMode, UITrackingRunLoopMode];
      * runLoop._commonModeItems = [timer];
-     * 那么 Timer 就可以在 _commonModes集合 里面存放的所有模式下运行
+     * 那么 _commonModeItems集合 里面的 timer 可以在 _commonModes集合 里面存放的所有模式下运行
      * 所以无论有无滚动，Timer都能运行
      * PS：RunLoop真正切换的还是kCFRunLoopDefaultMode和UITrackingRunLoopMode这两种模式
      */

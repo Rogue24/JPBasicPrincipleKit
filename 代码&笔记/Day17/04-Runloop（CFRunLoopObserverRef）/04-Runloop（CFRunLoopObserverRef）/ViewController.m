@@ -83,7 +83,7 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
             NSLog(@"即将处理Times");
             break;
         case kCFRunLoopBeforeSources:
-            NSLog(@"即将处理Source");
+            NSLog(@"即将处理Sources");
             break;
         case kCFRunLoopBeforeWaiting:
             NSLog(@"即将进入休眠");
@@ -116,12 +116,12 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
     // 1.创建Observer
     
     //【方式一：通过回调函数监听】
-    // 参数1：分配器
-    // 参数2：监听状态
-    // 参数3：是否重复监听
-    // 参数4：是否考虑顺序（0：不需要考虑）
-    // 参数5：回调的函数指针（地址）
-    // 参数6：需要回调的信息，执行回调函数时经由里面的info回传
+    // 参数1：allocator --> 分配器
+    // 参数2：activities --> 要监听的状态
+    // 参数3：repeats --> 是否重复监听
+    // 参数4：order --> 是否考虑顺序（0：不需要考虑）
+    // 参数5：callout --> 回调函数的指针（地址）
+    // 参数6：context --> 需要回调的信息，执行回调函数时经由里面的info回传
 //    CFRunLoopObserverRef observer = CFRunLoopObserverCreate(kCFAllocatorDefault, kCFRunLoopAllActivities, YES, 0, runLoopObserverCallBack, NULL);
     
     //【方式二：通过block监听】
