@@ -14,6 +14,12 @@
 }
 @end
 
+@implementation JPPort
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+}
+@end
+
 @interface JPPermenantThread ()
 @property (nonatomic, strong) JPThread *innerThread;
 @property (nonatomic, assign) BOOL isStarted;
@@ -28,8 +34,9 @@
     if (self = [super init]) {
         __weak typeof(self) weakSelf = self;
         self.innerThread = [[JPThread alloc] initWithBlock:^{
-            [[NSRunLoop currentRunLoop] addPort:[[NSPort alloc] init] forMode:NSDefaultRunLoopMode];
+            [[NSRunLoop currentRunLoop] addPort:[[JPPort alloc] init] forMode:NSDefaultRunLoopMode];
             while (weakSelf && !weakSelf.isStopped) {
+                // 有了Port，启动RunLoop就不会立马退出
                 [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
             }
             NSLog(@"RunLoop is done.");

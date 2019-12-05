@@ -28,7 +28,7 @@
 	- 每条线程都有唯一的一个与之对应的RunLoop对象
 	- RunLoop 保存在全局的Dictionary，线程作为key，RunLoop作为value ==> @ {线程：RunLoop}
 	- 线程刚创建时并没有RunLoop对象，RunLoop会在第一次获取它时创建（懒加载，主线程的RunLoop是在UIApplicationMain()里面获取过的）
-	- RunLoop会在线程结束时销毁（一对一的关系，共生体）
+	- RunLoop会在线程结束时销毁（一对一的关系）
 	- 主线程的RunLoop已经自动获取（创建），子线程默认没有开启RunLoop
 
 4. timer与RunLoop的关系

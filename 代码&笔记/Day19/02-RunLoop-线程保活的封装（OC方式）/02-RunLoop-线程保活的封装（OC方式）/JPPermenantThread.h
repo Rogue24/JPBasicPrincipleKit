@@ -12,6 +12,10 @@
 
 @end
 
+@interface JPPort : NSPort
+
+@end
+
 typedef void(^JPPermenantThreadTask)(void);
 
 @interface JPPermenantThread : NSObject

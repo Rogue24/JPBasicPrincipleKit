@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JPPerson.h"
+#import <objc/runtime.h>
 
 typedef void(^JPBlock)(void);
 
@@ -63,6 +65,27 @@ void __main_block_func_0(struct __main_block_impl_0 *__cself) {
 //    (a->__forwarding->a) = 31;
 //    NSLog((NSString *)&__NSConstantStringImpl__var_folders_x6_746b_l0s199ddqdvt8qclszr0000gn_T_main_d0b18b_mi_1, (a->__forwarding->a));
 }
+
+
+struct __main_block_desc_1 {
+    size_t reserved;
+    size_t Block_size;
+};
+struct __Block_byref_blockPer_1 {
+    void *__isa;
+    struct __Block_byref_blockPer_1 *__forwarding;
+    int __flags;
+    int __size;
+    void *__copy; // --> 这是一个方法，换成指针代替着
+    void *__dispose; // --> 这是一个方法，换成指针代替着
+    JPPerson *blockPer;
+};
+struct __main_block_impl_1 {
+    struct __block_impl impl;
+    struct __main_block_desc_1* Desc;
+    JPPerson *per2;
+    struct __Block_byref_blockPer_1 *blockPer; // by ref
+};
 
 #warning 当前在MRC环境下！
 
@@ -215,6 +238,85 @@ int main(int argc, const char * argv[]) {
         
         [stackBlock release];
         [mallocBlock release];
+        
+        
+        NSLog(@"验证：__block变量结构体里面的isa究竟指向啥？");
+        NSLog(@"追加验证：被__block修饰的实例对象，__block变量结构体里面的isa是不是指向对象的class？");
+        
+//        struct __main_block_desc_1 {
+//            size_t reserved;
+//            size_t Block_size;
+//        };
+//
+//        struct __Block_byref_blockPer_1 {
+//            void *__isa;
+//            struct __Block_byref_blockPer_1 *__forwarding;
+//            int __flags;
+//            int __size;
+//            void *__copy; // --> 这是一个方法，换成指针代替着
+//            void *__dispose; // --> 这是一个方法，换成指针代替着
+//            JPPerson *blockPer;
+//        };
+//
+//        struct __main_block_impl_1 {
+//          struct __block_impl impl;
+//          struct __main_block_desc_1* Desc;
+//          struct __Block_byref_blockPer_1 *blockPer; // by ref
+//        };
+        JPPerson *per = [[JPPerson alloc] init];
+        __block JPPerson *blockPer = per;
+        
+        JPPerson *per2 = [[JPPerson alloc] init];
+        
+        JPBlock perBlock = ^{
+            NSLog(@"Hello, per2 %@", per2);
+            NSLog(@"Hello, blockPer %@", blockPer);
+        };
+        perBlock();
+        
+        struct __main_block_impl_1 *perBlockImpl = (__bridge struct __main_block_impl_1 *)perBlock;
+        NSLog(@"per2 --- %p", per2);
+        NSLog(@"blockPer --- %p", blockPer);
+        NSLog(@"perBlockImpl->per2 --- %p", perBlockImpl->per2);
+        NSLog(@"perBlockImpl->blockPer --- %p", perBlockImpl->blockPer);
+        NSLog(@"perBlockImpl->blockPer->blockPer --- %p", perBlockImpl->blockPer->blockPer);
+        
+        NSLog(@"-------先验证结构对不对-------");
+        
+        Class perCls = [JPPerson class];
+        NSLog(@"JPPerson的class %p", perCls);
+        Class perMetaCls = object_getClass(perCls);
+        NSLog(@"JPPerson的metaClass %p", perMetaCls);
+        
+        NSLog(@"perBlockImpl->blockPer->__isa --- %p", perBlockImpl->blockPer->__isa);
+        NSLog(@"不是指向对象的class");
+        
+        // 从编译C++代码可以看出：
+        /*
+         __Block_byref_a_0 a =
+            {
+                0,
+                &a,
+                0,
+                sizeof(__Block_byref_a_0),
+                29
+            };
+         
+         __Block_byref_blockPer_1 blockPer =
+            {
+                0, ---> isa被赋值为0
+                &blockPer,
+                33554432,
+                sizeof(__Block_byref_blockPer_1),
+                __Block_byref_id_object_copy_131,
+                __Block_byref_id_object_dispose_131,
+                per
+            };
+         */
+        
+        NSLog(@"结论：凡是被__block修饰的变量，__block变量结构体里面的isa都指向0x0，啥都不是");
+        
+        [perBlock release];
     }
     return 0;
 }

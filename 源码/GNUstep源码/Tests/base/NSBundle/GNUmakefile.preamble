@@ -1,0 +1,10 @@
+
+ADDITIONAL_INCLUDE_DIRS += -I../GenericTests/ -I../../..
+ADDITIONAL_OBJCFLAGS += -Wall
+
+$(GNUSTEP_INSTANCE)_SUBPROJECTS = ../GenericTests
+
+SUBPROJECTS = ../GenericTests Resources
+
+include $(GNUSTEP_MAKEFILES)/aggregate.make
+

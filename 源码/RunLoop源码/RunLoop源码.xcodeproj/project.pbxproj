@@ -87,6 +87,7 @@
 		1A6130B6238E1553002DB6DB /* CFFileUtilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A613063238E1552002DB6DB /* CFFileUtilities.c */; };
 		1A6130B7238E1553002DB6DB /* CFRuntime.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A613064238E1552002DB6DB /* CFRuntime.c */; };
 		1A6130B8238E1553002DB6DB /* CFLocale.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A613065238E1552002DB6DB /* CFLocale.c */; };
+		1AB219F2238FA07A0041210E /* CFRunLoop_jpcopy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1AB219F1238FA07A0041210E /* CFRunLoop_jpcopy.c */; };
 		1ABD6EE7238E135F0022BE40 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6EE6238E135F0022BE40 /* main.m */; };
 /* End PBXBuildFile section */
 
@@ -269,6 +270,7 @@
 		1A613066238E1552002DB6DB /* CFStreamInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamInternal.h; sourceTree = "<group>"; };
 		1A613067238E1553002DB6DB /* CFUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFUUID.h; sourceTree = "<group>"; };
 		1A613068238E1553002DB6DB /* CFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFUtilities.h; sourceTree = "<group>"; };
+		1AB219F1238FA07A0041210E /* CFRunLoop_jpcopy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFRunLoop_jpcopy.c; sourceTree = "<group>"; };
 		1ABD6EE3238E135F0022BE40 /* RunLoop源码 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "RunLoop源码"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ABD6EE6238E135F0022BE40 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -398,6 +400,7 @@
 				1A612FE3238E154A002DB6DB /* CFPriv.h */,
 				1A613016238E154D002DB6DB /* CFPropertyList.c */,
 				1A612FDD238E1549002DB6DB /* CFPropertyList.h */,
+				1AB219F1238FA07A0041210E /* CFRunLoop_jpcopy.c */,
 				1A612FF0238E154A002DB6DB /* CFRunLoop.c */,
 				1A612FD0238E1548002DB6DB /* CFRunLoop.h */,
 				1A613064238E1552002DB6DB /* CFRuntime.c */,
@@ -608,6 +611,7 @@
 				1A61307B238E1553002DB6DB /* CFBundle_Grok.c in Sources */,
 				1A613085238E1553002DB6DB /* CFUnicodeDecomposition.c in Sources */,
 				1A613071238E1553002DB6DB /* CFURL.c in Sources */,
+				1AB219F2238FA07A0041210E /* CFRunLoop_jpcopy.c in Sources */,
 				1A613082238E1553002DB6DB /* CFStringEncodings.c in Sources */,
 				1A613076238E1553002DB6DB /* CFSortFunctions.c in Sources */,
 				1A61307F238E1553002DB6DB /* CFBundle_Resources.c in Sources */,

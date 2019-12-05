@@ -48,7 +48,7 @@ int main(int argc, const char * argv[]) {
              * 执行block时，捕获的auto变量有可能就已经被销毁了，就会造成坏内存访问的错误
              * 所以block存活期间【不会】保住per的命
              *
-             *【栈空间的block】
+             *【堆空间的block】
              * 拷贝到堆上时会自动对捕获的auto变量进行一次retain操作：[per retain];
              * 从堆上移除时自动对捕获的auto变量进行一次release操作：[per release];
              * 所以block存活期间【会】保住per的命
