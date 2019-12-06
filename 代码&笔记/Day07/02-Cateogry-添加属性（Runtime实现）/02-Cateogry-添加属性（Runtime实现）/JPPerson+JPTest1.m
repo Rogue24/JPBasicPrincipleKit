@@ -19,12 +19,13 @@
 // 指针类型变量初始化存储的值为0x0（空地址的地址值）
 // 如果直接使用那都是0x0了，避免重复可以保存自己的地址值，因为地址值是唯一的
 // void *XXX --> 声明指针类型变量
+// PS：用extern访问到这个全局变量
 const void *JPTestKey = &JPTestKey; // 保存自己的地址值（&XXX --> 获取变量地址）
 
 // 【方式一】：新建一个常量
 // 既然只需要地址值当作key，直接用自身地址即可，连赋值都不需要了，毕竟要的不是存储的值
 // 使用char类型最好，因为最省内存：指针（void *）在64bit中占8个字节，int占4个字节，char只占1个字节
-// 防止外部访问这些key就得加上static关键字，不加的话可以用extern访问到
+// PS：加上static关键字可以防止外部通过extern访问到这个全局变量，只能本文件内可以访问
 static const char JPNameKey;
 - (void)setName:(NSString *)name {
     NSLog(@"setName %p", &JPNameKey);

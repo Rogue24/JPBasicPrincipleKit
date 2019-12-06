@@ -20,7 +20,7 @@
     
     NSLog(@"1 --- %@", [NSThread currentThread]);
     
-    // dispatch_async：会晚一点执行
+    // dispatch_async：会晚一点点执行
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"2 --- %@", [NSThread currentThread]);
     });

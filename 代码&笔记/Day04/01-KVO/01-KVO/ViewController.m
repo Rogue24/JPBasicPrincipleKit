@@ -87,15 +87,8 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    NSValue *oldValue = change[NSKeyValueChangeOldKey];
-    
-    NSValue *newValue = change[NSKeyValueChangeNewKey];
-    
-    NSLog(@"old --- %@", oldValue);
-    
-    NSLog(@"new --- %@", newValue);
-    
+    NSLog(@"oldValue --- %@", change[NSKeyValueChangeOldKey]);
+    NSLog(@"newValue --- %@", change[NSKeyValueChangeNewKey]);
 }
 
 @end
