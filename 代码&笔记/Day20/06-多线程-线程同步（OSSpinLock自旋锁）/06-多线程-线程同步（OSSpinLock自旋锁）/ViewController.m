@@ -34,12 +34,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [self lockTryTest];
+}
+
+#pragma mark - OSSpinLockTry 和 OSSpinLockLock 的区别
+
+/**
+ * OSSpinLockTry尝试加🔐，返回bool，true就是【已经】成功加🔐，false就是加🔐失败
+ * 如果这个🔐已经有线程用着，那就是失败，返回false，【不会加🔐也不会等待】，代码往下继续
+ */
+
+- (void)lockTryTest {
     self.ticketLock = OS_SPINLOCK_INIT;
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self aaa];
     });
+    
+    sleep(1);
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self bbb];
@@ -53,7 +65,7 @@
 - (void)aaa {
     if (OSSpinLockTry(&_ticketLock)) {
         NSLog(@"aaa 尝试加锁成功");
-        sleep(5);
+        sleep(3);
         NSLog(@"aaa 解锁");
         OSSpinLockUnlock(&_ticketLock);
     } else {
@@ -64,7 +76,7 @@
 - (void)bbb {
     if (OSSpinLockTry(&_ticketLock)) {
         NSLog(@"bbb 尝试加锁成功");
-        sleep(5);
+        sleep(3);
         NSLog(@"bbb 解锁");
         OSSpinLockUnlock(&_ticketLock);
     } else {
@@ -75,7 +87,7 @@
 - (void)ccc {
     OSSpinLockLock(&_ticketLock);
     NSLog(@"ccc 加锁成功");
-    sleep(5);
+    sleep(3);
     NSLog(@"ccc 解锁");
     OSSpinLockUnlock(&_ticketLock);
 }
@@ -141,7 +153,7 @@
      */
     
     // OSSpinLockTry尝试加🔐，返回bool，true就是【已经】成功加🔐，false就是加🔐失败
-    //【如果这个🔐已经有线程用着，那就是失败，返回false，不会加🔐也不会等待，代码往下继续】
+    // 如果这个🔐已经有线程用着，那就是失败，返回false，【不会加🔐也不会等待】，代码往下继续
 //    if (!OSSpinLockTry(&_ticketLock)) return;
     
     int originCount = self.ticketTotal;
