@@ -17,6 +17,11 @@
 		1A1B2F67239A431D008813A4 /* JPBaseDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F66239A431D008813A4 /* JPBaseDemo.m */; };
 		1A1B2F6B239A4760008813A4 /* JPOSSpinLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F6A239A4760008813A4 /* JPOSSpinLockDemo.m */; };
 		1A1B2F6E239A5886008813A4 /* JPOSUnfairLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F6D239A5886008813A4 /* JPOSUnfairLockDemo.m */; };
+		1A1B2F72239B7E1C008813A4 /* JPMutexDefaultDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F71239B7E1C008813A4 /* JPMutexDefaultDemo.m */; };
+		1A1B2F75239CD93D008813A4 /* JPMutexRecursiveDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F74239CD93D008813A4 /* JPMutexRecursiveDemo.m */; };
+		1A1B2F78239CF9FA008813A4 /* JPMutexCondDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F77239CF9FA008813A4 /* JPMutexCondDemo.m */; };
+		1A1B2F7B239E232E008813A4 /* JPNSLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F7A239E232E008813A4 /* JPNSLockDemo.m */; };
+		1A1B2F7E239E2AA6008813A4 /* JPNSConditionDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F7D239E2AA6008813A4 /* JPNSConditionDemo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +43,17 @@
 		1A1B2F6A239A4760008813A4 /* JPOSSpinLockDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPOSSpinLockDemo.m; sourceTree = "<group>"; };
 		1A1B2F6C239A5886008813A4 /* JPOSUnfairLockDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPOSUnfairLockDemo.h; sourceTree = "<group>"; };
 		1A1B2F6D239A5886008813A4 /* JPOSUnfairLockDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPOSUnfairLockDemo.m; sourceTree = "<group>"; };
+		1A1B2F6F239A598D008813A4 /* iOS中的线程同步方案.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS中的线程同步方案.jpg"; sourceTree = "<group>"; };
+		1A1B2F70239B7E1C008813A4 /* JPMutexDefaultDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMutexDefaultDemo.h; sourceTree = "<group>"; };
+		1A1B2F71239B7E1C008813A4 /* JPMutexDefaultDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMutexDefaultDemo.m; sourceTree = "<group>"; };
+		1A1B2F73239CD93D008813A4 /* JPMutexRecursiveDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMutexRecursiveDemo.h; sourceTree = "<group>"; };
+		1A1B2F74239CD93D008813A4 /* JPMutexRecursiveDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMutexRecursiveDemo.m; sourceTree = "<group>"; };
+		1A1B2F76239CF9FA008813A4 /* JPMutexCondDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMutexCondDemo.h; sourceTree = "<group>"; };
+		1A1B2F77239CF9FA008813A4 /* JPMutexCondDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMutexCondDemo.m; sourceTree = "<group>"; };
+		1A1B2F79239E232D008813A4 /* JPNSLockDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPNSLockDemo.h; sourceTree = "<group>"; };
+		1A1B2F7A239E232E008813A4 /* JPNSLockDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPNSLockDemo.m; sourceTree = "<group>"; };
+		1A1B2F7C239E2AA6008813A4 /* JPNSConditionDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPNSConditionDemo.h; sourceTree = "<group>"; };
+		1A1B2F7D239E2AA6008813A4 /* JPNSConditionDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPNSConditionDemo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,12 +105,23 @@
 		1A1B2F68239A467F008813A4 /* Locks */ = {
 			isa = PBXGroup;
 			children = (
+				1A1B2F6F239A598D008813A4 /* iOS中的线程同步方案.jpg */,
 				1A1B2F65239A431D008813A4 /* JPBaseDemo.h */,
 				1A1B2F66239A431D008813A4 /* JPBaseDemo.m */,
 				1A1B2F69239A4760008813A4 /* JPOSSpinLockDemo.h */,
 				1A1B2F6A239A4760008813A4 /* JPOSSpinLockDemo.m */,
 				1A1B2F6C239A5886008813A4 /* JPOSUnfairLockDemo.h */,
 				1A1B2F6D239A5886008813A4 /* JPOSUnfairLockDemo.m */,
+				1A1B2F70239B7E1C008813A4 /* JPMutexDefaultDemo.h */,
+				1A1B2F71239B7E1C008813A4 /* JPMutexDefaultDemo.m */,
+				1A1B2F73239CD93D008813A4 /* JPMutexRecursiveDemo.h */,
+				1A1B2F74239CD93D008813A4 /* JPMutexRecursiveDemo.m */,
+				1A1B2F76239CF9FA008813A4 /* JPMutexCondDemo.h */,
+				1A1B2F77239CF9FA008813A4 /* JPMutexCondDemo.m */,
+				1A1B2F79239E232D008813A4 /* JPNSLockDemo.h */,
+				1A1B2F7A239E232E008813A4 /* JPNSLockDemo.m */,
+				1A1B2F7C239E2AA6008813A4 /* JPNSConditionDemo.h */,
+				1A1B2F7D239E2AA6008813A4 /* JPNSConditionDemo.m */,
 			);
 			path = Locks;
 			sourceTree = "<group>";
@@ -170,10 +197,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A1B2F53239A0894008813A4 /* ViewController.m in Sources */,
+				1A1B2F72239B7E1C008813A4 /* JPMutexDefaultDemo.m in Sources */,
+				1A1B2F78239CF9FA008813A4 /* JPMutexCondDemo.m in Sources */,
 				1A1B2F6E239A5886008813A4 /* JPOSUnfairLockDemo.m in Sources */,
 				1A1B2F67239A431D008813A4 /* JPBaseDemo.m in Sources */,
 				1A1B2F4D239A0894008813A4 /* AppDelegate.m in Sources */,
+				1A1B2F75239CD93D008813A4 /* JPMutexRecursiveDemo.m in Sources */,
+				1A1B2F7B239E232E008813A4 /* JPNSLockDemo.m in Sources */,
 				1A1B2F6B239A4760008813A4 /* JPOSSpinLockDemo.m in Sources */,
+				1A1B2F7E239E2AA6008813A4 /* JPNSConditionDemo.m in Sources */,
 				1A1B2F5E239A0895008813A4 /* main.m in Sources */,
 				1A1B2F50239A0894008813A4 /* SceneDelegate.m in Sources */,
 			);

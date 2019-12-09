@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-@property (nonatomic, weak) NSThread *thread;
+
 @end
 
 @implementation ViewController
@@ -41,7 +41,8 @@
      * 接着再往这个线程添加任务，又因为waitUntilDone:YES，当前线程会被卡住，要等任务执行完才会继续
      * 但是这时线程都没了，根本无法执行任务，根本等不到任务结束，当前线程就会被一直卡死，所以崩溃了
      *
-     * 解决方法1：waitUntilDone:NO，别卡住当前线程，相当于对空对象发消息 --- [nil interviewTest]
+     * 解决方法1：waitUntilDone:NO，别卡住当前线程
+     * ==> thread要去执行interviewTest时就已经退出了，相当于对空对象发消息 --- [nil interviewTest]
      * 解决方法2：启动子线程的RunLoop
      * ==> 可以看出<<-performSelector:onThread:withObject:waitUntilDone:>>这个方法的本质就是唤醒线程的RunLoop去处理事情
      */
@@ -53,6 +54,7 @@
 
 #pragma mark - 证明
 
+// 解决方法1：waitUntilDone:NO，别卡住当前线程，thread要去执行interviewTest时就已经退出了，相当于对空对象发消息 --- [nil interviewTest]
 - (IBAction)prove1:(id)sender {
     NSThread *thread = [[NSThread alloc] initWithBlock:^{
         NSLog(@"1 --- %@", [NSThread currentThread]);
@@ -65,6 +67,7 @@
     // 打印：1，没有崩溃。
 }
 
+// 解决方法2：启动子线程的RunLoop
 - (IBAction)prove2:(id)sender {
     NSThread *thread = [[NSThread alloc] initWithBlock:^{
         NSLog(@"1 --- %@", [NSThread currentThread]);
@@ -73,6 +76,7 @@
         // 添加Port来接收<<-performSelector:onThread:withObject:waitUntilDone:>>的消息（然后唤醒RunLoop）
         [[NSRunLoop currentRunLoop] addPort:[NSPort new] forMode:NSDefaultRunLoopMode];
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        // 由于没有重复启动RunLoop（while循环），所以执行完一次任务后RunLoop就会自动退出
         NSLog(@"退出RunLoop --- %@", [NSThread currentThread]);
     }];
     

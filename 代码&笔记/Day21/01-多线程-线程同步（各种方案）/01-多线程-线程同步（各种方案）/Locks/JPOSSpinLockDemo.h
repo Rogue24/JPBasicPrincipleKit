@@ -17,9 +17,10 @@
  * 先执行thread2，加🔐
  * 然后再执行thread1，发现已经锁了，那就等着（不断地while循环）
  * 由于thread1的优先级高，CPU会不断地分配大量时间给thread1（一直无意义的while循环），从而没时间分配给thread2 --- 线程调度
- * 那么thread2就一直执行不完，那就一直解不了🔐，thread1和thread2不断地卡住，造成类似【死锁】的情况
+ * 那么thread2就一直执行不完，那就一直解不了🔐，thread1和thread2不断地卡住，造成类似【死锁】的情况（永远拿不到🔐）
  */
 
+// High-leave Lock：高级🔐，等不到🔐就一直等，不会去休眠
 @interface JPOSSpinLockDemo : JPBaseDemo
 
 @end

@@ -28,12 +28,56 @@
  * 先执行thread2，加🔐
  * 然后再执行thread1，发现已经锁了，那就等着（不断地while循环）
  * 由于thread1的优先级高，CPU会不断地分配大量时间给thread1（一直无意义的while循环），从而没时间分配给thread2 --- 线程调度
- * 那么thread2就一直执行不完，那就一直解不了🔐，thread1和thread2不断地卡住，造成类似【死锁】的情况
+ * 那么thread2就一直执行不完，那就一直解不了🔐，thread1和thread2不断地卡住，造成类似【死锁】的情况（永远拿不到🔐）
  */
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.ticketLock = OS_SPINLOCK_INIT;
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self aaa];
+    });
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self bbb];
+    });
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self ccc];
+    });
+}
+
+- (void)aaa {
+    if (OSSpinLockTry(&_ticketLock)) {
+        NSLog(@"aaa 尝试加锁成功");
+        sleep(5);
+        NSLog(@"aaa 解锁");
+        OSSpinLockUnlock(&_ticketLock);
+    } else {
+        NSLog(@"aaa 尝试加锁失败");
+    }
+}
+
+- (void)bbb {
+    if (OSSpinLockTry(&_ticketLock)) {
+        NSLog(@"bbb 尝试加锁成功");
+        sleep(5);
+        NSLog(@"bbb 解锁");
+        OSSpinLockUnlock(&_ticketLock);
+    } else {
+        NSLog(@"bbb 尝试加锁失败");
+    }
+}
+
+- (void)ccc {
+    OSSpinLockLock(&_ticketLock);
+    NSLog(@"ccc 加锁成功");
+    sleep(5);
+    NSLog(@"ccc 解锁");
+    OSSpinLockUnlock(&_ticketLock);
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -97,6 +141,7 @@
      */
     
     // OSSpinLockTry尝试加🔐，返回bool，true就是【已经】成功加🔐，false就是加🔐失败
+    //【如果这个🔐已经有线程用着，那就是失败，返回false，不会加🔐也不会等待，代码往下继续】
 //    if (!OSSpinLockTry(&_ticketLock)) return;
     
     int originCount = self.ticketTotal;

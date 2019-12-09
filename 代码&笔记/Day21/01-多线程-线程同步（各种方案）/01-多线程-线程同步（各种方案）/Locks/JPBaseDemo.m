@@ -15,6 +15,8 @@
 
 @implementation JPBaseDemo
 
+- (void)otherTest {}
+
 #pragma mark - 卖票演示
 
 - (void)ticketTest {
@@ -50,7 +52,7 @@
     });
     
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        NSLog(@"目标剩余0张，实际最后剩余%d张 --- %@", self.ticketTotal, [NSThread currentThread]);
+        NSLog(@"***************目标剩余0张，实际最后剩余%d张***************", self.ticketTotal);
     });
 }
 
@@ -96,7 +98,7 @@
     
     // 1000 + 10 * 100 - 10 * 50 = 1500
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        NSLog(@"目标最后有1500块，实际最后有%d块 --- %@", self.money, [NSThread currentThread]);
+        NSLog(@"***************目标最后有1500块，实际最后有%d块***************", self.money);
     });
 }
 

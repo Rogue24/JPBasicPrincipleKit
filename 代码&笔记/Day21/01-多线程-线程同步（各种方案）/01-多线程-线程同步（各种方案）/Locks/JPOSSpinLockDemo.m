@@ -10,8 +10,8 @@
 #import <libkern/OSAtomic.h>
 
 @interface JPOSSpinLockDemo ()
-@property (nonatomic, assign) OSSpinLock moneyLock;
 @property (nonatomic, assign) OSSpinLock ticketLock;
+@property (nonatomic, assign) OSSpinLock moneyLock;
 @end
 
 @implementation JPOSSpinLockDemo

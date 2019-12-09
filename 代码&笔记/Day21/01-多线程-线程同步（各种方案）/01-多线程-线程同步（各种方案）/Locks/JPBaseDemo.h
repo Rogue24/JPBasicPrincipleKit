@@ -12,7 +12,9 @@
 - (void)ticketTest;
 - (void)moneyTest;
 
-#pragma mark 给子类重写的方法
+- (void)otherTest;
+
+#pragma mark 留给子类重写的方法
 - (void)__saleTicket;
 - (void)__saveMoney;
 - (void)__drawMoney;

@@ -115,7 +115,7 @@
     dispatch_sync(serialQueue, ^{
         NSLog(@"doing1 --- %@", [NSThread currentThread]);
         
-        // deadlock2{}还没执行完，死锁！
+        // 回去主队列执行任务，但是！deadlock2{}还没执行完，死锁！
         dispatch_sync(dispatch_get_main_queue(), ^{
             NSLog(@"doing2 --- %@", [NSThread currentThread]);
         });
