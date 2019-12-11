@@ -9,7 +9,7 @@
 #import "JPBaseDemo.h"
 
 /**
- * NSCondition是对pthread_mutex普通锁（PTHREAD_MUTEX_DEFAULT）和cond的封装
+ * NSCondition是对pthread_mutex普通锁（PTHREAD_MUTEX_DEFAULT）和pthread_cond的封装
  * 查看GNUstep的源码可以看到NSLock初始化的是PTHREAD_MUTEX_NORMAL的pthread_mutex，并且也初始化了条件_condition
  * PS：不是递归🔐
  */

@@ -25,8 +25,8 @@
          *
          * 其实就是用信号量的值来判定目前剩多少条线程可以用，当执行任务：
          * 任务开始：dispatch_semaphore_wait
-            - 如果信号量大于0（semaphore > 0）==> 信号量减1（semaphore - 1）
-            - 如果信号量小于等于0（semaphore <= 0）==> 让线程休眠等待，直到信号大于0 ==> 信号量减1（semaphore - 1）
+            - 如果信号量大于0（semaphore > 0）==> 信号量减1（semaphore - 1），往下执行代码
+            - 如果信号量小于等于0（semaphore <= 0）==> 让线程休眠等待，直到信号大于0 ==> 唤醒线程，信号量减1（semaphore - 1），接着执行后面的代码
          * 任务最后：dispatch_semaphore_signal ==> 信号量加1（semaphore + 1），告诉等待中的线程有信号量了！
          *
          * PS：【dispatch_semaphore_wait】和【dispatch_semaphore_signal】要配套使用，缺一不可
@@ -55,7 +55,7 @@
     /*
      * dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
      * 如果信号量的值大于0，就让信号量减1，然后继续往下执行代码
-     * 如果信号量的值小于等于0，就会让线程休眠等待，直到信号量的值大于0，就让信号量的值减1，再继续往下执行代码
+     * 如果信号量的值小于等于0，就会让线程休眠等待，直到信号量的值大于0，就唤醒线程，再让信号量的值减1，继续往下执行代码
      * 伪代码：
          if (self.semaphore <= 0) {
              线程休眠等待，直到这个信号量的值大于0

@@ -38,6 +38,7 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.demo = [[JPOSSpinLockDemo alloc] init];
     
     return;

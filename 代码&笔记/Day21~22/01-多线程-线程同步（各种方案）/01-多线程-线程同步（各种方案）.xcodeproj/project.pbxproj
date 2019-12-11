@@ -66,6 +66,7 @@
 		1A1B2F88239E99C8008813A4 /* JPSynchronizedDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPSynchronizedDemo.h; sourceTree = "<group>"; };
 		1A1B2F89239E99C8008813A4 /* JPSynchronizedDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPSynchronizedDemo.m; sourceTree = "<group>"; };
 		1A1B2F8B239EB646008813A4 /* iOS中的线程同步方案及性能比较.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS中的线程同步方案及性能比较.jpg"; sourceTree = "<group>"; };
+		1A1EEA37239F97F7004800ED /* 自旋锁和互斥锁的比较.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "自旋锁和互斥锁的比较.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				1A1B2F8B239EB646008813A4 /* iOS中的线程同步方案及性能比较.jpg */,
+				1A1EEA37239F97F7004800ED /* 自旋锁和互斥锁的比较.jpg */,
 				1A1B2F65239A431D008813A4 /* JPBaseDemo.h */,
 				1A1B2F66239A431D008813A4 /* JPBaseDemo.m */,
 				1A1B2F69239A4760008813A4 /* JPOSSpinLockDemo.h */,

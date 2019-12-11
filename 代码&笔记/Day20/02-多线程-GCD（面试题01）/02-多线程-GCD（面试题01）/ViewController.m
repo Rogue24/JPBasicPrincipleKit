@@ -47,19 +47,6 @@
 
 #pragma mark - 证明
 
-- (IBAction)notAfterDelay:(id)sender {
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
-        NSLog(@"1 --- %@", [NSThread currentThread]);
-        [self performSelector:@selector(interviewTest)];
-        NSLog(@"3 --- %@", [NSThread currentThread]);
-        
-        // 打印：1、2、3
-        // <<-performSelector:>>方法底层是通过【objc_msgSend】消息机制执行的方法
-        // 相当于[self interviewTest]，直接在当前线程执行
-    });
-}
-
 - (IBAction)onMainThread {
     // 主线程本来就开启了RunLoop不需要手动启动
     NSLog(@"1 --- %@", [NSThread currentThread]);
@@ -75,7 +62,8 @@
     NSLog(@"3 --- %@", [NSThread currentThread]);
     
     // 打印：1、3、2
-    // 执行timer的任务，即使afterDelay为0也会有一丁点延时，毕竟RunLoop正在处理着当前的任务，处理完休眠再唤醒再处理timer
+    // 执行timer的任务，即使afterDelay为0也会有一丁点延时
+    // 那是因为RunLoop要先处理完当前的任务，处理完会去休眠，接着再由timer唤醒线程去处理timer
 }
 
 - (IBAction)openSubThreadAndRunLoop {
@@ -96,6 +84,19 @@
         
         // 打印：1、3、2
         // 执行timer的任务，即使afterDelay为0也会有一丁点延时，毕竟RunLoop正在处理着当前的任务，处理完休眠再唤醒再处理timer
+    });
+}
+
+- (IBAction)notAfterDelay:(id)sender {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        NSLog(@"1 --- %@", [NSThread currentThread]);
+        [self performSelector:@selector(interviewTest)];
+        NSLog(@"3 --- %@", [NSThread currentThread]);
+        
+        // 打印：1、2、3
+        // <<-performSelector:>>方法底层是通过【objc_msgSend】消息机制执行的方法
+        // 相当于[self interviewTest]，直接在当前线程执行
     });
 }
 
