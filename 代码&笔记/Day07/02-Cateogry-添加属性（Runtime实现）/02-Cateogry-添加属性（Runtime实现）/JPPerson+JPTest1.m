@@ -22,7 +22,8 @@
 // PS：用extern访问到这个全局变量
 const void *JPTestKey = &JPTestKey; // 保存自己的地址值（&XXX --> 获取变量地址）
 
-// 【方式一】：新建一个常量
+//【方式一】：新建一个常量
+// 因为内存地址是唯一的。
 // 既然只需要地址值当作key，直接用自身地址即可，连赋值都不需要了，毕竟要的不是存储的值
 // 使用char类型最好，因为最省内存：指针（void *）在64bit中占8个字节，int占4个字节，char只占1个字节
 // PS：加上static关键字可以防止外部通过extern访问到这个全局变量，只能本文件内可以访问
@@ -36,8 +37,8 @@ static const char JPNameKey;
     return objc_getAssociatedObject(self, &JPNameKey);
 }
 
-// 【方式二】：直接使用字符串
-// 直接写出来字符串是放在常量区的，所以同样的字符串内存只占一份
+//【方式二】：直接使用字符串
+// 直接写出来字符串是放在常量区（代码区）的，所以内存地址是唯一的，同样的字符串内存只占一份
 - (void)setWeight:(int)weight {
     NSLog(@"setWeight %p", @"weight");
     objc_setAssociatedObject(self, @"weight", @(weight), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -47,8 +48,9 @@ static const char JPNameKey;
     return [objc_getAssociatedObject(self, @"weight") intValue];
 }
 
-// 【方式三】：直接使用属性get方法的地址（也可以是set或其他方法的地址，使用get方法地址是因为可读性更高）
-// 【推荐方式】：不需要维护额外的key、可读性高
+//【方式三】：直接使用属性get方法的地址（也可以是set或其他方法的地址，使用get方法地址是因为可读性更高）
+// 方法的地址也是放在常量区（代码区）的，所以内存地址是唯一的
+//【*推荐*】：不需要维护额外的key、可读性高
 - (void)setHeight:(int)height {
     NSLog(@"setHeight %p", @selector(height));
     objc_setAssociatedObject(self, @selector(height), @(height), OBJC_ASSOCIATION_RETAIN_NONATOMIC);

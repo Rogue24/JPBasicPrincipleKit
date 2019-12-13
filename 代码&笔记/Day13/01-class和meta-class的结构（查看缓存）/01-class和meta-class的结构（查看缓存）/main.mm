@@ -39,7 +39,7 @@ int main(int argc, const char * argv[]) {
         //【1】遍历
         for (int i = 0; i <= cache._mask; i++) {
             bucket_t bucket = buckets[i];
-            NSLog(@"%d %lu %p", i, bucket._key, bucket._imp);
+            NSLog(@"遍历 %d %lu %p", i, bucket._key, bucket._imp);
         }
         
         //【2】直接通过索引
@@ -47,17 +47,17 @@ int main(int argc, const char * argv[]) {
         SEL sel = @selector(sbStudentTest);
         int i = (long long)sel & cache._mask;
         bucket_t bucket = buckets[i];
-        NSLog(@"%d %s %p", i, (char *)sel, bucket._imp);
+        NSLog(@"直接通过索引 %d %s(%lu) %p", i, (char *)sel, (NSInteger)sel, bucket._imp);
         
         //【3】仿照源码获取
         SEL sel1 = @selector(personTest);
-        NSLog(@"%s %p", (char *)sel1, cache.imp(sel1));
+        NSLog(@"仿照源码获取 %s(%lu) %p", (char *)sel1, (NSInteger)sel1, cache.imp(sel1));
         
         SEL sel2 = @selector(studentTest);
-        NSLog(@"%s %p", (char *)sel2, cache.imp(sel2));
+        NSLog(@"仿照源码获取 %s(%lu) %p", (char *)sel2, (NSInteger)sel2, cache.imp(sel2));
         
         SEL sel3 = @selector(sbStudentTest);
-        NSLog(@"%s %p", (char *)sel3, cache.imp(sel3));
+        NSLog(@"仿照源码获取 %s(%lu) %p", (char *)sel3, (NSInteger)sel3, cache.imp(sel3));
         
 //        IMP imp = cache.imp(@selector(sbStudentTest));
 //        NSLog(@"%p", imp);

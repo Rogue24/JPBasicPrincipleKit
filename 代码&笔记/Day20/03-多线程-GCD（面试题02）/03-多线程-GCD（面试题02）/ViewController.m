@@ -37,12 +37,12 @@
     
     /**
      * why？
-     * [thread start] 执行完block的代码，thread就退出了（销毁）
-     * 接着再往这个线程添加任务，又因为waitUntilDone:YES，当前线程会被卡住，要等任务执行完才会继续
-     * 但是这时线程都没了，根本无法执行任务，根本等不到任务结束，当前线程就会被一直卡死，所以崩溃了
+     * 因为waitUntilDone:YES，当前线程会被卡住，【要等interviewTest执行完才会继续】
+     * [thread start]，thread肯定会先执行block的代码，但执行完thread就退出了（完全废了），所以根本不会去执行interviewTest
+     * 也就是根本等不到interviewTest的结束，当前线程就会被一直卡住，所以崩溃了（错误原因写的就是目标线程已经退出）
      *
-     * 解决方法1：waitUntilDone:NO，别卡住当前线程
-     * ==> thread要去执行interviewTest时就已经退出了，相当于对空对象发消息 --- [nil interviewTest]
+     * 解决方法1：waitUntilDone:NO，不等，别卡住当前线程
+     * ==> 不用管interviewTest有没执行完，再加上thread已经退出，这样就类似于对空对象发消息 --- [nil interviewTest]
      * 解决方法2：启动子线程的RunLoop
      * ==> 可以看出<<-performSelector:onThread:withObject:waitUntilDone:>>这个方法的本质就是唤醒线程的RunLoop去处理事情
      */
@@ -54,7 +54,8 @@
 
 #pragma mark - 证明
 
-// 解决方法1：waitUntilDone:NO，别卡住当前线程，thread要去执行interviewTest时就已经退出了，相当于对空对象发消息 --- [nil interviewTest]
+// 解决方法1：waitUntilDone:NO，不等，别卡住当前线程
+// 不用管interviewTest有没执行完，再加上thread已经退出，这样就类似于对空对象发消息 --- [nil interviewTest]
 - (IBAction)prove1:(id)sender {
     NSThread *thread = [[NSThread alloc] initWithBlock:^{
         NSLog(@"1 --- %@", [NSThread currentThread]);

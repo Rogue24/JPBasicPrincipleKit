@@ -32,7 +32,9 @@
 - (void)write:(NSInteger)index threadMsg:(NSString *)threadMsg {
     sleep(1);
     index += 1;
-    NSLog(@"正在 write %zd \n上一条线程：%@\n现在这条线程：%@\n", index, threadMsg, [NSThread currentThread]);
+    NSLog(@"-----------------------------------------");
+    NSLog(@"正在 write %zd \n上一条线程：%@\n现在这条线程：%@", index, threadMsg, [NSThread currentThread]);
+    NSLog(@"-----------------------------------------");
     _index = index;
 }
 

@@ -15,13 +15,21 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         NSLog(@"Hello, World!");
         
+        /**
+         * 散列表（哈希表）
+         * 牺牲内存换取执行效率 ---> 空间换时间
+         * 初始或扩容会开辟一整块内存空间，里面都是NULL，预留着存放bucket_t
+         * 因为方法的sel地址是不确定的，但能确定的是sel & mask的索引值是在散列表范围之内
+         * 例如：散列表长度为10，mask则为9，因此&上这个mask得到的索引值绝对不会超过9（索引值有冲突就-1，散列表都放满了就扩容）
+         */
+        
         Class perCls = [JPPerson class];
         mj_objc_class *mj_perCls = (__bridge mj_objc_class *)perCls;
         
         NSMutableDictionary *occupiedArr = [NSMutableDictionary dictionary]; // 已经缓存的方法数组
         __block int mask = mj_perCls->cache._mask; // 散列表长度 - 1
         __block int length = mask ? (mask + 1) : 0; // 散列表长度
-        NSLog(@"occupied = %@, length = %d, mask = %d, currentCount = %zd", occupiedArr, length, mask, occupiedArr.count);
+        NSLog(@"occupied = %@, length = %d, mask = %d, currentCount = %zd", occupiedArr, length, mask, occupiedArr.count); // 一开始长度是4
         
         JPPerson *per = [[JPPerson alloc] init];
         
@@ -102,10 +110,10 @@ int main(int argc, const char * argv[]) {
                 do {
                     // do-while会先执行循环体
                     if (!occupiedArr[@(cacheIndex)]) {
-                        occupiedArr[@(cacheIndex)] = methodName;
+                        occupiedArr[@(cacheIndex)] = methodName; // 有空位，存储
                         begin = cacheIndex; // 跳出循环
                     } else {
-                        cacheIndex = cacheIndex ? (cacheIndex - 1) : mask;
+                        cacheIndex = cacheIndex ? (cacheIndex - 1) : mask; // 这里已经有缓存，索引冲突 ==> 减1往上挪1位
                         begin = cacheIndex ? (cacheIndex - 1) : mask; // 继续循环
                     }
                 } while (cacheIndex != begin); // YES->继续，NO->跳出

@@ -76,9 +76,11 @@
         // 启动子线程的RunLoop来等待下一个任务（处理timer）
         // 调用<<-performSelector:withObject:afterDelay:>>方法就是往RunLoop添加了定时器，所以这里不用自己添加Port
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        // PS1：当前Mode里没有任何Source0/Source1/Timer/Observer，RunLoop会立马退出
-        // PS2：timer的任务处理完RunLoop就会退出，如果像之前那样通过while无限循环去启动就真的会一直循环着，线程并没有休眠
-        // ==> 因为timer被销毁了，不像添加Port会被RunLoop一直持有着
+        // 当处理完这个timer后：
+        // PS1：RunLoop就会立马退出，因为当前Mode里没有其他任何Source0/Source1/Timer/Observer
+        // PS2：如果像之前那样在这里用while循环去启动，就真的会一直循环着，线程并不会休眠
+        // ==> 因为这个timer会自动销毁，不像添加Port会被RunLoop一直持有着
+        // ==> 每次循环都会发现当前Mode里没有任何Source0/Source1/Timer/Observer，RunLoop退出接着启动这样一直循环下去
         
         NSLog(@"退出RunLoop --- %@", [NSThread currentThread]);
         
