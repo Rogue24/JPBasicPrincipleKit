@@ -15,7 +15,8 @@
  * isa 结构
  * 在arm64架构之前，isa就是一个普通的指针，存储着Class、Meta-Class对象的内存地址
  * 从arm64架构开始，对isa进行了优化，变成了一个共用体（union）结构，还使用位域来存储更多的信息
- *【在原有的空间里面，存放了更多的信息，充分利用了存储空间】
+ *【也就是说，现在的isa存放的不是一个真正的地址，而是整合了多种信息的一个数字】
+ *【在原有的内存空间里面（8个字节），存放了更多的信息，充分利用了存储空间】
  * arm64、真机架构：
     define ISA_MASK        0x0000000ffffffff8ULL // x86_64为0x00007ffffffffff8ULL
     define ISA_MAGIC_MASK  0x000003f000000001ULL // x86_64为0x001f800000000001ULL
@@ -58,8 +59,8 @@
  *
  * shiftcls : 33
     · 存储着Class、Meta-Class对象的内存地址信息
-    · 从arm64架构开始Class、Meta-Class对象都是通过 isa & ISA_MASK 获取
-    · 把ISA_MASK放计算器里面可以看出，Class、Meta-Class对象的地址值最后3位肯定是0
+    · 从arm64架构开始Class、Meta-Class对象都是通过 isa & ISA_MASK 获取（ISA_MASK = 0xFFFFFFFF8，用来取出这33位的值）
+    · 把ISA_MASK放计算器里面可以看出，<<Class、Meta-Class对象>>的地址值最后3位肯定是0
  *
  * magic : 6
     · 用于在调试时分辨对象是否未完成初始化（对应ISA_MAGIC_VALUE这个掩码）
@@ -119,13 +120,17 @@ int main(int argc, char * argv[]) {
         
         JPPerson *per = [[JPPerson alloc] init];
         
+        Class cls1 = per.class;
+        Class cls2 = object_getClass(per);
+        NSLog(@"%p %p", cls1, cls2);
+        
         // 设置了关联对象，has_assoc为1（第2位）
         objc_setAssociatedObject(per, @"name", @"zhoujianping", OBJC_ASSOCIATION_COPY_NONATOMIC);
 
         // 被弱引用指向了，weakly_referenced为1（第42位）
         __weak typeof(per) weakPer = per;
         
-        // p/x per->isa，把这个值丢计算器查看isa存储的内容
+        // p/x per->isa，查看isa的值，把这个值丢计算器查看二进制形式
         NSLog(@"%@", per);
         
     }

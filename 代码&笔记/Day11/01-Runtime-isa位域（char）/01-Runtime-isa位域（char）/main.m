@@ -27,6 +27,14 @@ int main(int argc, const char * argv[]) {
         NSLog(@"per isRich? %d", per.isRich);
         NSLog(@"per isHandsome? %d", per.isHandsome);
         
+        // !!：先转成布尔值，不过是反的，再取反获得正确的布尔值
+        // 不然YES时，就是1、2、4之类的数字，而不是0和1的布尔值
+        BOOL abc1 = 0b00000101 & 0b00000100;
+        NSLog(@"%d", abc1);
+        
+        BOOL abc2 = !!(0b00000101 & 0b00000100);
+        NSLog(@"%d", abc2);
+        
     }
     return 0;
 }
