@@ -113,7 +113,7 @@ BOOL isTaggedPointer(id pointer) {
      }
  * 由于上面方法是【同时】开启【多个线程】去进行setter操作
  * 会极大几率导致其中一条线程release操作刚执行完，都还没进行赋值，另一条线程这时又执行了release操作，所以崩溃。
- * 原因就是【重复执行release操作】导致的崩溃。
+ * 原因就是【连续执行release操作】造成的【坏内存访问】。
  */
 
 /*
@@ -138,7 +138,7 @@ BOOL isTaggedPointer(id pointer) {
 /*
  * why不崩溃？
  * 因为 [NSString stringWithFormat:@"zjp"] 这不是一个OC对象，而是一个TaggedPointer
- * 意味着这里的赋值不会像OC对象那样会去调用setter方法，因此不会出现👆那种重复release的操作从而导致崩溃
+ * 意味着这里的赋值不会像OC对象那样会去调用setter方法，因此不会出现连续执行release操作造成的坏内存访问（崩溃）
  * 这里是直接将TaggedPointer这个指针变量的地址值赋值给"_name"，修改地址值而已，【没有内存相关的操作】。
  */
 

@@ -47,13 +47,13 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
     NSLog(@"obj指向的地址：%p", obj);
     NSLog(@"obj地址：%p", &obj);
     
-    [self setupObj:&obj];
-    NSLog(@"obj指向的地址：%p", obj);
-    NSLog(@"obj地址：%p", &obj);
-    
-//    [self setupObj2:obj];
+//    [self setupObj:&obj];
 //    NSLog(@"obj指向的地址：%p", obj);
 //    NSLog(@"obj地址：%p", &obj);
+    
+    [self setupObj2:obj];
+    NSLog(@"obj指向的地址：%p", obj);
+    NSLog(@"obj地址：%p", &obj);
 }
 
 - (void)setupObj:(NSObject **)obj {

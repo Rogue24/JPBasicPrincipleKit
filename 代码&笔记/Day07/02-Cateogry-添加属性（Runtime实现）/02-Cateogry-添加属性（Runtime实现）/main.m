@@ -11,7 +11,7 @@
 #import "JPPerson.h"
 #import "JPPerson+JPTest1.h"
 
-// extern：表示变量或者函数的定义可能在别的文件中，提示编译器遇到此变量或者函数时时，在别的文件里寻找其定义。
+// extern：表示变量或者函数的定义可能在别的文件中，提示编译器遇到此变量或者函数时，在别的文件里寻找其定义。
 extern const void *JPTestKey;
 extern const void *JPNameKey;
 

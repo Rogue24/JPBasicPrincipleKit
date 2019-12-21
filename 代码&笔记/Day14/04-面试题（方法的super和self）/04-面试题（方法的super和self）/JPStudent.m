@@ -22,8 +22,22 @@
     return self;
 }
 
+- (void)eat {
+    [super eat];
+    NSLog(@"student eat");
+}
+
 - (void)run {
     [super run];
+    
+    /*
+     * [super run]的底层调用：
+        struct objc_super arg = {
+            self,
+            class_getSuperclass(objc_getClass("JPStudent")) // 拿到JPStudent的父类
+        };
+        objc_msgSendSuper(arg, @selector(run));
+     */
 }
 
 /*
@@ -43,8 +57,15 @@
           存放着消息接收者(receiver)和消息接收者的父类(super_class)
  
  * [super run]编译的C++的代码：
+ 
     static void _I_JPStudent_run(JPStudent * self, SEL _cmd) {
         ((void (*)(__rw_objc_super *, SEL))(void *)objc_msgSendSuper)((__rw_objc_super){(id)self, (id)class_getSuperclass(objc_getClass("JPStudent"))}, sel_registerName("run"));
+            ↓↓↓
+        objc_msgSendSuper((__rw_objc_super){self,
+                                            class_getSuperclass(objc_getClass("JPStudent"))},
+                           sel_registerName("run"));
+            ↓↓↓
+        << __rw_objc_super ==这个结构体在OC源码中为==> objc_super>>
             ↓↓↓
         struct objc_super arg = {
             self,
@@ -54,20 +75,22 @@
             ↓↓↓
         objc_msgSendSuper({self, [JPPersion class]}, @selector(run)});
  
-        // super关键字是将self和父类的类对象包装成objc_super结构体去执行objc_msgSendSuper函数
-    
-        // objc_msgSendSuper：self直接去到arg的super_class里查找run方法并执行
-        // 也就是子类对象直接去到父类的方法列表里查找方法
-        // 不再需要先通过isa找到类对象再通过superclass找到父类这个过程，直接绕过
-        // 并不是父类对象去执行父类方法
-        // PS：父类已经在struct objc_super的super_class给到
-        // 所以是使用arg的self去调用父类方法，这时候父类方法里的self并不是父类的对象，而是消息接收者自身（子类）
+        //【super关键字】实际上做了：
+        // 先将self和父类的类对象包装成objc_super结构体，然后作为参数去执行objc_msgSendSuper函数
+            ↓↓↓
+        // objc_msgSendSuper({self, [JPPersion class]}, @selector(run)});
+        // 这个函数的意思是：self【直接】先去[JPPersion class]的方法列表中查找run方法并执行
+        // 也就是子类对象直接去到父类的方法列表里查找方法，其目的就是要调用父类的方法而不是自己的
+ 
+        // PS1：父类的类对象已经放在struct objc_super的super_class，通过这个直接去到父类的方法列表找方法
+        // PS2：通过self去调用父类的方法，所以这时候父类方法里的self并不是父类的对象，而是消息接收者自身（子类）
     }
  
  * [super run] ==> 使用super调用方法的本质：
     · objc_msgSendSuper({self, [JPPersion class]}, @selector(run)})
     · self（子类对象自身、方法调用者、消息接收者）绕过第一个isa直接去到父类的方法列表开始查询方法并执行
     · 所以这个super其实就是self，只是执行的是父类的方法
+    · 目的就是为了直接去调用父类的方法，而不是调用自己的方法
  
  * PS：super调用，实际上底层会转换为objc_msgSendSuper2函数的调用，在后面会讲到。
  */
