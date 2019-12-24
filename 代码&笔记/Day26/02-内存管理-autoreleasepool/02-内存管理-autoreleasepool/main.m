@@ -22,9 +22,9 @@
 extern void _objc_autoreleasePoolPrint(void);
 
 int main(int argc, const char * argv[]) {
-    @autoreleasepool {
+    @autoreleasepool { //【1】Push()
         // atautoreleasepoolobj = objc_autoreleasePoolPush();
-        // Push() --> 如果本来就有autoreleasePoolPage对象，就加进去，没有就新建
+        // 如果本来就有autoreleasePoolPage对象，就加进去，没有就新建
         
         // 调用了autorelease的对象才会丢到自动释放池中进行内存管理（{}结束后自动进行release操作）
         JPPerson *per1 = [[[JPPerson alloc] init] autorelease];
@@ -41,37 +41,42 @@ int main(int argc, const char * argv[]) {
              }
          */
         
-        @autoreleasepool {
+        @autoreleasepool { //【2】Push()
             JPPerson *per2 = [[[JPPerson alloc] init] autorelease];
             
-            @autoreleasepool {
+            @autoreleasepool { //【3】Push()
                 JPPerson *per3 = [[[JPPerson alloc] init] autorelease];
                 
                 _objc_autoreleasePoolPrint();
                 
                 /*
-                 * 打印如下
-                 objc[73784]: ##############
-                 objc[73784]: AUTORELEASE POOLS for thread 0x1000d2dc0
-                 objc[73784]: 6 releases pending.
-                 objc[73784]: [0x104805000]  ................  PAGE  (hot) (cold)
-                 objc[73784]: [0x104805038]  ################  POOL 0x104805038
-                 objc[73784]: [0x104805040]       0x102802cd0  JPPerson
-                 objc[73784]: [0x104805048]  ################  POOL 0x104805048
-                 objc[73784]: [0x104805050]       0x102802d20  JPPerson
-                 objc[73784]: [0x104805058]  ################  POOL 0x104805058
-                 objc[73784]: [0x104805060]       0x102802d30  JPPerson
-                 objc[73784]: ##############
+                 * _objc_autoreleasePoolPrint()的打印如下：
                  
-                 * ################  POOL 0x104805058
-                    ==> 这种是POOL_BOUNDARY，是autoreleasePoolPage的初始边界（标识）
+                     objc[73784]: ##############
+                     objc[73784]: AUTORELEASE POOLS for thread 0x1000d2dc0
+                     objc[73784]: 6 releases pending.
+                     objc[73784]: [0x104805000]  ................  PAGE  (hot) (cold)
+                     objc[73784]: [0x104805038]  ################  POOL 0x104805038
+                     objc[73784]: [0x104805040]       0x102802cd0  JPPerson
+                     objc[73784]: [0x104805048]  ################  POOL 0x104805048
+                     objc[73784]: [0x104805050]       0x102802d20  JPPerson
+                     objc[73784]: [0x104805058]  ################  POOL 0x104805058
+                     objc[73784]: [0x104805060]       0x102802d30  JPPerson
+                     objc[73784]: ##############
+                 
+                 * ################  POOL 0x104805058 ==> 这种是POOL_BOUNDARY
+                 * 是autoreleasePoolPage的初始边界（标识）
                  */
-            }
-        }
+                
+            } //【3】Pop()
+            
+        } //【2】Pop()
         
         // objc_autoreleasePoolPop(atautoreleasepoolobj);
-        // Pop() --> 从栈顶（是数据结构的栈，不是内存分布的栈）开始对里面的对象逐个release，直到遇到POOL_BOUNDARY为止（stop）
-    }
+        // 从栈顶开始对里面的对象逐个release，直到遇到POOL_BOUNDARY为止（stop）
+        // PS：是数据结构的栈，不是内存分布的栈
+    } //【1】Pop()
+    
     return 0;
 }
 

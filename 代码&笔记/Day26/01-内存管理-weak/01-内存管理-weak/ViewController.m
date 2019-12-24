@@ -98,8 +98,8 @@
         NSLog(@"prepare to dead");
         
         // ARC是【LLVM编译器】和【Runtime系统】相互协助的一个结果
-        // LLVM：例如在{}即将结束的时候，自动对里面的对象调用release方法
-        // Runtime：例如在程序运行的过程中，监控到对象要销毁时会去清空对象的弱引用
+        // LLVM：例如在某个作用域的{}即将结束的时候，自动对里面的对象调用release方法
+        // Runtime：例如weak指针的实现，在程序运行的过程中，监控到对象要销毁时会去清空对象的弱引用
     }
     
     NSLog(@"嗨 -- %@", per3);
@@ -153,18 +153,18 @@
 
                  return obj;
              }
-        6. clearDeallocating_slow
+        6. clearDeallocating -> clearDeallocating_slow
         7. weak_clear_no_lock(&table.weak_table, (id)this) ==> SideTable里面有个weak_table，专门存放弱指针
-        8. weak_entry_for_referent ==> 从weak_table里面找弱指针置nil（是个散列表，用掩码查找）
-        9. 回到7，weak_entry_remove(weak_table, entry) ==> 找到的弱指针放到entry中，然后移除弱指针
+        8. weak_entry_for_referent ==> 从弱引用表里面找出entry（弱指针表是个散列表，要用掩码查找）
+        9. 回到7，weak_entry_remove(weak_table, entry) ==> 通过entry清除弱引用表里面存储的弱引用
        10. 回到6，如果SideTable有引用计数，清空引用计数
        11. 回到5，接着free
      
      * SideTable的结构：
          struct SideTable {
              spinlock_t slock;
-             RefcountMap refcnts; ==> 存放着对象的引用计数（超过isa的extra_rc范围的引用计数）
-             weak_table_t weak_table; ==> 存放着对象的弱指针
+             RefcountMap refcnts; ==> 存放着对象的引用计数的散列表（超过isa的extra_rc范围的引用计数）
+             weak_table_t weak_table; ==> 存放着对象的弱指针的散列表
          };
      */
 }

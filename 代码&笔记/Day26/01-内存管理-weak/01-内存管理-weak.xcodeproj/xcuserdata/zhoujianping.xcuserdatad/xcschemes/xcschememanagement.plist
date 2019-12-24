@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>01-内存管理-weak.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
 		<key>04-内存管理-weak.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
