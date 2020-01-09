@@ -29,12 +29,13 @@
 //}
 //@end
 
-// NSObject的底层实现
-// 在C++里面的实现
+// NSObject的底层实现（在C++里面的实现）
 struct NSObject_IMPL { // -> NSObject_Implementation
     Class isa;
 };
-// Class：typedef struct objc_class *Class; 是一个指向结构体的指针（64位里面占8个字节，32位占4个字节）
+// Class：typedef struct objc_class *Class;
+// Class是一个指向结构体的指针（指针类型在64位里面占8个字节，32位占4个字节）
+// NSObject_IMPL只有一个Class类型的成员变量isa，所以NSObject_IMPL只占8个字节，并且isa所在的地址就是这个结构体的地址
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {

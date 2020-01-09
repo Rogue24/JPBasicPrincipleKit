@@ -88,15 +88,15 @@ int main(int argc, const char * argv[]) {
         
         // superclass指针：instance对象没有superclass指针，class对象指向父类的class对象，meta-class对象指向父类的meta-class对象，基类的class对象指向空，基类的meta-class对象指向基类的class对象
         
-        NSLog(@"JPStudent --- %p", [JPStudent class]);
+        NSLog(@"JPStudent Class --- %p", [JPStudent class]);
         [JPStudent test];
         // class(JPStudent) --isa--> meta-class(JPStudent) --superclass--> meta-class(JPPerson) --superclass--> meta-class(NSObject) --superclass--> class(NSObject) ==> -test
         
-        NSLog(@"JPPerson --- %p", [JPPerson class]);
+        NSLog(@"JPPerson Class --- %p", [JPPerson class]);
         [JPPerson test];
         // class(JPPerson) --isa--> meta-class(JPPerson) --superclass--> meta-class(NSObject) --superclass--> class(NSObject) ==> -test
         
-        NSLog(@"NSObject --- %p", [NSObject class]);
+        NSLog(@"NSObject Class --- %p", [NSObject class]);
         [NSObject test];
         // class(NSObject) --isa--> meta-class(NSObject) --superclass--> class(NSObject) ==> -test
         

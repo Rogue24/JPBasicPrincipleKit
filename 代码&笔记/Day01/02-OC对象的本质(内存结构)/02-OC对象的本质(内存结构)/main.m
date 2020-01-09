@@ -39,7 +39,7 @@ int main(int argc, const char * argv[]) {
         
         Student *stu = [[Student alloc] init];
         NSLog(@"%zd", class_getInstanceSize(stu.class));
-        NSLog(@"%zd", malloc_size((__bridge const void *)(stu)));
+        NSLog(@"%zd", malloc_size((__bridge const void *)stu));
         
         stu->_no = 3;
         stu->_age = 4;
