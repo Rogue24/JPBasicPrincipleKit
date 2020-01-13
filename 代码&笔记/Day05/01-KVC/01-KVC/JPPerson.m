@@ -10,18 +10,18 @@
 
 @implementation JPPerson
 
-// setter方法查询优先级
-// 高
+#pragma mark - setter方法查询优先级
+// -------------- 高 --------------
 //- (void)setAge:(int)age {
 //    _age = age;
 //}
 //- (void)_setAge:(int)age {
 //    _age = age;
 //}
-// 低
+// -------------- 低 --------------
 
-// getter方法查询优先级
-// 高
+#pragma mark - getter方法查询优先级
+// -------------- 高 --------------
 //- (int)getAge {
 //    return _age;
 //}
@@ -34,7 +34,7 @@
 //- (int)_age {
 //    return _age;
 //}
-// 低
+// -------------- 低 --------------
 
 // 是否允许访问成员变量，默认为YES
 + (BOOL)accessInstanceVariablesDirectly {

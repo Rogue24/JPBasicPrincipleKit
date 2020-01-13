@@ -11,13 +11,13 @@
 @interface JPPerson : NSObject
 {
     @public
-    // 成员变量查询优先级
-    // 高
+    // 成员变量通过KVC赋值/查询的优先级
+    // -------- 高 --------
     int _age;
     int _isAge;
     int age;
     int isAge;
-    // 低
+    // -------- 低 --------
 }
 //@property (nonatomic, assign) int age;
 @end

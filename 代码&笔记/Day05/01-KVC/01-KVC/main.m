@@ -10,6 +10,14 @@
 #import "JPPerson.h"
 #import "JPObserver.h"
 
+/*
+ * - (void)setValue:(nullable id)value forKey:(NSString *)key;
+ * key只能写当前对象的成员变量（例如：@"age"）
+ 
+ * - (void)setValue:(nullable id)value forKeyPath:(NSString *)keyPath;
+ * keyPath可以写当前对象的成员变量，或成员变量的路径（例如：成员变量的成员变量 @"son.age"）
+ */
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
@@ -17,11 +25,13 @@ int main(int argc, const char * argv[]) {
         
         JPPerson *per = [[JPPerson alloc] init];
         
+        // 添加KVO监听
         JPObserver *observer = [[JPObserver alloc] init];
         [per addObserver:observer forKeyPath:@"age" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:nil];
         
-        // 通过KVC修改 属性/成员变量 的值
-        // 通过KVC修改，不管有没有对应的setter方法，都会触发KVO（通过-_isKVOA方法判定是否有监听器）
+#pragma mark KVC赋值
+        // 通过KVC修改【属性/成员变量】的值
+        // 通过KVC修改，不管有没有对应的setter方法，都会触发KVO（KVO的子类通过-_isKVOA方法判定是否有监听器）
         [per setValue:@(20) forKey:@"age"];
         // 内部实现：
         // 1. [per willChangeValueForKey:@"age"];
@@ -33,20 +43,21 @@ int main(int argc, const char * argv[]) {
         NSLog(@"age %d", per->age);
         NSLog(@"isAge %d", per->isAge);
         
-        /**
+        /*
          * -setValue:forKey: 的过程：
          * 1. 按照优先级为 -setKey: 、-_setKey: 的顺序查找方法
-         * 1.1 找到：传递参数，调用方法
+            - 1.1 找到：传递参数，调用方法
          * 2. 找不到，查看 +accessInstanceVariablesDirectly 方法是否为YES（是否允许访问成员变量，默认为YES）
-         * 2.1 NO，不允许：抛出NSUnknownKeyException异常
+            - 2.1 NO，不允许：抛出NSUnknownKeyException异常
          * 3. YES，允许，按照优先级为 _key、_isKey、key、isKey 的顺序查找成员变量
-         * 3.1 找到：直接赋值
-         * 3.2 找不到：抛出NSUnknownKeyException异常
+            - 3.1 找到：直接【赋值】
+            - 3.2 找不到：抛出NSUnknownKeyException异常
          */
         
+        // 移除KVO监听
         [per removeObserver:observer forKeyPath:@"age"];
         
-        
+#pragma mark KVC取值
         per->_age = 100;
         per->_isAge = 200;
         per->age = 300;
@@ -55,15 +66,15 @@ int main(int argc, const char * argv[]) {
         id age = [per valueForKey:@"age"];
         NSLog(@"age is %@", age);
         
-        /**
+        /*
          * -valueForKey: 的过程：
          * 1. 按照优先级为 -getKey 、-key、-isKey、-_key 的顺序查找方法
-         * 1.1 找到：调用方法，取值
+            - 1.1 找到：调用方法，取值
          * 2. 找不到，查看 +accessInstanceVariablesDirectly 方法是否为YES（是否允许访问成员变量，默认为YES）
-         * 2.1 NO，不允许：抛出NSUnknownKeyException异常
+            - 2.1 NO，不允许：抛出NSUnknownKeyException异常
          * 3. YES，允许，按照优先级为 _key、_isKey、key、isKey 的顺序查找成员变量
-         * 3.1 找到：直接取值
-         * 3.2 找不到：抛出NSUnknownKeyException异常
+            - 3.1 找到：直接【取值】
+            - 3.2 找不到：抛出NSUnknownKeyException异常
          */
     }
     return 0;
