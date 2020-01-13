@@ -71,7 +71,7 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         NSLog(@"Hello, World!");
         
-        // 从64bitw开始，isa【需要】进行一次位运算，才能获得指向对象的真实地址
+        // 从64bit开始，isa【需要】进行一次位运算，才能获得指向对象的真实地址
         // x86_64是mac系统架构，x86架构的64位处理器，ISA_MASK = 0x00007ffffffffff8
         
         //【1】验证实例对象的 isa & ISA_MASK 是否等于类对象的地址
