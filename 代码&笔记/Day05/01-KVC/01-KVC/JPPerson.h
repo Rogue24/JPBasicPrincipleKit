@@ -11,7 +11,7 @@
 @interface JPPerson : NSObject
 {
     @public
-    // 成员变量通过KVC赋值/查询的优先级
+    // 成员变量通过KVC赋值/取值的优先级
     // -------- 高 --------
     int _age;
     int _isAge;

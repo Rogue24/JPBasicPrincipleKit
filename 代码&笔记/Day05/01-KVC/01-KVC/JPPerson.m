@@ -10,7 +10,7 @@
 
 @implementation JPPerson
 
-#pragma mark - setter方法查询优先级
+#pragma mark - KVC赋值：setter方法查询优先级
 // -------------- 高 --------------
 //- (void)setAge:(int)age {
 //    _age = age;
@@ -20,7 +20,7 @@
 //}
 // -------------- 低 --------------
 
-#pragma mark - getter方法查询优先级
+#pragma mark - KVC取值：getter方法查询优先级
 // -------------- 高 --------------
 //- (int)getAge {
 //    return _age;
@@ -36,10 +36,19 @@
 //}
 // -------------- 低 --------------
 
-// 是否允许访问成员变量，默认为YES
+#pragma mark - 是否允许访问成员变量（默认为YES）
+/*
+ * KVC赋值/取值过程中对应的setter/getter方法都没找到时会来到这里
+    - YES：按优先级_key、_isKey、key、isKey的顺序查找对应的成员变量
+        - 找到：赋值/取值
+        - 找不到：抛出NSUnknownKeyException异常
+    - NO：抛出NSUnknownKeyException异常
+ */
 + (BOOL)accessInstanceVariablesDirectly {
     return YES;
 }
+
+#pragma mark - KVO相关（通过KVC赋值，不管有没有对应的setter方法都会触发KVO）
 
 - (void)willChangeValueForKey:(NSString *)key {
     [super willChangeValueForKey:key];

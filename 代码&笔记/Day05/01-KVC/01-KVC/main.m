@@ -29,14 +29,18 @@ int main(int argc, const char * argv[]) {
         JPObserver *observer = [[JPObserver alloc] init];
         [per addObserver:observer forKeyPath:@"age" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:nil];
         
+        per->_age = 10;
+        NSLog(@"成员变量直接赋值没有触发KVO ==> _age %d", per->_age);
+        
 #pragma mark KVC赋值
         // 通过KVC修改【属性/成员变量】的值
-        // 通过KVC修改，不管有没有对应的setter方法，都会触发KVO（KVO的子类通过-_isKVOA方法判定是否有监听器）
         [per setValue:@(20) forKey:@"age"];
+        // 通过KVC修改的属性/成员变量，【不管有没有对应的setter方法，都会触发KVO】（KVO的子类应该通过-_isKVOA方法判定是否有监听器）
         // 内部实现：
         // 1. [per willChangeValueForKey:@"age"];
         // 2. per->_age = 20;
         // 3. [per didChangeValueForKey:@"age"];
+        NSLog(@"成员变量通过KVC赋值会触发KVO");
         
         NSLog(@"_age %d", per->_age);
         NSLog(@"_isAge %d", per->_isAge);
@@ -64,7 +68,7 @@ int main(int argc, const char * argv[]) {
         per->isAge = 400;
         
         id age = [per valueForKey:@"age"];
-        NSLog(@"age is %@", age);
+        NSLog(@"成员变量通过KVC取值 ==> age is %@", age);
         
         /*
          * -valueForKey: 的过程：

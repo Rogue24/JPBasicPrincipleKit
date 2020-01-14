@@ -11,7 +11,7 @@
 @implementation JPObserver
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    NSLog(@"%@", change);
+    NSLog(@"KVO的监听回调 %@", change);
 }
 
 @end
