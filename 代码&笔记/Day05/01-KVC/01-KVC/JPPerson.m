@@ -36,7 +36,7 @@
 //}
 // -------------- 低 --------------
 
-#pragma mark - 是否允许访问成员变量（默认为YES）
+#pragma mark - 是否允许访问成员变量（默认就返回YES）
 /*
  * KVC赋值/取值过程中对应的setter/getter方法都没找到时会来到这里
     - YES：按优先级_key、_isKey、key、isKey的顺序查找对应的成员变量

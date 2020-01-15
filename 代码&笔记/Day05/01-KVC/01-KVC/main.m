@@ -36,7 +36,7 @@ int main(int argc, const char * argv[]) {
         // 通过KVC修改【属性/成员变量】的值
         [per setValue:@(20) forKey:@"age"];
         // 通过KVC修改的属性/成员变量，【不管有没有对应的setter方法，都会触发KVO】（KVO的子类应该通过-_isKVOA方法判定是否有监听器）
-        // 内部实现：
+        // -setValue:forKey:的内部实现：
         // 1. [per willChangeValueForKey:@"age"];
         // 2. per->_age = 20;
         // 3. [per didChangeValueForKey:@"age"];

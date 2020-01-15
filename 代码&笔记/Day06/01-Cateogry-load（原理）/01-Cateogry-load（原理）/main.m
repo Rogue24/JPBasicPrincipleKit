@@ -21,6 +21,7 @@ int main(int argc, const char * argv[]) {
         
         /**
          * load方法在是在Runtime加载这个类/分类时（_objc_init）就会调用
+         * 根据方法地址直接调用，并不是经过objc_msgSend函数调用
          */
         
         // insert code here...
@@ -44,6 +45,7 @@ int main(int argc, const char * argv[]) {
         // 2. JPPerson+JPTest1的load
         // 3. JPPerson的load
         
+        // 这里是通过消息发送机制调用load方法，所以会优先调用分类的load方法
         [JPPerson load];
         [JPStudent load];
     }
@@ -60,33 +62,36 @@ int main(int argc, const char * argv[]) {
  ↓
  call_load_methods
  ↓
- call_class_loads 【*1*】       // 先调用类的load方法
- call_category_loads 【*2*】    // 再调用分类的load方法，所以就算分类先编译，也只会先调用类的load方法
+ call_class_loads 【*1*】       // 先调用所有类的load方法
+ call_category_loads 【*2*】    // 再调用所有分类的load方法，所以【就算分类先编译，也是先调用类的load方法】
  
- 【*1*】
+【*1*】
  call_class_loads
  ↓
  load_method_t load_method = (load_method_t)classes[i].method; // 直接取出类的load方法的地址
  ↓
- (*load_method)(cls, SEL_load); // 是直接使用这个地址去调用这个类的load方法，而不是去【元类对象的方法列表】去找load方法（objc_msgSend），相当于绕过了前面分类附加进来的load方法
+ (*load_method)(cls, SEL_load); // 这里是直接使用这个地址去调用这个类的load方法
+ // 而不是通过消息机制（objc_msgSend）去调用，所以并没有去【元类对象和分类的方法列表】找load方法
  
- 【*2*】
+【*2*】
  call_category_loads
  ↓
  load_method_t load_method = (load_method_t)cats[i].method; // 直接取出分类的load方法的地址
  ↓
- (*load_method)(cls, SEL_load); // 同样也是直接使用这个地址去调用这个分类的load方法，绕过了前面【其他分类】附加进来的load方法
+ (*load_method)(cls, SEL_load); // 同样也是直接使用这个地址去调用这个分类的load方法，不需要去【元类对象和分类的方法列表】找load方法
  
- 【*1*】的classes数组里面放的是这种结构体，专门用来加载类：
+【*1*】的classes数组里面放的是这种结构体，表示全部可以加载的类：
  struct loadable_class {
      Class cls;  // may be nil
-     IMP method; // 【只】指向类的load方法
+     IMP method; //【只】指向类的load方法
  };
+ classes[i].method; ==> 直接取出类的load方法的地址
 
- 【*2*】的cats数组里面放的是这种结构体，专门用来加载分类：
+【*2*】的cats数组里面放的是这种结构体，表示全部可以加载的分类：
  struct loadable_category {
      Category cat;  // may be nil
-     IMP method;    // 【只】指向分类的load方法
+     IMP method;    //【只】指向分类的load方法
  };
+ cats[i].method; ==> 直接取出分类的load方法的地址
  
 */

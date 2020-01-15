@@ -1,34 +1,3 @@
-### KVC
-1. 通过KVC修改属性会触发KVO么？
-	- 会触发
-		- 通过-_isKVOA方法判定是否有监听器（_isKVOA为KVO生成的NSKVONotifying_XXX的方法）
-		- 内部实现：
-			1. [per willChangeValueForKey:@"age"]; // 保存旧值，标识等会调用didChangeValueForKey
-			2. 执行setter方法，没有则直接对成员变量赋值：per->_age = 20;
-			3. [per didChangeValueForKey:@"age"]; // 通知监听器，XX属性值发送了改变
-
-2. KVC的赋值和取值过程是怎样的？原理是什么？
-	- 赋值 -setValue:forKey: 的过程：
-		1. 按照优先级为 -setKey: 、-_setKey: 的顺序查找方法
-			- 找到：传递参数，调用方法
-		2. 找不到，查看 +accessInstanceVariablesDirectly 方法是否为YES
-			- NO，不允许：抛出NSUnknownKeyException异常
-		3. YES，允许，按照优先级为 _key、_isKey、key、isKey 的顺序查找成员变量
-			1. 找到：直接赋值
-			2. 找不到：抛出NSUnknownKeyException异常
-	- 取值 -valueForKey: 的过程：
-		1. 按照优先级为 -getKey 、-key、-isKey、-_key 的顺序查找方法
-			- 找到：调用方法，取值
-		2. 找不到，查看 +accessInstanceVariablesDirectly 方法是否为YES
-			- NO，不允许：抛出NSUnknownKeyException异常
-		3. YES，允许，按照优先级为 _key、_isKey、key、isKey 的顺序查找成员变量
-			1. 找到：直接取值
-			2. 找不到：抛出NSUnknownKeyException异常
-	- PS：+accessInstanceVariablesDirectly：是否允许访问成员变量，默认为YES
-￼
-￼
-
-### Cateogry
 1. Category的实现原理。
 	- Category编译之后的底层结构是struct category_t，里面存储着分类的实例方法、类方法、属性、协议信息
 	- 在程序运行的时候，Runtime会将Category的数据，合并附加到类信息中（class对象、meta-class对象）
@@ -43,7 +12,7 @@
 3. Category中有load方法吗？load方法是什么时候调用的？load方法能继承吗？
 	- 有。
 	- load方法在Runtime加载类、分类的时候调用
-	- load方法可以继承，在子类没有重写load方法，主动去调用load方法时会调用父类的load方法，说明是有继承关系的，但是一般情况下不会主动去调动load方法，都是让系统自动调用（Runtime加载时是直接拿到load方法地址去调用，没有就不调用，之后手动调用时其实就是利用消息发送机制，子类没有load方法就会去父类的方法列表里面找）
+	- load方法可以继承，在子类没有重写load方法，主动去调用load方法（发送消息的方式）时会调用父类的load方法，说明是有继承关系的，但是一般情况下不会主动去调动load方法，都是让系统自动调用（Runtime加载时是直接拿到load方法的地址去调用，之后手动调用时其实就是利用消息发送机制：子类没有load方法就会去父类的方法列表里面找）
 
 4. load、initialize方法的区别是什么？它们在Category中的调用的顺序？以及出现继承时它们之间的调用过程？
 	- 区别：

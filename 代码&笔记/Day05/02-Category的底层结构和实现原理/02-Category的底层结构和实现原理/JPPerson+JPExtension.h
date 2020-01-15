@@ -12,11 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JPPerson (JPExtension)
 
++ (void)hi;
+
 - (void)fuck;
 
 - (void)sleep;
 
 @property (nonatomic, copy) NSString *name;
+
 @end
 
 NS_ASSUME_NONNULL_END

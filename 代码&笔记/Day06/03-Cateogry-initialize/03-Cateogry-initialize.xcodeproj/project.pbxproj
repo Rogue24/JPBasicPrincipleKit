@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A3D60C423668DDE00527CCC /* JPBitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3D60C323668DDE00527CCC /* JPBitch.m */; };
+		1A3D60C423668DDE00527CCC /* JPBoy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3D60C323668DDE00527CCC /* JPBoy.m */; };
 		1AADB8C723645896009CB10A /* JPDog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AADB8C623645896009CB10A /* JPDog.m */; };
 		1AADB8CA2364589F009CB10A /* JPCat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AADB8C92364589F009CB10A /* JPCat.m */; };
 		1AD2BF522363F0E80006B201 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2BF512363F0E80006B201 /* main.m */; };
@@ -33,8 +33,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1A3D60C223668DDE00527CCC /* JPBitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPBitch.h; sourceTree = "<group>"; };
-		1A3D60C323668DDE00527CCC /* JPBitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPBitch.m; sourceTree = "<group>"; };
+		1A3D60C223668DDE00527CCC /* JPBoy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPBoy.h; sourceTree = "<group>"; };
+		1A3D60C323668DDE00527CCC /* JPBoy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPBoy.m; sourceTree = "<group>"; };
 		1AADB8C523645896009CB10A /* JPDog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDog.h; sourceTree = "<group>"; };
 		1AADB8C623645896009CB10A /* JPDog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDog.m; sourceTree = "<group>"; };
 		1AADB8C82364589F009CB10A /* JPCat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCat.h; sourceTree = "<group>"; };
@@ -106,8 +106,8 @@
 				1AADB8C623645896009CB10A /* JPDog.m */,
 				1AADB8C82364589F009CB10A /* JPCat.h */,
 				1AADB8C92364589F009CB10A /* JPCat.m */,
-				1A3D60C223668DDE00527CCC /* JPBitch.h */,
-				1A3D60C323668DDE00527CCC /* JPBitch.m */,
+				1A3D60C223668DDE00527CCC /* JPBoy.h */,
+				1A3D60C323668DDE00527CCC /* JPBoy.m */,
 			);
 			path = "03-Cateogry-initialize";
 			sourceTree = "<group>";
@@ -174,7 +174,7 @@
 				1AD2BF602363F1350006B201 /* JPPerson+JPTest1.m in Sources */,
 				1AD2BF632363F1440006B201 /* JPPerson+JPTest2.m in Sources */,
 				1AADB8CA2364589F009CB10A /* JPCat.m in Sources */,
-				1A3D60C423668DDE00527CCC /* JPBitch.m in Sources */,
+				1A3D60C423668DDE00527CCC /* JPBoy.m in Sources */,
 				1AD2BF5D2363F1210006B201 /* JPPerson.m in Sources */,
 				1AADB8C723645896009CB10A /* JPDog.m in Sources */,
 				1AD2BF522363F0E80006B201 /* main.m in Sources */,

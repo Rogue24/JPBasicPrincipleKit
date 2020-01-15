@@ -106,7 +106,11 @@ struct __AtAutoreleasePool {
 };
 
 #define __OFFSETOFIVAR__(TYPE, MEMBER) ((long long) &((TYPE *)0)->MEMBER)
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_0a10fa_mi_0 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"I am fucking",12};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_0 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"hi --- JPExtension",18};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_1 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"I am fucking",12};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_2 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"I am sleepping --- JPExtension",30};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_3 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"setName --- JPExtension",23};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_4 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"qunima --- JPExtension",22};
 
 
 
@@ -6161,8 +6165,8 @@ const CFStringRef kCFURLUbiquitousItemDownloadingStatusCurrent __attribute__((av
 typedef CFOptionFlags CFURLBookmarkCreationOptions; enum {
     kCFURLBookmarkCreationMinimalBookmarkMask = ( 1UL << 9 ),
     kCFURLBookmarkCreationSuitableForBookmarkFile = ( 1UL << 10 ),
-    kCFURLBookmarkCreationWithSecurityScope __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1UL << 11 ),
-    kCFURLBookmarkCreationSecurityScopeAllowOnlyReadAccess __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1UL << 12 ),
+    kCFURLBookmarkCreationWithSecurityScope __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(macCatalyst,introduced=13.0))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1UL << 11 ),
+    kCFURLBookmarkCreationSecurityScopeAllowOnlyReadAccess __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(macCatalyst,introduced=13.0))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1UL << 12 ),
 
 
     kCFURLBookmarkCreationPreferFileIDResolutionMask
@@ -6172,7 +6176,7 @@ typedef CFOptionFlags CFURLBookmarkCreationOptions; enum {
 typedef CFOptionFlags CFURLBookmarkResolutionOptions; enum {
     kCFURLBookmarkResolutionWithoutUIMask = ( 1UL << 8 ),
     kCFURLBookmarkResolutionWithoutMountingMask = ( 1UL << 9 ),
-    kCFURLBookmarkResolutionWithSecurityScope __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1UL << 10 ),
+    kCFURLBookmarkResolutionWithSecurityScope __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(macCatalyst,introduced=13.0))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1UL << 10 ),
 
     kCFBookmarkResolutionWithoutUIMask = kCFURLBookmarkResolutionWithoutUIMask,
     kCFBookmarkResolutionWithoutMountingMask = kCFURLBookmarkResolutionWithoutMountingMask,
@@ -18448,14 +18452,14 @@ typedef NSUInteger NSURLBookmarkCreationOptions; enum {
     NSURLBookmarkCreationPreferFileIDResolution __attribute__((availability(macos,introduced=10.6,deprecated=10.9,message="Not supported"))) __attribute__((availability(ios,introduced=4.0,deprecated=7.0,message="Not supported"))) __attribute__((availability(watchos,introduced=2.0,deprecated=2.0,message="Not supported"))) __attribute__((availability(tvos,introduced=9.0,deprecated=9.0,message="Not supported"))) = ( 1UL << 8 ),
     NSURLBookmarkCreationMinimalBookmark = ( 1UL << 9 ),
     NSURLBookmarkCreationSuitableForBookmarkFile = ( 1UL << 10 ),
-    NSURLBookmarkCreationWithSecurityScope __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1 << 11 ),
-    NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1 << 12 ),
+    NSURLBookmarkCreationWithSecurityScope __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(macCatalyst,introduced=13.0))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1 << 11 ),
+    NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(macCatalyst,introduced=13.0))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1 << 12 ),
 } __attribute__((availability(macos,introduced=10.6))) __attribute__((availability(ios,introduced=4.0))) __attribute__((availability(watchos,introduced=2.0))) __attribute__((availability(tvos,introduced=9.0)));
 
 typedef NSUInteger NSURLBookmarkResolutionOptions; enum {
     NSURLBookmarkResolutionWithoutUI = ( 1UL << 8 ),
     NSURLBookmarkResolutionWithoutMounting = ( 1UL << 9 ),
-    NSURLBookmarkResolutionWithSecurityScope __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1 << 10 )
+    NSURLBookmarkResolutionWithSecurityScope __attribute__((availability(macos,introduced=10.7))) __attribute__((availability(macCatalyst,introduced=13.0))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable))) = ( 1 << 10 )
 } __attribute__((availability(macos,introduced=10.6))) __attribute__((availability(ios,introduced=4.0))) __attribute__((availability(watchos,introduced=2.0))) __attribute__((availability(tvos,introduced=9.0)));
 
 typedef NSUInteger NSURLBookmarkFileCreationOptions;
@@ -19897,12 +19901,6 @@ typedef struct {} _objc_exc_NSInvocation;
 
 struct NSInvocation_IMPL {
 	struct NSObject_IMPL NSObject_IVARS;
-	void *_frame;
-	void *_retdata;
-	id _signature;
-	id _container;
-	uint8_t _retainedArgs;
-	uint8_t _reserved[15];
 };
 
 
@@ -21220,6 +21218,7 @@ typedef struct {} _objc_exc_NSMethodSignature;
 struct NSMethodSignature_IMPL {
 	struct NSObject_IMPL NSObject_IVARS;
 };
+
 
 // + (nullable NSMethodSignature *)signatureWithObjCTypes:(const char *)types;
 
@@ -25075,7 +25074,6 @@ extern const CFStringRef kSecImportItemIdentity
 OSStatus SecPKCS12Import(CFDataRef pkcs12_data, CFDictionaryRef options, CFArrayRef * _Nonnull __attribute__((cf_returns_retained)) items)
      __attribute__((availability(macos,introduced=10.6))) __attribute__((availability(ios,introduced=2.0)));
 #pragma clang assume_nonnull end
-
 
 
 
@@ -33841,9 +33839,13 @@ struct JPPerson_IMPL {
 #pragma clang assume_nonnull begin
 
 // @interface JPPerson (JPExtension)
+// + (void)hi;
 
 // - (void)fuck;
 
+// - (void)sleep;
+
+// @property (nonatomic, copy) NSString *name;
 /* @end */
 
 #pragma clang assume_nonnull end
@@ -33851,10 +33853,29 @@ struct JPPerson_IMPL {
 // @implementation JPPerson (JPExtension)
 
 
-static void _I_JPPerson_JPExtension_fuck(JPPerson * self, SEL _cmd) {
-    NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_0a10fa_mi_0);
+static void _C_JPPerson_JPExtension_hi(Class self, SEL _cmd) {
+    NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_0);
 }
 
+
+static void _I_JPPerson_JPExtension_fuck(JPPerson * self, SEL _cmd) {
+    NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_1);
+}
+
+
+static void _I_JPPerson_JPExtension_sleep(JPPerson * self, SEL _cmd) {
+    NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_2);
+}
+
+
+static void _I_JPPerson_JPExtension_setName_(JPPerson * self, SEL _cmd, NSString * _Nonnull name) {
+    NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_3);
+}
+
+
+static NSString * _Nonnull _I_JPPerson_JPExtension_name(JPPerson * self, SEL _cmd) {
+    return (NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_JPPerson_JPExtension_9e1cbf_mi_4;
+}
 // @end
 
 struct _prop_t {
@@ -33927,11 +33948,34 @@ extern "C" __declspec(dllimport) struct objc_cache _objc_empty_cache;
 static struct /*_method_list_t*/ {
 	unsigned int entsize;  // sizeof(struct _objc_method)
 	unsigned int method_count;
-	struct _objc_method method_list[1];
+	struct _objc_method method_list[4];
 } _OBJC_$_CATEGORY_INSTANCE_METHODS_JPPerson_$_JPExtension __attribute__ ((used, section ("__DATA,__objc_const"))) = {
 	sizeof(_objc_method),
+	4,
+	{{(struct objc_selector *)"fuck", "v16@0:8", (void *)_I_JPPerson_JPExtension_fuck},
+	{(struct objc_selector *)"sleep", "v16@0:8", (void *)_I_JPPerson_JPExtension_sleep},
+	{(struct objc_selector *)"setName:", "v24@0:8@16", (void *)_I_JPPerson_JPExtension_setName_},
+	{(struct objc_selector *)"name", "@16@0:8", (void *)_I_JPPerson_JPExtension_name}}
+};
+
+static struct /*_method_list_t*/ {
+	unsigned int entsize;  // sizeof(struct _objc_method)
+	unsigned int method_count;
+	struct _objc_method method_list[1];
+} _OBJC_$_CATEGORY_CLASS_METHODS_JPPerson_$_JPExtension __attribute__ ((used, section ("__DATA,__objc_const"))) = {
+	sizeof(_objc_method),
 	1,
-	{{(struct objc_selector *)"fuck", "v16@0:8", (void *)_I_JPPerson_JPExtension_fuck}}
+	{{(struct objc_selector *)"hi", "v16@0:8", (void *)_C_JPPerson_JPExtension_hi}}
+};
+
+static struct /*_prop_list_t*/ {
+	unsigned int entsize;  // sizeof(struct _prop_t)
+	unsigned int count_of_properties;
+	struct _prop_t prop_list[1];
+} _OBJC_$_PROP_LIST_JPPerson_$_JPExtension __attribute__ ((used, section ("__DATA,__objc_const"))) = {
+	sizeof(_prop_t),
+	1,
+	{{"name","T@\"NSString\",C,N"}}
 };
 
 extern "C" __declspec(dllimport) struct _class_t OBJC_CLASS_$_JPPerson;
@@ -33941,9 +33985,9 @@ static struct _category_t _OBJC_$_CATEGORY_JPPerson_$_JPExtension __attribute__ 
 	"JPPerson",
 	0, // &OBJC_CLASS_$_JPPerson,
 	(const struct _method_list_t *)&_OBJC_$_CATEGORY_INSTANCE_METHODS_JPPerson_$_JPExtension,
+	(const struct _method_list_t *)&_OBJC_$_CATEGORY_CLASS_METHODS_JPPerson_$_JPExtension,
 	0,
-	0,
-	0,
+	(const struct _prop_list_t *)&_OBJC_$_PROP_LIST_JPPerson_$_JPExtension,
 };
 static void OBJC_CATEGORY_SETUP_$_JPPerson_$_JPExtension(void ) {
 	_OBJC_$_CATEGORY_JPPerson_$_JPExtension.cls = &OBJC_CLASS_$_JPPerson;
