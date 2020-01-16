@@ -6,9 +6,6 @@
 //  Copyright © 2019 周健平. All rights reserved.
 //
 
-#import <AppKit/AppKit.h>
-
-
 #import "JPPerson.h"
 
 NS_ASSUME_NONNULL_BEGIN

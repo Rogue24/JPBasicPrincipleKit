@@ -33,7 +33,7 @@
 		1AA7FEDD236842A500CB3B1F /* objc_AssociationPolicy对应表.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "objc_AssociationPolicy对应表.jpg"; sourceTree = "<group>"; };
 		1AA7FEDE236842A500CB3B1F /* Category底层结构.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Category底层结构.jpg"; sourceTree = "<group>"; };
 		1AA7FEF0236942A500CB3B1F /* Runtime关联对象关系图.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Runtime关联对象关系图.jpg"; sourceTree = "<group>"; };
-		1AD2BF4E2363F0E80006B201 /* 02-Cateogry-添加属性（Runtime实现） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "02-Cateogry-添加属性（Runtime实现）"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AD2BF4E2363F0E80006B201 /* 02-Cateogry-添加属性（关联对象） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "02-Cateogry-添加属性（关联对象）"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1AA7FED7236842A500CB3B1F /* 02-Cateogry-添加属性（Runtime实现） */ = {
+		1AA7FED7236842A500CB3B1F /* 02-Cateogry-添加属性（关联对象） */ = {
 			isa = PBXGroup;
 			children = (
 				1AA7FEDE236842A500CB3B1F /* Category底层结构.jpg */,
@@ -59,13 +59,13 @@
 				1AA7FED8236842A500CB3B1F /* JPPerson+JPTest1.h */,
 				1AA7FEDA236842A500CB3B1F /* JPPerson+JPTest1.m */,
 			);
-			path = "02-Cateogry-添加属性（Runtime实现）";
+			path = "02-Cateogry-添加属性（关联对象）";
 			sourceTree = "<group>";
 		};
 		1AD2BF452363F0E80006B201 = {
 			isa = PBXGroup;
 			children = (
-				1AA7FED7236842A500CB3B1F /* 02-Cateogry-添加属性（Runtime实现） */,
+				1AA7FED7236842A500CB3B1F /* 02-Cateogry-添加属性（关联对象） */,
 				1AD2BF4F2363F0E80006B201 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,7 +73,7 @@
 		1AD2BF4F2363F0E80006B201 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1AD2BF4E2363F0E80006B201 /* 02-Cateogry-添加属性（Runtime实现） */,
+				1AD2BF4E2363F0E80006B201 /* 02-Cateogry-添加属性（关联对象） */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,9 +81,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1AD2BF4D2363F0E80006B201 /* 02-Cateogry-添加属性（Runtime实现） */ = {
+		1AD2BF4D2363F0E80006B201 /* 02-Cateogry-添加属性（关联对象） */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1AD2BF552363F0E80006B201 /* Build configuration list for PBXNativeTarget "02-Cateogry-添加属性（Runtime实现）" */;
+			buildConfigurationList = 1AD2BF552363F0E80006B201 /* Build configuration list for PBXNativeTarget "02-Cateogry-添加属性（关联对象）" */;
 			buildPhases = (
 				1AD2BF4A2363F0E80006B201 /* Sources */,
 				1AD2BF4B2363F0E80006B201 /* Frameworks */,
@@ -93,9 +93,9 @@
 			);
 			dependencies = (
 			);
-			name = "02-Cateogry-添加属性（Runtime实现）";
+			name = "02-Cateogry-添加属性（关联对象）";
 			productName = "01-Cateogry-load";
-			productReference = 1AD2BF4E2363F0E80006B201 /* 02-Cateogry-添加属性（Runtime实现） */;
+			productReference = 1AD2BF4E2363F0E80006B201 /* 02-Cateogry-添加属性（关联对象） */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -104,7 +104,7 @@
 		1AD2BF462363F0E80006B201 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "周健平";
 				TargetAttributes = {
 					1AD2BF4D2363F0E80006B201 = {
@@ -112,7 +112,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1AD2BF492363F0E80006B201 /* Build configuration list for PBXProject "02-Cateogry-添加属性（Runtime实现）" */;
+			buildConfigurationList = 1AD2BF492363F0E80006B201 /* Build configuration list for PBXProject "02-Cateogry-添加属性（关联对象）" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -125,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1AD2BF4D2363F0E80006B201 /* 02-Cateogry-添加属性（Runtime实现） */,
+				1AD2BF4D2363F0E80006B201 /* 02-Cateogry-添加属性（关联对象） */,
 			);
 		};
 /* End PBXProject section */
@@ -256,6 +256,7 @@
 		1AD2BF562363F0E80006B201 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -264,6 +265,7 @@
 		1AD2BF572363F0E80006B201 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -272,7 +274,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1AD2BF492363F0E80006B201 /* Build configuration list for PBXProject "02-Cateogry-添加属性（Runtime实现）" */ = {
+		1AD2BF492363F0E80006B201 /* Build configuration list for PBXProject "02-Cateogry-添加属性（关联对象）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AD2BF532363F0E80006B201 /* Debug */,
@@ -281,7 +283,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1AD2BF552363F0E80006B201 /* Build configuration list for PBXNativeTarget "02-Cateogry-添加属性（Runtime实现）" */ = {
+		1AD2BF552363F0E80006B201 /* Build configuration list for PBXNativeTarget "02-Cateogry-添加属性（关联对象）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AD2BF562363F0E80006B201 /* Debug */,

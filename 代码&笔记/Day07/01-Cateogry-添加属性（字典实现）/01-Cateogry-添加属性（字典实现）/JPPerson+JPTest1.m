@@ -5,11 +5,12 @@
 //  Created by 周健平 on 2019/10/26.
 //  Copyright © 2019 周健平. All rights reserved.
 //
+//  使用字典的弊端：
+//  1.有多少个属性就得用多少个全局字典来管理
+//  2.因为是全局字典，所以内存会一直占用着，得手动管理，麻烦
+//  3.线程安全问题
 
 #import "JPPerson+JPTest1.h"
-
-#import <AppKit/AppKit.h>
-
 
 @implementation JPPerson (JPTest1)
 
