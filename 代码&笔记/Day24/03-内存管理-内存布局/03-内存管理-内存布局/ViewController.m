@@ -18,10 +18,12 @@
  低地址
   - 保留：其他用途，大小由平台决定（32位、64位）
   - 代码段（__TEXT）：编译之后的代码，例如函数
-  - 数据段（__DATA）：常量区，比如全局变量、静态变量
-   · 字符串常量：例如 NSString *str = @"123";（直接写出来的，不是通过方法创建的那种字符串）
-   · 已初始化数据：例如 static int a = 10;（定义就赋值的）
-   · 未初始化数据：例如 static int b;（没赋值的）
+  - 数据段（__DATA）：比如全局变量、静态变量
+    - 常量区
+        · 字符串常量：例如 NSString *str = @"123";（直接写出来的，不是通过方法创建的那种字符串）
+    - 静态区/全局区
+        · 已初始化数据：例如 static int a = 10;（定义就赋值的）
+        · 未初始化数据：例如 static int b;（没赋值的）
   - 堆（heap）：通过alloc、malloc、calloc等动态分配的空间（实例对象），分配的内存空间地址【越来越大】
   - 栈（stack）：函数调用开销，比如局部变量，分配的内存空间地址【越来越小】（先进后出）
   - 内核区：系统内核相关的区域，只能系统访问，例如让线程休眠的操作
@@ -30,11 +32,22 @@
 
 @implementation ViewController
 
+static int const aa = 100;
+
+//【外面】定义的静态变量的地址会比【函数内】定义的静态变量的地址【高】
+// 有可能是因为函数所在的【代码段】的地址比【数据段】的地址【低】，先编译函数里面的，之后才轮到外面的。
 static int a = 10;
 static int b;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    IMP imp = method_getImplementation(class_getInstanceMethod(self.class, @selector(viewDidLoad)));
+    NSLog(@"【代码段】==> 编译之后的函数");
+    NSLog(@"imp --- %p", imp);
+    
+    NSLog(@"【数据段/常量区】");
+    NSLog(@"aa --- %p", &aa);
     
     static int c = 10;
     static int d;
@@ -47,22 +60,24 @@ static int b;
     NSString *str3 = [NSString stringWithFormat:@"%@", @"鸡你太美"];
     
     NSObject *obj = [[NSObject alloc] init];
+    Class cls = obj.class;
+    Class mCls = object_getClass(cls);
     
-    NSLog(@"【常量区】==> 字符串常量");
+    NSLog(@"【数据段/常量区】==> 字符串常量");
     NSLog(@"str1 --- %p", str1);
     NSLog(@"str2 --- %p", str2);
     
-    NSLog(@"【常量区】==> 已初始化数据");
+    NSLog(@"【数据段/静态区】==> 已初始化数据");
     NSLog(@"c ------ %p", &c);
     NSLog(@"a ------ %p", &a);
     
-    NSLog(@"【常量区】==> 未初始化数据");
+    NSLog(@"【数据段/静态区】==> 未初始化数据");
     NSLog(@"d ------ %p", &d);
     NSLog(@"b ------ %p", &b);
     
-    NSLog(@"【常量区】==> meta class & class");
-    NSLog(@"meta class --- %p", object_getClass(NSObject.class));
-    NSLog(@"class -------- %p", NSObject.class);
+    NSLog(@"【数据段】==> meta class & class");
+    NSLog(@"meta class --- %p", &mCls);
+    NSLog(@"class -------- %p", &cls);
     
     NSLog(@"【堆】==> 实例对象"); // 分配的内存空间地址【越来越大】，不连续的
     NSLog(@"obj ---- %p", obj);

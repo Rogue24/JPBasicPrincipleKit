@@ -21,6 +21,7 @@ struct __block_impl {
 
 // block底层结构体
 struct __main_block_impl_0 {
+    // impl是直接的一个结构体，而不是指针
     struct __block_impl impl;  // 相当于 --> void *isa;
                                //           int Flags;
                                //           int Reserved;
@@ -81,22 +82,29 @@ void createMallocBlock() {
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
+        NSString *str = @"123";
         int f = 7;
+        
+        NSLog(@"常量 %p", str);
         NSLog(@"全局变量 %p %p", &a_, &b_);
         NSLog(@"元类对象 %p", object_getClass([JPPerson class]));
         NSLog(@"类对象 %p", [JPPerson class]);
         NSLog(@"实例对象 %p", [JPPerson new]);
         NSLog(@"局部变量 %p", &f);
-        // 应用程序的内存分配
-        // 低地址
-        // 【1】程序区域/代码段/代码区（函数、常量）
-        // 【2】数据区域/数据段/全局区（全局变量、类/元类对象）
-        // 【3】堆（对象）：动态分配内存，需要程序员自己去申请内存(malloc)、管理内存(release)
-        // 【4】栈（局部变量）：系统自动分配、销毁内存
-        // 高地址
+        /*
+         * 应用程序的内存分配
+          【低地址】
+            - 代码段（函数）
+            - 数据段（常量、全局变量、类/元类对象）
+                - 常量区
+                - 静态区/全局区
+            - 堆（对象）：动态分配内存，需要程序员自己去申请内存(malloc)、管理内存(release)
+            - 栈（局部变量）：系统自动分配、销毁内存
+          【高地址】
+         */
         
         /**
-         * 局部变量 --> 需要捕获 --> 超出作用域就无法访问（跨函数访问）
+         * 局部变量 --> 需要捕获 --> 因为跨函数访问，本体超出作用域就无法再访问，所以要捕获进去
          * 全局变量 --> 不用捕获 --> 全部函数都可以直接访问
          */
         void (^jpBlock1)(void) = ^{
@@ -147,10 +155,10 @@ int main(int argc, const char * argv[]) {
         // NSObject
         
         // 低地址
-        // 【1】程序区域
-        // 【2】数据区域  <-- GlobalBlock
-        // 【3】堆       <-- MallocBlock
-        // 【4】栈       <-- StackBlock
+        //【1】代码段
+        //【2】数据段 <-- GlobalBlock
+        //【3】堆    <-- MallocBlock
+        //【4】栈    <-- StackBlock
         // 高地址
         
         /**

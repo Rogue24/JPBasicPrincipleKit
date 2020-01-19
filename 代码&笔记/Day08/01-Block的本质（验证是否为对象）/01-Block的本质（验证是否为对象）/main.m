@@ -27,7 +27,11 @@ struct __block_impl {
 // Block在底层的结构体：
 struct __main_block_impl_0 {
   // Block是封装了函数调用（impl.FuncPtr）以及函数调用环境（money，函数需要的参数）的OC对象（impl.isa）
-  struct __block_impl impl;
+  // impl是直接的一个结构体，而不是指针
+  struct __block_impl impl;  // 相当于 --> void *isa;
+                             //           int Flags;
+                             //           int Reserved;
+                             //           void *FuncPtr;
   struct __main_block_desc_0* Desc;
   int money; // 外部参数
     

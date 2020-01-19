@@ -20,6 +20,7 @@ struct __block_impl {
 
 // block底层结构体
 struct __main_block_impl_0 {
+    // impl是直接的一个结构体，而不是指针
     struct __block_impl impl;  // 相当于 --> void *isa;
                                //           int Flags;
                                //           int Reserved;
@@ -69,7 +70,7 @@ int main(int argc, const char * argv[]) {
         jpBlock();
         
         /**
-         * 局部变量 --> 需要捕获 --> 超出作用域就无法访问（跨函数访问）
+         * 局部变量 --> 需要捕获 --> 因为跨函数访问，本体超出作用域就无法再访问，所以要捕获进去
          * 全局变量 --> 不用捕获 --> 全部函数都可以直接访问
          */
         

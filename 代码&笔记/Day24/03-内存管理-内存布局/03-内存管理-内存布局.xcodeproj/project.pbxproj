@@ -292,6 +292,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				INFOPLIST_FILE = "03-内存管理-内存布局/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -308,6 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				INFOPLIST_FILE = "03-内存管理-内存布局/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
