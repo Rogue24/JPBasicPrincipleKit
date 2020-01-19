@@ -75,7 +75,10 @@ static struct __main_block_desc_0 {
     //【2】__main_block_dispose_0：
     void (*dispose)(struct __main_block_impl_0*);
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
 } __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
+#pragma clang diagnostic pop
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -91,10 +94,13 @@ int main(int argc, const char * argv[]) {
             JPPerson *per2 = [[JPPerson alloc] init];
             per2.age = 22;
             
+            NSLog(@"per1 %p", per1);
+            NSLog(@"per2 %p", per2);
+            
             __weak JPPerson *weakPer2 = per2;
             
             // 在ARC环境下，将Block赋值给__strong指针编译器会自动将栈上的block复制到堆上：
-            // StackBlock  --copy--> MallocBlock
+            // StackBlock --copy--> MallocBlock
             jpblock = ^{
                 NSLog(@"per1.age is %d", per1.age);
                 NSLog(@"weakPer2.age is %d", weakPer2.age);
@@ -119,12 +125,12 @@ int main(int argc, const char * argv[]) {
         NSLog(@"over~");
         
         /*
-         * 总结：当block捕获了对象类型的auto变量：
+         * 总结：当block捕获了【对象类型】的auto变量：
          * Block的结构体的Desc结构体里面，会多了copy和dispose这两个函数指针，用于进行内存管理操作：
          * 在编译的C++文件里面分别是：__main_block_copy_0 和 __main_block_dispose_0
          *
          *【栈空间的block】
-         * 不会对捕获的auto变量产生强引用，永远都是弱引用
+         * 不会对捕获的auto变量产生强引用，永远都是弱引用（毕竟自身随时被销毁，也就没必要强引用其他对象）
          * 执行block时，捕获的auto变量有可能就已经被销毁了，就会造成坏内存访问的错误
          * PS：要后续执行block只能赋值给__strong指针，
          * 不过在ARC环境下会自动进行copy操作升级为MallocBlock，因此block会保住auto变量的命，
@@ -132,7 +138,8 @@ int main(int argc, const char * argv[]) {
          *
          *【堆空间的block】
          * 1. 拷贝到堆上时对捕获的auto变量：
-         * 会调用copy函数，内部调用_Block_object_assign函数，类似retain操作，形成强、弱引用
+         * 会调用copy函数，内部调用_Block_object_assign函数，类似retain操作
+         * 该函数会根据auto变量的修饰符（__strong、__weak、__unsafe_unretained）做出相应的操作，形成强引用（retain）或者弱引用（看看per1和weakPer2的底层结构，是生成了对应的__strong和__weak引用）
          * 2. 从堆上移除时对捕获的auto变量：
          * 会调用dispose函数，内部调用_Block_object_dispose函数，类似release操作
          */

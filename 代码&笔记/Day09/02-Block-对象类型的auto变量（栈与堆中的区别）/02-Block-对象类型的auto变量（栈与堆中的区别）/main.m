@@ -41,10 +41,10 @@ int main(int argc, const char * argv[]) {
              *【MRC】编译器并不会将栈上的block复制到堆上（StackBlock）
              */
             
-            // 2.block捕获了per这个auto变量：
+            // 2.block捕获了per这个auto变量（对象类型的）：
             /**
              *【栈空间的block】
-             * 不会对捕获的auto变量产生强引用
+             * 不会对捕获的auto变量产生强引用，永远都是弱引用（毕竟自身随时被销毁，也就没必要强引用其他对象）
              * 执行block时，捕获的auto变量有可能就已经被销毁了，就会造成坏内存访问的错误
              * 所以block存活期间【不会】保住per的命
              *

@@ -37,6 +37,8 @@ int main(int argc, const char * argv[]) {
         // 在ARC环境下，编译器会根据情况自动将栈上的block复制到堆上：
         // StackBlock --> MallocBlock
         
+        //【有以下几种情况会自动copy】
+        
         //【1】block作为函数返回值时
         JPBlock block1 = jpblock();
         NSLog(@"block1 作为函数返回值 %@", [block1 class]);
@@ -64,10 +66,10 @@ int main(int argc, const char * argv[]) {
         });
         
         /**
-         * MRC下block属性的建议方法：
+         * MRC环境下block属性的建议方法：用copy修饰
          * @property (nonatomic, copy) void (^blockName)(void);
          *
-         * ARC下block属性的建议方法：
+         * ARC环境下block属性的建议方法：用copy or strong修饰
          * @property (nonatomic, copy) void (^blockName)(void);
          * @property (nonatomic, strong) void (^blockName)(void);
          */

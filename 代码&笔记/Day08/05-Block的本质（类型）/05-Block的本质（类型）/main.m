@@ -86,9 +86,9 @@ int main(int argc, const char * argv[]) {
         int f = 7;
         
         NSLog(@"常量 %p", str);
-        NSLog(@"全局变量 %p %p", &a_, &b_);
         NSLog(@"元类对象 %p", object_getClass([JPPerson class]));
         NSLog(@"类对象 %p", [JPPerson class]);
+        NSLog(@"全局变量 %p %p", &a_, &b_);
         NSLog(@"实例对象 %p", [JPPerson new]);
         NSLog(@"局部变量 %p", &f);
         /*
@@ -144,7 +144,7 @@ int main(int argc, const char * argv[]) {
         } class] superclass]); // __NSStackBlock
         
         // 编译的C++文件的block的isa都赋值为_NSConcreteStackBlock
-        // 不一定都正确，一切以打印（运行时）为准
+        // 不一定都正确，一切以打印（llvm，运行时）为准
         // _NSConcreteGlobalBlock, _NSConcreteMallocBlock, _NSConcreteStackBlock
         // __NSGlobalBlock__,      __NSMallocBlock__,      __NSStackBlock__ // 打印的
         //        ↓                       ↓                       ↓
@@ -163,27 +163,29 @@ int main(int argc, const char * argv[]) {
         
         /**
          * GlobalBlock：【没有访问任何auto变量】的block（只访问了static变量也是Global）
+         * StackBlock：【只要有访问了auto变量】的block
          * MallocBlock：对StackBlock调用了copy（升级）
-         * StackBlock：访问了auto变量
          *
          * PS：为啥jpBlock2是访问了auto变量，但打印的是MallocBlock类型？
          * 因为现在是在ARC环境下运行的，ARC背后做了很多事情
+         * ARC环境下，StackBlock赋值给强指针时会自动调用copy，变成MallocBlock
          * 关闭ARC：去到 Targets --> Build Settings --> 搜索automatic reference --> 设置为NO
          */
         
         createStackBlock(); // --> 里面设置了jpBlockX，定义为StackBlock（访问了auto变量）
-        jpBlockX(); // 调用完函数再调用block --> 调用结果中的auto变量为乱码
+        jpBlockX(); // 调用完函数再调用block --> 调用结果中的auto变量为【乱码】
         /**
          * 因为这是StackBlock类型的block，【是在栈上分配的内存，jpBlockX这个全局变量只是引用这个地址】
-         * StackBlock类型的block里面的impl、Desc、其他捕获的变量是存在栈上的
-         * 当test调用完，即离开了作用域，系统就会自动回收这些成员变量
-         * 所以在test函数执行完之后，block内的成员变量全部被销毁了，都变成了垃圾数据
+         * <<StackBlock类型的block里面的impl、Desc、其他捕获的变量是存在栈上的>>
+         * 当createStackBlock函数调用完，即离开了函数的作用域，系统就会自动回收{}里面的临时变量，即包括block内的成员变量
+         * 之后再访问block内的成员变量，由于已经被销毁了，都变成了垃圾数据，所以得到的是一堆乱码
          */
         
         // 防止这种情况出现：将栈上的block搬到堆上（copy）
         createMallocBlock(); // --> 对StackBlock调用了copy --> 将block的内存搬到堆空间里面
         jpBlockX(); // 调用完函数再调用block，auto变量不再为乱码，因为这次没有被系统回收
-        [jpBlockX release]; // 需要释放防止内存泄漏
+        
+        [jpBlockX release]; // MRC环境下需要释放防止内存泄漏
         
         /**
          * 三种block类型进行copy操作：
@@ -191,7 +193,9 @@ int main(int argc, const char * argv[]) {
          * MallocBlock --copy--> 还是在【堆】，引用计数+1，需要注意内存管理
          * StackBlock  --copy--> 内存从【栈】搬到【堆】，需要注意内存管理
          */
-        NSLog(@"jpBlock2 %@ after copy %@", [jpBlock2 class], [[jpBlock2 copy] class]);
+        NSLog(@"jpBlock2 origin is %@", [jpBlock2 class]);
+        jpBlock2 = [jpBlock2 copy];
+        NSLog(@"jpBlock2 after copy is %@", [jpBlock2 class]);
     }
     return 0;
 }
