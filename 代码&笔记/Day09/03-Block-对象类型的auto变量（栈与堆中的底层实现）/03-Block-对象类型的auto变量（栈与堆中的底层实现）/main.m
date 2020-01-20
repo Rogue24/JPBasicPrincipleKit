@@ -130,16 +130,18 @@ int main(int argc, const char * argv[]) {
          * 在编译的C++文件里面分别是：__main_block_copy_0 和 __main_block_dispose_0
          *
          *【栈空间的block】
-         * 不会对捕获的auto变量产生强引用，永远都是弱引用（毕竟自身随时被销毁，也就没必要强引用其他对象）
+         * 不会对捕获的auto变量产生强引用，【永远都是弱引用】
+         * <<毕竟自身随时被销毁，也就没必要强引用其他对象>>
          * 执行block时，捕获的auto变量有可能就已经被销毁了，就会造成坏内存访问的错误
-         * PS：要后续执行block只能赋值给__strong指针，
+         * PS：想要后续执行block只能赋值给__strong指针，
          * 不过在ARC环境下会自动进行copy操作升级为MallocBlock，因此block会保住auto变量的命，
          * 所以，想证明执行block时捕获的auto变量会不会已经被销毁了就只能在MRC环境下进行。
          *
          *【堆空间的block】
          * 1. 拷贝到堆上时对捕获的auto变量：
          * 会调用copy函数，内部调用_Block_object_assign函数，类似retain操作
-         * 该函数会根据auto变量的修饰符（__strong、__weak、__unsafe_unretained）做出相应的操作，形成强引用（retain）或者弱引用（看看per1和weakPer2的底层结构，是生成了对应的__strong和__weak引用）
+         * 该函数会根据auto变量的修饰符（__strong、__weak、__unsafe_unretained）做出相应的操作，形成强引用（retain）或者弱引用
+         * <<看看per1和weakPer2的底层结构，是生成了对应的__strong和__weak引用>>
          * 2. 从堆上移除时对捕获的auto变量：
          * 会调用dispose函数，内部调用_Block_object_dispose函数，类似release操作
          */

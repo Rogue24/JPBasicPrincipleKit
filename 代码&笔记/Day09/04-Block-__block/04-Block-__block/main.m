@@ -94,6 +94,12 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         NSLog(@"Hello, World!");
         
+        // 只要有被__block修饰的变量！即便没被block捕获！都会被包装成__block结构体对象！
+        __block int abc = 999;
+        NSLog(@"abc %d", abc);
+        // 这已经不再是一个单纯的int了，而是一个对象！
+        // 存取过程：abc->__forwarding->abc = 999;
+        
         /*
          * __block可以用于解决block内部无法修改auto变量值的问题
          * __block不能修饰全局变量、静态变量（static）
@@ -103,20 +109,30 @@ int main(int argc, const char * argv[]) {
         __block int a = 29;
         /*
          __attribute__((__blocks__(byref))) __Block_byref_a_0 a = {(void*)0,(__Block_byref_a_0 *)&a, 0, sizeof(__Block_byref_a_0), 29};
-         ↓
+         ↓↓↓
+         简化一下
+         ↓↓↓
          __Block_byref_a_0 a = {0,
                                 &a,
                                 0,
                                 sizeof(__Block_byref_a_0),
                                 29};
+         赋值给【__block结构体对象的底层结构】的对应成员：
+         struct __Block_byref_a_0 {
+             __isa ==> 0
+             __forwarding ==> &a
+             __flags ==> 0
+             __size ==> sizeof(__Block_byref_a_0)
+             a ==> 29
+         };
         */
         
 //        NSMutableArray *arr = [NSMutableArray array];
         JPBlock stackBlock = ^{
-            // 这是使用这个变量，所以不需要__block修饰
+            // *这是使用这个变量，所以不需要__block修饰
 //            [arr addObject:@"1"];
             
-            // 这是修改这个变量，所以需要__block修饰
+            // *这是修改这个变量，所以需要__block修饰
             a = 31;
             /*
              * Block的内部实现：
@@ -242,6 +258,7 @@ int main(int argc, const char * argv[]) {
         
         NSLog(@"验证：__block变量结构体里面的isa究竟指向啥？");
         NSLog(@"追加验证：被__block修饰的实例对象，__block变量结构体里面的isa是不是指向对象的class？");
+        NSLog(@"以下是验证过程。");
         
 //        struct __main_block_desc_1 {
 //            size_t reserved;

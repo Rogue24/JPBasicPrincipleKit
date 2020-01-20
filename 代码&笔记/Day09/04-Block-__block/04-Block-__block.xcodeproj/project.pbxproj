@@ -24,14 +24,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A29328A23D58D0C006B5E38 /* main-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "main-arm64.cpp"; sourceTree = "<group>"; };
 		1A2C61D7236FD19600E5998A /* __block的__forwarding指针.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block的__forwarding指针.jpg"; sourceTree = "<group>"; };
 		1A470814236E9FA7005E9641 /* 04-Block-__block */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "04-Block-__block"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A470817236E9FA7005E9641 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1A7FB929236EA59D00C859DC /* main-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "main-arm64.cpp"; sourceTree = "<group>"; };
 		1A7FB92A236EC45800C859DC /* __block修饰符.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block修饰符.jpg"; sourceTree = "<group>"; };
 		1AB134DC2398A720007D3102 /* JPPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
 		1AB134DD2398A720007D3102 /* JPPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
-		1AB134DF2398AE0B007D3102 /* main2-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "main2-arm64.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +66,7 @@
 				1A7FB92A236EC45800C859DC /* __block修饰符.jpg */,
 				1A2C61D7236FD19600E5998A /* __block的__forwarding指针.jpg */,
 				1A470817236E9FA7005E9641 /* main.m */,
-				1A7FB929236EA59D00C859DC /* main-arm64.cpp */,
-				1AB134DF2398AE0B007D3102 /* main2-arm64.cpp */,
+				1A29328A23D58D0C006B5E38 /* main-arm64.cpp */,
 				1AB134DC2398A720007D3102 /* JPPerson.h */,
 				1AB134DD2398A720007D3102 /* JPPerson.m */,
 			);

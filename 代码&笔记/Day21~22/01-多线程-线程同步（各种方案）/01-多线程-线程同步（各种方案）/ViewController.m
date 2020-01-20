@@ -38,6 +38,10 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
 @property (weak, nonatomic) IBOutlet UIView *view1;
 @property (weak, nonatomic) IBOutlet UIView *view2;
 @property (weak, nonatomic) IBOutlet UIView *view3;
+
+@property (nonatomic, assign) NSInteger testTotal;
+@property (nonatomic, assign) NSInteger testCount;
+@property (nonatomic, strong) dispatch_semaphore_t testSemaphore;
 @end
 
 @implementation ViewController
@@ -49,6 +53,8 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
     
     self.viewQueue = dispatch_queue_create("viewww", DISPATCH_QUEUE_SERIAL);
     self.viewSemaphore = dispatch_semaphore_create(0);
+    
+    self.testSemaphore = dispatch_semaphore_create(0);
     
     return;
     
@@ -90,6 +96,12 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
 - (IBAction)otherTest:(id)sender {
     [self.demo otherTest];
 }
+
+
+
+
+#pragma mark - 自己的测试
+
 - (IBAction)testtest {
     
     self.view1.alpha = 0;
@@ -145,6 +157,32 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
             }];
         });
     });
+}
+
+- (IBAction)xinnhaotest21:(id)sender {
+    self.testTotal += 10;
+    
+    for (NSInteger i = 0; i < 10; i++) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            NSLog(@"%zd --- 信号量剩几个？%zd", i, self.testCount);
+            
+            // 信号量小于1时，就休眠该线程等待信号量大于0为止
+            dispatch_semaphore_wait(self.testSemaphore, DISPATCH_TIME_FOREVER);
+            // 信号量大于0时才会继续往下走，然后信号量会减1
+            
+            self.testTotal -= 1;
+            self.testCount -= 1;
+            NSLog(@"%zd --- 来信号了，-1后信号量剩%zd个，总共剩%zd个任务", i, self.testCount, self.testTotal);
+        });
+    }
+}
+
+- (IBAction)xinnhaotest22:(id)sender {
+    // 信号量加1，激活休眠的线程
+    self.testCount += 1;
+    NSLog(@"信号量%zd个", self.testCount);
+    dispatch_semaphore_signal(self.testSemaphore);
 }
 
 @end
