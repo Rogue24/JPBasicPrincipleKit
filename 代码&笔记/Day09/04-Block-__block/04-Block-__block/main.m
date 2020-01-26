@@ -89,6 +89,12 @@ struct __main_block_impl_1 {
 
 #warning 当前在MRC环境下！
 
+/*
+ *【注意】
+ * 只要被__block修饰后的的变量，即便没有被任何block捕获过，都会被包装成另一种对象！
+ * 由于内存结构被多包装了一层，也就是更复杂、更重了！简直男上加男！
+ * 因此！__block能不加就不加！别闲来无事就乱加！
+ */
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
@@ -127,60 +133,69 @@ int main(int argc, const char * argv[]) {
          };
         */
         
-//        NSMutableArray *arr = [NSMutableArray array];
+        // NSMutableArray *arr = [NSMutableArray array];
         JPBlock stackBlock = ^{
-            // *这是使用这个变量，所以不需要__block修饰
-//            [arr addObject:@"1"];
+            // [arr addObject:@"1"]; // 这是使用这个变量，所以不需要__block修饰
             
-            // *这是修改这个变量，所以需要__block修饰
-            a = 31;
+            a = 31; // 这是修改这个变量，所以需要__block修饰
+            
             /*
-             * Block的内部实现：
-                __Block_byref_a_0 *a = __cself->a; // bound by ref
-                (a->__forwarding->a) = 31;
+             *【a = 31】这句在Block里面的底层实现：
+                 ↓↓↓
+             __Block_byref_a_0 *a = __cself->a; // bound by ref
+             (a->__forwarding->a) = 31;
+                 ↓↓↓
              * 并不是直接赋值，而是由包装好的对象通过forwarding(指向自身的指针)再找到这个a来进行赋值
-             * a->__forwarding->a = 31;
+             * ==> a->__forwarding->a = 31;
              */
             
             NSLog(@"Hello, JPBlock! %d", a);
         };
         /*
-         JPBlock block = ((void (*)())&__main_block_impl_0((void *)__main_block_func_0, &__main_block_desc_0_DATA, (__Block_byref_a_0 *)&a, 570425344));
+         JPBlock stackBlock = ((void (*)())&__main_block_impl_0((void *)__main_block_func_0, &__main_block_desc_0_DATA, (__Block_byref_a_0 *)&a, 570425344));
          ↓
-         JPBlock block = &__main_block_impl_0(__main_block_func_0,
-                                              &__main_block_desc_0_DATA,
-                                              &a,
-                                              570425344);
+         JPBlock stackBlock = &__main_block_impl_0(__main_block_func_0,
+                                                   &__main_block_desc_0_DATA,
+                                                   &a,
+                                                   570425344);
          */
         
         struct __main_block_impl_0 *stackBlockImpl = (__bridge struct __main_block_impl_0 *)stackBlock;
         /*
-         * 打印可以查看：
-         * po &a 或 po &(blockImpl->a->a) ：0x0000000100710b18 ==> 这是a的地址值
-         * po blockImpl->a ：0x0000000100710b00 ==> 这是将a包装在里面的那个对象的地址值
-         * a的地址值跟这个对象的地址值刚好相差24个字节，证明a的确包装在这个对象里面的。
-         * 就是这个结构体：
+         *【问题】：访问a，访问的是被包装后的对象？还是包装后的对象里面的那个a？
+         *
+         * 打个断点可以查看：
+         * 1.打印a的地址：po &a = 0x0000000100710b18
+         * 2.打印block中的“a”：po stackBlockImpl->a = 0x0000000100710b00（这是将a包装在里面的那个对象的地址值）
+         * 3.打印“a”里面的a的地址：po &(stackBlockImpl->a->a) = 0x0000000100710b18
+         * 1和3的地址是一样的：&a == &(stackBlockImpl->a->a)，并且这个地址保存着a的值，这个才是本来的a
+         * 2和1、3的地址刚好相差24个字节（0x18），证明a的确包装在这个对象里面的。
+         * 从结构上可以看出：
             struct __Block_byref_a_0 {
-                void *__isa; // 从 0x0000000100710b00 开始，占8字节
+                void *__isa;    // 从 0x0000000100710b00 开始，占8字节
                 struct __Block_byref_a_0 *__forwarding;    // 占8字节
                 int __flags;                               // 占4字节
-                int __size;                                // 占4字节
-                int a; // 这里就是：0x0000000100710b00 + 0x18 = 0x0000000100710b18
+                int __size;                                // 占4字节 --> 8 + 8 + 4 + 4 = 24 = 0x18
+                int a;  // 到这里就是：0x0000000100710b00 + 0x18 = 0x0000000100710b18
             };
          *
-         * block里面的a不是真的a，是__block变量结构体，真的a在这个结构体里面
+         * block里面的a不是真的a，是__block变量结构体（__Block_byref_a_0），真的a在这个结构体里面
          * 对a的【赋值】看上去是直接赋值，实际上是：a->__forwarding->a = 31
-         * 对a的【取值】看上去是直接取值，实际上是：a.__forwarding->a
+         * 对a的【取值】看上去是直接取值，实际上是：31 = a->__forwarding->a
          * 所以打印a的地址并不是包装a的结构体的地址，而真的是a的地址值
-         * 苹果表面上对其进行了隐蔽的效果，不公开内部实现，让开发者觉得就只是对a进行了操作
-         * 实际上是包装到一个对象里面再通过这个对象进行操作，类似于KVO
+         *
+         * 苹果表面上对其进行了【隐蔽】的效果，不公开内部实现，让开发者觉得就只是对a进行了操作
+         * 实际上是包装到一个对象里面，再通过这个对象对a进行操作，类似于【KVO】，便于开发时不显得复杂。
+         *
+         *【答案】：访问a，访问的是包装后的对象里面的那个a。
          */
-        NSLog(@"block class is %@", [stackBlock class]); // __NSStackBlock__
-        NSLog(@"a address is %p", &a); // 0x7ffeefbff448
-        NSLog(@"blockImpl->a->a address is %p", &(stackBlockImpl->a->a)); // 0x7ffeefbff448
-        NSLog(@"blockImpl->a address is %p", stackBlockImpl->a); // 0x7ffeefbff430
-        NSLog(@"a is %d", a); // 29
+        
         NSLog(@"------ before copy ------");
+        NSLog(@"block class is %@", [stackBlock class]); // __NSStackBlock__
+        NSLog(@"&a = %p", &a); // 0x7ffeefbff448
+        NSLog(@"stackBlockImpl->a->a = %p", &(stackBlockImpl->a->a)); // 0x7ffeefbff448
+        NSLog(@"stackBlockImpl->a = %p", stackBlockImpl->a); // 0x7ffeefbff430
+        NSLog(@"a = %d", a); // 29
         /*
          * 在这打个断点在控制台打印日志查看：
          * 输入：x/4xg 0x7ffeefbff430，查看【栈上】__block变量结构体（stackBlockImpl->a）的内容
@@ -194,12 +209,12 @@ int main(int argc, const char * argv[]) {
         
         stackBlock();
         
-        NSLog(@"block class is %@", [mallocBlock class]);
-        NSLog(@"a address is %p", &a);
-        NSLog(@"blockImpl->a->a address is %p", &(mallocBlockImpl->a->a));
-        NSLog(@"blockImpl->a address is %p", mallocBlockImpl->a);
-        NSLog(@"a is %d", a);
         NSLog(@"------ after copy ------");
+        NSLog(@"block class is %@", [mallocBlock class]);
+        NSLog(@"&a = %p", &a);
+        NSLog(@"mallocBlockImpl->a->a = %p", &(mallocBlockImpl->a->a));
+        NSLog(@"mallocBlockImpl->a = %p", mallocBlockImpl->a);
+        NSLog(@"a = %d", a);
         /*
          * 在这打个断点在控制台打印日志查看：
          * 输入：x/4xg 0x7ffeefbff430，查看【栈上】__block变量结构体（stackBlockImpl->a）的内容
@@ -242,13 +257,13 @@ int main(int argc, const char * argv[]) {
          * 当对这个变量赋值时，blokc会通过这个指针找到这个结构体
          * 再通过结构体里面那个指向自身的指针(__forwarding)找到结构体的内存
          * 最后找到这个变量，进行赋值。
-         * OC代码：a = 31 ==> C++代码：a->__forwarding->a = 31;
+         * OC代码：a = 31 <==> C++代码：a->__forwarding->a = 31;
          *
          *【取值】
          * 当取出这个变量时，blokc会通过这个指针找到这个结构体
          * 再通过结构体里面那个指向自身的指针(__forwarding)找到结构体的内存
          * 最后找到这个变量，取值。
-         * OC代码：a ==> C++代码：a.__forwarding->a;
+         * OC代码：a <==> C++代码：a.__forwarding->a;
          */
         
         
@@ -291,47 +306,41 @@ int main(int argc, const char * argv[]) {
         };
         perBlock();
         
+        NSLog(@"-------先验证结构对不对-------");
+        
         struct __main_block_impl_1 *perBlockImpl = (__bridge struct __main_block_impl_1 *)perBlock;
         NSLog(@"per2 --- %p", per2);
         NSLog(@"blockPer --- %p", blockPer);
+        
         NSLog(@"perBlockImpl->per2 --- %p", perBlockImpl->per2);
         NSLog(@"perBlockImpl->blockPer --- %p", perBlockImpl->blockPer);
         NSLog(@"perBlockImpl->blockPer->blockPer --- %p", perBlockImpl->blockPer->blockPer);
-        
-        NSLog(@"-------先验证结构对不对-------");
+       
+        NSLog(@"blockPer和perBlockImpl->blockPer->blockPer的地址是一样，说明真正的blockPer是“藏”在perBlockImpl->blockPer里面的");
         
         Class perCls = [JPPerson class];
         NSLog(@"JPPerson的class %p", perCls);
         Class perMetaCls = object_getClass(perCls);
         NSLog(@"JPPerson的metaClass %p", perMetaCls);
         
+        NSLog(@"这里打个断点再打印“p/x perBlockImpl->per2->isa”，地址就是JPPerson的类对象地址，没毛病");
         NSLog(@"perBlockImpl->blockPer->__isa --- %p", perBlockImpl->blockPer->__isa);
-        NSLog(@"不是指向对象的class");
+        NSLog(@"明显这个并不是指向JPPerson的类对象地址");
         
-        // 从编译C++代码可以看出：
-        /*
-         __Block_byref_a_0 a =
-            {
-                0,
-                &a,
-                0,
-                sizeof(__Block_byref_a_0),
-                29
-            };
-         
-         __Block_byref_blockPer_1 blockPer =
-            {
-                0, ---> isa被赋值为0
-                &blockPer,
-                33554432,
-                sizeof(__Block_byref_blockPer_1),
-                __Block_byref_id_object_copy_131,
-                __Block_byref_id_object_dispose_131,
-                per
-            };
-         */
-        
-        NSLog(@"结论：凡是被__block修饰的变量，__block变量结构体里面的isa都指向0x0，啥都不是");
+       /*
+        * 从编译后的C++代码可以看出：
+            __Block_byref_blockPer_1 blockPer =
+               {
+                   0, ---> __isa被赋值为0
+                   &blockPer, ---> __forwarding
+                   33554432, ---> __flags
+                   sizeof(__Block_byref_blockPer_1), ---> __size
+                   __Block_byref_id_object_copy_131, ---> __copy
+                   __Block_byref_id_object_dispose_131, ---> __dispose
+                   per ---> blockPer
+               };
+        */
+        NSLog(@"结论：凡是被__block修饰的变量，包装后的__block变量结构体里面的isa都指向0x0，不属于任何类，仅仅是个对象而已");
         
         [perBlock release];
     }

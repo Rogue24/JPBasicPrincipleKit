@@ -56,11 +56,15 @@
     
     per1Cls = object_getClass(self.per1);
     per2Cls = object_getClass(self.per2);
-    NSLog(@"类对象：per1：%@ --- %p， per2：%@ --- %p", per1Cls, per1Cls, per2Cls, per2Cls); // 可以看出isa已经指向一个新的类对象
+    NSLog(@"类对象：per1：%@ --- %p， per2：%@ --- %p", per1Cls, per1Cls, per2Cls, per2Cls);
+    // 可以看到，添加KVO之后实例对象的isa已经指向一个新的类对象（NSKVONotifying_JPPerson）
+    // NSKVONotifying_JPPerson是继承JPPerson类对象的子类
     
     per1MCls = object_getClass(per1Cls);
     per2MCls = object_getClass(per2Cls);
-    NSLog(@"元类对象：per1：%@ --- %p --- %d， per2：%@ --- %p", per1MCls, per1MCls, class_isMetaClass(per1MCls), per2MCls, per2MCls); // 可以看出isa已经指向一个新的元类对象
+    NSLog(@"元类对象：per1：%@ --- %p --- %d， per2：%@ --- %p", per1MCls, per1MCls, class_isMetaClass(per1MCls), per2MCls, per2MCls);
+    // 可以看到，添加KVO之后类对象的isa已经指向一个新的元类对象（NSKVONotifying_JPPerson）
+    // 这应该也是一个继承JPPerson元类对象的子类（类对象和元类对象名字是一样的）
     
     // 打个断点：输入“p (IMP)方法地址”以查看方法的信息
     

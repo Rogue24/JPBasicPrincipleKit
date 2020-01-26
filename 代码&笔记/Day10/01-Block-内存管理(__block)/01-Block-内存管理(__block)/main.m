@@ -198,7 +198,8 @@ int main(int argc, const char * argv[]) {
          * 总结2：block的内存管理
          *
          *【栈空间的block】
-         * 不会对捕获的auto变量产生强引用，永远都是弱引用
+         * 不会对捕获的auto变量产生强引用，【永远都是弱引用】
+         * <<毕竟自身随时被销毁，也就没必要强引用其他对象>>
          * PS1：执行block时，捕获的auto变量有可能就已经被销毁了，就会造成坏内存访问的错误
          * PS2：要后续执行block只能赋值给__strong指针，
          * 不过在ARC环境下会自动进行copy操作升级为MallocBlock，因此block会保住auto变量的命，
