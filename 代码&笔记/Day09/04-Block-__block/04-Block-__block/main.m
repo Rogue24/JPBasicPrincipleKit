@@ -316,7 +316,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"perBlockImpl->blockPer --- %p", perBlockImpl->blockPer);
         NSLog(@"perBlockImpl->blockPer->blockPer --- %p", perBlockImpl->blockPer->blockPer);
        
-        NSLog(@"blockPer和perBlockImpl->blockPer->blockPer的地址是一样，说明真正的blockPer是“藏”在perBlockImpl->blockPer里面的");
+        NSLog(@"blockPer和perBlockImpl->blockPer->blockPer的地址是一样，说明本来的blockPer（指向堆空间的指针）是“藏”在perBlockImpl->blockPer的里面");
         
         Class perCls = [JPPerson class];
         NSLog(@"JPPerson的class %p", perCls);
@@ -337,8 +337,13 @@ int main(int argc, const char * argv[]) {
                    sizeof(__Block_byref_blockPer_1), ---> __size
                    __Block_byref_id_object_copy_131, ---> __copy
                    __Block_byref_id_object_dispose_131, ---> __dispose
-                   per ---> blockPer
+                   per ---> blockPer = __isa + (8 + 8 + 4 + 4 + 8 + 8 = 40 = 0x28)
                };
+        blockPer：是一个指向堆空间（实例对象）的指针
+        perBlockImpl->blockPer --- 0x7ffeefbff428
+        po &(perBlockImpl->blockPer->blockPer) --- 0x7ffeefbff450
+        po &(blockPer) --- 0x7ffeefbff450
+        0x7ffeefbff428 + 0x28 = 0x7ffeefbff450
         */
         NSLog(@"结论：凡是被__block修饰的变量，包装后的__block变量结构体里面的isa都指向0x0，不属于任何类，仅仅是个对象而已");
         
