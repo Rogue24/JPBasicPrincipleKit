@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A2C61DA236FD95500E5998A /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2C61D9236FD95500E5998A /* JPPerson.m */; };
-		1A470818236E9FA7005E9641 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A470817236E9FA7005E9641 /* main.m */; };
+		1AEAE05B23E2042100CBA2CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEAE05A23E2042100CBA2CF /* main.m */; };
+		1AEAE06323E2042D00CBA2CF /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEAE06223E2042D00CBA2CF /* JPPerson.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1A470812236E9FA7005E9641 /* CopyFiles */ = {
+		1AEAE05523E2042100CBA2CF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -24,22 +24,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1A2C61D3236F48FF00E5998A /* 对象类型的__blcok变量和auto变量.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "对象类型的__blcok变量和auto变量.jpg"; sourceTree = "<group>"; };
-		1A2C61D6236FD17600E5998A /* __block的__forwarding指针.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block的__forwarding指针.jpg"; sourceTree = "<group>"; };
-		1A2C61D8236FD95500E5998A /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
-		1A2C61D9236FD95500E5998A /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
-		1A470814236E9FA7005E9641 /* 02-Block-内存管理(__block修饰的对象) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "02-Block-内存管理(__block修饰的对象)"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1A470817236E9FA7005E9641 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1A7FB92A236EC45800C859DC /* __block修饰符.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block修饰符.jpg"; sourceTree = "<group>"; };
-		1A7FB92B236EED6000C859DC /* __block的内存管理（引用）.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block的内存管理（引用）.jpg"; sourceTree = "<group>"; };
-		1A7FB92C236EED6B00C859DC /* __block的内存管理（释放）.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block的内存管理（释放）.jpg"; sourceTree = "<group>"; };
-		1AB3B9C22370226500A4836A /* main-mrc-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "main-mrc-arm64.cpp"; sourceTree = "<group>"; };
-		1AB3B9C323702C2500A4836A /* main-arc-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "main-arc-arm64.cpp"; sourceTree = "<group>"; };
-		1AEAE04D23E1FF7D00CBA2CF /* 对象类型的__blcok变量的内存管理.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "对象类型的__blcok变量的内存管理.jpg"; sourceTree = "<group>"; };
+		1AEAE05723E2042100CBA2CF /* 证明StackBlock不会强引用auto变量 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "证明StackBlock不会强引用auto变量"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AEAE05A23E2042100CBA2CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1AEAE06123E2042C00CBA2CF /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
+		1AEAE06223E2042D00CBA2CF /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1A470811236E9FA7005E9641 /* Frameworks */ = {
+		1AEAE05423E2042100CBA2CF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,75 +41,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A47080B236E9FA7005E9641 = {
+		1AEAE04E23E2042100CBA2CF = {
 			isa = PBXGroup;
 			children = (
-				1A470816236E9FA7005E9641 /* 02-Block-内存管理(__block修饰的对象) */,
-				1A470815236E9FA7005E9641 /* Products */,
+				1AEAE05923E2042100CBA2CF /* 证明StackBlock不会强引用auto变量 */,
+				1AEAE05823E2042100CBA2CF /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		1A470815236E9FA7005E9641 /* Products */ = {
+		1AEAE05823E2042100CBA2CF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A470814236E9FA7005E9641 /* 02-Block-内存管理(__block修饰的对象) */,
+				1AEAE05723E2042100CBA2CF /* 证明StackBlock不会强引用auto变量 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1A470816236E9FA7005E9641 /* 02-Block-内存管理(__block修饰的对象) */ = {
+		1AEAE05923E2042100CBA2CF /* 证明StackBlock不会强引用auto变量 */ = {
 			isa = PBXGroup;
 			children = (
-				1A7FB92A236EC45800C859DC /* __block修饰符.jpg */,
-				1A2C61D6236FD17600E5998A /* __block的__forwarding指针.jpg */,
-				1A7FB92B236EED6000C859DC /* __block的内存管理（引用）.jpg */,
-				1A7FB92C236EED6B00C859DC /* __block的内存管理（释放）.jpg */,
-				1A2C61D3236F48FF00E5998A /* 对象类型的__blcok变量和auto变量.jpg */,
-				1AEAE04D23E1FF7D00CBA2CF /* 对象类型的__blcok变量的内存管理.jpg */,
-				1A470817236E9FA7005E9641 /* main.m */,
-				1AB3B9C323702C2500A4836A /* main-arc-arm64.cpp */,
-				1AB3B9C22370226500A4836A /* main-mrc-arm64.cpp */,
-				1A2C61D8236FD95500E5998A /* JPPerson.h */,
-				1A2C61D9236FD95500E5998A /* JPPerson.m */,
+				1AEAE05A23E2042100CBA2CF /* main.m */,
+				1AEAE06123E2042C00CBA2CF /* JPPerson.h */,
+				1AEAE06223E2042D00CBA2CF /* JPPerson.m */,
 			);
-			path = "02-Block-内存管理(__block修饰的对象)";
+			path = "证明StackBlock不会强引用auto变量";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1A470813236E9FA7005E9641 /* 02-Block-内存管理(__block修饰的对象) */ = {
+		1AEAE05623E2042100CBA2CF /* 证明StackBlock不会强引用auto变量 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1A47081B236E9FA7005E9641 /* Build configuration list for PBXNativeTarget "02-Block-内存管理(__block修饰的对象)" */;
+			buildConfigurationList = 1AEAE05E23E2042100CBA2CF /* Build configuration list for PBXNativeTarget "证明StackBlock不会强引用auto变量" */;
 			buildPhases = (
-				1A470810236E9FA7005E9641 /* Sources */,
-				1A470811236E9FA7005E9641 /* Frameworks */,
-				1A470812236E9FA7005E9641 /* CopyFiles */,
+				1AEAE05323E2042100CBA2CF /* Sources */,
+				1AEAE05423E2042100CBA2CF /* Frameworks */,
+				1AEAE05523E2042100CBA2CF /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "02-Block-内存管理(__block修饰的对象)";
-			productName = "04-Block-__block";
-			productReference = 1A470814236E9FA7005E9641 /* 02-Block-内存管理(__block修饰的对象) */;
+			name = "证明StackBlock不会强引用auto变量";
+			productName = xxx;
+			productReference = 1AEAE05723E2042100CBA2CF /* 证明StackBlock不会强引用auto变量 */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1A47080C236E9FA7005E9641 /* Project object */ = {
+		1AEAE04F23E2042100CBA2CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "周健平";
 				TargetAttributes = {
-					1A470813236E9FA7005E9641 = {
-						CreatedOnToolsVersion = 11.1;
+					1AEAE05623E2042100CBA2CF = {
+						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
-			buildConfigurationList = 1A47080F236E9FA7005E9641 /* Build configuration list for PBXProject "02-Block-内存管理(__block修饰的对象)" */;
+			buildConfigurationList = 1AEAE05223E2042100CBA2CF /* Build configuration list for PBXProject "证明StackBlock不会强引用auto变量" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -125,30 +109,30 @@
 				en,
 				Base,
 			);
-			mainGroup = 1A47080B236E9FA7005E9641;
-			productRefGroup = 1A470815236E9FA7005E9641 /* Products */;
+			mainGroup = 1AEAE04E23E2042100CBA2CF;
+			productRefGroup = 1AEAE05823E2042100CBA2CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1A470813236E9FA7005E9641 /* 02-Block-内存管理(__block修饰的对象) */,
+				1AEAE05623E2042100CBA2CF /* 证明StackBlock不会强引用auto变量 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1A470810236E9FA7005E9641 /* Sources */ = {
+		1AEAE05323E2042100CBA2CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A2C61DA236FD95500E5998A /* JPPerson.m in Sources */,
-				1A470818236E9FA7005E9641 /* main.m in Sources */,
+				1AEAE06323E2042D00CBA2CF /* JPPerson.m in Sources */,
+				1AEAE05B23E2042100CBA2CF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1A470819236E9FA7005E9641 /* Debug */ = {
+		1AEAE05C23E2042100CBA2CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -206,7 +190,7 @@
 			};
 			name = Debug;
 		};
-		1A47081A236E9FA7005E9641 /* Release */ = {
+		1AEAE05D23E2042100CBA2CF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -257,19 +241,19 @@
 			};
 			name = Release;
 		};
-		1A47081C236E9FA7005E9641 /* Debug */ = {
+		1AEAE05F23E2042100CBA2CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		1A47081D236E9FA7005E9641 /* Release */ = {
+		1AEAE06023E2042100CBA2CF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -278,25 +262,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1A47080F236E9FA7005E9641 /* Build configuration list for PBXProject "02-Block-内存管理(__block修饰的对象)" */ = {
+		1AEAE05223E2042100CBA2CF /* Build configuration list for PBXProject "证明StackBlock不会强引用auto变量" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1A470819236E9FA7005E9641 /* Debug */,
-				1A47081A236E9FA7005E9641 /* Release */,
+				1AEAE05C23E2042100CBA2CF /* Debug */,
+				1AEAE05D23E2042100CBA2CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1A47081B236E9FA7005E9641 /* Build configuration list for PBXNativeTarget "02-Block-内存管理(__block修饰的对象)" */ = {
+		1AEAE05E23E2042100CBA2CF /* Build configuration list for PBXNativeTarget "证明StackBlock不会强引用auto变量" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1A47081C236E9FA7005E9641 /* Debug */,
-				1A47081D236E9FA7005E9641 /* Release */,
+				1AEAE05F23E2042100CBA2CF /* Debug */,
+				1AEAE06023E2042100CBA2CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1A47080C236E9FA7005E9641 /* Project object */;
+	rootObject = 1AEAE04F23E2042100CBA2CF /* Project object */;
 }

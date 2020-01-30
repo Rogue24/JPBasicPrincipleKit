@@ -190,12 +190,14 @@ int main(int argc, const char * argv[]) {
          *【答案】：访问a，访问的是包装后的对象里面的那个a。
          */
         
-        NSLog(@"------ before copy ------");
+        NSLog(@"====== before copy ======");
         NSLog(@"block class is %@", [stackBlock class]); // __NSStackBlock__
         NSLog(@"&a = %p", &a); // 0x7ffeefbff448
         NSLog(@"stackBlockImpl->a->a = %p", &(stackBlockImpl->a->a)); // 0x7ffeefbff448
-        NSLog(@"stackBlockImpl->a = %p", stackBlockImpl->a); // 0x7ffeefbff430
+        NSLog(@"stackBlockImpl->a = %p", stackBlockImpl->a); // 0x7ffeefbff430 ↑↓相差0x18
         NSLog(@"a = %d", a); // 29
+        NSLog(@"stackBlockImpl->a->__forwarding = %p", stackBlockImpl->a->__forwarding); // 本来是指向自己：stackBlockImpl->a
+        NSLog(@"=========================");
         /*
          * 在这打个断点在控制台打印日志查看：
          * 输入：x/4xg 0x7ffeefbff430，查看【栈上】__block变量结构体（stackBlockImpl->a）的内容
@@ -209,12 +211,14 @@ int main(int argc, const char * argv[]) {
         
         stackBlock();
         
-        NSLog(@"------ after copy ------");
+        NSLog(@"====== after copy ======");
         NSLog(@"block class is %@", [mallocBlock class]);
         NSLog(@"&a = %p", &a);
         NSLog(@"mallocBlockImpl->a->a = %p", &(mallocBlockImpl->a->a));
-        NSLog(@"mallocBlockImpl->a = %p", mallocBlockImpl->a);
+        NSLog(@"mallocBlockImpl->a = %p", mallocBlockImpl->a); // ↑↓相差0x18
         NSLog(@"a = %d", a);
+        NSLog(@"stackBlockImpl->a->__forwarding = %p", stackBlockImpl->a->__forwarding); // 会变成指向堆上的那个：mallocBlockImpl->a
+        NSLog(@"=========================");
         /*
          * 在这打个断点在控制台打印日志查看：
          * 输入：x/4xg 0x7ffeefbff430，查看【栈上】__block变量结构体（stackBlockImpl->a）的内容

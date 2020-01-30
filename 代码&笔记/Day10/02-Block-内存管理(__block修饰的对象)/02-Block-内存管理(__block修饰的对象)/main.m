@@ -31,22 +31,22 @@ struct __main_block_desc_0 {
 //    void (*dispose)(struct __main_block_impl_0*);
 }; // __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
 
-/*
- * 为啥加40？因为：
-    void *__isa;                                        --> + 8
-    struct __Block_byref_block_per1_0 *__forwarding;    --> + 8
-    int __flags;                                        --> + 4
-    int __size;                                         --> + 4
-    void (*__Block_byref_id_object_copy)(void*, void*); --> + 8
-    void (*__Block_byref_id_object_dispose)(void*);     --> + 8
-    JPPerson *__weak block_per1;                 obj地址 ==> struct地址 + 40
- */
 void __Block_byref_id_object_copy_131(void *dst, void *src) {
     _Block_object_assign((char*)dst + 40, *(void * *) ((char*)src + 40), 131);
 }
 void __Block_byref_id_object_dispose_131(void *src) {
     _Block_object_dispose(*(void * *) ((char*)src + 40), 131);
 }
+/*
+ * 为啥要加40？因为实际的对象地址在这个__block变量结构体的首地址后40个字节的位置：
+   void *__isa;                                        --> + 8
+   struct __Block_byref_block_per1_0 *__forwarding;    --> + 8
+   int __flags;                                        --> + 4
+   int __size;                                         --> + 4
+   void (*__Block_byref_id_object_copy)(void*, void*); --> + 8
+   void (*__Block_byref_id_object_dispose)(void*);     --> + 8
+   JPPerson *__weak block_per1;            对象指针的地址 = struct的首地址 + 40（0x28）
+ */
 
 struct __Block_byref_block_per1_0 {
     void *__isa;
@@ -136,14 +136,8 @@ int main(int argc, const char * argv[]) {
         {
             //【ARC】
             /*
-             * __block：编译器会将其包装成__block变量结构体，会被block强引用
+             * __block：编译器会将其包装成<<__block变量结构体>>，会被block【强】引用
              * PS：其实就是一个对象，里面有isa指针
-             *
-             * __weak：弱引用，只针对OC对象
-             *
-             * 这两种修饰是一样的：
-             * __weak __block JPPerson *block_per1 = per1;
-             * __block __weak JPPerson *block_per2 = per2;
              *
              * 被__block修饰的对象会被编译器会将其包装成__block变量结构体：
                 struct __Block_byref_block_per2_1 {
@@ -153,31 +147,35 @@ int main(int argc, const char * argv[]) {
                     int __size;
                     void (*__Block_byref_id_object_copy)(void*, void*);
                     void (*__Block_byref_id_object_dispose)(void*);
-                    JPPerson *__weak block_per1; // 真正的对象地址，引用类型取决于对象定义时的引用类型，默认是__strong
+                    JPPerson *__weak block_per1; // 真正指向对象地址的指针，引用类型取决于对象定义时的引用类型，默认是__strong
                 };
              * 包装对象的__block变量结构体内部比包装基本数据类型多出了两个函数，用于内存管理：
              * copy函数：当结构体被拷贝到堆上时内部会调用这个函数
              * dispose函数：当结构体从堆上移除时内部会调用这个函数
              *
-             * 当block拷贝到堆上：
+             *【当block从栈上拷贝到堆上时】：
              * ↓
-             * 调用block的_Block_object_assign
+             * 调用block的Desc结构体的copy函数
              * ↓
-             * 把__block变量结构体拷贝到堆上
+             * __main_block_copy_0 -> _Block_object_assign
+             * ↓
+             * 把__block变量结构体拷贝到堆上，对__block变量结构体产生【强】引用
              * ↓
              * 调用__block变量结构体的__Block_byref_id_object_copy
              * ↓
              * __Block_byref_id_object_copy_131 -> _Block_object_assign
              * ↓
-             * 创建__block变量结构体指向对象的指针（retain），根据对象的引用修饰符做相应操作：
-             *【ARC】环境下：__strong就使用强指针，__weak就使用弱指针
-             *【MRC】环境下：不过是什么引用修饰符，都是使用弱指针（弱引用），不会是强引用
+             * 根据对象的引用修饰符做相应操作：
+             *【ARC】环境下：__strong就强引用（retain），__weak就弱引用（不会retain）
+             *【MRC】环境下：不管是什么引用修饰符，都不会强引用（不会retain）
              *
-             * 当block从堆上移除时：
+             *【当block从堆上移除时】：
              * ↓
-             * 调用block的_Block_object_dispose
+             * 调用block的Desc结构体的dispose函数
              * ↓
-             * 把__block变量结构体从堆上移除
+             * __main_block_dispose_0 -> _Block_object_dispose
+             * ↓
+             * 释放__block变量结构体，把__block变量结构体从堆上移除
              * ↓
              * 调用__block变量结构体的__Block_byref_id_object_dispose
              * ↓
@@ -185,9 +183,16 @@ int main(int argc, const char * argv[]) {
              * ↓
              * 删除__block变量结构体指向对象的指针（release）
              */
+            
             JPPerson *per1 = [[JPPerson alloc] init];
-            __weak __block JPPerson *block_per1 = per1;
             JPPerson *per2 = [[JPPerson alloc] init];
+            /*
+             * __weak：弱引用，只针对OC对象，不会影响__block变量结构体（这个一直是__strong引用）
+             * 因此这两种修饰方式是一样的：
+             * 1. __weak __block JPPerson *block_per1 = per1;
+             * 2. __block __weak JPPerson *block_per2 = per2;
+             */
+            __weak __block JPPerson *block_per1 = per1;
             __block __weak JPPerson *block_per2 = per2;
             
             __block JPPerson *per3 = [[JPPerson alloc] init];
@@ -263,7 +268,8 @@ int main(int argc, const char * argv[]) {
          * 总结2：block的内存管理
          *
          *【栈空间的block】
-         * 不会对捕获的auto变量产生强引用，永远都是弱引用
+         * 不会对捕获的auto变量产生强引用，【永远都是弱引用】
+         * <<毕竟自身随时被销毁，也就没必要强引用其他对象>>
          * PS1：执行block时，捕获的auto变量有可能就已经被销毁了，就会造成坏内存访问的错误
          * PS2：要后续执行block只能赋值给__strong指针，
          * 不过在ARC环境下会自动进行copy操作升级为MallocBlock，因此block会保住auto变量的命，

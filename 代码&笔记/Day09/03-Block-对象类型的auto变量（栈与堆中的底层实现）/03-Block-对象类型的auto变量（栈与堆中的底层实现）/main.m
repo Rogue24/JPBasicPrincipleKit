@@ -69,7 +69,7 @@ static struct __main_block_desc_0 {
     size_t reserved;
     size_t Block_size;
 
-    // 当block内部访问了【对象类型的auto变量】，会多了这两个函数指针：
+    // 当block内部访问了【对象类型】的auto变量，会多了这两个函数指针：
     //【1】__main_block_copy_0：
     void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
     //【2】__main_block_dispose_0：

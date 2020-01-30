@@ -104,6 +104,19 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         NSLog(@"Hello, World!");
         
+        // 使用了__block修饰的区别：使用起来就是对【同一个本体指针】进行操作
+        JPBlock block111;
+        NSObject *obj111 = [[NSObject alloc] init];
+        __block NSObject *obj222 = [[NSObject alloc] init];
+        block111 = ^{
+            NSLog(@"obj111 is %@", obj111);
+            NSLog(@"obj222 is %@", obj222);
+            obj222 = nil;
+        };
+        obj111 = nil;
+        obj222 = nil;
+        block111();
+        
         __block int a = 29;
         int b = 12;
         

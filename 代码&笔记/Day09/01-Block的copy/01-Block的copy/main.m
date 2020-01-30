@@ -40,19 +40,25 @@ int main(int argc, const char * argv[]) {
         //【有以下几种情况会自动copy】
         
         //【1】block作为函数返回值时
-        JPBlock block1 = jpblock();
-        NSLog(@"block1 作为函数返回值 %@", [block1 class]);
+        NSLog(@"【1】block作为函数返回值时 %@", [jpblock() class]);
         
         //【2】将block赋值给__strong指针时（至少在作用域范围内不被销毁的指针）
         int b = 8;
-        NSLog(@"block2 没赋值 %@", [^{
+        JPBlock strongBlock = ^{
+            NSLog(@"Hello, Block! %d", b);
+        };
+        NSLog(@"【2】将block赋值给__strong指针 %@", [strongBlock class]);
+        
+        NSLog(@"【2.1】没有赋值给__strong指针 %@", [^{
             NSLog(@"Hello, Block! %d", b);
         } class]);
         
-        JPBlock block2 = ^{
+        __weak JPBlock weakBlock = ^{
             NSLog(@"Hello, Block! %d", b);
-        };
-        NSLog(@"block2 赋值了 %@", [block2 class]);
+        }; // 将block赋值给__weak指针时还是StackBlock类型
+        JPBlock copyWeakBlock = [weakBlock copy]; // StackBlock  --copy--> MallocBlock
+        NSLog(@"【2.2】将block赋值给__weak指针 %@ %@", weakBlock, [weakBlock class]);
+        NSLog(@"【2.2】对StackBlock使用copy后 %@ %@", copyWeakBlock, [copyWeakBlock class]);
         
         //【3】block作为Cocoa API中方法名含有“usingBlock”的方法参数时
         [[NSArray new] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
