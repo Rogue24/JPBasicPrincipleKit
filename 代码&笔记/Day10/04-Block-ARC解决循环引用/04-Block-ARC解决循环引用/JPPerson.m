@@ -17,7 +17,7 @@
 - (void)test {
     __weak typeof(self) weakSelf = self;
     self.block = ^{
-        NSLog(@"+ %d", weakSelf.age);
+        NSLog(@"（内部）使用__weak修饰 %d", weakSelf.age);
     };
     self.block();
 }

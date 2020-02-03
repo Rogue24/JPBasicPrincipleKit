@@ -10,6 +10,12 @@
 
 @implementation JPPerson
 
+// set方法要用【驼峰法】，不然不会触发KVO。
+- (void)setheight:(int)height {
+    _height = height;
+    NSLog(@"setheight");
+}
+
 - (void)setHeight:(int)height {
     _height = height;
     NSLog(@"setHeight");

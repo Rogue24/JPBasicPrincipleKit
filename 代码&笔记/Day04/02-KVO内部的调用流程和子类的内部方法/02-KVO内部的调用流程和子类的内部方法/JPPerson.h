@@ -13,7 +13,11 @@
     @public
     int _height;
 }
+- (void)setheight:(int)height; // set方法要用【驼峰法】，不然不会触发KVO。
 - (void)setHeight:(int)height;
+
 @property (nonatomic, assign) int age;
+
 @property (nonatomic, assign) int weight;
+
 @end

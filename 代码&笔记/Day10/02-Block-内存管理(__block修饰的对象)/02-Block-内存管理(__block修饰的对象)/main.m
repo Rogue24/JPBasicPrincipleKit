@@ -161,13 +161,14 @@ int main(int argc, const char * argv[]) {
              * ↓
              * 把__block变量结构体拷贝到堆上，对__block变量结构体产生【强】引用
              * ↓
-             * 调用__block变量结构体的__Block_byref_id_object_copy
+             * 调用__block变量结构体的__Block_byref_id_object_copy函数
              * ↓
-             * __Block_byref_id_object_copy_131 -> _Block_object_assign
+             * __Block_byref_id_object_copy_131 -> _Block_object_assign（8）
              * ↓
              * 根据对象的引用修饰符做相应操作：
              *【ARC】环境下：__strong就强引用（retain），__weak就弱引用（不会retain）
-             *【MRC】环境下：不管是什么引用修饰符，都不会强引用（不会retain）
+             *【MRC】环境下：不管是什么引用修饰符，都不会强引用，即不会进行retain操作
+             * PS：由于MRC环境没有weak指针，所以在MRC环境下是用__block来解决循环引用的问题
              *
              *【当block从堆上移除时】：
              * ↓
@@ -179,7 +180,7 @@ int main(int argc, const char * argv[]) {
              * ↓
              * 调用__block变量结构体的__Block_byref_id_object_dispose
              * ↓
-             * __Block_byref_id_object_dispose_131 -> _Block_object_dispose
+             * __Block_byref_id_object_dispose_131 -> _Block_object_dispose（8）
              * ↓
              * 删除__block变量结构体指向对象的指针（release）
              */

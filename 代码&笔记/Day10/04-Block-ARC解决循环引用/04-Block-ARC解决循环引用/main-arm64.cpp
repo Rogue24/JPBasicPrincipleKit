@@ -106,18 +106,18 @@ struct __AtAutoreleasePool {
 };
 
 #define __OFFSETOFIVAR__(TYPE, MEMBER) ((long long) &((TYPE *)0)->MEMBER)
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_0 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"Hello, World!",13};
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_1 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"~ %d",4};
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_2 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"~ %d",4};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_0 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"Hello, World!",13};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_1 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"\357\274\210\345\244\226\351\203\250\357\274\211\344\275\277\347\224\250__weak\344\277\256\351\245\260 %d",33};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_2 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"\344\275\277\347\224\250__unsafe_unretained\344\277\256\351\245\260 %d",34};
 static void __Block_byref_id_object_copy_131(void *dst, void *src) {
  _Block_object_assign((char*)dst + 40, *(void * *) ((char*)src + 40), 131);
 }
 static void __Block_byref_id_object_dispose_131(void *src) {
  _Block_object_dispose(*(void * *) ((char*)src + 40), 131);
 }
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_3 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"blockPer2 age is %d",19};
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_4 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"blockPer2 is nil",16};
-static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_5 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"---------finish---------",24};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_3 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"blockPer age is %d",18};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_4 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"blockPer is nil",15};
+static __NSConstantStringImpl __NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_5 __attribute__ ((section ("__DATA, __cfstring"))) = {__CFConstantStringClassReference,0x000007c8,"---------finish---------",24};
 
 
 
@@ -33826,14 +33826,14 @@ struct JPPerson_IMPL {
 /* @end */
 
 
-struct __Block_byref_blockPer2_0 {
+struct __Block_byref_blockPer_0 {
   void *__isa;
-__Block_byref_blockPer2_0 *__forwarding;
+__Block_byref_blockPer_0 *__forwarding;
  int __flags;
  int __size;
  void (*__Block_byref_id_object_copy)(void*, void*);
  void (*__Block_byref_id_object_dispose)(void*);
- JPPerson *__strong blockPer2;
+ JPPerson *__strong blockPer;
 };
 
 struct __main_block_impl_0 {
@@ -33850,7 +33850,7 @@ struct __main_block_impl_0 {
 static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
   JPPerson *__weak weakPer = __cself->weakPer; // bound by copy
 
-            NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_1, ((int (*)(id, SEL))(void *)objc_msgSend)((id)weakPer, sel_registerName("age")));
+            NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_1, ((int (*)(id, SEL))(void *)objc_msgSend)((id)weakPer, sel_registerName("age")));
         }
 static void __main_block_copy_0(struct __main_block_impl_0*dst, struct __main_block_impl_0*src) {_Block_object_assign((void*)&dst->weakPer, (void*)src->weakPer, 3/*BLOCK_FIELD_IS_OBJECT*/);}
 
@@ -33866,8 +33866,8 @@ static struct __main_block_desc_0 {
 struct __main_block_impl_1 {
   struct __block_impl impl;
   struct __main_block_desc_1* Desc;
-  JPPerson *__unsafe_unretained weakPer1;
-  __main_block_impl_1(void *fp, struct __main_block_desc_1 *desc, JPPerson *__unsafe_unretained _weakPer1, int flags=0) : weakPer1(_weakPer1) {
+  JPPerson *__unsafe_unretained usurPer;
+  __main_block_impl_1(void *fp, struct __main_block_desc_1 *desc, JPPerson *__unsafe_unretained _usurPer, int flags=0) : usurPer(_usurPer) {
     impl.isa = &_NSConcreteStackBlock;
     impl.Flags = flags;
     impl.FuncPtr = fp;
@@ -33875,13 +33875,13 @@ struct __main_block_impl_1 {
   }
 };
 static void __main_block_func_1(struct __main_block_impl_1 *__cself) {
-  JPPerson *__unsafe_unretained weakPer1 = __cself->weakPer1; // bound by copy
+  JPPerson *__unsafe_unretained usurPer = __cself->usurPer; // bound by copy
 
-            NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_2, ((int (*)(id, SEL))(void *)objc_msgSend)((id)weakPer1, sel_registerName("age")));
+            NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_2, ((int (*)(id, SEL))(void *)objc_msgSend)((id)usurPer, sel_registerName("age")));
         }
-static void __main_block_copy_1(struct __main_block_impl_1*dst, struct __main_block_impl_1*src) {_Block_object_assign((void*)&dst->weakPer1, (void*)src->weakPer1, 3/*BLOCK_FIELD_IS_OBJECT*/);}
+static void __main_block_copy_1(struct __main_block_impl_1*dst, struct __main_block_impl_1*src) {_Block_object_assign((void*)&dst->usurPer, (void*)src->usurPer, 3/*BLOCK_FIELD_IS_OBJECT*/);}
 
-static void __main_block_dispose_1(struct __main_block_impl_1*src) {_Block_object_dispose((void*)src->weakPer1, 3/*BLOCK_FIELD_IS_OBJECT*/);}
+static void __main_block_dispose_1(struct __main_block_impl_1*src) {_Block_object_dispose((void*)src->usurPer, 3/*BLOCK_FIELD_IS_OBJECT*/);}
 
 static struct __main_block_desc_1 {
   size_t reserved;
@@ -33893,8 +33893,8 @@ static struct __main_block_desc_1 {
 struct __main_block_impl_2 {
   struct __block_impl impl;
   struct __main_block_desc_2* Desc;
-  __Block_byref_blockPer2_0 *blockPer2; // by ref
-  __main_block_impl_2(void *fp, struct __main_block_desc_2 *desc, __Block_byref_blockPer2_0 *_blockPer2, int flags=0) : blockPer2(_blockPer2->__forwarding) {
+  __Block_byref_blockPer_0 *blockPer; // by ref
+  __main_block_impl_2(void *fp, struct __main_block_desc_2 *desc, __Block_byref_blockPer_0 *_blockPer, int flags=0) : blockPer(_blockPer->__forwarding) {
     impl.isa = &_NSConcreteStackBlock;
     impl.Flags = flags;
     impl.FuncPtr = fp;
@@ -33902,19 +33902,19 @@ struct __main_block_impl_2 {
   }
 };
 static void __main_block_func_2(struct __main_block_impl_2 *__cself) {
-  __Block_byref_blockPer2_0 *blockPer2 = __cself->blockPer2; // bound by ref
+  __Block_byref_blockPer_0 *blockPer = __cself->blockPer; // bound by ref
 
-            if ((blockPer2->__forwarding->blockPer2)) {
-                NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_3, ((int (*)(id, SEL))(void *)objc_msgSend)((id)(blockPer2->__forwarding->blockPer2), sel_registerName("age")));
-                (blockPer2->__forwarding->blockPer2) = __null;
+            if ((blockPer->__forwarding->blockPer)) {
+                NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_3, ((int (*)(id, SEL))(void *)objc_msgSend)((id)(blockPer->__forwarding->blockPer), sel_registerName("age")));
+                (blockPer->__forwarding->blockPer) = __null;
 
             } else {
-                NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_4);
+                NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_4);
             }
         }
-static void __main_block_copy_2(struct __main_block_impl_2*dst, struct __main_block_impl_2*src) {_Block_object_assign((void*)&dst->blockPer2, (void*)src->blockPer2, 8/*BLOCK_FIELD_IS_BYREF*/);}
+static void __main_block_copy_2(struct __main_block_impl_2*dst, struct __main_block_impl_2*src) {_Block_object_assign((void*)&dst->blockPer, (void*)src->blockPer, 8/*BLOCK_FIELD_IS_BYREF*/);}
 
-static void __main_block_dispose_2(struct __main_block_impl_2*src) {_Block_object_dispose((void*)src->blockPer2, 8/*BLOCK_FIELD_IS_BYREF*/);}
+static void __main_block_dispose_2(struct __main_block_impl_2*src) {_Block_object_dispose((void*)src->blockPer, 8/*BLOCK_FIELD_IS_BYREF*/);}
 
 static struct __main_block_desc_2 {
   size_t reserved;
@@ -33925,7 +33925,7 @@ static struct __main_block_desc_2 {
 int main(int argc, const char * argv[]) {
     /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
 
-        NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_0);
+        NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_0);
 
 
         JPPerson *per = ((JPPerson *(*)(id, SEL))(void *)objc_msgSend)((id)((JPPerson *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass("JPPerson"), sel_registerName("alloc")), sel_registerName("init"));
@@ -33937,20 +33937,20 @@ int main(int argc, const char * argv[]) {
 
         JPPerson *per1 = ((JPPerson *(*)(id, SEL))(void *)objc_msgSend)((id)((JPPerson *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass("JPPerson"), sel_registerName("alloc")), sel_registerName("init"));
         ((void (*)(id, SEL, int))(void *)objc_msgSend)((id)per1, sel_registerName("setAge:"), 32);
-        __attribute__((objc_ownership(none))) JPPerson *weakPer1 = per1;
-        ((void (*)(id, SEL, JPBlock))(void *)objc_msgSend)((id)per1, sel_registerName("setBlock:"), ((void (*)())&__main_block_impl_1((void *)__main_block_func_1, &__main_block_desc_1_DATA, weakPer1, 570425344)));
+        __attribute__((objc_ownership(none))) JPPerson *usurPer = per1;
+        ((void (*)(id, SEL, JPBlock))(void *)objc_msgSend)((id)per1, sel_registerName("setBlock:"), ((void (*)())&__main_block_impl_1((void *)__main_block_func_1, &__main_block_desc_1_DATA, usurPer, 570425344)));
         ((JPBlock (*)(id, SEL))(void *)objc_msgSend)((id)per1, sel_registerName("block"))();
 
 
         JPPerson *per2 = ((JPPerson *(*)(id, SEL))(void *)objc_msgSend)((id)((JPPerson *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass("JPPerson"), sel_registerName("alloc")), sel_registerName("init"));
         ((void (*)(id, SEL, int))(void *)objc_msgSend)((id)per2, sel_registerName("setAge:"), 75);
-        __attribute__((__blocks__(byref))) __Block_byref_blockPer2_0 blockPer2 = {(void*)0,(__Block_byref_blockPer2_0 *)&blockPer2, 33554432, sizeof(__Block_byref_blockPer2_0), __Block_byref_id_object_copy_131, __Block_byref_id_object_dispose_131, per2};
+        __attribute__((__blocks__(byref))) __Block_byref_blockPer_0 blockPer = {(void*)0,(__Block_byref_blockPer_0 *)&blockPer, 33554432, sizeof(__Block_byref_blockPer_0), __Block_byref_id_object_copy_131, __Block_byref_id_object_dispose_131, per2};
 
-        ((void (*)(id, SEL, JPBlock))(void *)objc_msgSend)((id)per2, sel_registerName("setBlock:"), ((void (*)())&__main_block_impl_2((void *)__main_block_func_2, &__main_block_desc_2_DATA, (__Block_byref_blockPer2_0 *)&blockPer2, 570425344)));
+        ((void (*)(id, SEL, JPBlock))(void *)objc_msgSend)((id)per2, sel_registerName("setBlock:"), ((void (*)())&__main_block_impl_2((void *)__main_block_func_2, &__main_block_desc_2_DATA, (__Block_byref_blockPer_0 *)&blockPer, 570425344)));
         ((JPBlock (*)(id, SEL))(void *)objc_msgSend)((id)per2, sel_registerName("block"))();
         ((JPBlock (*)(id, SEL))(void *)objc_msgSend)((id)per2, sel_registerName("block"))();
     }
-    NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_47553f_mi_5);
+    NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_39027a_mi_5);
     return 0;
 }
 static struct IMAGE_INFO { unsigned version; unsigned flag; } _OBJC_IMAGE_INFO = { 0, 2 };

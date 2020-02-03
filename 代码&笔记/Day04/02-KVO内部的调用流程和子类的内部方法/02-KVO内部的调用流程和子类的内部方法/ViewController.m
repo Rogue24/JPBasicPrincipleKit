@@ -68,6 +68,8 @@
     self.per1->_height += 1;
     // 这样才会触发KVO，说明NSKVONotifying_XXX内部重写的是这个属性的setXXX:方法
     [self.per1 setHeight:10];
+    // set方法是有区分大小写的，得使用【驼峰法】，不然也不会触发KVO。
+    [self.per1 setheight:5];
     
     //【例3】
     // 手动触发KVO（必须先willChangeValueForKey后didChangeValueForKey，且缺一不可）
