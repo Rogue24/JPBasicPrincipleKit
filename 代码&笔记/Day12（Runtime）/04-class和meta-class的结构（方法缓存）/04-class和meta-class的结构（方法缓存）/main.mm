@@ -31,31 +31,36 @@ int main(int argc, const char * argv[]) {
         NSLog(@"runtime交换方法，实际上本质交换的是method_t里面imp地址");
         NSLog(@"可是缓存cache_t里面的bucket_t的imp咋办？之后再调用会不会调用回原本的方法？也会影响子类的吗？");
         
-        JPPomeranin *dog = [[JPPomeranin alloc] init];
+        JPPomeranin *dog = [[JPPomeranin alloc] init]; // 1
         
         mj_objc_class *mj_dogCls = (__bridge mj_objc_class *)(dog.class);
         int dog_mask = mj_dogCls->cache._mask; // 散列表长度 - 1
         int dog_length = dog_mask ? (dog_mask + 1) : 0; // 散列表长度
-        NSLog(@"一开始：dog_length = %d", dog_length); // 一开始长度是4
+        NSLog(@"一开始：dog_length = %d", dog_length); // 一开始长度是4，临界点为 4 / 4 * 3 = 3
         
-        JPDog *d = [[JPDog alloc] init];
+        JPDog *d = [[JPDog alloc] init]; // 1
         mj_objc_class *mj_dCls = (__bridge mj_objc_class *)(d.class);
         int d_mask = mj_dCls->cache._mask; // 散列表长度 - 1
         int d_length = d_mask ? (d_mask + 1) : 0; // 散列表长度
-        NSLog(@"父类：d_length = %d", d_length); // 一开始长度是4
+        NSLog(@"父类：d_length = %d", d_length); // 一开始长度是4，临界点为 4 / 4 * 3 = 3
         
         NSLog(@"先调用方法放入缓存");
-        [dog test1];
-        [dog test2]; // 第一次扩容，清空，长度变成8，临界点为 8 / 4 * 3 = 6，再放入，此时数量应该为1
-        [dog test1]; // 此时数量应该为2，还没到临界点，不会第二次扩容
+        [dog test1]; // 2
+        [dog test2]; // 3，达到临界点，第一次扩容，清空缓存，长度变成8，新临界点为 8 / 4 * 3 = 6，再放入，缓存数量变成1
+        [dog test1]; // 2，刚刚扩容这个方法被清掉了，再次调用重新放入缓存，还没到临界点，不会第二次扩容
+        
+        // 只要达到临界点就会扩容，不信把注释去掉看看长度是不是变成16。
+//        [dog eat1]; // 3
+//        [dog eat2]; // 4
+//        [dog eat3]; // 5
+//        [dog eat4]; // 6
         
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
         NSLog(@"第一次扩容后：dog_length = %d", dog_length);
         
-        // 目前的调试，调用两个方法就会第一次扩容，不信把注释去掉看看是不是变成8。
-//        [d test1];
-//        [d test2];
+//        [d test1]; 2
+//        [d test2]; 3
         d_mask = mj_dCls->cache._mask;
         d_length = d_mask ? (d_mask + 1) : 0;
         NSLog(@"子类扩容了，如果父类也缓存的话，那应该也会扩容，看看：d_length = %d", d_length);
