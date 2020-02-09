@@ -10,7 +10,7 @@
 #import "JPPerson.h"
 #import "MJClassInfo.h"
 
-#import "JPDog.h"
+#import "JPPomeranin.h"
 #import <objc/runtime.h>
 
 int main(int argc, const char * argv[]) {
@@ -29,27 +29,41 @@ int main(int argc, const char * argv[]) {
 #pragma mark 验证使用runtime进行方法交换后，会不会影响原先的缓存。
         
         NSLog(@"runtime交换方法，实际上本质交换的是method_t里面imp地址");
-        NSLog(@"可是缓存cache_t里面的bucket_t的imp咋办？之后再调用会不会调用回原本的方法？");
+        NSLog(@"可是缓存cache_t里面的bucket_t的imp咋办？之后再调用会不会调用回原本的方法？也会影响子类的吗？");
         
-        JPDog *dog = [[JPDog alloc] init];
+        JPPomeranin *dog = [[JPPomeranin alloc] init];
         
         mj_objc_class *mj_dogCls = (__bridge mj_objc_class *)(dog.class);
         int dog_mask = mj_dogCls->cache._mask; // 散列表长度 - 1
         int dog_length = dog_mask ? (dog_mask + 1) : 0; // 散列表长度
         NSLog(@"一开始：dog_length = %d", dog_length); // 一开始长度是4
         
+        JPDog *d = [[JPDog alloc] init];
+        mj_objc_class *mj_dCls = (__bridge mj_objc_class *)(d.class);
+        int d_mask = mj_dCls->cache._mask; // 散列表长度 - 1
+        int d_length = d_mask ? (d_mask + 1) : 0; // 散列表长度
+        NSLog(@"父类：d_length = %d", d_length); // 一开始长度是4
+        
         NSLog(@"先调用方法放入缓存");
         [dog test1];
         [dog test2]; // 第一次扩容，清空，长度变成8，临界点为 8 / 4 * 3 = 6，再放入，此时数量应该为1
-        
         [dog test1]; // 此时数量应该为2，还没到临界点，不会第二次扩容
         
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
         NSLog(@"第一次扩容后：dog_length = %d", dog_length);
         
-        Method originMethod = class_getInstanceMethod(dog.class, @selector(test1));
-        Method exchangeMethod = class_getInstanceMethod(dog.class, @selector(test2));
+        // 目前的调试，调用两个方法就会第一次扩容，不信把注释去掉看看是不是变成8。
+//        [d test1];
+//        [d test2];
+        d_mask = mj_dCls->cache._mask;
+        d_length = d_mask ? (d_mask + 1) : 0;
+        NSLog(@"子类扩容了，如果父类也缓存的话，那应该也会扩容，看看：d_length = %d", d_length);
+        NSLog(@"还是一样，说明子类调用父类的方法，父类不会将其放入缓存。");
+        
+        NSLog(@"父类交换方法");
+        Method originMethod = class_getInstanceMethod([JPDog class], @selector(test1));
+        Method exchangeMethod = class_getInstanceMethod([JPDog class], @selector(test2));
         method_exchangeImplementations(originMethod, exchangeMethod);
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
@@ -61,9 +75,8 @@ int main(int argc, const char * argv[]) {
         [dog eat4]; // 6？ 4
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
-        NSLog(@"如果没有清空缓存，此时数量应该达到临界点，长度就会变为16，看看：dog_length = %d", dog_length);
-        
-        NSLog(@"然而实际上并没有出现第二次扩容，说明交换方法后，所有缓存都被清空了");
+        NSLog(@"如果没有清空缓存（或者是重新放入缓存），此时数量应该达到临界点，长度就会变为16，看看：dog_length = %d", dog_length);
+        NSLog(@"然而实际上并没有出现第二次扩容，说明（自己类或父类）交换方法后，所有缓存都被清空了");
         
         [dog test1]; // 5
         dog_mask = mj_dogCls->cache._mask;
@@ -74,8 +87,34 @@ int main(int argc, const char * argv[]) {
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
         NSLog(@"这时候应该达到临界点了，会进行第二次扩容，长度为16，看看：dog_length = %d", dog_length);
+        NSLog(@"的确扩容了，说明runtime交换方法会清空方法缓存");
         
-        NSLog(@"的确扩容了。这说明了使用runtime交换方法后会【清空方法缓存】，所以不用担心之后再调用会不会调用回原本的方法。");
+        d_mask = mj_dCls->cache._mask;
+        d_length = d_mask ? (d_mask + 1) : 0;
+        NSLog(@"交换方法后的父类：d_length = %d", d_length);
+        NSLog(@"交换方法后父类扩容了，说明runtime交换方法，即便这2个方法从来没调用过，交换过程也会进行是否需要扩容的操作");
+        
+        NSLog(@"不过缓存也是被清空的，不信看看这样过后扩容没？");
+        [d eat1]; // 3？ 1
+        [d eat2]; // 4？ 2
+        [d eat3]; // 5？ 3
+        [d eat4]; // 6？ 4
+        d_mask = mj_dCls->cache._mask;
+        d_length = d_mask ? (d_mask + 1) : 0;
+        NSLog(@"没扩容哦：d_length = %d", d_length);
+        
+        [d test1]; // 5？ 3
+        [d test2]; // 6？ 4
+        d_mask = mj_dCls->cache._mask;
+        d_length = d_mask ? (d_mask + 1) : 0;
+        NSLog(@"这样就扩容了吧：d_length = %d", d_length);
+        
+        NSLog(@"这次验证说明了：");
+        NSLog(@"1.子类调用父类的方法，方法只会放入子类的缓存，不会放入父类的缓存，不影响父类的缓存");
+        NSLog(@"2.runtime交换方法中，即便这2个方法从来没调用过，交换过程也会进行是否需要扩容的操作");
+        NSLog(@"PS：也就是说，如果这2个方法没缓存过，那么如果当前的缓存数量加2达到了临界点，那就会扩容");
+        NSLog(@"3.runtime交换方法后，会【清空】方法缓存（包括其子类的）");
+        NSLog(@"综上所述，不用担心调用过的方法其imp被交换后，再调用会不会调用回原本方法，不会有问题的。");
         
         
 #pragma mark 仿runtime的方法缓存过程
@@ -288,7 +327,7 @@ int main(int argc, const char * argv[]) {
         
         // 因为sel的内存地址不确定，所以多个sel&上mask有一定几率会得到重复的索引
         // 当发现这个索引已经有缓存了，那就去获取下一个索引
-        // i ? i-1 : mask; ==> 当i减到0都没有空位，就去到最后一位以此类推继续找
+        // cache_next ==> i ? i-1 : mask ==> 当i减到0都没有空位，就去到最后一位以此类推继续找
         // 不用担心散列表会被填满，永远都会有四分之一的空位
         // 因为存之前会先判断，如果【已经缓存的方法数量 + 1】超过【散列表长度】的【四分之三】，就会进行扩容
  
