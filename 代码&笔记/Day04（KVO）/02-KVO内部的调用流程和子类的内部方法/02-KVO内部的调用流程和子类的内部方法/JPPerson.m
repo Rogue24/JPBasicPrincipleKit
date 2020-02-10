@@ -10,16 +10,20 @@
 
 @implementation JPPerson
 
+- (void)setHeight:(int)height {
+    _height = height;
+    NSLog(@"setHeight");
+}
+
 // set方法要用【驼峰法】，不然不会触发KVO。
 - (void)setheight:(int)height {
     _height = height;
     NSLog(@"setheight");
 }
 
-- (void)setHeight:(int)height {
-    _height = height;
-    NSLog(@"setHeight");
-}
+//- (void)set_money:(int)money {
+//
+//}
 
 - (void)setAge:(int)age {
     _age = age;

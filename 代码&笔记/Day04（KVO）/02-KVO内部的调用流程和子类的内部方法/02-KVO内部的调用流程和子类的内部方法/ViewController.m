@@ -32,8 +32,11 @@
     [self.per1 addObserver:self forKeyPath:@"age" options:options context:nil];
     [self.per1 addObserver:self forKeyPath:@"weight" options:options context:nil];
     
-    // 直接监听成员变量不起效，除非有成员变量的setXXX:方法，因为生成的子类要重写这个方法来进行监听
+    // 直接监听成员变量不起效，除非有成员变量的setXxx:方法，因为生成的子类要重写这个方法来进行监听
     [self.per1 addObserver:self forKeyPath:@"height" options:options context:nil];
+    
+    // 直接监听属性的成员变量名字也是不起效，因为只有setXxx:方法，而没有set_xxx:方法
+    [self.per1 addObserver:self forKeyPath:@"_money" options:options context:nil];
     
     NSLog(@"per1 %@, per2 %@", object_getClass(self.per1), object_getClass(self.per2));
     NSLog(@"per1 %@, per2 %@", self.per1.class, self.per2.class);
@@ -62,21 +65,23 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     //【例1】
     self.per1.age += 1;
-    
+
     //【例2】
-    // 直接修改成员变量不会触发KVO
+    // ❌ 直接修改成员变量不会触发KVO
     self.per1->_height += 1;
-    // 这样才会触发KVO，说明NSKVONotifying_XXX内部重写的是这个属性的setXXX:方法
+    // ✅ 这样才会触发KVO，说明NSKVONotifying_Xxx内部重写的是这个属性的setXxx:方法
     [self.per1 setHeight:10];
-    // set方法是有区分大小写的，得使用【驼峰法】，不然也不会触发KVO。
+    // ❌ 这样不会触发KVO，说明set方法是要区分大小写的，得使用【驼峰法】
     [self.per1 setheight:5];
-    
+
     //【例3】
     // 手动触发KVO（必须先willChangeValueForKey后didChangeValueForKey，且缺一不可）
     [self.per1 willChangeValueForKey:@"weight"];
     [self.per1 didChangeValueForKey:@"weight"];
     
-//    self.per2.age += 2;
+    //【例4】
+    self.per1.money += 2;
+    NSLog(@"%d", self.per1.money);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
