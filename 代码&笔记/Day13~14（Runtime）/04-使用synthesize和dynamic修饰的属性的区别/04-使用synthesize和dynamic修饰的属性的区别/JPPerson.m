@@ -15,7 +15,7 @@
  * @synthesize xxx = _xxx;
  * 使用@synthesize修饰的属性，编译器会自动生成该属性的成员变量、set方法和get方法的【实现】
  * 等号右边为成员变量的名字，可以随便改，如果不写，例：@synthesize yyy; 则成员变量名字就只为yyy
- * 现在的编译器会自动帮我们的属性添加这个修饰，默认成员变量名字为下划线+属性名，例：@synthesize yyy = _yyy;
+ * 现在的编译器会自动帮【属性】添加这个修饰，默认成员变量名字为下划线+属性名，例：@synthesize yyy = _yyy;
  */
 @synthesize age = _age;
 @synthesize money;
@@ -36,7 +36,9 @@
 
 /*
  * @dynamic xxx;
- * 使用@dynamic修饰的属性，编译器不会生成该属性的成员变量、set方法和get方法的【实现】（声明还是有的，能调用，只是会找不到）
+ * 使用@dynamic修饰的属性：
+    1.告诉编译器不要生成该属性的成员变量
+    2.告诉编译器不要生成set方法和get方法的【实现】（声明还是有的，别处能调用这两个方法，只是没实现）
  */
 @dynamic height;
 

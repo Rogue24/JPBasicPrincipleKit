@@ -32,7 +32,7 @@
 		1A6F68D82382E48900C19D32 /* objc_msgSend执行流程02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "objc_msgSend执行流程02.jpg"; sourceTree = "<group>"; };
 		1A6F68D92382F24A00C19D32 /* JPDog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDog.h; sourceTree = "<group>"; };
 		1A6F68DA2382F24A00C19D32 /* JPDog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDog.m; sourceTree = "<group>"; };
-		1AB19E292380F55100815323 /* 03-Runtime-msgSend（forwardInvocation的使用） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "03-Runtime-msgSend（forwardInvocation的使用）"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AB19E292380F55100815323 /* 03-Runtime-msgSend（NSInvocation的使用） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "03-Runtime-msgSend（NSInvocation的使用）"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AB19E2C2380F55100815323 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AB19E332380F56700815323 /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
 		1AB19E342380F56700815323 /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		1AB19E202380F55100815323 = {
 			isa = PBXGroup;
 			children = (
-				1AB19E2B2380F55100815323 /* 03-Runtime-msgSend（forwardInvocation的使用） */,
+				1AB19E2B2380F55100815323 /* 03-Runtime-msgSend（NSInvocation的使用） */,
 				1AB19E2A2380F55100815323 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,12 +60,12 @@
 		1AB19E2A2380F55100815323 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1AB19E292380F55100815323 /* 03-Runtime-msgSend（forwardInvocation的使用） */,
+				1AB19E292380F55100815323 /* 03-Runtime-msgSend（NSInvocation的使用） */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1AB19E2B2380F55100815323 /* 03-Runtime-msgSend（forwardInvocation的使用） */ = {
+		1AB19E2B2380F55100815323 /* 03-Runtime-msgSend（NSInvocation的使用） */ = {
 			isa = PBXGroup;
 			children = (
 				1A6F68D72382E48900C19D32 /* objc_msgSend执行流程01.jpg */,
@@ -79,15 +79,15 @@
 				1A6F68D92382F24A00C19D32 /* JPDog.h */,
 				1A6F68DA2382F24A00C19D32 /* JPDog.m */,
 			);
-			path = "03-Runtime-msgSend（forwardInvocation的使用）";
+			path = "03-Runtime-msgSend（NSInvocation的使用）";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1AB19E282380F55100815323 /* 03-Runtime-msgSend（forwardInvocation的使用） */ = {
+		1AB19E282380F55100815323 /* 03-Runtime-msgSend（NSInvocation的使用） */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1AB19E302380F55100815323 /* Build configuration list for PBXNativeTarget "03-Runtime-msgSend（forwardInvocation的使用）" */;
+			buildConfigurationList = 1AB19E302380F55100815323 /* Build configuration list for PBXNativeTarget "03-Runtime-msgSend（NSInvocation的使用）" */;
 			buildPhases = (
 				1AB19E252380F55100815323 /* Sources */,
 				1AB19E262380F55100815323 /* Frameworks */,
@@ -97,9 +97,9 @@
 			);
 			dependencies = (
 			);
-			name = "03-Runtime-msgSend（forwardInvocation的使用）";
+			name = "03-Runtime-msgSend（NSInvocation的使用）";
 			productName = "01-Runtime-消息转发";
-			productReference = 1AB19E292380F55100815323 /* 03-Runtime-msgSend（forwardInvocation的使用） */;
+			productReference = 1AB19E292380F55100815323 /* 03-Runtime-msgSend（NSInvocation的使用） */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -116,7 +116,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1AB19E242380F55100815323 /* Build configuration list for PBXProject "03-Runtime-msgSend（forwardInvocation的使用）" */;
+			buildConfigurationList = 1AB19E242380F55100815323 /* Build configuration list for PBXProject "03-Runtime-msgSend（NSInvocation的使用）" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -129,7 +129,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1AB19E282380F55100815323 /* 03-Runtime-msgSend（forwardInvocation的使用） */,
+				1AB19E282380F55100815323 /* 03-Runtime-msgSend（NSInvocation的使用） */,
 			);
 		};
 /* End PBXProject section */
@@ -276,7 +276,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1AB19E242380F55100815323 /* Build configuration list for PBXProject "03-Runtime-msgSend（forwardInvocation的使用）" */ = {
+		1AB19E242380F55100815323 /* Build configuration list for PBXProject "03-Runtime-msgSend（NSInvocation的使用）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AB19E2E2380F55100815323 /* Debug */,
@@ -285,7 +285,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1AB19E302380F55100815323 /* Build configuration list for PBXNativeTarget "03-Runtime-msgSend（forwardInvocation的使用）" */ = {
+		1AB19E302380F55100815323 /* Build configuration list for PBXNativeTarget "03-Runtime-msgSend（NSInvocation的使用）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AB19E312380F55100815323 /* Debug */,

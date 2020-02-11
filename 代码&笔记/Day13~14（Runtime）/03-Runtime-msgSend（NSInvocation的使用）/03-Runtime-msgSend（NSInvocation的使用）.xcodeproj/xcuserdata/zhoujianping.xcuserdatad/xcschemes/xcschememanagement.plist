@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>03-Runtime-msgSend（NSInvocation的使用）.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
 		<key>03-Runtime-msgSend（forwardInvocation的使用）.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>

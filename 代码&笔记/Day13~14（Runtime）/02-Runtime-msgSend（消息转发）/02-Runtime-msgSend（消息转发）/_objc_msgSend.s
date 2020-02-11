@@ -159,7 +159,7 @@ _objc_forward_handler：这是一个存储着函数地址的指针
 报错前最后调用到【___forwarding___】这个函数，是那个转发的函数
 ↓
 【___forwarding___.c】
-查看国外开发者和MJ整理的___forwarding___函数
+查看国外开发者和MJ整理的__forwarding__clean.c（伪代码）
 ↓
 forwardingTargetForSelector
 ↓

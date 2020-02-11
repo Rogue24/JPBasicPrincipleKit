@@ -95,12 +95,12 @@
     // 查看添加KVO前的setAge:方法：p (IMP)0x104354360 ==> (IMP) $0 = 0x0000000104354360 (01-KVO`-[JPPerson setAge:] at JPPerson.m:12)
     // 查看添加KVO后的setAge:方法：p (IMP)0x7fff2564d626 ==> (IMP) $1 = 0x00007fff2564d626 (Foundation`_NSSetIntValueAndNotify)
     
-    // self.per1.age += 1; 【有KVO】的流程：
+    // self.per1.age += 1;【有KVO】的流程：
     // [self willChangeValueForKey:@"age"];  // 添加KVO之后新增的流程：保存旧值，标识等会调用didChangeValueForKey
     // [super setAge:age];
     // [self didChangeValueForKey:@"age"]; // 添加KVO之后新增的流程：通知监听器，XX属性值发送了改变
     
-    // self.per2.age += 2; 【没有KVO】的流程：
+    // self.per2.age += 2;【没有KVO】的流程：
     // [super setAge:age];
     
     //【money是分类的属性，并没有_money这个成员变量，也能通过KVO监听】

@@ -28,29 +28,40 @@
     self.per2.age = 13;
     
     // 添加KVO
+    /*
+     * 假设 keyPath 为 xxx
+     * 没有xxx这个属性的情况下KVO也能生效的条件（属性本来就满足这些条件）：
+     * 1.必须要有 -setXxx: 这样的set方法，必须要用驼峰法，返回值类型必须要为void
+     * 2.必须要有 -xxx 这样的get方法，返回值类型最好跟set方法的参数类型一致
+     * 如果条件1不成立，不会触发KVO，因为KVO生成的子类找不到对应的set方法来重写；
+     * 如果条件1成立，会触发KVO，但如果条件2不成立，那必须要有 _xxx、_isXxx、xxx、isXxx 其中一个这样的成员变量（优先级从左到右），否则当调用set方法程序会【崩溃】。
+     */
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
+    
     [self.per1 addObserver:self forKeyPath:@"age" options:options context:nil];
     [self.per1 addObserver:self forKeyPath:@"weight" options:options context:nil];
     
-    // 直接监听成员变量不起效，除非有成员变量的setXxx:方法，因为生成的子类要重写这个方法来进行监听
-    [self.per1 addObserver:self forKeyPath:@"height" options:options context:nil];
+    // 没有height属性，但有”_height“成员变量
+    // 想要KVO生效还需要有-setHeight:方法
+    [self.per1 addObserver:self forKeyPath:@"height" options:options context:nil]; // 起效
     
-    // 直接监听属性的成员变量名字也是不起效，因为只有setXxx:方法，而没有set_xxx:方法
-    [self.per1 addObserver:self forKeyPath:@"_money" options:options context:nil];
+    // 没有money属性，也没有”_money“成员变量
+    // 想要KVO生效不仅需要有-setMoney:方法，还要有-money方法
+    [self.per1 addObserver:self forKeyPath:@"money" options:options context:nil]; // 不起效
     
     NSLog(@"per1 %@, per2 %@", object_getClass(self.per1), object_getClass(self.per2));
     NSLog(@"per1 %@, per2 %@", self.per1.class, self.per2.class);
-    /**
+    /*
      * object_getClass(self.per1) ==> NSKVONotifying_JPPerson
      * self.per1.class ==> JPPerson
      * 获取的结果不同？？？
      *
      * 由于object_getClass返回的是确切的结果
-     * 所以很有可能就是NSKVONotifying_JPPerson内部重写的Class方法，返回的是它自己的父类
+     * 所以很有可能就是NSKVONotifying_JPPerson内部重写了class方法，返回的是它自己的父类
      * 说明系统【不想暴露】KVO的子类的存在，让我们使用起来跟本来的没什么差异
      *
-     * 为啥重写的Class方法：
-     * 如果不重写，就会去到基类找Class方法调用，而基类的Class方法内部其实就是调用object_getClass方法，这样就会直接返回NSKVONotifying_JPPerson，会暴露自己的存在。
+     * 为啥重写class方法：
+     * 如果不重写，就会去到基类找class方法调用，而基类的class方法内部其实就是调用object_getClass方法，这样就会直接返回NSKVONotifying_JPPerson，会暴露自己的存在。
      * 所以重写的主要目的是让外界察觉不了这个类的存在（隐藏），从而屏蔽这个子类的内部实现。
      */
     
@@ -64,24 +75,24 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     //【例1】
-    self.per1.age += 1;
+    self.per1.age += 1; // 本质上调用了-setAge:方法
 
     //【例2】
     // ❌ 直接修改成员变量不会触发KVO
-    self.per1->_height += 1;
-    // ✅ 这样才会触发KVO，说明NSKVONotifying_Xxx内部重写的是这个属性的setXxx:方法
+    self.per1->isHeight += 1;
+    // ✅ 这样才会触发KVO，说明NSKVONotifying_Xxx内部重写的是这个属性的-setXxx:方法
+    // 并且是在重写的set方法里面触发了KVO
     [self.per1 setHeight:10];
-    // ❌ 这样不会触发KVO，说明set方法是要区分大小写的，得使用【驼峰法】
-    [self.per1 setheight:5];
 
     //【例3】
     // 手动触发KVO（必须先willChangeValueForKey后didChangeValueForKey，且缺一不可）
+    // 要先调用 willChangeValueForKey 之后再调用 didChangeValueForKey 其内部才会调用 observer的observeValueForKeyPath:ofObject:change:context:
     [self.per1 willChangeValueForKey:@"weight"];
     [self.per1 didChangeValueForKey:@"weight"];
+    // 也就是说重写的set方法里面是有调用这两个方法的
     
     //【例4】
-    self.per1.money += 2;
-    NSLog(@"%d", self.per1.money);
+    [self.per1 setMoney:999];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {

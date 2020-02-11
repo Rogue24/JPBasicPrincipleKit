@@ -12,13 +12,12 @@
 @interface JPPerson : NSObject
 {
     @public
-    int _height;
+    int isHeight; // 优先级：_height、_isHeight、height、isHeight
 }
 - (void)setHeight:(int)height;
-- (void)setheight:(int)height; // 正确的set方法要用【驼峰法】，不然不会触发KVO（KVO生成的子类只会重写正确的set方法）
 
-@property (nonatomic, assign) int money; // 如果监听的是属性的成员变量名字“_money”
-//- (void)set_money:(int)money; // 那得有这样的set方法KVO生成的子类才会去重写
+- (void)setMoney:(int)money;
+- (NSString *)money;
 
 @property (nonatomic, assign) int age;
 
