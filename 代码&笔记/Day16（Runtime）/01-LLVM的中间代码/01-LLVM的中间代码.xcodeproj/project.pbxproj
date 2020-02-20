@@ -30,9 +30,9 @@
 		1A8D39ED238A9BAE00FB1D9F /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
 		1A8D39EF238AA58200FB1D9F /* JPPerson-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "JPPerson-arm64.cpp"; sourceTree = "<group>"; };
 		1A8D39F0238AA7C000FB1D9F /* LLVM的中间代码.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "LLVM的中间代码.jpg"; sourceTree = "<group>"; };
-		1A8D39F1238AA7DF00FB1D9F /* 定位汇编代码.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "定位汇编代码.jpg"; sourceTree = "<group>"; };
+		1A8D39F1238AA7DF00FB1D9F /* 2.定位汇编代码.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "2.定位汇编代码.jpg"; sourceTree = "<group>"; };
 		1A8D39F2238AA87300FB1D9F /* JPPerson.ll */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.llvm; path = JPPerson.ll; sourceTree = "<group>"; };
-		1A8D39F3238AAE0400FB1D9F /* 无需运行直接查看汇编代码.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "无需运行直接查看汇编代码.jpg"; sourceTree = "<group>"; };
+		1A8D39F3238AAE0400FB1D9F /* 1.无需运行直接查看汇编代码.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1.无需运行直接查看汇编代码.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +65,8 @@
 		1A8D39E4238A9B9700FB1D9F /* 01-LLVM的中间代码 */ = {
 			isa = PBXGroup;
 			children = (
-				1A8D39F3238AAE0400FB1D9F /* 无需运行直接查看汇编代码.jpg */,
-				1A8D39F1238AA7DF00FB1D9F /* 定位汇编代码.jpg */,
+				1A8D39F3238AAE0400FB1D9F /* 1.无需运行直接查看汇编代码.jpg */,
+				1A8D39F1238AA7DF00FB1D9F /* 2.定位汇编代码.jpg */,
 				1A8D39F0238AA7C000FB1D9F /* LLVM的中间代码.jpg */,
 				1A8D39E5238A9B9700FB1D9F /* main.m */,
 				1A8D39EC238A9BAE00FB1D9F /* JPPerson.h */,

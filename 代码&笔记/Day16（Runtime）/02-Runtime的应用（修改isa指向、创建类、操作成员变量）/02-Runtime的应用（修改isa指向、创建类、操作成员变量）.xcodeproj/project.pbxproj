@@ -25,7 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1AD93E4F238B69FF007BC234 /* 02-Runtime的应用（isa、类、成员变量） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "02-Runtime的应用（isa、类、成员变量）"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AD93E4F238B69FF007BC234 /* 02-Runtime的应用（修改isa指向、创建类、操作成员变量） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "02-Runtime的应用（修改isa指向、创建类、操作成员变量）"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AD93E52238B69FF007BC234 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1AD93E59238B6A82007BC234 /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
 		1AD93E5A238B6A82007BC234 /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		1AD93E46238B69FF007BC234 = {
 			isa = PBXGroup;
 			children = (
-				1AD93E51238B69FF007BC234 /* 02-Runtime的应用（isa、类、成员变量） */,
+				1AD93E51238B69FF007BC234 /* 02-Runtime的应用（修改isa指向、创建类、操作成员变量） */,
 				1AD93E50238B69FF007BC234 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,12 +56,12 @@
 		1AD93E50238B69FF007BC234 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1AD93E4F238B69FF007BC234 /* 02-Runtime的应用（isa、类、成员变量） */,
+				1AD93E4F238B69FF007BC234 /* 02-Runtime的应用（修改isa指向、创建类、操作成员变量） */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1AD93E51238B69FF007BC234 /* 02-Runtime的应用（isa、类、成员变量） */ = {
+		1AD93E51238B69FF007BC234 /* 02-Runtime的应用（修改isa指向、创建类、操作成员变量） */ = {
 			isa = PBXGroup;
 			children = (
 				1AD93E66238BADB3007BC234 /* class和meta-class的结构图.jpg */,
@@ -71,15 +71,15 @@
 				1AD93E5F238B6AA2007BC234 /* JPCar.h */,
 				1AD93E60238B6AA2007BC234 /* JPCar.m */,
 			);
-			path = "02-Runtime的应用（isa、类、成员变量）";
+			path = "02-Runtime的应用（修改isa指向、创建类、操作成员变量）";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1AD93E4E238B69FF007BC234 /* 02-Runtime的应用（isa、类、成员变量） */ = {
+		1AD93E4E238B69FF007BC234 /* 02-Runtime的应用（修改isa指向、创建类、操作成员变量） */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1AD93E56238B69FF007BC234 /* Build configuration list for PBXNativeTarget "02-Runtime的应用（isa、类、成员变量）" */;
+			buildConfigurationList = 1AD93E56238B69FF007BC234 /* Build configuration list for PBXNativeTarget "02-Runtime的应用（修改isa指向、创建类、操作成员变量）" */;
 			buildPhases = (
 				1AD93E4B238B69FF007BC234 /* Sources */,
 				1AD93E4C238B69FF007BC234 /* Frameworks */,
@@ -89,9 +89,9 @@
 			);
 			dependencies = (
 			);
-			name = "02-Runtime的应用（isa、类、成员变量）";
+			name = "02-Runtime的应用（修改isa指向、创建类、操作成员变量）";
 			productName = "02-Runtime的应用";
-			productReference = 1AD93E4F238B69FF007BC234 /* 02-Runtime的应用（isa、类、成员变量） */;
+			productReference = 1AD93E4F238B69FF007BC234 /* 02-Runtime的应用（修改isa指向、创建类、操作成员变量） */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +108,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1AD93E4A238B69FF007BC234 /* Build configuration list for PBXProject "02-Runtime的应用（isa、类、成员变量）" */;
+			buildConfigurationList = 1AD93E4A238B69FF007BC234 /* Build configuration list for PBXProject "02-Runtime的应用（修改isa指向、创建类、操作成员变量）" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -121,7 +121,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1AD93E4E238B69FF007BC234 /* 02-Runtime的应用（isa、类、成员变量） */,
+				1AD93E4E238B69FF007BC234 /* 02-Runtime的应用（修改isa指向、创建类、操作成员变量） */,
 			);
 		};
 /* End PBXProject section */
@@ -268,7 +268,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1AD93E4A238B69FF007BC234 /* Build configuration list for PBXProject "02-Runtime的应用（isa、类、成员变量）" */ = {
+		1AD93E4A238B69FF007BC234 /* Build configuration list for PBXProject "02-Runtime的应用（修改isa指向、创建类、操作成员变量）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AD93E54238B69FF007BC234 /* Debug */,
@@ -277,7 +277,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1AD93E56238B69FF007BC234 /* Build configuration list for PBXNativeTarget "02-Runtime的应用（isa、类、成员变量）" */ = {
+		1AD93E56238B69FF007BC234 /* Build configuration list for PBXNativeTarget "02-Runtime的应用（修改isa指向、创建类、操作成员变量）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AD93E57238B69FF007BC234 /* Debug */,

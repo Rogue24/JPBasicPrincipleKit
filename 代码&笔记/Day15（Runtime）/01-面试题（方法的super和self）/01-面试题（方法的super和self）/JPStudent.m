@@ -5,6 +5,7 @@
 //  Created by 周健平 on 2019/11/20.
 //  Copyright © 2019 周健平. All rights reserved.
 //
+//  注意：super并不是用self拿父类，而是拿【这个文件的这个类的父类】，self是不确定的。
 
 #import "JPStudent.h"
 #import <objc/runtime.h>
@@ -65,7 +66,7 @@
                                             class_getSuperclass(objc_getClass("JPStudent"))},
                            sel_registerName("run"));
             ↓↓↓
-        << __rw_objc_super ==这个结构体在OC源码中为==> objc_super>>
+        << __rw_objc_super ==这个结构体在OC源码中为==> objc_super >>
             ↓↓↓
         struct objc_super arg = {
             self,
@@ -81,16 +82,18 @@
         // objc_msgSendSuper({self, [JPPersion class]}, @selector(run)});
         // 这个函数的意思是：self【直接】先去[JPPersion class]的方法列表中查找run方法并执行
         // 也就是子类对象直接去到父类的方法列表里查找方法，其目的就是要调用父类的方法而不是自己的
+        // 不然会直接执行自己的方法造成【死循环】
  
         // PS1：父类的类对象已经放在struct objc_super的super_class，通过这个直接去到父类的方法列表找方法
         // PS2：通过self去调用父类的方法，所以这时候父类方法里的self并不是父类的对象，而是消息接收者自身（子类）
     }
  
+ * 结论：
  * [super run] ==> 使用super调用方法的本质：
-    · objc_msgSendSuper({self, [JPPersion class]}, @selector(run)})
-    · self（子类对象自身、方法调用者、消息接收者）绕过第一个isa直接去到父类的方法列表开始查询方法并执行
-    · 所以这个super其实就是self，只是执行的是父类的方法
-    · 目的就是为了直接去调用父类的方法，而不是调用自己的方法
+    · objc_msgSendSuper({self, [JPPersion class]}, @selector(run)})；
+    · self（子类对象自身、方法调用者、消息接收者）绕过第一个isa直接从父类的方法列表开始查询方法并执行；
+    · 所以这个super其实就是self，只是执行的是父类的方法；
+    · 目的就是为了直接去调用父类的方法，而不是调用自己的方法。
  
  * PS：super调用，实际上底层会转换为objc_msgSendSuper2函数的调用，在后面会讲到。
  */
@@ -112,21 +115,21 @@
         ↓↓↓
  class和superclass明显都是根类NSObject的方法
         ↓↓↓
- class和superclass的源码实现：
- @implementation NSObject
- // 谁调用就返回谁的Class
- + (Class)class {
-     return self;
- }
- - (Class)class {
-     return object_getClass(self);
- }
- // 谁调用就返回谁的superclass
- + (Class)superclass {
-     return self->superclass;
- }
- - (Class)superclass {
-     return [self class]->superclass;
- }
- @end
+ class和superclass的源码实现：是通过【self】调用的函数，通过super调用其实也就是self调用
+    @implementation NSObject
+    // 谁调用就返回谁的Class
+    + (Class)class {
+        return self;
+    }
+    - (Class)class {
+        return object_getClass(self);
+    }
+    // 谁调用就返回谁的superclass
+    + (Class)superclass {
+        return class_getSuperclass(self);
+    }
+    - (Class)superclass {
+        return class_getSuperclass(object_getClass(self));
+    }
+    @end
  */

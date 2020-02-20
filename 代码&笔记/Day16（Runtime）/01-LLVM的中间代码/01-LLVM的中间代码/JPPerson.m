@@ -10,7 +10,7 @@
 
 @implementation JPPerson
 
-/**
+/*
  * Objective-C在变为机器代码之前，会被LLVM编译器转换为中间代码（Intermediate Representation）
  * OC --> 中间代码（后缀为 .ll ） --> 汇编、机器代码
  * 中间代码是LLVM特有的，并且通用、跨平台的，介于开发语言和最终的机器语言之间的一种代码
@@ -35,14 +35,14 @@ void test(int param) {
     test(c);
     
     /*
-     * 编译的C++代码：
+     *【1】编译的C++代码：
          objc_msgSendSuper({self, class_getSuperclass(objc_getClass("JPPerson"))},
                            sel_registerName("forwardInvocation:"),
                            anInvocation);
      */
     
     /*
-     * 中间代码：
+     *【2】中间代码：
      * 搜“objc_msgSendSuper2”定位：
          [super forwardInvocation:anInvocation]
            ↓↓↓
@@ -64,7 +64,7 @@ void test(int param) {
          %21 = add nsw i32 %19, %20         ==> %21 = %19 + %20 = 5 + 3 = 8
          store i32 %21, i32* %10, align 4   ==> %10 = %21 = 8
          %22 = load i32, i32* %10, align 4  ==> %22 = %10 = 8
-         call void @test(i32 %22)           ==> 调用test
+         call void @test(i32 %22)           ==> 调用test传入%22
      
      * store：存储（set）
      * load：加载（get）

@@ -10,6 +10,7 @@
 #import "JPPerson.h"
 
 #import <objc/runtime.h>
+#import <malloc/malloc.h>
 
 @interface ViewController ()
 
@@ -29,22 +30,22 @@
                         ↓↓↓
                         ↓↓↓
      * super调用，其实底层会转换为【objc_msgSendSuper2】函数的调用，接收2个参数：1.struct objc_super2，2.SEL
-     * 注意：编译的C++代码只能用作参考，并不是所有代码都是肯定对的（只是大部分是对的），查看汇编肯定是对的（只是看不懂）
+     * 注意：编译的C++代码只能用作参考，并不是所有代码都是肯定对的（只是大部分是对的），而查看汇编肯定是对的（只是看不懂）
      
-     *【objc_msgSendSuper】和【objc_msgSendSuper2】的区别：
-     
+     *【objc_msgSendSuper】：
          objc_msgSendSuper({
              self;
-             class_getSuperclass(objc_getClass("ViewController");
+             class_getSuperclass(objc_getClass("ViewController"); // 父类是UIViewController
          }, sel_registerName("viewDidLoad"));
          ↓↓↓
          第一个参数是这种结构体
          ↓↓↓
          struct objc_super {
-             __unsafe_unretained _Nonnull id receiver;
-             __unsafe_unretained _Nonnull Class super_class; ==> 父类
+             id receiver;
+             Class super_class; ==> 父类
          };
      
+     *【objc_msgSendSuper2】：
          objc_msgSendSuper2({
              self;
              objc_getClass("ViewController");
@@ -54,47 +55,56 @@
          ↓↓↓
          struct objc_super2 {
              id receiver;
-             Class current_class; ==> 自己类，objc_msgSendSuper2内部会通过该类的superclass查找父类
+             Class current_class; ==> 自己类，objc_msgSendSuper2函数内部会通过该类的superclass来获取其父类
          };
      
+     * 综上所述，所以这里地址最低的临时变量是ViewController这个类对象，而不是他的父类
      */
     
     NSString *hello = @"J了个P";
     NSString *hi = @"健了个平";
     id cls = [JPPerson class];
     void *obj = &cls;
-    [(__bridge id)obj print];  // My name is 健了个平
+    // (__bridge id)obj：强转成OC类型 --- 只要是OC对象就可以调用方法
+    [(__bridge id)obj print1]; // My name is 健了个平
     [(__bridge id)obj print2]; // My nickname is J了个P
     [(__bridge id)obj print3]; // My littlename is <ViewController: 0x7ff8ccc0d810>
     [(__bridge id)obj print4]; // My othername is ViewController
+    /*
+     * 注意1：再往上就没临时变量了，继续访问会崩溃（野指针）；
+     * 注意2：这里的self和ViewController是属于（使用了super生成的）结构体里面的成员，都是临时变量，第一个成员是指向self的指针变量，第二个成员是指向ViewController的指针变量；
+     * 注意3：要是没用过super，就没有指向self和ViewController这两个指针变量了，self可不是这里的临时变量，是方法的参数，是存放在别处的变量；
+     * 方法的参数（包括隐式参数self和_cmd）：在arm64架构中并不是在栈空间上，而是存放在【寄存器】中（寄存器的访问效率比内存更高），因此self的地址并不是紧跟在后面，再往上的可是野指针喔。
+     */
     
     /*
-     * 在此可以打断点查看：
+     * 证明super是使用了objc_msgSendSuper2函数，在此可以打断点查看结构体成员：
      * 1. p/x obj ==> 查看obj地址
      * 2. x/5g obj地址 ==> 查看obj地址存放的内容（以8个字节为一组，查看5组，排列顺序是从低到高，因为类对象不是在栈上）
      * 3. p (类型)其中一组地址 ==> 查看每一组地址存放的内容（可以查看最后一组地址，也就是栈底，为ViewController）
+     *                      ==> p (Class)0x000000010f5ee700
      */
     
     /*
      *【1】[(__bridge id)obj print] 为什么能调用成功？
      * obj和实例对象指针per的指向关系：
      
-     obj →→→ cls →→→→→→→→→
-                         ↓
-                 [JPPerson class]
-                         ↑
-     per →→→ isa →→→→→→→→→
+         obj →→→ cls →→→→→→→→→
+                             ↓
+                     [JPPerson class]
+                             ↑
+         per →→→ isa →→→→→→→→→
      
-     * 指针变量指向的地址 -> 该地址的前8个字节 -> 类对象的地址
+     * 指针变量（obj、per）指向的地址 -> 从该地址起的前8个字节 -> 类对象的地址
      * per -> isa -> [JPPerson class] -> 找到print并执行
      * obj -> cls -> [JPPerson class] -> 找到print并执行
      
      * obj和per都是指针变量，obj->cls和per->isa都是指向[JPPerson class]
      * 本质上obj和per其实是一样的。
+     * 此时的obj近似于一个实例对象（结构上），不同的是cls在栈上，isa在堆上
      
-     * 因为实例对象调用实例方法只是通过isa来到类对象里面查找方法再执行的
+     * 因为实例对象调用实例方法实际上只是【通过isa来到类对象里面查找方法】再执行的
      * 能不能调用实例方法并不是一定要创建实例对象去调用，只需要有这个指针就可以（除非要用到成员变量，那就只能用实例对象了）
-     
      * 所以obj能调用print
      * <<也就是说，这里的obj->cls只是模仿实例对象在内存中的指引>>
      */
@@ -104,28 +114,29 @@
      *【2】[(__bridge id)obj print] ==> My name is 健了个平，为什么print里面的“name”为临时变量hi ？
      * print方法的实现：
      
-     - (void)print {
-         NSLog(@"My name is %@", self.name);
-     }
+         - (void)print {
+             NSLog(@"My name is %@", self.name);
+         }
      
      * 因为本质上obj和per其实是一样的，obj->cls是模仿实例对象在内存中的指引
      * print方法里面的“self.name”相当于self->_name，是为了去获取_name这个成员变量
      * _name作为JPPerson的第一个成员，这个成员的内存地址是紧挨在isa后面（isa地址+8）
      
      * hello、hi、cls、obj都为局部变量，此时在viewDidLoad作用域范围内的内存排布为：
+     
      【栈】（地址是从高往低分配）
-     - 低地址 -
-     ←← obj
-     ↓
-     →→ cls   --> [JPPerson class] ----------→
-                                             ↓
-        hi    --> @"健了个平" ------------→【全局区】
-                                             ↑
-        hello --> @"J了个P" ------------------→
-     - 高地址 -
+         - 低地址 -
+          ←← obj
+          ↓
+          →→ cls   --> [JPPerson class] ----------→
+                                                  ↓
+             hi    --> @"健了个平" ------------→【全局区】
+                                                  ↑
+             hello --> @"J了个P" ------------------→
+         - 高地址 -
      
      * 当obj调用print方法，里面的“self”为obj
-     * 此时执行self.name，就是操控obj这个指针，从指向的地址开始跳过前8个字节，去获取后面8个字节（字符串占8字节）
+     * 此时执行self.name，就是操控obj这个指针，从指向的地址开始跳过前8个字节，去获取后面8个字节（属性是个指针变量，占8字节）
      * 而obj指向的地址的前8个字节为cls的地址，之后那8个字节即为hi的地址
      * 所以“self.name”获取到的值是hi
      
@@ -148,6 +159,7 @@
         hi    <---> per->_name
         hello <---> per->_nickname
      */
+    
     
     /*
      *【3】为什么再往后的打印结果为：

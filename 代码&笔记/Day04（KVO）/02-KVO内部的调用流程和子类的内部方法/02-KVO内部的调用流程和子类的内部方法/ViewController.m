@@ -38,13 +38,18 @@
      */
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
     
+    //【例1】
     [self.per1 addObserver:self forKeyPath:@"age" options:options context:nil];
-    [self.per1 addObserver:self forKeyPath:@"weight" options:options context:nil];
     
+    //【例2】
     // 没有height属性，但有”_height“成员变量
     // 想要KVO生效还需要有-setHeight:方法
     [self.per1 addObserver:self forKeyPath:@"height" options:options context:nil]; // 起效
     
+    //【例3】
+    [self.per1 addObserver:self forKeyPath:@"weight" options:options context:nil];
+    
+    //【例4】
     // 没有money属性，也没有”_money“成员变量
     // 想要KVO生效不仅需要有-setMoney:方法，还要有-money方法
     [self.per1 addObserver:self forKeyPath:@"money" options:options context:nil]; // 不起效
@@ -92,7 +97,7 @@
     // 也就是说重写的set方法里面是有调用这两个方法的
     
     //【例4】
-    [self.per1 setMoney:999];
+    [self.per1 setMoney:999]; // 没有成员变量但只要同时有set方法和get方法也可以触发KVO
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {

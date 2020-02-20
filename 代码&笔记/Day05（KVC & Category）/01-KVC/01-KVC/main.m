@@ -58,6 +58,9 @@ int main(int argc, const char * argv[]) {
             - 3.2 找不到：抛出NSUnknownKeyException异常
          */
         
+        // 如果key为@"_age"，那么查找成员变量的优先级为：__age、_is_age、_age、is_age，
+        // 这里恰巧有_age这个成员变量，不然就会崩，所以别写错了。
+        
         // 移除KVO监听
         [per removeObserver:observer forKeyPath:@"age"];
         

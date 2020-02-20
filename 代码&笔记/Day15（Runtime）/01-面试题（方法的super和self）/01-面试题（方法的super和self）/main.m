@@ -14,6 +14,8 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         NSLog(@"Hello, World!");
         
+//        JPPerson *per = [[JPPerson alloc] init];
+//        [per eat];
         
         JPStudent *stu = [[JPStudent alloc] init];
         [stu run];

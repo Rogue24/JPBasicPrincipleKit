@@ -14,14 +14,6 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        /**
-         * method_exchangeImplementations：方法交换
-         * 本质交换的是method_t里面imp指针（method_t是对方法/函数的封装，通过self和SEL找到的method_t）
-            ==> objc_class --> bits/class_rw_t --> methods --> method_t --> imp ==> 交换
-         * 缓存cache_t里面的bucket_t的imp咋办？
-            ==> 调用method_exchangeImplementations就会清空缓存，之后重新添加到缓存里面（看源码）
-         */
-        
         // 直接对NSMutableArray进行方法交换可能不起效
         // 因为想要交换的方法有可能并不是NSMutableArray这个类的方法
         // 使用NSMutableArray时实际上是【__NSArrayM】这个类（这个可以从崩溃信息里面看到）
@@ -29,6 +21,8 @@
          * 类簇：是Foundation framework框架下的一种设计模式，它管理了一组隐藏在公共接口下的私有类。
          * NSString、NSArray、NSDictonary... 真实类型是其他类型
          */
+        // __NSArrayI 应该是 __NSArrayM 的父类
+        // I：immutable（不可变），M：mutable（可变的）
         
         Class cls = NSClassFromString(@"__NSArrayM");
         Method originMethod = class_getInstanceMethod(cls, @selector(insertObject:atIndex:));
@@ -39,7 +33,7 @@
 
 - (void)jp_insertObject:(id)anObject atIndex:(NSUInteger)index {
     if (!anObject) {
-        NSLog(@"请不要传入空元素");
+        NSLog(@"JPExtension ---- 请不要传入空元素");
         return;
     }
     [self jp_insertObject:anObject atIndex:index];

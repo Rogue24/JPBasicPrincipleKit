@@ -20,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A78375D23FE3F7B00AB6AAC /* method_t的结构.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "method_t的结构.jpg"; path = "../../../../截图/05-Runtime/method_t的结构.jpg"; sourceTree = "<group>"; };
 		1A8BF466238CCB8D00ED511E /* 04-Runtime的应用（方法交换）.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "04-Runtime的应用（方法交换）.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A8BF469238CCB8D00ED511E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1A8BF46A238CCB8D00ED511E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 				1A8BF46D238CCB8D00ED511E /* SceneDelegate.m */,
 				1A8BF46F238CCB8D00ED511E /* ViewController.h */,
 				1A8BF470238CCB8D00ED511E /* ViewController.m */,
+				1A78375D23FE3F7B00AB6AAC /* method_t的结构.jpg */,
 				1A8BF482238CD0C000ED511E /* UIControl+JPExtension.h */,
 				1A8BF483238CD0C000ED511E /* UIControl+JPExtension.m */,
 				1A8BF485238D016100ED511E /* NSMutableArray+JPExtension.h */,

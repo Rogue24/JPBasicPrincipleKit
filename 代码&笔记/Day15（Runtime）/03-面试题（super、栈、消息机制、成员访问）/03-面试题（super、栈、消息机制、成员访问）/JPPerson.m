@@ -9,7 +9,7 @@
 #import "JPPerson.h"
 
 @implementation JPPerson
-- (void)print {
+- (void)print1 {
     NSLog(@"My name is %@", self.name);
 }
 - (void)print2 {

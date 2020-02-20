@@ -32,6 +32,7 @@
 		1A0C6820238580C200BF70EC /* JPStudent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPStudent.h; sourceTree = "<group>"; };
 		1A0C6821238580C200BF70EC /* JPStudent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPStudent.m; sourceTree = "<group>"; };
 		1A0C68232385857D00BF70EC /* JPStudent-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "JPStudent-arm64.cpp"; sourceTree = "<group>"; };
+		1A2893A023FA862600FCBD39 /* JPPerson-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "JPPerson-arm64.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +68,7 @@
 				1A0C68132385809500BF70EC /* main.m */,
 				1A0C681A238580A700BF70EC /* JPPerson.h */,
 				1A0C681B238580A700BF70EC /* JPPerson.m */,
+				1A2893A023FA862600FCBD39 /* JPPerson-arm64.cpp */,
 				1A0C6820238580C200BF70EC /* JPStudent.h */,
 				1A0C6821238580C200BF70EC /* JPStudent.m */,
 				1A0C68232385857D00BF70EC /* JPStudent-arm64.cpp */,

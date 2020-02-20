@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *littlename;
 @property (nonatomic, copy) NSString *othername;
-- (void)print;
+- (void)print1;
 - (void)print2;
 - (void)print3;
 - (void)print4;

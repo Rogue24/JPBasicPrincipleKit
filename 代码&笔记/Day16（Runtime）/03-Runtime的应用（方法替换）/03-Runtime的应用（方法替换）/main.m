@@ -23,6 +23,7 @@ int main(int argc, const char * argv[]) {
         [per run];
         
         // 动态替换方法（传入方法）
+        // myRun是个C语言函数，里面没有self和_cmd这两个隐式参数，所以类型编码只需要写"v"
         class_replaceMethod(JPPerson.class, @selector(run), (IMP)myRun, "v");
         [per run];
         
