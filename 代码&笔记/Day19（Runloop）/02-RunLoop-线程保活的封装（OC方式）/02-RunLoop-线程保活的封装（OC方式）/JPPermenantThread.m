@@ -22,16 +22,17 @@
 
 @interface JPPermenantThread ()
 @property (nonatomic, strong) JPThread *innerThread;
-@property (nonatomic, assign) BOOL isStarted;
 @property (nonatomic, assign) BOOL isStopped;
 @end
 
 @implementation JPPermenantThread
 
-#pragma mark - 公开方法
+#pragma mark - 生命周期
 
 - (instancetype)init {
     if (self = [super init]) {
+        self.isStopped = YES;
+        
         __weak typeof(self) weakSelf = self;
         self.innerThread = [[JPThread alloc] initWithBlock:^{
             [[NSRunLoop currentRunLoop] addPort:[[JPPort alloc] init] forMode:NSDefaultRunLoopMode];
@@ -45,10 +46,17 @@
     return self;
 }
 
+- (void)dealloc {
+    [self stop];
+    NSLog(@"%s", __func__);
+}
+
+#pragma mark - 公开方法
+
 - (void)run {
-    if (!self.innerThread || self.isStarted) return;
+    if (!self.innerThread || !self.isStopped) return;
+    self.isStopped = NO;
     [self.innerThread start];
-    self.isStarted = YES;
 }
 
 - (void)stop {
@@ -64,21 +72,16 @@
 #pragma mark - 私有方法
 
 - (void)__stop {
+    // 1.要先修改标识
     self.isStopped = YES;
+    // 2.再停止RunLoop，否则可能标识都还没改就已经新循环的判断
     CFRunLoopStop(CFRunLoopGetCurrent());
+    // 3.不再使用线程就置为nil
     self.innerThread = nil;
 }
 
 - (void)__executeTask:(JPPermenantThreadTask)task {
     task();
-}
-
-
-#pragma mark - 重写父类方法
-
-- (void)dealloc {
-    [self stop];
-    NSLog(@"%s", __func__);
 }
 
 @end

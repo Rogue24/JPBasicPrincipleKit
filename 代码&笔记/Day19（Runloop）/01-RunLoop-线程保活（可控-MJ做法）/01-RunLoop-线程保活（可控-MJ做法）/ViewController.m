@@ -7,12 +7,12 @@
 //
 //  问题：退出vc后停止RunLoop崩溃、退出vc后thread没死、停止RunLoop后退出vc崩溃
 //  MJ做法：
-//  1.【waitUntilDone:YES】--> 设置为YES，确保停止RunLoop中不会坏内存访问
+//  1.【waitUntilDone:YES】--> performSelector去执行stopRunLoop，waitUntilDone设置为YES，确保停止RunLoop的过程中不会坏内存访问
 //  2.【weakSelf && !weakSelf.isStoped】--> 防止vc销毁后继续启动RunLoop
 //  3.【self.thread = nil】+【if (!self.thread) return】--> 防止停止RunLoop后继续让线程做事情，这样会报错（因为waitUntilDone:YES）
 //  我的做法：
 //  1.【weakSelf && !weakSelf.isStoped】
-//  2. 将-stopRunLoop改成+stopRunLoop:，参数为vc，退出时传nil，其他没改
+//  2. 将-stopRunLoop改成+stopRunLoop:，参数为vc，退出时传nil，其他没改，这样就能防止坏内存访问，因为类对象不会被销毁
 
 #import "ViewController.h"
 #import "JPThread.h"
@@ -24,7 +24,7 @@
 
 @implementation ViewController
 
-/**
+/*
  *【RunLoop与线程】
  * 每条线程都有唯一的一个与之对应的RunLoop对象
  * RunLoop 保存在全局的Dictionary，线程作为key，RunLoop作为value ==> @ {线程：RunLoop}
@@ -54,43 +54,14 @@
     self.thread = [[JPThread alloc] initWithBlock:^{
         [[NSRunLoop currentRunLoop] addPort:[[NSPort alloc] init] forMode:NSDefaultRunLoopMode];
         
-        /*
-         * [[NSRunLoop currentRunLoop] run];
-         * NSRunLoop的run方法是无法停止的，它专门用于开启一个永不销毁的线程（NSRunLoop）。
-         *
-         * - (void)run方法的文档解释+翻译：
-         * if no input sources or timers are attached to the run loop, this method exits immediately;
-         * 如果在运行循环中没有输入源或定时器，则该方法立即退出。
-         * otherwise, it runs the receiver in the NSDefaultRunLoopMode by repeatedly invoking runMode:beforeDate:.
-         * 否则，它将通过重复调用runMode:beforeDate:，在NSDefaultRunLoopMode中运行接收器。
-         * In other words, this method effectively begins an infinite loop that processes data from the run loop’s input sources and timers.
-         * 换句话说，该方法有效地开始了一个无限循环，该循环处理来自运行循环的输入源和计时器的数据。
-         *
-         * 也就是说，当添加了port（source），调用run，底层会开启一个无限循环去执行<<runMode:beforeDate:>>方法：
-             // 用个死循环调用runMode:beforeDate:，相当于酱紫：
-             while (1) {
-                 // [NSDate distantFuture]：遥远的未来
-                 // beforeDate:[NSDate distantFuture]：在这个未来到来之前一直运行，保证永不超时（除非你能活几百年）
-                 [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-             }
-         * 即使调用了CFRunLoopStop去停止，在底层也只是停止当前这一次runMode:beforeDate:
-         * 然后接着执行后面的代码，重新开启RunLoop，所以Runloop对象无法停止
-         *
-         * PS：
-         * runMode:beforeDate: ==> 开启RunLoop，阻塞（休眠）当前线程
-         * 当线程有任务了，RunLoop让线程去执行任务，执行完RunLoop就会自动退出，继续下面代码
-         * 因为套上了一层死循环（条件为1的while），接下来就是下一轮循环的开始，重新开启RunLoop（闲->睡，忙->干）
-         * 所以套个while循环调用 runMode:beforeDate: 来实现线程不被销毁
-         */
-        
-        // 自定义RunLoop的启动（仿照run方法的做法）
-        // <<自定义标识，每次循环先判断条件是否继续开启>>
         while (weakSelf && !weakSelf.isStoped) {
+            NSLog(@"如果能打印我，就是说明开启了新的RunLoop啦！等着做事情~");
+            
             // runMode:beforeDate: ==> 当任务执行完runloop就会自动退出，没有任务时就让线程休眠
             [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
             // PS：线程没任务时，这里并不是一直while循环，只有收到消息，才会唤醒线程去执行，执行完之后才会进入下一次循环
             
-            NSLog(@"如果能打印我，就是说明当前RunLoop退出啦，继续下一轮循环先~");
+            NSLog(@"如果能打印我，就是说明这一次的RunLoop退出啦！继续下一轮循环去~");
         }
         
         NSLog(@"如果能打印我，就是说明RunLoop彻底退出啦！！！");
@@ -103,13 +74,7 @@
     NSLog(@"%s", __func__);
 }
 
-#pragma mark - getter
-- (BOOL)isStoped {
-    NSLog(@"开启RunLoop不？%@", _isStoped ? @"开个毛线" : @"开咯嘛！");
-    return _isStoped;
-}
-
-#pragma mark - JPThread分发的任务
+#pragma mark - 分发给JPThread的任务
 - (void)doSomeThing {
     NSLog(@"%s --- %@", __func__, [NSThread currentThread]);
 }
@@ -125,7 +90,7 @@
     
     // 清空线程，防止之后继续让线程去做事情
     // 因为线程的RunLoop已经停止工作了（线程本来的{}已经执行完了），不能再处理事情了
-    // 继续让该线程做事情可能会报错（例如：waitUntilDone:YES，肯定报错，有可能这句代码是要使用线程的runLoop对象）
+    // 继续让该线程做事情可能会报错（例如：performSelector去执行doSomeThing，waitUntilDone设置为YES，肯定报错，线程都没了，永远等不到）
     self.thread = nil;
 }
 
@@ -143,10 +108,11 @@
     // 先判断子线程是否还存活
     if (!self.thread) return;
     
-    /**
-     * 在dealloc中调用performSelector去执行stopRunLoop，由于里面会使用到self，而dealloc后self就已经销毁了，所以会造成坏内存访问的崩溃错误
-     * 解决方法：waitUntilDone:YES（等待thread的任务执行完再继续下面代码）
-     * 确保stopRunLoop方法在【dealloc{}的作用域】内self没有死，能彻底执行完（停止RunLoop）
+    /*
+     * 在dealloc中使用performSelector去执行stopRunLoop，这种方式stopRunLoop会迟一点点才开始执行，很有可能dealloc执行完stopRunLoop才开始执行，由于dealloc执行完self就立马被销毁，所以当stopRunLoop用到self时，self很大几率是死了的，因此造成坏内存访问。
+     * 解决方法：waitUntilDone:YES
+     * 意思是，在dealloc方法过程中，必须得等stopRunLoop执行完才继续后面代码（在dealloc方法的作用域内self就死不了）
+     * 这样可以确保stopRunLoop方法内的self没有被销毁，能彻底执行完（停止RunLoop）
      */
     [self performSelector:@selector(stopRunLoop) onThread:self.thread withObject:nil waitUntilDone:YES];
 }

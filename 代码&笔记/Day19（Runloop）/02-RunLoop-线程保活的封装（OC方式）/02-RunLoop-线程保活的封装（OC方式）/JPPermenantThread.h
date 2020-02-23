@@ -18,6 +18,10 @@
 
 typedef void(^JPPermenantThreadTask)(void);
 
+/**
+ * 为什么不直接继承NSThread？
+ * 这是为了不让外界来控制线程的生命周期和其他对线程的操作，全部由JPPermenantThread内部来管理。
+ */
 @interface JPPermenantThread : NSObject
 - (void)run;
 - (void)stop;

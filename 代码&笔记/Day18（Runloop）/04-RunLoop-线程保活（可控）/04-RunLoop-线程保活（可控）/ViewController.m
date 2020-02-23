@@ -48,7 +48,7 @@
         
         /*
          * [[NSRunLoop currentRunLoop] run];
-         * NSRunLoop的run方法是无法停止的，它专门用于开启一个永不销毁的线程（NSRunLoop）。
+         * NSRunLoop的 -run 方法是无法停止的，ta专门用于开启一个【永不销毁】的线程（NSRunLoop）。
          *
          * - (void)run方法的文档解释+翻译：
          * if no input sources or timers are attached to the run loop, this method exits immediately;
