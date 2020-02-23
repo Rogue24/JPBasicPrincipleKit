@@ -67,7 +67,7 @@ void test() {
     static int car = 100;
     
     jpBlock = ^{
-        /**
+        /*
          * 只要是局部变量，block要访问这个局部变量，都会将之捕获进来
          * block将money的值捕获进来（capture）--> 值传递
             - money是自动变量（auto），离开作用域就销毁，之后就无法访问（不然就会坏内存访问，即野指针），所以auto进行的是值传递，捕获【当前值】

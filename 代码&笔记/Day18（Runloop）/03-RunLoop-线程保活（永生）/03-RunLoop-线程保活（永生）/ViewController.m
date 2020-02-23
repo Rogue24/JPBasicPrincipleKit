@@ -58,7 +58,7 @@
     
     // 启动RunLoop
     [[NSRunLoop currentRunLoop] run];
-    // 相当于：
+    // [[NSRunLoop currentRunLoop] run] 相当于下面这两个方法的默认调用：
     // [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     // [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
     

@@ -30,6 +30,7 @@
 		1A2C61D9236FD95500E5998A /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
 		1A470814236E9FA7005E9641 /* 02-Block-内存管理(__block修饰的对象) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "02-Block-内存管理(__block修饰的对象)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A470817236E9FA7005E9641 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1A78376623FFB0F200AB6AAC /* Block和__block的内存管理.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Block和__block的内存管理.jpg"; sourceTree = "<group>"; };
 		1A7FB92A236EC45800C859DC /* __block修饰符.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block修饰符.jpg"; sourceTree = "<group>"; };
 		1A7FB92B236EED6000C859DC /* __block的内存管理（引用）.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block的内存管理（引用）.jpg"; sourceTree = "<group>"; };
 		1A7FB92C236EED6B00C859DC /* __block的内存管理（释放）.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block的内存管理（释放）.jpg"; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 				1A7FB92C236EED6B00C859DC /* __block的内存管理（释放）.jpg */,
 				1A2C61D3236F48FF00E5998A /* 对象类型的__blcok变量和auto变量.jpg */,
 				1AEAE04D23E1FF7D00CBA2CF /* 对象类型的__blcok变量的内存管理.jpg */,
+				1A78376623FFB0F200AB6AAC /* Block和__block的内存管理.jpg */,
 				1A470817236E9FA7005E9641 /* main.m */,
 				1AB3B9C323702C2500A4836A /* main-arc-arm64.cpp */,
 				1AB3B9C22370226500A4836A /* main-mrc-arm64.cpp */,

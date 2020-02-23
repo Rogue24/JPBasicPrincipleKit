@@ -71,6 +71,13 @@
             - NSTimer
             - performSelector:withObject:afterDelay:（底层其实用NSTimer）
      };
+ 
+ *【RunLoop的应用范畴】
+    1.定时器（Timers）、PerformSelector（Source0、Timers）
+    2.GCD Async Main Queue（GCD，回到主队列 async/sync/after）
+    3.事件响应、手势识别、界面刷新（Source1->Source0、Observers）
+    4.网络请求
+    5.AutoreleasePool（Observers）
  */
 
 - (void)viewDidLoad {
@@ -89,11 +96,19 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     NSLog(@"%s", __func__);
     /*
-     * 打个断点，去控制台打印lldb指令【bt】：查看完整的函数调用栈
-     * 从函数调用栈中可以看到：
-     * 通过 __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__
-     * 触发了 __handleEventQueueInternal 去处理点击事件，最后执行到这里
-     * 看得出【Source0】是用来进行触摸事件处理
+     * 打个断点，可是左边的函数调用栈栏目有些调用会被系统隐藏掉
+     * 在控制台打印lldb指令【bt】==> 查看完整的函数调用栈
+     
+         frame #0: 0x0000000104e27e2d 03-Runloop（CFRunLoopModeRef的成员）`-[ViewController touchesBegan:withEvent:](self=class name = ViewController, _cmd="touchesBegan:withEvent:", touches=1 element, event=0x0000600000c503c0) at ViewController.m:90:5
+         ......
+         frame #7: 0x0000000108e131e0 UIKitCore`__handleEventQueueInternal + 5980
+         frame #8: 0x0000000105841471 CoreFoundation`__CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__ + 17
+         ......
+         frame #16: 0x000000010719dc25 libdyld.dylib`start + 1
+     
+     * 通过bt打印的函数调用栈中可以看到：
+     * 是由 __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__ 触发了 __handleEventQueueInternal 去处理点击事件，最后执行到这里
+     * 看得出【Source0】是用来进行触摸事件处理（_A_SOURCE0_PERFORM_FUNCTION_）
      */
 }
 

@@ -78,27 +78,7 @@
     [self.per1 removeObserver:self forKeyPath:@"age"];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    //【例1】
-    self.per1.age += 1; // 本质上调用了-setAge:方法
-
-    //【例2】
-    // ❌ 直接修改成员变量不会触发KVO
-    self.per1->isHeight += 1;
-    // ✅ 这样才会触发KVO，说明NSKVONotifying_Xxx内部重写的是这个属性的-setXxx:方法
-    // 并且是在重写的set方法里面触发了KVO
-    [self.per1 setHeight:10];
-
-    //【例3】
-    // 手动触发KVO（必须先willChangeValueForKey后didChangeValueForKey，且缺一不可）
-    // 要先调用 willChangeValueForKey 之后再调用 didChangeValueForKey 其内部才会调用 observer的observeValueForKeyPath:ofObject:change:context:
-    [self.per1 willChangeValueForKey:@"weight"];
-    [self.per1 didChangeValueForKey:@"weight"];
-    // 也就是说重写的set方法里面是有调用这两个方法的
-    
-    //【例4】
-    [self.per1 setMoney:999]; // 没有成员变量但只要同时有set方法和get方法也可以触发KVO
-}
+#pragma mark - KVO触发的回调
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     NSValue *oldValue = change[NSKeyValueChangeOldKey];
@@ -108,6 +88,38 @@
     NSLog(@"old --- %@", oldValue);
     NSLog(@"new --- %@", newValue);
     NSLog(@"========监听回调========");
+}
+
+#pragma mark - 能触发KVO的例子
+
+//【例1】
+- (IBAction)action1:(id)sender {
+    // 点语法、set方法的使用
+    self.per1.age += 1; // 本质上调用了-setAge:方法
+}
+
+//【例2】
+- (IBAction)action2:(id)sender {
+    // ❌ 直接修改成员变量不会触发KVO
+    self.per1->isHeight += 1;
+    // ✅ 这样才会触发KVO，说明NSKVONotifying_Xxx内部重写的是这个属性的-setXxx:方法
+    // 并且是在重写的set方法里面触发了KVO
+    [self.per1 setHeight:10];
+}
+
+//【例3】
+- (IBAction)action3:(id)sender {
+    // 手动触发KVO（必须先willChangeValueForKey后didChangeValueForKey，且缺一不可）
+    // 要先调用 willChangeValueForKey 之后再调用 didChangeValueForKey 其内部才会调用 observer的observeValueForKeyPath:ofObject:change:context:
+    [self.per1 willChangeValueForKey:@"weight"];
+    [self.per1 didChangeValueForKey:@"weight"];
+    // 也就是说重写的set方法里面是有调用这两个方法的
+}
+
+//【例4】
+- (IBAction)action4:(id)sender {
+    // 没有成员变量但只要同时有set方法和get方法也可以触发KVO
+    [self.per1 setMoney:999];
 }
 
 @end

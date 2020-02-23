@@ -10,18 +10,19 @@
 
 @implementation JPPerson
 
-/**
+/*
  *【1】这个3个test方法里面的block里有没捕获变量？
- * --> 有，捕获的都是self这个局部变量
+    - 有，捕获的都是self这个局部变量
  *【2】self为局部变量？
- * --> 从下面的方法编译的C++代码可以看得出，OC的方法默认会隐式传两个参数过来：1. (id)self【方法调用者的指针】，2. (SEL)_cmd【方法选择器】
- * --> 所以self是一个参数，就是一个局部变量
- * --> 所以block捕获了self这个局部变量的指针，存储该地址值（JPPerson的实例对象）
+    - 从下面的方法编译的C++代码可以看得出，OC的方法默认会隐式传两个参数过来：1. (id)self【方法调用者的指针】，2. (SEL)_cmd【方法选择器】
+    - 所以self是一个参数，就是一个局部变量
+    - 所以block捕获了self这个局部变量的指针，存储该地址值（JPPerson的实例对象）
  *【3】为啥test2和test3捕获的都是self？
- * --> 因为test2的 _name 相当于 self->_name，test3的 self.name 相当于 [self name]
- * --> 所以归根到底还是得捕获self，block内部才能通过self来获取这个属性值，毕竟属性值来自于实例对象
+    - 因为test2的 _name 相当于 self->_name，test3的 self.name 相当于 [self name]
+    - 所以归根到底还是得捕获self，block内部才能通过self来获取这个属性值，毕竟属性值来自于实例对象
  *【4】终极结论：block怎样才会捕获？
- * --> 只要是局部变量（不管是auto或static类型）都会捕获！全局变量不会捕获！
+    - 只要是局部变量都会捕获！（auto类型的捕获值，static类型的捕获地址）
+    - 全局变量不会捕获！
  */
 
 - (void)test1 {

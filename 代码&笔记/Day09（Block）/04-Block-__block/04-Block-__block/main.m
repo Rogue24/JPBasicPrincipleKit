@@ -33,10 +33,9 @@ struct __main_block_desc_0 {
     size_t reserved;
     size_t Block_size;
     
-    void (*copy)(void);
-    void (*dispose)(void);
-//    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
-//    void (*dispose)(struct __main_block_impl_0*);
+    void (*copy)(void); // void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
+    void (*dispose)(void); // void (*dispose)(struct __main_block_impl_0*);
+
 }; // __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
 
 struct __main_block_impl_0 {

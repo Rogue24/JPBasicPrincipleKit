@@ -15,7 +15,7 @@
 
 @implementation ViewController
 
-/**
+/*
  *【RunLoop与线程】
  * 每条线程都有唯一的一个与之对应的RunLoop对象
  * RunLoop 保存在全局的Dictionary，线程作为key，RunLoop作为value ==> @ {线程：RunLoop}
@@ -24,7 +24,7 @@
  * 主线程的RunLoop已经自动获取（创建），子线程默认没有开启RunLoop
  */
 
-/**
+/*
  *【获取RunLoop对象】
  * 获取当前线程的RunLoop：<<子线程的RunLoop第一次获取时才创建>>
     - OC：NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
@@ -34,32 +34,35 @@
     - C：CFRunLoopRef runLoopRef = CFRunLoopGetMain();
  */
 
-/**
- * 源码获取RunLoop对象过程：
-    __CFLock(&loopsLock);
-    // 取出runLoop对象，从全局字典__CFRunLoops取出，线程pthreadPointer(t)为key
-    CFRunLoopRef loop = (CFRunLoopRef)CFDictionaryGetValue(__CFRunLoops, pthreadPointer(t));
-    __CFUnlock(&loopsLock);
-    if (!loop) {
-        // runLoop对象为空，新建一个
-        CFRunLoopRef newLoop = __CFRunLoopCreate(t);
+/*
+ * 源码获取RunLoop对象过程：CFRunLoopGetCurrent -> _CFRunLoopGet0
+     CF_EXPORT CFRunLoopRef _CFRunLoopGet0(pthread_t t) {
+        ......
         __CFLock(&loopsLock);
-        // 再取一次确定此时还有没有
-        loop = (CFRunLoopRef)CFDictionaryGetValue(__CFRunLoops, pthreadPointer(t));
-        if (!loop) {
-            // 确定还没有，把新建的runLoop对象丢到全局字典__CFRunLoops中，线程pthreadPointer(t)为key
-            CFDictionarySetValue(__CFRunLoops, pthreadPointer(t), newLoop);
-            loop = newLoop;
-        }
-        // don't release run loops inside the loopsLock, because CFRunLoopDeallocate may end up taking it
+        // 取出runLoop对象，从全局字典__CFRunLoops取出，线程pthreadPointer(t)为key
+        CFRunLoopRef loop = (CFRunLoopRef)CFDictionaryGetValue(__CFRunLoops, pthreadPointer(t));
         __CFUnlock(&loopsLock);
-        CFRelease(newLoop);
-    }
-  */
+        if (!loop) {
+            // 发现runLoop对象为空，才去新建一个
+            CFRunLoopRef newLoop = __CFRunLoopCreate(t);
+            __CFLock(&loopsLock);
+            // 再取一次确定此时还有没有
+            loop = (CFRunLoopRef)CFDictionaryGetValue(__CFRunLoops, pthreadPointer(t));
+            if (!loop) {
+                // 确定还没有，把新建的runLoop对象丢到全局字典__CFRunLoops中，线程pthreadPointer(t)为key
+                CFDictionarySetValue(__CFRunLoops, pthreadPointer(t), newLoop);
+                loop = newLoop;
+            }
+            // don't release run loops inside the loopsLock, because CFRunLoopDeallocate may end up taking it
+            __CFUnlock(&loopsLock);
+            CFRelease(newLoop);
+        }
+        ......
+     }
+ */
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
+    [super viewDidLoad];    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

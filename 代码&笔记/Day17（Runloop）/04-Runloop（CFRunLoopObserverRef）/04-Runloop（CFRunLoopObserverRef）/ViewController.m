@@ -71,6 +71,13 @@
             - NSTimer
             - performSelector:withObject:afterDelay:（底层其实用NSTimer）
      };
+ 
+ *【RunLoop的应用范畴】
+    1.定时器（Timers）、PerformSelector（Source0、Timers）
+    2.GCD Async Main Queue（GCD，回到主队列 async/sync/after）
+    3.事件响应、手势识别、界面刷新（Source1->Source0、Observers）
+    4.网络请求
+    5.AutoreleasePool（Observers）
  */
 
 void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {
@@ -102,13 +109,13 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    /**
-     * CFRunLoopModeRef的类型
-     * kCFRunLoopDefaultMode/NSDefaultRunLoopMode：App的默认Mode，通常主线程是在这个Mode下运行
-     * UITrackingRunLoopMode：界面跟踪的Mode，用于ScrollView追踪触摸滑动，保证界面滑动时不受其他Mode影响
-     * kCFRunLoopCommonModes：包括 kCFRunLoopDefaultMode 和 UITrackingRunLoopMode 共用的Mode
-        * PS：这并不是一个真的Mode，它只是一个标记。
-     * 其他的都是系统的Mode无法使用
+    /*
+     * CFRunLoopModeRef的类型：
+     * 1.kCFRunLoopDefaultMode/NSDefaultRunLoopMode：App的默认Mode，通常主线程是在这个Mode下运行
+     * 2.UITrackingRunLoopMode：界面跟踪的Mode，用于ScrollView追踪触摸滑动，保证界面滑动时不受其他Mode影响
+     * 3.kCFRunLoopCommonModes：包括 kCFRunLoopDefaultMode 和 UITrackingRunLoopMode 共用的Mode
+        - PS：这并不是一个真的Mode，它只是一个标记。
+     * 4.其他的都是系统的Mode无法使用
      */
     
     // 监听RunLoop的状态
@@ -160,7 +167,7 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
     NSLog(@"%s", __func__);
     
     // scheduledTimerWithTimeInterval创建的定时器默认添加在默认模式（NSDefaultRunLoopMode）
-    // 一旦Runloop进入其他模式（例如滚动的mode），这个定时器就不会工作
+    // 默认模式下，一旦Runloop进入其他模式（例如滚动的mode），这个定时器就不会工作
     [NSTimer scheduledTimerWithTimeInterval:5.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
         // 定时器能唤醒线程，是在kCFRunLoopAfterWaiting(刚从休眠中唤醒)的状态下执行的
         NSLog(@"hello~");

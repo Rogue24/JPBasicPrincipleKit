@@ -25,10 +25,9 @@ struct __main_block_desc_0 {
     size_t reserved;
     size_t Block_size;
     
-    void (*copy)(void);
-    void (*dispose)(void);
-//    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
-//    void (*dispose)(struct __main_block_impl_0*);
+    void (*copy)(void); // void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
+    void (*dispose)(void); // void (*dispose)(struct __main_block_impl_0*);
+    
 }; // __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
 
 void __Block_byref_id_object_copy_131(void *dst, void *src) {
@@ -239,6 +238,8 @@ int main(int argc, const char * argv[]) {
          * OC代码：__block int a = 29;
          *        __block NSObject *obj = [[NSObject alloc] init];
          * C++代码：
+         
+            // __block int a，基本数据类型的__block变量
             struct __Block_byref_a_0 {
                 void *__isa;
                 struct __Block_byref_a_0 *__forwarding; // 指向自身的指针
@@ -246,6 +247,8 @@ int main(int argc, const char * argv[]) {
                 int __size;
                 int a; // 修饰的那个变量
             };
+         
+            // __block NSObject *obj，对象类型的__block变量
             struct __Block_byref_obj_1 {
                 void *__isa;
                 struct __Block_byref_obj_1 *__forwarding;
@@ -255,6 +258,8 @@ int main(int argc, const char * argv[]) {
                 void (*__Block_byref_id_object_dispose)(void*);
                 NSObject *__strong obj;
             };
+            // 对比基本数据类型的多了copy和dispose这两个函数，这是用来对结构体里面的对象进行内存管理的
+         
          * block会保存这些结构体的指针
          *
          * 不管这个变量是什么类型，只要被__block修饰都会被包装成__Block_byref_xxx_x这种结构体

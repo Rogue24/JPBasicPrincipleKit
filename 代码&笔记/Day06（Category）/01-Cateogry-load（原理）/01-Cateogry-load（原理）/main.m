@@ -41,9 +41,9 @@ int main(int argc, const char * argv[]) {
         // 查看JPPerson的类方法列表：
         [object_getClass(JPPerson.class) jp_lookMethods];
         // 共有3个load方法
-        // 1. JPPerson+JPTest2的load
-        // 2. JPPerson+JPTest1的load
-        // 3. JPPerson的load
+        // 1.JPPerson+JPTest2的load
+        // 2.JPPerson+JPTest1的load
+        // 3.JPPerson的load
         
         // 这里是通过消息发送机制调用load方法，所以会优先调用分类的load方法
         [JPPerson load];

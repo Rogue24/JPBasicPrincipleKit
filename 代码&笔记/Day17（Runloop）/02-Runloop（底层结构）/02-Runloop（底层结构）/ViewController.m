@@ -71,6 +71,12 @@
          CFMutableArrayRef _timers;
      };
  
+ *【RunLoop的应用范畴】
+    1.定时器（Timers）、PerformSelector（Source0、Timers）
+    2.GCD Async Main Queue（GCD，回到主队列 async/sync/after）
+    3.事件响应、手势识别、界面刷新（Source1->Source0、Observers）
+    4.网络请求
+    5.AutoreleasePool（Observers）
  */
 
 - (void)viewDidLoad {
@@ -84,9 +90,8 @@
     
     NSLog(@"%@", runLoop); // <CFRunLoop 0x6040001f5600 ...>
     
-    
-    /**
-     * 直接打印地址oc对象和c对象地址不同，直接打印oc对象，地址跟c对象一样
+    /*
+     * 直接打印地址oc对象和c对象地址不同，直接打印oc对象，指向对象的地址却跟c对象一样
      * 打断点查看oc对象地址存放的内容：x/4xg 0x6080000bd820
         0x6080000bd820: 0x00000001016d7ff0 0x00006040001f5600 --> c对象地址
         0x6080000bd830: 0x00006080002539e0 0x0000608000253f20

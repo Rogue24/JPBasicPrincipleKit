@@ -40,9 +40,9 @@ int main(int argc, const char * argv[]) {
         // 查看JPPerson的类方法列表：
         [object_getClass(JPPerson.class) jp_lookMethods];
         // 共有3个load方法
-        // 1. JPPerson+JPTest2的load
-        // 2. JPPerson+JPTest1的load
-        // 3. JPPerson的load
+        // 1.JPPerson+JPTest2的load
+        // 2.JPPerson+JPTest1的load
+        // 3.JPPerson的load
         
         [JPPerson load];
         [JPStudent load];
