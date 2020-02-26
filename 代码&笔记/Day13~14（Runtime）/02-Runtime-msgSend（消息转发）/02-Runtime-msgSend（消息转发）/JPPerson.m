@@ -24,7 +24,7 @@
 //        class_addMethod(self, sel, method_getImplementation(method), method_getTypeEncoding(method));
 //        return YES;
 //    }
-    BOOL resolve =[super resolveInstanceMethod:sel];
+    BOOL resolve = [super resolveInstanceMethod:sel];
     // 默认返回NO
     return resolve;
 }

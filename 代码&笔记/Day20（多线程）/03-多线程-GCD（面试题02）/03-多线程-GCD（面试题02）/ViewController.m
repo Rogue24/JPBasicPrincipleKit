@@ -35,11 +35,12 @@
     
     [self performSelector:@selector(interviewTest) onThread:thread withObject:nil waitUntilDone:YES];
     
-    /**
+    /*
      * why？
+     * 错误原因：【target thread exited while waiting for the perform】，目标线程在等待执行时退出
      * 因为waitUntilDone:YES，当前线程会被卡住，【要等interviewTest执行完才会继续】
      * [thread start]，thread肯定会先执行block的代码，但执行完thread就退出了（完全废了），所以根本不会去执行interviewTest
-     * 也就是根本等不到interviewTest的结束，当前线程就会被一直卡住，所以崩溃了（错误原因写的就是目标线程已经退出）
+     * 也就是【根本等不到】interviewTest的结束，当前线程就会被【一直卡住】，所以崩溃了（错误原因就是说在等待一个已经退出的线程）
      *
      * 解决方法1：waitUntilDone:NO，不等，别卡住当前线程
      * ==> 不用管interviewTest有没执行完，再加上thread已经退出，这样就类似于对空对象发消息 --- [nil interviewTest]

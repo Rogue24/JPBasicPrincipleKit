@@ -57,11 +57,20 @@
      * 如果信号量的值大于0，就让信号量减1，然后继续往下执行代码
      * 如果信号量的值小于等于0，就会让线程休眠等待，直到信号量的值大于0，就唤醒线程，再让信号量的值减1，继续往下执行代码
      * 伪代码：
+         dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+                ↓↓↓
+               类似于
+                ↓↓↓
          if (self.semaphore <= 0) {
-             线程休眠等待，直到这个信号量的值大于0
-         } else {
-             self.semaphore -= 1;
+             // 线程在此休眠等待，直到这个信号量的值大于0（卡住这里不往下执行）
+             sleep(n)
          }
+     
+         // 能来到这里，说明信号量至少为1，唤醒了这条线程，同时对信号量减1
+         self.semaphore -= 1;
+        
+         // 减1后如果等于0，那么其他还在等这个信号量的线程只能继续等，而这条线程会继续往下执行。
+     
      * 参数2的作用是当<<信号量的值小于等于0>>时线程会等多久：
         - DISPATCH_TIME_FOREVER：一直等待（休眠），直到这个信号量的值大于0
         - DISPATCH_TIME_NOW：不会等待，继续往下执行代码（这样就没法实现线程同步的效果）
@@ -74,12 +83,39 @@
     
     /*
      * dispatch_semaphore_signal(self.semaphore);
-     * 让信号量的值加1
+     * 信号量加1，发送信号，唤醒等待靠前的线程
      * 伪代码：
          self.semaphore += 1;
      */
     dispatch_semaphore_signal(self.semaphore);
 }
+
+/*
+ * 伪代码：
+     // 初始化信号量，信号量为0
+     self.semaphore = dispatch_semaphore_create(0); // self.semaphore = 0;
+ 
+     - (void)test {
+         //【1】开始执行任务1
+ 
+         dispatch_async(dispatch_get_global_queue(0, 0), ^{
+             //【4】开始执行任务2
+             ......
+             //【5】任务2结束，信号量加1，发送信号，唤醒等待靠前的线程
+             dispatch_semaphore_signal(self.semaphore); // self.semaphore + 1 = 1;
+         });
+        
+         //【2】任务1需要等待任务2执行完才继续，判断有无信号量
+         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); //【3】发现信号量为0，这里卡住（休眠）
+         
+         //【6】能来到这里，说明信号量至少为1，唤醒了这条线程，同时对信号量减1
+         // self.semaphore -= 1;
+         // 减1后如果等于0，那么其他还在等这个信号量的线程只能继续等，而这条线程会继续往下执行。
+ 
+         //【7】任务1继续
+         ......
+     }
+ */
 
 #pragma mark - 卖票操作
 

@@ -58,6 +58,7 @@ static CFRunLoopObserverRef observer_;
     //【会在自动释放池的{}结束前一刻调用release】
     @autoreleasepool {
         JPPerson *per1 = [[[JPPerson alloc] init] autorelease];
+        NSLog(@"per1 %@", per1);
     }
     // 所以per1会在{}的最后销毁
     
@@ -67,6 +68,7 @@ static CFRunLoopObserverRef observer_;
     //【什么时候释放是由RunLoop控制的】
     // 可能是在某次RunLoop循环中，在RunLoop休眠之前调用了release（kCFRunLoopBeforeWaiting）
     JPPerson *per2 = [[[JPPerson alloc] init] autorelease];
+    NSLog(@"per2 %@", per2);
     
     // 例如在这里，viewDidLoad和viewWillAppear是处于同一次RunLoop循环中
     // viewDidAppear到来之前，RunLoop会进行一次休眠
@@ -88,6 +90,12 @@ static CFRunLoopObserverRef observer_;
     //【MRC】环境下调用了autorelease的对象会在viewWillAppear之后销毁（RunLoop控制）
     //【ARC】环境下，LLVM会在方法的{}即将结束的时候，自动对里面的对象调用release方法
     // 所以如果是【ARC】环境下per2会在viewDidLoad结束前一刻、viewWillAppear之前就会被销毁
+    
+    JPPerson *per3 = [[JPPerson alloc] init];
+    NSLog(@"per3 %@", per3);
+    [per3 release]; // 没有使用autorelease的情况下，手动释放会立马销毁
+    
+    NSLog(@"viewDidLoad --- 4");
 }
 
 - (void)viewWillAppear:(BOOL)animated {

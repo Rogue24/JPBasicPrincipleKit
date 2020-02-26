@@ -279,7 +279,7 @@ int main(int argc, const char * argv[]) {
          // 当再次调用xxx方法时，会来到_buckets里面去找对应的bucket_t
          // ==> 判断SEL跟bucket_t的key是否一样，是的话就直接拿_imp获取方法地址去调用方法
         
-         mask_t _mask; // 散列表的长度 - 1
+         mask_t _mask; // 散列表的长度 - 1（可以保证&出来的索引值不会超过散列表的长度）
          mask_t _occupied; // 已经缓存的方法数量（<=散列表的长度）
             
          // 其他方法...
