@@ -85,6 +85,8 @@ static CFRunLoopObserverRef observer_;
      */
 
     NSLog(@"viewDidLoad --- 3");
+    
+    // 查看系统在主线程的Runloop中注册的Observer
 //    NSLog(@"%@", [NSRunLoop mainRunLoop]);
     
     //【MRC】环境下调用了autorelease的对象会在viewWillAppear之后销毁（RunLoop控制）
@@ -120,7 +122,7 @@ static CFRunLoopObserverRef observer_;
      kCFRunLoopAllActivities = 0x0FFFFFFFU
  };
  
- * iOS在主线程的Runloop中注册了【2】个Observer，打印[NSRunLoop mainRunLoop]可以看到：
+ * iOS系统在主线程的Runloop中注册了【2】个Observer，打印[NSRunLoop mainRunLoop]可以看到：
  * 都执行了_wrapRunLoopWithAutoreleasePoolHandler这个回调
  
  *【1】<CFRunLoopObserver 0x6000033005a0 [0x7fff80617cb0]>{valid = Yes, activities = 0x1, repeats = Yes, order = -2147483647, callout = _wrapRunLoopWithAutoreleasePoolHandler (0x7fff4808bf54), context = <CFArray 0x600000c4bab0 [0x7fff80617cb0]>{type = mutable-small, count = 1, values = (\n\t0 : <0x7fe83a802048>\n)}}

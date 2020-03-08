@@ -36,7 +36,7 @@
      - (NSUInteger)retainCount {
          return ((id)self)->rootRetainCount();
      }
- 
+                    ↓↓↓↓
  * rootRetainCount：
      inline uintptr_t
      objc_object::rootRetainCount()
@@ -58,7 +58,7 @@
          sidetable_unlock();
          return sidetable_retainCount();
      }
- 
+                    ↓↓↓↓
  * sidetable_getExtraRC_nolock：
      size_t
      objc_object::sidetable_getExtraRC_nolock()
@@ -69,6 +69,7 @@
          if (it == table.refcnts.end()) return 0;
          else return it->second >> SIDE_TABLE_RC_SHIFT;
      }
+ 
  * SideTable里面的refcnts（RefcountMap）是存放着对象引用计数的散列表
  */
 
@@ -156,8 +157,8 @@
         6. clearDeallocating -> clearDeallocating_slow
         7. weak_clear_no_lock(&table.weak_table, (id)this) ==> SideTable里面有个weak_table，专门存放弱指针
         8. weak_entry_for_referent ==> 从弱引用表里面找出entry（弱指针表是个散列表，要用掩码查找）
-        9. 回到7，weak_entry_remove(weak_table, entry) ==> 通过entry清除弱引用表里面存储的弱引用
-       10. 回到6，如果SideTable有引用计数，清空引用计数
+        9. 回到7，接着执行weak_entry_remove(weak_table, entry) ==> 通过entry清除弱引用表里面存储的弱引用
+       10. 回到6，接着判断如果SideTable有引用计数，清空引用计数
        11. 回到5，接着free
      
      * SideTable的结构：

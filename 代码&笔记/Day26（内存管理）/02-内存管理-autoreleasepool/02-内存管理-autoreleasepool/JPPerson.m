@@ -11,7 +11,7 @@
 @implementation JPPerson
 
 - (void)dealloc {
-    NSLog(@"%s", __func__);
+    NSLog(@"%@, %s", self, __func__);
     [super dealloc];
 }
 

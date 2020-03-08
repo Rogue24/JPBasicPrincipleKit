@@ -11,22 +11,29 @@
 
 @implementation JPProxy2
 
-+ (instancetype)proxyWithTarget:(id)target {
-    JPProxy2 *proxy = [self alloc]; // NSProxy没有init方法
-    proxy.target = target;
-    return proxy;
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
+    if (self.target) {
+        return [self.target methodSignatureForSelector:sel];
+    }
+    return [NSMethodSignature signatureWithObjCTypes:"v"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)invocation {
+    if (self.target) {
+        [invocation invokeWithTarget:self.target];
+    } else {
+        NSLog(@"没有target");
+    }
 }
 
 @end
 
 @implementation JPProxy
 
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
-    return [self.target methodSignatureForSelector:sel];
-}
-
-- (void)forwardInvocation:(NSInvocation *)invocation {
-    [invocation invokeWithTarget:self.target];
++ (instancetype)proxyWithTarget:(id)target {
+    JPProxy *proxy = [self alloc]; // NSProxy没有init方法
+    proxy.target = target;
+    return proxy;
 }
 
 - (void)dealloc {

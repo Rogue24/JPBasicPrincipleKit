@@ -178,18 +178,21 @@ objc_msgSend(forwardingTarget, sel);            methodSignatureForSelector →�
                                                 ↓                                       ↓
               根据方法签名将方法调用者、方法名字、方法参数包装成一个NSInvocation让我们使用          ↓
                                                 ↓                                       ↓
-                                                forwardInvocation                       ↓
-                                                ↓                                       ↓
-                                                在这里想做什么都阔以                        ↓
-                                                ↓                                       ↓
-                                                例：修改target并执行                       ↓
-                            [anInvocation invokeWithTarget:[[JPDog alloc] init]];       ↓
-                                                ↓                                       ↓
-                                  之后就是另一个对象的objc_msgSend过程。                     ↓
-                                                                                        ↓
-                                                        ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-                                                        ↓
-                                            doesNotRecognizeSelector（__retain_OA）
-                                                        ↓
-                                    报错：【unrecognized selector sent to instance】
+             ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←← forwardInvocation                       ↓
+             ↓                                  ↓                                       ↓
+             没有重写                            在这里想做什么都阔以                        ↓
+             ↓                                  ↓                                       ↓
+             ↓                                  例：修改target并执行                       ↓
+             ↓               [anInvocation invokeWithTarget:[[JPDog alloc] init]];      ↓
+             ↓                                  ↓                                       ↓
+             ↓                  【之后就是另一个对象的objc_msgSend过程了】                    ↓
+             ↓                                                                          ↓
+执行NSObject的forwardInvocation:方法                                                      ↓
+             ↓                                          ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+             ↓                                          ↓
+             ↓                              doesNotRecognizeSelector（__retain_OA）
+             ↓                                          ↓
+             ↓                         【unrecognized selector sent to instance】
+             ↓                                          ↓
+             →→→→→→→→→→→→→→→→【报错、崩溃】←←←←←←←←←←←←←←←←←
 *********************************【3】消息转发阶段 *********************************

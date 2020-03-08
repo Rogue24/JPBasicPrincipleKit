@@ -97,6 +97,7 @@
  *【2】serial dispatch queue（串行队列）：必须等上一个任务执行完毕后才去执行下一个任务
  *【1+2】==> 串行队同步列添加任务1，会在当前线程内去执行任务1，途中同步添加任务2， 这时由于【同步执行】的性质，任务1必须要等任务2执行完才能继续，而任务2由于【串行队列】的性质，也必须等任务1执行完才会执行，由此造成死锁。
  */
+#pragma mark 在主队列的线程(主线程) + 往主队列 + 同步执行
 - (void)deadlock1 {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     
@@ -108,6 +109,7 @@
     NSLog(@"done! --- %@", [NSThread currentThread]);
 }
 
+#pragma mark 在主队列的线程(主线程) + 往串行队列 + 同步执行 + 往主队列 + 同步执行
 - (void)deadlock2 {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     
@@ -124,6 +126,7 @@
     NSLog(@"done! --- %@", [NSThread currentThread]);
 }
 
+#pragma mark 往串行队列 + 同步执行 + 往串行队列(同一个) + 同步执行
 - (void)deadlock3 {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     
@@ -140,6 +143,7 @@
     NSLog(@"done! --- %@", [NSThread currentThread]);
 }
 
+#pragma mark 往串行队列 + 异步执行 + 往串行队列(同一个) + 同步执行
 - (void)deadlock4 {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     
@@ -158,7 +162,7 @@
 
 #pragma mark - 反死锁（这里都在主队列的viewDidLoad任务内执行）
 
-// dispatch_async（异步执行）：不要求立马在当前线程同步执行任务
+#pragma mark dispatch_async（异步执行）：不要求立马在当前线程同步执行任务
 - (void)asyncMainQueue {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     
@@ -170,14 +174,14 @@
     NSLog(@"done! --- %@", [NSThread currentThread]);
 }
 
-// 自定义的串行队列同步执行任务，跟主队列不冲突
+#pragma mark 自定义的串行队列同步执行任务，跟主队列不冲突
 - (void)syncOtherSerialQueue {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     
-    dispatch_queue_t queue = dispatch_queue_create("123", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t serialQueue = dispatch_queue_create("123", DISPATCH_QUEUE_SERIAL);
     
     // doing1{}先加入队列，先执行doing1{}，异步执行->新线程
-    dispatch_async(queue, ^{
+    dispatch_async(serialQueue, ^{
         NSLog(@"doing1 --- %@", [NSThread currentThread]);
         // 能延迟个4秒左右
         NSInteger xxx = 0;
@@ -189,14 +193,14 @@
     // doing2{}排在doing1{}后面执行，同步执行->主线程
     // 会卡住当前线程，等这个串行队列上一个任务执行完
     // 当前线程是主线程，所在队列是主队列，而这是另一台串行队列，不冲突哦
-    dispatch_sync(queue, ^{
+    dispatch_sync(serialQueue, ^{
         NSLog(@"doing2 --- %@", [NSThread currentThread]);
     });
     
     NSLog(@"done! --- %@", [NSThread currentThread]);
 }
 
-// 两条不同的串行队列，不冲突
+#pragma mark 两条不同的串行队列，不冲突
 - (void)serialAndOtherSerialQueue {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     
@@ -216,7 +220,7 @@
     NSLog(@"done! --- %@", [NSThread currentThread]);
 }
 
-// 另开线程，不冲突
+#pragma mark 另开线程，不冲突
 - (void)asyncSerialQueue {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     
@@ -246,7 +250,7 @@
     NSLog(@"done! --- %@", [NSThread currentThread]);
 }
 
-// 并发队列，不用等上一个任务执行完才执行，立马执行
+#pragma mark 并发队列，不用等上一个任务执行完才执行，立马执行
 - (void)concurrentQueue {
     NSLog(@"to do some thing --- %@", [NSThread currentThread]);
     

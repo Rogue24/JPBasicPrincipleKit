@@ -36,6 +36,7 @@
      * 如果条件1不成立，不会触发KVO，因为KVO生成的子类找不到对应的set方法来重写；
      * 如果条件1成立，会触发KVO，但如果条件2不成立，那必须要有 _xxx、_isXxx、xxx、isXxx 其中一个这样的成员变量（优先级从左到右），否则当调用set方法程序会【崩溃】。
      */
+    
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
     
     //【例1】
@@ -44,7 +45,7 @@
     //【例2】
     // 没有height属性，但有”_height“成员变量
     // 想要KVO生效还需要有-setHeight:方法
-    [self.per1 addObserver:self forKeyPath:@"height" options:options context:nil]; // 起效
+    [self.per1 addObserver:self forKeyPath:@"height" options:options context:nil];
     
     //【例3】
     [self.per1 addObserver:self forKeyPath:@"weight" options:options context:nil];
@@ -52,7 +53,7 @@
     //【例4】
     // 没有money属性，也没有”_money“成员变量
     // 想要KVO生效不仅需要有-setMoney:方法，还要有-money方法
-    [self.per1 addObserver:self forKeyPath:@"money" options:options context:nil]; // 不起效
+    [self.per1 addObserver:self forKeyPath:@"money" options:options context:nil];
     
     NSLog(@"per1 %@, per2 %@", object_getClass(self.per1), object_getClass(self.per2));
     NSLog(@"per1 %@, per2 %@", self.per1.class, self.per2.class);

@@ -50,7 +50,7 @@ void copyTest2() {
     NSLog(@"str3 %@ --- %zd --- %p", str3, str3.retainCount, str3);
 }
 
-/**
+/*
  * iOS提供了两个拷贝方法：
     - copy 不可变拷贝，产生【不可变】副本（即便本来是可变的，拷贝出来的都是不可变的）
     - mutableCopy 可变拷贝，产生【可变】副本（即便本来是不可变的，拷贝出来的都是可变的）
@@ -59,9 +59,9 @@ void copyTest2() {
     - 浅拷贝：指针拷贝，【没有】产生新对象，引用计数会加1（retainCount += 1）
     - 深拷贝：内容拷贝，【有】产生新对象，引用计数初始1（retainCount = 1）
  * 不可变 --copy--> 不可变 ==> 浅拷贝（两个类型和内容都一样并且都不可变的对象，共用一个内存好了）
- * 可变 -----copy--> 不可变 ==> 深拷贝
+ * 可变 ----copy--> 不可变 ==> 深拷贝
  * 不可变 --mutableCopy--> 可变 ==> 深拷贝
- * 可变 -----mutableCopy--> 可变 ==> 深拷贝
+ * 可变  ---mutableCopy--> 可变 ==> 深拷贝
  */
 
 void copyTest3() {
@@ -70,6 +70,7 @@ void copyTest3() {
     NSString *str1 = [[NSString alloc] initWithFormat:@"zjp"]; // TaggedPointer
     NSString *str2 = str1.copy; // 浅拷贝 TaggedPointer
     NSMutableString *str3 = str1.mutableCopy; // 深拷贝 对象
+    [str3 appendString:@"xixi"];
     
     NSLog(@"str1 %@ --- %zd --- %p", str1, str1.retainCount, str1);
     NSLog(@"str2 %@ --- %zd --- %p", str2, str2.retainCount, str2);
@@ -83,8 +84,8 @@ void copyTest4() {
     NSString *str2 = str1.copy; // 深拷贝 TaggedPointer
     NSMutableString *str3 = str1.mutableCopy; // 深拷贝 对象
     
-    [str1 appendString:@"hahaha"];
-    [str3 appendString:@"xixixi"];
+    [str1 appendString:@"h"];
+    [str3 appendString:@"x"];
     
     NSLog(@"str1 %@ --- %zd --- %p", str1, str1.retainCount, str1);
     NSLog(@"str2 %@ --- %zd --- %p", str2, str2.retainCount, str2);
@@ -178,7 +179,7 @@ void dictionaryCopyTest2() {
 
 // 自定义类要使用copy功能，需要内部实现<<-copyWithZone:>>方法。
 - (id)copyWithZone:(struct _NSZone *)zone {
-    JPPerson *per = [JPPerson new];
+    JPPerson *per = [[JPPerson allocWithZone:zone] init];
     per.mArray = self.mArray;
     per.array = self.array.copy; // 注意这是个strong引用
     per.age = self.age;
@@ -191,6 +192,10 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
         NSLog(@"Hello, World!");
+        
+        copyTest3();
+        
+        copyTest4();
         
         // 浅拷贝 引用计数+1
         NSString *str = [[NSString alloc] initWithFormat:@"zhoujianping"]; // 对象 str.retainCount = 1

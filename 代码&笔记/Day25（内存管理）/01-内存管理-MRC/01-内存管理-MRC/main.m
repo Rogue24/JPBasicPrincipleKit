@@ -105,6 +105,11 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         NSLog(@"Hello, World!");
         
+        JPPerson *per0 = [[[JPPerson alloc] init] autorelease];
+        NSLog(@"retainCount -- %zd", per0.retainCount);
+        [per0 release]; // 使用了autorelease的对象就不要过多调用release，这样会提前释放
+        // 使用了autorelease的对象，会自动在某个时机去执行一次release操作，但该对象已经释放的话，这样就会报错
+        
         JPNewPerson *per = [[JPNewPerson alloc] init];
         
 //        JPCar *car = [[JPCar alloc] init];
@@ -115,8 +120,10 @@ int main(int argc, const char * argv[]) {
         
         NSLog(@"%zd", per.car.retainCount);
         
-//        [car release];
-        [per release]; 
+        [per.car release];
+        [per release];
+        
+        sleep(8);
     }
     return 0;
 }

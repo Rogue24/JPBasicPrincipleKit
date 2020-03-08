@@ -28,24 +28,27 @@ int main(int argc, const char * argv[]) {
         
         // 调用了autorelease的对象才会丢到自动释放池中进行内存管理（{}结束后自动进行release操作）
         JPPerson *per1 = [[[JPPerson alloc] init] autorelease];
+        NSLog(@"per1 %@", per1);
         
-        /**
+        /*
          * 对象的autorelease方法的底层调用：
              AutoreleasePoolPage *page = hotPage();
              if (page && !page->full()) {
-                 return page->add(obj);  ==> 已经有autoreleasePoolPage对象，并且没满，直接丢进去
+                 return page->add(obj); ==> 已经有autoreleasePoolPage对象，并且没满，直接丢进去
              } else if (page) {
-                 return autoreleaseFullPage(obj, page);  ==> 已经满了，创建下一页autoreleasePoolPage对象
+                 return autoreleaseFullPage(obj, page); ==> 已经满了，创建下一页autoreleasePoolPage对象再丢进去
              } else {
-                 return autoreleaseNoPage(obj);  ==> 没有autoreleasePoolPage对象，新建一个
+                 return autoreleaseNoPage(obj); ==> 没有autoreleasePoolPage对象，新建一个
              }
          */
         
         @autoreleasepool { //【2】Push()
             JPPerson *per2 = [[[JPPerson alloc] init] autorelease];
+            NSLog(@"per2 %@", per2);
             
             @autoreleasepool { //【3】Push()
                 JPPerson *per3 = [[[JPPerson alloc] init] autorelease];
+                NSLog(@"per3 %@", per3);
                 
                 _objc_autoreleasePoolPrint();
                 
@@ -90,8 +93,9 @@ int main(int argc, const char * argv[]) {
     return 0;
  }
  
- 简化一下
- ↓↓↓↓↓↓
+             ↓↓↓↓↓↓
+             简化一下
+             ↓↓↓↓↓↓
  
  int main(int argc, const char * argv[]) {
     {
@@ -118,8 +122,9 @@ int main(int argc, const char * argv[]) {
     void * atautoreleasepoolobj;
  };
 
- 相当于
- ↓↓↓↓↓↓
+             ↓↓↓↓↓
+             相当于
+             ↓↓↓↓↓
 
  int main(int argc, const char * argv[]) {
     {

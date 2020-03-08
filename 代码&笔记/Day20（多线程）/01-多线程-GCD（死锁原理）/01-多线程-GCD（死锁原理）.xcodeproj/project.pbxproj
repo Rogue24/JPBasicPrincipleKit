@@ -17,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A1350D02414A93D00778EAE /* 死锁.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "死锁.jpg"; sourceTree = "<group>"; };
 		1AB13493239600BB007D3102 /* 01-多线程-GCD（死锁原理）.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "01-多线程-GCD（死锁原理）.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AB13496239600BB007D3102 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AB13497239600BB007D3102 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				1AB134B22396116A007D3102 /* 各种队列的执行效果.jpg */,
+				1A1350D02414A93D00778EAE /* 死锁.jpg */,
 				1AB13496239600BB007D3102 /* AppDelegate.h */,
 				1AB13497239600BB007D3102 /* AppDelegate.m */,
 				1AB13499239600BB007D3102 /* SceneDelegate.h */,

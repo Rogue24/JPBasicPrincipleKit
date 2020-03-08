@@ -16,7 +16,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self performSelector:@selector(log1) withObject:nil afterDelay:.0];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"hi");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self log2];
+        });
+    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self log2];
+//    });
+    [self performSelector:@selector(log3) withObject:nil];
+}
+
+- (void)log1 {
+    NSLog(@"1");
+}
+
+- (void)log2 {
+    NSLog(@"2");
+}
+
+- (void)log3 {
+    NSLog(@"3");
 }
 
 #pragma mark - 问题
@@ -33,11 +56,11 @@
         NSLog(@"3 --- %@", [NSThread currentThread]);
     });
     
-    /**
+    /*
      * why？
-     * 因为<< -performSelector:withObject:afterDelay: >>方法底层是通过NSTimer实现的
-     * ==> 也就是说，本质就是往RunLoop中添加定时器，然而【子线程默认没有开启RunLoop】
-     * ==> 没有RunLoop就不会处理定时器和其他中途新增的任务、触摸事件等，当前任务执行完线程就会销毁
+     * 因为 -performSelector:withObject:afterDelay: 方法底层是通过【NSTimer】实现的（参考GNUstep）
+        ==> 也就是说，本质就是往当前RunLoop中添加定时器，然而【子线程默认没有开启RunLoop】
+        ==> 没有RunLoop就不会处理定时器和其他中途新增的任务、触摸事件等，当前任务执行完线程就会销毁
      */
 }
 

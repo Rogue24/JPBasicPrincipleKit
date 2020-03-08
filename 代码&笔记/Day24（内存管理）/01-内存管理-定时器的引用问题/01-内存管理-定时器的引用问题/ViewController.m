@@ -43,9 +43,12 @@
     
     JPProxy *proxy = [JPProxy proxyWithTarget:self];
     JPProxyObject *proxyObj = [JPProxyObject proxyWithTarget:self];
-    NSLog(@"%d %d", [proxy isKindOfClass:self.class], [proxyObj isKindOfClass:self.class]);
-    // JPProxy继承于NSProxy，所有方法都是通过消息转发出去的，因此isKindOfClass相当于self执行，所以是YES
-    // JPProxyObject继承于NSObject，自身就有isKindOfClass方法，所以是NO
+    NSLog(@"%d", [proxy isKindOfClass:self.class]); // 1
+    NSLog(@"%d", [proxyObj isKindOfClass:self.class]); // 0
+    /*
+     * JPProxy继承于NSProxy，所有方法都是通过消息转发出去的，就连isKindOfClass也是转发给self(ViewController)去执行的，所以当然是YES
+     * JPProxyObject继承于NSObject，NSObject当然不属于ViewController，所以是NO
+     */
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:proxy selector:@selector(timerHandle) userInfo:nil repeats:YES];
     
