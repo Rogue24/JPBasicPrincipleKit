@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,25 +16,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKs-i9-5Wa">
-                                <rect key="frame" x="28" y="225" width="31" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKs-i9-5Wa">
+                                <rect key="frame" x="45.5" y="206" width="31" height="30"/>
                                 <state key="normal" title="卖票"/>
                                 <connections>
                                     <action selector="ticketTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CWB-UY-gV2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OgU-gU-V09">
-                                <rect key="frame" x="12" y="290" width="62" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="存、取钱"/>
-                                <connections>
-                                    <action selector="moneyTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HQ8-6L-fEQ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9r4-9J-t55">
-                                <rect key="frame" x="28" y="354" width="31" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9r4-9J-t55">
+                                <rect key="frame" x="45.5" y="282" width="31" height="30"/>
                                 <state key="normal" title="其他"/>
                                 <connections>
                                     <action selector="otherTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xSL-mn-L1V"/>
@@ -87,11 +78,35 @@
                                     <action selector="xinnhaotest22:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LxE-Wh-tVV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWM-GU-hp0">
+                                <rect key="frame" x="40" y="169" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OgU-gU-V09">
+                                <rect key="frame" x="30" y="244" width="62" height="30"/>
+                                <state key="normal" title="存、取钱"/>
+                                <connections>
+                                    <action selector="moneyTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HQ8-6L-fEQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="TWM-GU-hp0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="125" id="6id-uc-Y9V"/>
+                            <constraint firstItem="UKs-i9-5Wa" firstAttribute="centerX" secondItem="TWM-GU-hp0" secondAttribute="centerX" id="9Vo-dK-0nd"/>
+                            <constraint firstItem="9r4-9J-t55" firstAttribute="centerX" secondItem="TWM-GU-hp0" secondAttribute="centerX" id="JIK-Nh-png"/>
+                            <constraint firstItem="9r4-9J-t55" firstAttribute="top" secondItem="OgU-gU-V09" secondAttribute="bottom" constant="8" id="hym-DZ-GTg"/>
+                            <constraint firstItem="OgU-gU-V09" firstAttribute="centerX" secondItem="TWM-GU-hp0" secondAttribute="centerX" id="jEU-ss-4FO"/>
+                            <constraint firstItem="UKs-i9-5Wa" firstAttribute="top" secondItem="TWM-GU-hp0" secondAttribute="bottom" constant="16" id="ndy-6X-kpO"/>
+                            <constraint firstItem="OgU-gU-V09" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="pEx-ou-WVx"/>
+                            <constraint firstItem="OgU-gU-V09" firstAttribute="top" secondItem="UKs-i9-5Wa" secondAttribute="bottom" constant="8" id="u0Y-70-VOa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="lockNameLabel" destination="TWM-GU-hp0" id="AAE-oa-ATW"/>
                         <outlet property="view1" destination="xnb-hE-SyP" id="Pba-Ce-d8R"/>
                         <outlet property="view2" destination="Hoz-74-hBU" id="E2k-mA-IXr"/>
                         <outlet property="view3" destination="gL8-Zk-a0J" id="Aig-Vj-1XW"/>

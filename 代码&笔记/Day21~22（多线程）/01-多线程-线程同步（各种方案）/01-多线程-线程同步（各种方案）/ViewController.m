@@ -32,6 +32,7 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
 
 @interface ViewController ()
 @property (nonatomic, strong) JPBaseDemo *demo;
+@property (weak, nonatomic) IBOutlet UILabel *lockNameLabel;
 
 @property (nonatomic, strong) dispatch_queue_t viewQueue;
 @property (nonatomic, strong) dispatch_semaphore_t viewSemaphore;
@@ -45,31 +46,6 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
 @end
 
 @implementation ViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.demo = [[JPOSSpinLockDemo alloc] init];
-    
-    self.viewQueue = dispatch_queue_create("viewww", DISPATCH_QUEUE_SERIAL);
-    self.viewSemaphore = dispatch_semaphore_create(0);
-    
-    self.testSemaphore = dispatch_semaphore_create(0);
-    
-    return;
-    
-    NSObject *obj = [[NSObject alloc] init];
-    NSLog(@"obj指向的地址：%p", obj);
-    NSLog(@"obj地址：%p", &obj);
-    
-//    [self setupObj:&obj];
-//    NSLog(@"obj指向的地址：%p", obj);
-//    NSLog(@"obj地址：%p", &obj);
-    
-    [self setupObj2:obj];
-    NSLog(@"obj指向的地址：%p", obj);
-    NSLog(@"obj地址：%p", &obj);
-}
 
 - (void)setupObj:(NSObject **)obj {
     NSLog(@"赋值前-----");
@@ -85,20 +61,46 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
     NSLog(@"赋值后-----");
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.viewQueue = dispatch_queue_create("viewww", DISPATCH_QUEUE_SERIAL);
+    self.viewSemaphore = dispatch_semaphore_create(0);
+    
+    self.testSemaphore = dispatch_semaphore_create(0);
+    
+//    NSObject *obj = [[NSObject alloc] init];
+//    NSLog(@"obj指向的地址：%p", obj);
+//    NSLog(@"obj地址：%p", &obj);
+//
+////    [self setupObj:&obj];
+////    NSLog(@"obj指向的地址：%p", obj);
+////    NSLog(@"obj地址：%p", &obj);
+//
+//    [self setupObj2:obj];
+//    NSLog(@"obj指向的地址：%p", obj);
+//    NSLog(@"obj地址：%p", &obj);
+    
+    self.demo = [[JPOSSpinLockDemo alloc] init];
+    NSString *className = NSStringFromClass(self.demo.class);
+    self.lockNameLabel.text = [className substringWithRange:NSMakeRange(2, className.length - 6)];
+    [self.lockNameLabel sizeToFit];
+}
+
+#pragma mark - 卖票演示
 - (IBAction)ticketTest:(id)sender {
     [self.demo ticketTest];
 }
 
+#pragma mark - 存/取钱演示
 - (IBAction)moneyTest:(id)sender {
     [self.demo moneyTest];
 }
 
+#pragma mark - 子类继承的其他演示
 - (IBAction)otherTest:(id)sender {
     [self.demo otherTest];
 }
-
-
-
 
 #pragma mark - 自己的测试
 

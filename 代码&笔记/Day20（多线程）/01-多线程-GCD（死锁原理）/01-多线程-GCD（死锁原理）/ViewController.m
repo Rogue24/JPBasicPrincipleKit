@@ -68,9 +68,9 @@
     
 //    [self serialAndOtherSerialQueue];
     
-    [self asyncSerialQueue];
+//    [self asyncSerialQueue];
     
-//    [self concurrentQueue];
+    [self concurrentQueue];
     
 //    for (NSInteger i = 0; i < 10; i++) {
 //        dispatch_async(dispatch_get_global_queue(0, 0), ^{

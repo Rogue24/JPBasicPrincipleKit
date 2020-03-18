@@ -123,4 +123,16 @@
     [self.per1 setMoney:999];
 }
 
+// 当把监听的属性全部移除后就会变回原本的类
+- (IBAction)action5:(id)sender {
+    [self.per1 removeObserver:self forKeyPath:@"age"];
+    NSLog(@"移除age per1 %@", object_getClass(self.per1));
+    [self.per1 removeObserver:self forKeyPath:@"height"];
+    NSLog(@"移除height per1 %@", object_getClass(self.per1));
+    [self.per1 removeObserver:self forKeyPath:@"weight"];
+    NSLog(@"移除weight per1 %@", object_getClass(self.per1));
+    [self.per1 removeObserver:self forKeyPath:@"money"];
+    NSLog(@"移除money per1 %@", object_getClass(self.per1));
+}
+
 @end

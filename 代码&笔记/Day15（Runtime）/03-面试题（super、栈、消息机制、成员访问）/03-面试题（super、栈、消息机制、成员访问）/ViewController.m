@@ -57,6 +57,8 @@
              id receiver;
              Class current_class; ==> 自己类，objc_msgSendSuper2函数内部会通过该类的superclass来获取其父类
          };
+     * objc_msgSendSuper2是个汇编使用的函数，在runtime源码里面得加个下划线搜（”_objc_msgSendSuper2“），其实现是在 objc-msg-arm64 这个文件里面
+     * ENTRY _objc_msgSendSuper2 -> ldr p16, [x16, #SUPERCLASS] // p16 = class->superclass -> 利用传进来的类通过superclass找到父类，然后去父类里面搜索方法。
      
      * 综上所述，所以这里地址最低的临时变量是ViewController这个类对象，而不是他的父类
      */
@@ -121,7 +123,7 @@
      
      * 因为本质上obj和per其实是一样的，obj->cls是模仿实例对象在内存中的指引
      * print方法里面的“self.name”相当于self->_name，是为了去获取_name这个成员变量
-     * _name作为JPPerson的第一个成员，这个成员的内存地址是紧挨在isa后面（isa地址+8）
+     * _name作为JPPerson的第一个成员，这个成员的内存地址是紧挨在isa后面（按照实例对象的结构排布，是isa地址+8）
      
      * hello、hi、cls、obj都为局部变量，此时在viewDidLoad作用域范围内的内存排布为：
      
@@ -179,7 +181,7 @@
      * 再再接着后面就啥都没了~
      
      * PS：为什么栈里是这种结构体的内部成员，而不是一个指向这种结构体的指针？
-     * 因为这个结构体是直接在函数调用里创建：
+     * 因为这个结构体是执行objc_msgSendSuper2函数时【直接在函数调用里创建】的：
          objc_msgSendSuper2({
              self;
              [ViewController class];
@@ -187,6 +189,7 @@
      * 而不是先赋值给一个指针再传进去：
          struct objc_super2 arg = xxx;
          objc_msgSendSuper2(arg, sel_registerName("viewDidLoad"));
+     * 这是有区别的，不然 [(__bridge id)obj print3] 打印的是 ---- My littlename is 这个指针的地址
      
      * 又因为结构体里面的self的地址比[ViewController class]的地址低，所以最终的内存分布为：
      

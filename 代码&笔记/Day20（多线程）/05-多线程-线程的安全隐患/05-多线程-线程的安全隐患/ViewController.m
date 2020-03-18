@@ -20,15 +20,10 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    [self ticketTest];
-    [self moneyTest];
-}
+#pragma mark - 卖票演示
 
-#pragma mark - 存/取钱演示
-
-- (void)moneyTest {
-    self.money = 1000;
+- (IBAction)ticketTest {
+    self.ticketTotal = 30;
     
     dispatch_group_t group = dispatch_group_create();
     
@@ -38,7 +33,7 @@
     dispatch_group_async(group, queue, ^{
         NSLog(@"------任务1开始------");
         for (NSInteger i = 0; i < 10; i++) {
-            [self saveMoney];
+            [self saleTicket];
         }
         NSLog(@"------任务1结束------");
     });
@@ -46,9 +41,63 @@
     dispatch_group_async(group, queue, ^{
         NSLog(@"------任务2开始------");
         for (NSInteger i = 0; i < 10; i++) {
-            [self drawMoney];
+            [self saleTicket];
         }
         NSLog(@"------任务2结束------");
+    });
+    
+    dispatch_group_async(group, queue, ^{
+        NSLog(@"------任务3开始------");
+        for (NSInteger i = 0; i < 10; i++) {
+            [self saleTicket];
+        }
+        NSLog(@"------任务3结束------");
+    });
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        NSLog(@"目标剩余0张，实际最后剩余%d张 --- %@", self.ticketTotal, [NSThread currentThread]);
+    });
+}
+
+// 卖一张
+- (void)saleTicket {
+    int originCount = self.ticketTotal;
+    
+    // 延迟当前线程
+    sleep(0.2);
+    
+    int trueCount = self.ticketTotal;
+    
+    int currentCount = originCount - 1;
+    self.ticketTotal = currentCount;
+    
+    NSLog(@"刚刚%d张（实际上刚刚%d张），还剩%d张 --- %@", originCount, trueCount, currentCount, [NSThread currentThread]);
+}
+
+#pragma mark - 存/取钱演示
+
+- (IBAction)moneyTest {
+    self.money = 1000;
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//    dispatch_queue_t queue = dispatch_queue_create("123", DISPATCH_QUEUE_SERIAL);
+    
+    dispatch_group_async(group, queue, ^{
+        NSLog(@"------存钱开始------");
+        for (NSInteger i = 0; i < 10; i++) {
+            [self saveMoney];
+        }
+        NSLog(@"------存钱结束------");
+    });
+    
+    dispatch_group_async(group, queue, ^{
+        NSLog(@"------取钱开始------");
+        for (NSInteger i = 0; i < 10; i++) {
+            [self drawMoney];
+        }
+        NSLog(@"------取钱结束------");
     });
     
     // 1000 + 10 * 100 - 10 * 50 = 1500
@@ -85,60 +134,6 @@
     self.money = currentMoney;
     
     NSLog(@"取50块 --- 刚刚有%d块（实际上刚刚剩%d块），现在剩%d块 --- %@", originMoney, trueMoney, currentMoney, [NSThread currentThread]);
-}
-
-#pragma mark - 卖票演示
-
-- (void)ticketTest {
-    self.ticketTotal = 15;
-    
-    dispatch_group_t group = dispatch_group_create();
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-//    dispatch_queue_t queue = dispatch_queue_create("123", DISPATCH_QUEUE_SERIAL);
-    
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"------任务1开始------");
-        for (NSInteger i = 0; i < 5; i++) {
-            [self saleTicket];
-        }
-        NSLog(@"------任务1结束------");
-    });
-    
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"------任务2开始------");
-        for (NSInteger i = 0; i < 5; i++) {
-            [self saleTicket];
-        }
-        NSLog(@"------任务2结束------");
-    });
-    
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"------任务3开始------");
-        for (NSInteger i = 0; i < 5; i++) {
-            [self saleTicket];
-        }
-        NSLog(@"------任务3结束------");
-    });
-    
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        NSLog(@"目标剩余0张，实际最后剩余%d张 --- %@", self.ticketTotal, [NSThread currentThread]);
-    });
-}
-
-// 卖一张
-- (void)saleTicket {
-    int originCount = self.ticketTotal;
-    
-    // 延迟当前线程
-    sleep(0.2);
-    
-    int trueCount = self.ticketTotal;
-    
-    int currentCount = originCount - 1;
-    self.ticketTotal = currentCount;
-    
-    NSLog(@"刚刚%d张（实际上刚刚%d张），还剩%d张 --- %@", originCount, trueCount, currentCount, [NSThread currentThread]);
 }
 
 @end

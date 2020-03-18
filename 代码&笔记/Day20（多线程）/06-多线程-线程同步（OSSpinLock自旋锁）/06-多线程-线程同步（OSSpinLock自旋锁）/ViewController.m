@@ -33,8 +33,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self lockTryTest];
 }
 
 #pragma mark - OSSpinLockTry 和 OSSpinLockLock 的区别
@@ -44,7 +42,7 @@
  * 如果这个🔐已经有线程用着，那就是失败，返回false，【不会加🔐也不会等待】，代码往下继续
  */
 
-- (void)lockTryTest {
+- (IBAction)lockTryTest {
     self.ticketLock = OS_SPINLOCK_INIT;
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -92,14 +90,9 @@
     OSSpinLockUnlock(&_ticketLock);
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self moneyTest];
-    [self ticketTest];
-}
-
 #pragma mark - 卖票演示
 
-- (void)ticketTest {
+- (IBAction)ticketTest {
     self.ticketTotal = 15;
     
     // 初始化🔐
@@ -142,7 +135,7 @@
 // 卖一张
 - (void)saleTicket {
     // 不能每次都初始化🔐，不然每次操作都是不同的🔐
-    // 这样会导致当加🔐时，这个🔐肯定是没锁上的，然后去执行，这样就有可能跟另一条线程的操作冲突了
+    // 这样会导致每次要加🔐时，这个🔐都是新建的，新的锁肯定是没锁上的，接着会去执行后面代码，这样等于没锁，就有可能跟另一条线程的操作冲突了
     // self.lock = OS_SPINLOCK_INIT;
     
     // 加🔐
@@ -173,7 +166,7 @@
 
 #pragma mark - 存/取钱演示
 
-- (void)moneyTest {
+- (IBAction)moneyTest {
     self.money = 1000;
     
     // 初始化🔐

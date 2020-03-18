@@ -47,6 +47,14 @@
                                     <action selector="action4:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rzs-kY-pOD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAU-ry-3FX">
+                                <rect key="frame" x="20" y="389" width="307" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="当把监听的属性全部移除后就会变回原本的类"/>
+                                <connections>
+                                    <action selector="action5:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XIw-6J-fr5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

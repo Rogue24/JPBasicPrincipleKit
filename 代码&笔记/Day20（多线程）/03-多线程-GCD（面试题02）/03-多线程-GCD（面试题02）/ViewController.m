@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong) NSThread *thread;
 @end
 
 @implementation ViewController
@@ -37,7 +37,7 @@
     
     /*
      * why？
-     * 错误原因：【target thread exited while waiting for the perform】，目标线程在等待执行时退出
+     * 错误原因：【target thread exited while waiting for the perform】-> 目标线程在等待执行时退出
      * 因为waitUntilDone:YES，当前线程会被卡住，【要等interviewTest执行完才会继续】
      * [thread start]，thread肯定会先执行block的代码，但执行完thread就退出了（完全废了），所以根本不会去执行interviewTest
      * 也就是【根本等不到】interviewTest的结束，当前线程就会被【一直卡住】，所以崩溃了（错误原因就是说在等待一个已经退出的线程）
@@ -51,6 +51,25 @@
 
 - (void)interviewTest {
     NSLog(@"2 --- %@", [NSThread currentThread]);
+}
+
+- (IBAction)interview2:(id)sender {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"111 --- %@", [NSThread currentThread]);
+        
+        self.thread = [[NSThread alloc] initWithBlock:^{
+            NSLog(@"1 --- %@", [NSThread currentThread]);
+        }];
+        
+        [self performSelector:@selector(interviewTest) onThread:self.thread withObject:nil waitUntilDone:YES];
+        
+        NSLog(@"222 --- %@", [NSThread currentThread]);
+    });
+}
+
+- (IBAction)interview2start:(id)sender {
+    // 即便perform后再start也一样，执行完block的代码thread就退出了，再用这个thread去执行waitUntilDone为YES的任务肯定就会崩啦。
+    [self.thread start];
 }
 
 #pragma mark - 证明
