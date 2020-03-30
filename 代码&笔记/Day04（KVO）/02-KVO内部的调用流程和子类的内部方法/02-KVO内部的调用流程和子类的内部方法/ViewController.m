@@ -73,6 +73,33 @@
     
     // 窥探KVO子类的方法
     [object_getClass(self.per1) jp_lookMethods];
+    
+    // _isKVOA 是 NSObject 的私有方法，用来判定该类是否为KVO生成的子类
+//    [NSObject jp_lookMethods];
+    
+    SEL sel = NSSelectorFromString(@"_isKVOA");
+    if ([self.per1 respondsToSelector:sel]) {
+        NSMethodSignature *signature = [self.per1 methodSignatureForSelector:sel];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        [invocation setSelector:sel];
+        [invocation invokeWithTarget:self.per1];
+        BOOL value;
+        [invocation getReturnValue:&value];
+        NSLog(@"per1 _isKVOA --- %d", value);
+    } else {
+        NSLog(@"per1 没有这方法");
+    }
+    if ([self.per2 respondsToSelector:sel]) {
+        NSMethodSignature *signature = [self.per2 methodSignatureForSelector:sel];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        [invocation setSelector:sel];
+        [invocation invokeWithTarget:self.per2];
+        BOOL value;
+        [invocation getReturnValue:&value];
+        NSLog(@"per2 _isKVOA --- %d", value);
+    } else {
+        NSLog(@"per2 没有这方法");
+    }
 }
 
 - (void)dealloc {

@@ -113,7 +113,7 @@ static dispatch_semaphore_t semaphore_;
     } else {
         dispatch_source_set_event_handler(timer, ^{
             task();
-            if (!repeats) [self cancelTask:timerKey];
+            [self cancelTask:timerKey];
         });
     }
     
@@ -121,6 +121,22 @@ static dispatch_semaphore_t semaphore_;
     dispatch_resume(timer);
     
     return timerKey;
+}
+
++ (void)suspendTask:(NSString *)timerKey {
+    if (!timerKey.length) return;
+    dispatch_source_t timer = timers_[timerKey];
+    if (timer) {
+        dispatch_suspend(timer);
+    }
+}
+
++ (void)resumeTask:(NSString *)timerKey {
+    if (!timerKey.length) return;
+    dispatch_source_t timer = timers_[timerKey];
+    if (timer) {
+        dispatch_resume(timer);
+    }
 }
 
 + (void)cancelTask:(NSString *)timerKey {

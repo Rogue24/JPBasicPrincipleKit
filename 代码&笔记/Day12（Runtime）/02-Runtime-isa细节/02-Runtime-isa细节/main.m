@@ -60,7 +60,7 @@
  * shiftcls : 33
     · 存储着Class、Meta-Class对象的内存地址信息
     · 从arm64架构开始Class、Meta-Class对象都是通过 isa & ISA_MASK 获取（ISA_MASK = 0xFFFFFFFF8，用来取出这33位的值）
-    · 把ISA_MASK放计算器里面可以看出，<<Class、Meta-Class对象>>的地址值最后3位肯定是0
+    · 把ISA_MASK放计算器里面可以看出，【Class、Meta-Class对象的地址值最后3位肯定是0】。
  *
  * magic : 6
     · 用于在调试时分辨对象是否未完成初始化（对应ISA_MAGIC_VALUE这个掩码）

@@ -28,7 +28,7 @@
             - respondsToSelector = yes
          */
         if (![self.class isMemberOfClass:self.class]) {
-            NSLog(@"我是子类 %@", self);
+            NSLog(@"我是子类 %@", self); // JPStudent
         }
         
         /*

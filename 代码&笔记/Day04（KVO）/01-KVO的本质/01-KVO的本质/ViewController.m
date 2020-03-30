@@ -72,6 +72,7 @@
     // 第一个：(IMP) $0 = 0x000000010d93bd60 (01-KVO`-[JPPerson setAge:] at JPPerson.m:13)
     // 第二个：(IMP) $1 = 0x00007fff257223da (Foundation`_NSSetIntValueAndNotify)
     // 可以看出两个per1IMP的地址在添加KVO之后就分别是不同的类的方法了
+    // _NSSetIntValueAndNotify：没有加减号也没有方括号，这是个C语言函数。
 }
 
 - (void)dealloc {

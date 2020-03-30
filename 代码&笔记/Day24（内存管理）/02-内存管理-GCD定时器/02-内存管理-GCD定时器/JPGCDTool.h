@@ -34,6 +34,10 @@
 
 + (NSString *)execTask:(id)target action:(SEL)action start:(NSTimeInterval)start interval:(NSTimeInterval)interval repeats:(BOOL)repeats async:(BOOL)async;
 
-+ (void)cancelTask:(NSString *)key;
++ (void)suspendTask:(NSString *)timerKey;
+
++ (void)resumeTask:(NSString *)timerKey;
+
++ (void)cancelTask:(NSString *)timerKey;
 
 @end

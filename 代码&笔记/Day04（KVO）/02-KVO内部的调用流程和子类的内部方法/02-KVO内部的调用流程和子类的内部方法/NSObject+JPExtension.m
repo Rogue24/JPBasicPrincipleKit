@@ -41,7 +41,10 @@
     Method *methods = class_copyMethodList(self.class, &count);
     NSLog(@"=================== %@ start ===================", NSStringFromClass(self));
     for (int i = 0; i < count; i++) {
-        NSLog(@"%s", sel_getName(method_getName(methods[i])));
+        Method method = methods[i];
+        char retType[512] = {};
+        method_getReturnType(method, retType, 512);
+        NSLog(@"%s -> %s", sel_getName(method_getName(method)), retType);
     }
     NSLog(@"=================== %@ end ===================", NSStringFromClass(self));
     free(methods);

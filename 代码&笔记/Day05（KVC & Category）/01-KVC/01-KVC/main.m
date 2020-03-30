@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
             - 2.1 NO，不允许：抛出NSUnknownKeyException异常
          * 3. YES，允许，按照优先级为 _key、_isKey、key、isKey 的顺序查找成员变量
             - 3.1 找到：直接【赋值】
-            - 3.2 找不到：抛出NSUnknownKeyException异常
+            - 3.2 找不到：抛出NSUnknownKeyException异常（崩溃）
          */
         
         // 如果key为@"_age"，那么查找成员变量的优先级为：__age、_is_age、_age、is_age，
@@ -81,7 +81,7 @@ int main(int argc, const char * argv[]) {
             - 2.1 NO，不允许：抛出NSUnknownKeyException异常
          * 3. YES，允许，按照优先级为 _key、_isKey、key、isKey 的顺序查找成员变量
             - 3.1 找到：直接【取值】
-            - 3.2 找不到：抛出NSUnknownKeyException异常
+            - 3.2 找不到：抛出NSUnknownKeyException异常（崩溃）
          */
     }
     return 0;

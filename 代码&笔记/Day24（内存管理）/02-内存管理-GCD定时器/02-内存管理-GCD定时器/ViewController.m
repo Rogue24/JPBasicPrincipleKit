@@ -31,24 +31,42 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"viewDidLoad~");
-    
 //    [self timerTest];
-    
-    NSLog(@"开始计时");
-    self.timerKey = [JPGCDTool execTask:self action:@selector(gcdTimerHandle) start:3 interval:2 repeats:YES async:YES];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSString *timerKey = [JPGCDTool execTask:self action:@selector(gcdTimerHandle) start:3 interval:2 repeats:YES async:YES];
-    
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    NSString *timerKey = [JPGCDTool execTask:self action:@selector(gcdTimerHandle) start:3 interval:2 repeats:YES async:YES];
+//
+//    [JPGCDTool cancelTask:self.timerKey];
+//    self.timerKey = timerKey;
+//}
+
+- (IBAction)begin:(id)sender {
+    if (self.timerKey) {
+        NSLog(@"继续");
+        [JPGCDTool resumeTask:self.timerKey];
+    } else {
+        NSLog(@"开始计时");
+        self.timerKey = [JPGCDTool execTask:self action:@selector(gcdTimerHandle) start:1 interval:2 repeats:YES async:YES];
+    }
+}
+
+- (IBAction)suspend:(id)sender {
+    NSLog(@"暂停");
+    [JPGCDTool suspendTask:self.timerKey];
+}
+
+- (IBAction)cancel:(id)sender {
+    NSLog(@"取消");
     [JPGCDTool cancelTask:self.timerKey];
-    self.timerKey = timerKey;
+    self.timerKey = nil;
 }
 
 - (void)gcdTimerHandle {
     NSLog(@"hello~ %@", [NSThread currentThread]);
 }
 
+#pragma mark - 创建GCD定时器
 - (void)timerTest {
     
     // 设置回调在哪个队列执行
