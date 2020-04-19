@@ -38,14 +38,16 @@
 - (IBAction)apply:(id)sender {
     // 快速迭代：要使用【并发队列】才能实现所有遍历同时进行（充分利用设备的多核）
     // PS：如果使用【串行队列】就跟普通for循环一样按顺序遍历了。
-    NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
-    NSLog(@"快速迭代 begin");
-    dispatch_apply(array.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t index) {
-        NSLog(@"%zu: %@ %@", index, array[index], [NSThread currentThread]);
-        sleep(3);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *array = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+        NSLog(@"快速迭代 begin --- %@", [NSThread currentThread]);
+        dispatch_apply(array.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t index) {
+            NSLog(@"index: %zu = value: %@ --- %@", index, array[index], [NSThread currentThread]);
+            sleep(3);
+        });
+        // 会阻塞当前线程（休眠），直到dispatch_apply里面的任务全部都完成（全部都遍历好了），线程才继续往下执行
+        NSLog(@"快速迭代 end --- %@", [NSThread currentThread]);
     });
-    // 会阻塞当前线程（休眠），直到dispatch_apply里面的任务全部都完成（全部都遍历好了），线程才继续往下执行
-    NSLog(@"快速迭代 end");
 }
 
 #pragma mark - 队列组

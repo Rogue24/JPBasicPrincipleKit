@@ -1,9 +1,9 @@
 //
 //  ViewController.m
-//  06-多线程-线程同步
+//  01-多线程-线程同步（各种方案）
 //
-//  Created by 周健平 on 2019/12/6.
-//  Copyright © 2019 周健平. All rights reserved.
+//  Created by 周健平 on 2020/4/19.
+//  Copyright © 2020 周健平. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -64,10 +64,17 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.demo = [[JPOSSpinLockDemo alloc] init];
+    NSString *className = NSStringFromClass(self.demo.class);
+    self.lockNameLabel.text = [className substringWithRange:NSMakeRange(2, className.length - 6)];
+    [self.lockNameLabel sizeToFit];
+    
+    
     self.viewQueue = dispatch_queue_create("viewww", DISPATCH_QUEUE_SERIAL);
     self.viewSemaphore = dispatch_semaphore_create(0);
     
     self.testSemaphore = dispatch_semaphore_create(0);
+    
     
 //    NSObject *obj = [[NSObject alloc] init];
 //    NSLog(@"obj指向的地址：%p", obj);
@@ -80,30 +87,28 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
 //    [self setupObj2:obj];
 //    NSLog(@"obj指向的地址：%p", obj);
 //    NSLog(@"obj地址：%p", &obj);
-    
-    self.demo = [[JPOSSpinLockDemo alloc] init];
-    NSString *className = NSStringFromClass(self.demo.class);
-    self.lockNameLabel.text = [className substringWithRange:NSMakeRange(2, className.length - 6)];
-    [self.lockNameLabel sizeToFit];
 }
 
-#pragma mark - 卖票演示
+#pragma mark - 各种线程同步方案
+
+#pragma mark 卖票演示
 - (IBAction)ticketTest:(id)sender {
     [self.demo ticketTest];
 }
 
-#pragma mark - 存/取钱演示
+#pragma mark 存/取钱演示
 - (IBAction)moneyTest:(id)sender {
     [self.demo moneyTest];
 }
 
-#pragma mark - 子类继承的其他演示
+#pragma mark 给子类继承的用于其他操作的演示
 - (IBAction)otherTest:(id)sender {
     [self.demo otherTest];
 }
 
-#pragma mark - 自己的测试
+#pragma mark - 信号量测试
 
+#pragma mark 1.使用信号量让子线程先等待其他线程（如主线程）执行完一些任务后再继续
 - (IBAction)testtest {
     
     self.view1.alpha = 0;
@@ -161,6 +166,7 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
     });
 }
 
+#pragma mark 2.1 开启10个信号量加锁的子线程任务
 - (IBAction)xinnhaotest21:(id)sender {
     self.testTotal += 10;
     
@@ -179,7 +185,7 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
         });
     }
 }
-
+#pragma mark 2.2 手动添加信号量数量
 - (IBAction)xinnhaotest22:(id)sender {
     // 信号量加1，激活休眠的线程
     self.testCount += 1;

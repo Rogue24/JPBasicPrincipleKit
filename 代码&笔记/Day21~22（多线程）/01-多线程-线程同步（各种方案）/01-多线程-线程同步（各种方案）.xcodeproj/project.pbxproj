@@ -7,70 +7,72 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A1B2F4D239A0894008813A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F4C239A0894008813A4 /* AppDelegate.m */; };
-		1A1B2F50239A0894008813A4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F4F239A0894008813A4 /* SceneDelegate.m */; };
-		1A1B2F53239A0894008813A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F52239A0894008813A4 /* ViewController.m */; };
-		1A1B2F56239A0894008813A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B2F54239A0894008813A4 /* Main.storyboard */; };
-		1A1B2F58239A0895008813A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B2F57239A0895008813A4 /* Assets.xcassets */; };
-		1A1B2F5B239A0895008813A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B2F59239A0895008813A4 /* LaunchScreen.storyboard */; };
-		1A1B2F5E239A0895008813A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F5D239A0895008813A4 /* main.m */; };
-		1A1B2F67239A431D008813A4 /* JPBaseDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F66239A431D008813A4 /* JPBaseDemo.m */; };
-		1A1B2F6B239A4760008813A4 /* JPOSSpinLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F6A239A4760008813A4 /* JPOSSpinLockDemo.m */; };
-		1A1B2F6E239A5886008813A4 /* JPOSUnfairLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F6D239A5886008813A4 /* JPOSUnfairLockDemo.m */; };
-		1A1B2F72239B7E1C008813A4 /* JPMutexDefaultDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F71239B7E1C008813A4 /* JPMutexDefaultDemo.m */; };
-		1A1B2F75239CD93D008813A4 /* JPMutexRecursiveDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F74239CD93D008813A4 /* JPMutexRecursiveDemo.m */; };
-		1A1B2F78239CF9FA008813A4 /* JPMutexCondDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F77239CF9FA008813A4 /* JPMutexCondDemo.m */; };
-		1A1B2F7B239E232E008813A4 /* JPNSLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F7A239E232E008813A4 /* JPNSLockDemo.m */; };
-		1A1B2F7E239E2AA6008813A4 /* JPNSConditionDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F7D239E2AA6008813A4 /* JPNSConditionDemo.m */; };
-		1A1B2F81239E3F33008813A4 /* JPNSConditionLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F80239E3F33008813A4 /* JPNSConditionLockDemo.m */; };
-		1A1B2F84239E4897008813A4 /* JPGCDSerialQueueDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F83239E4897008813A4 /* JPGCDSerialQueueDemo.m */; };
-		1A1B2F87239E7D7B008813A4 /* JPGCDSemaphoreDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F86239E7D7B008813A4 /* JPGCDSemaphoreDemo.m */; };
-		1A1B2F8A239E99C8008813A4 /* JPSynchronizedDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B2F89239E99C8008813A4 /* JPSynchronizedDemo.m */; };
+		1A86F3AF244C00980083EBD8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3AE244C00970083EBD8 /* AppDelegate.m */; };
+		1A86F3B2244C00980083EBD8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3B1244C00980083EBD8 /* SceneDelegate.m */; };
+		1A86F3B5244C00980083EBD8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3B4244C00980083EBD8 /* ViewController.m */; };
+		1A86F3B8244C00980083EBD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A86F3B6244C00980083EBD8 /* Main.storyboard */; };
+		1A86F3BA244C009C0083EBD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A86F3B9244C009C0083EBD8 /* Assets.xcassets */; };
+		1A86F3BD244C009C0083EBD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A86F3BB244C009C0083EBD8 /* LaunchScreen.storyboard */; };
+		1A86F3C0244C009C0083EBD8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3BF244C009C0083EBD8 /* main.m */; };
+		1A86F3E1244C00B70083EBD8 /* JPOSUnfairLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3C8244C00B70083EBD8 /* JPOSUnfairLockDemo.m */; };
+		1A86F3E2244C00B70083EBD8 /* JPGCDSerialQueueDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3C9244C00B70083EBD8 /* JPGCDSerialQueueDemo.m */; };
+		1A86F3E3244C00B70083EBD8 /* JPMutexRecursiveDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3CA244C00B70083EBD8 /* JPMutexRecursiveDemo.m */; };
+		1A86F3E4244C00B70083EBD8 /* JPNSConditionLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3CB244C00B70083EBD8 /* JPNSConditionLockDemo.m */; };
+		1A86F3E5244C00B70083EBD8 /* JPSynchronizedDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3CC244C00B70083EBD8 /* JPSynchronizedDemo.m */; };
+		1A86F3E6244C00B70083EBD8 /* JPMutexCondDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3CD244C00B70083EBD8 /* JPMutexCondDemo.m */; };
+		1A86F3E7244C00B70083EBD8 /* JPNSLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3D0244C00B70083EBD8 /* JPNSLockDemo.m */; };
+		1A86F3E8244C00B70083EBD8 /* JPGCDSemaphoreDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3D6244C00B70083EBD8 /* JPGCDSemaphoreDemo.m */; };
+		1A86F3E9244C00B70083EBD8 /* iOS中的线程同步方案及性能比较.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A86F3D8244C00B70083EBD8 /* iOS中的线程同步方案及性能比较.jpg */; };
+		1A86F3EA244C00B70083EBD8 /* 自旋锁和互斥锁的比较.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A86F3D9244C00B70083EBD8 /* 自旋锁和互斥锁的比较.jpg */; };
+		1A86F3EB244C00B70083EBD8 /* JPMutexDefaultDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3DA244C00B70083EBD8 /* JPMutexDefaultDemo.m */; };
+		1A86F3EC244C00B70083EBD8 /* JPNSConditionDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3DB244C00B70083EBD8 /* JPNSConditionDemo.m */; };
+		1A86F3ED244C00B70083EBD8 /* JPOSSpinLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3DE244C00B70083EBD8 /* JPOSSpinLockDemo.m */; };
+		1A86F3EE244C00B70083EBD8 /* JPBaseDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3DF244C00B70083EBD8 /* JPBaseDemo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A1B2F48239A0894008813A4 /* 01-多线程-线程同步（各种方案）.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "01-多线程-线程同步（各种方案）.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1A1B2F4B239A0894008813A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		1A1B2F4C239A0894008813A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1A1B2F4E239A0894008813A4 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		1A1B2F4F239A0894008813A4 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		1A1B2F51239A0894008813A4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1A1B2F52239A0894008813A4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		1A1B2F55239A0894008813A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1A1B2F57239A0895008813A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1A1B2F5A239A0895008813A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1A1B2F5C239A0895008813A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1A1B2F5D239A0895008813A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1A1B2F65239A431D008813A4 /* JPBaseDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPBaseDemo.h; sourceTree = "<group>"; };
-		1A1B2F66239A431D008813A4 /* JPBaseDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPBaseDemo.m; sourceTree = "<group>"; };
-		1A1B2F69239A4760008813A4 /* JPOSSpinLockDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPOSSpinLockDemo.h; sourceTree = "<group>"; };
-		1A1B2F6A239A4760008813A4 /* JPOSSpinLockDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPOSSpinLockDemo.m; sourceTree = "<group>"; };
-		1A1B2F6C239A5886008813A4 /* JPOSUnfairLockDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPOSUnfairLockDemo.h; sourceTree = "<group>"; };
-		1A1B2F6D239A5886008813A4 /* JPOSUnfairLockDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPOSUnfairLockDemo.m; sourceTree = "<group>"; };
-		1A1B2F70239B7E1C008813A4 /* JPMutexDefaultDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMutexDefaultDemo.h; sourceTree = "<group>"; };
-		1A1B2F71239B7E1C008813A4 /* JPMutexDefaultDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMutexDefaultDemo.m; sourceTree = "<group>"; };
-		1A1B2F73239CD93D008813A4 /* JPMutexRecursiveDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMutexRecursiveDemo.h; sourceTree = "<group>"; };
-		1A1B2F74239CD93D008813A4 /* JPMutexRecursiveDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMutexRecursiveDemo.m; sourceTree = "<group>"; };
-		1A1B2F76239CF9FA008813A4 /* JPMutexCondDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMutexCondDemo.h; sourceTree = "<group>"; };
-		1A1B2F77239CF9FA008813A4 /* JPMutexCondDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMutexCondDemo.m; sourceTree = "<group>"; };
-		1A1B2F79239E232D008813A4 /* JPNSLockDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPNSLockDemo.h; sourceTree = "<group>"; };
-		1A1B2F7A239E232E008813A4 /* JPNSLockDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPNSLockDemo.m; sourceTree = "<group>"; };
-		1A1B2F7C239E2AA6008813A4 /* JPNSConditionDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPNSConditionDemo.h; sourceTree = "<group>"; };
-		1A1B2F7D239E2AA6008813A4 /* JPNSConditionDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPNSConditionDemo.m; sourceTree = "<group>"; };
-		1A1B2F7F239E3F33008813A4 /* JPNSConditionLockDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPNSConditionLockDemo.h; sourceTree = "<group>"; };
-		1A1B2F80239E3F33008813A4 /* JPNSConditionLockDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPNSConditionLockDemo.m; sourceTree = "<group>"; };
-		1A1B2F82239E4897008813A4 /* JPGCDSerialQueueDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPGCDSerialQueueDemo.h; sourceTree = "<group>"; };
-		1A1B2F83239E4897008813A4 /* JPGCDSerialQueueDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPGCDSerialQueueDemo.m; sourceTree = "<group>"; };
-		1A1B2F85239E7D7B008813A4 /* JPGCDSemaphoreDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPGCDSemaphoreDemo.h; sourceTree = "<group>"; };
-		1A1B2F86239E7D7B008813A4 /* JPGCDSemaphoreDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPGCDSemaphoreDemo.m; sourceTree = "<group>"; };
-		1A1B2F88239E99C8008813A4 /* JPSynchronizedDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPSynchronizedDemo.h; sourceTree = "<group>"; };
-		1A1B2F89239E99C8008813A4 /* JPSynchronizedDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPSynchronizedDemo.m; sourceTree = "<group>"; };
-		1A1B2F8B239EB646008813A4 /* iOS中的线程同步方案及性能比较.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS中的线程同步方案及性能比较.jpg"; sourceTree = "<group>"; };
-		1A1EEA37239F97F7004800ED /* 自旋锁和互斥锁的比较.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "自旋锁和互斥锁的比较.jpg"; sourceTree = "<group>"; };
+		1A86F3AA244C00970083EBD8 /* 01-多线程-线程同步（各种方案）.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "01-多线程-线程同步（各种方案）.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A86F3AD244C00970083EBD8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1A86F3AE244C00970083EBD8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1A86F3B0244C00980083EBD8 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		1A86F3B1244C00980083EBD8 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		1A86F3B3244C00980083EBD8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1A86F3B4244C00980083EBD8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1A86F3B7244C00980083EBD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1A86F3B9244C009C0083EBD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A86F3BC244C009C0083EBD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1A86F3BE244C009C0083EBD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A86F3BF244C009C0083EBD8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1A86F3C7244C00B70083EBD8 /* JPGCDSemaphoreDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGCDSemaphoreDemo.h; sourceTree = "<group>"; };
+		1A86F3C8244C00B70083EBD8 /* JPOSUnfairLockDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPOSUnfairLockDemo.m; sourceTree = "<group>"; };
+		1A86F3C9244C00B70083EBD8 /* JPGCDSerialQueueDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGCDSerialQueueDemo.m; sourceTree = "<group>"; };
+		1A86F3CA244C00B70083EBD8 /* JPMutexRecursiveDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMutexRecursiveDemo.m; sourceTree = "<group>"; };
+		1A86F3CB244C00B70083EBD8 /* JPNSConditionLockDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPNSConditionLockDemo.m; sourceTree = "<group>"; };
+		1A86F3CC244C00B70083EBD8 /* JPSynchronizedDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSynchronizedDemo.m; sourceTree = "<group>"; };
+		1A86F3CD244C00B70083EBD8 /* JPMutexCondDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMutexCondDemo.m; sourceTree = "<group>"; };
+		1A86F3CE244C00B70083EBD8 /* JPMutexDefaultDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMutexDefaultDemo.h; sourceTree = "<group>"; };
+		1A86F3CF244C00B70083EBD8 /* JPNSConditionDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPNSConditionDemo.h; sourceTree = "<group>"; };
+		1A86F3D0244C00B70083EBD8 /* JPNSLockDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPNSLockDemo.m; sourceTree = "<group>"; };
+		1A86F3D1244C00B70083EBD8 /* JPBaseDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPBaseDemo.h; sourceTree = "<group>"; };
+		1A86F3D2244C00B70083EBD8 /* JPOSSpinLockDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPOSSpinLockDemo.h; sourceTree = "<group>"; };
+		1A86F3D3244C00B70083EBD8 /* JPMutexRecursiveDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMutexRecursiveDemo.h; sourceTree = "<group>"; };
+		1A86F3D4244C00B70083EBD8 /* JPGCDSerialQueueDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGCDSerialQueueDemo.h; sourceTree = "<group>"; };
+		1A86F3D5244C00B70083EBD8 /* JPOSUnfairLockDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPOSUnfairLockDemo.h; sourceTree = "<group>"; };
+		1A86F3D6244C00B70083EBD8 /* JPGCDSemaphoreDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGCDSemaphoreDemo.m; sourceTree = "<group>"; };
+		1A86F3D7244C00B70083EBD8 /* JPNSConditionLockDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPNSConditionLockDemo.h; sourceTree = "<group>"; };
+		1A86F3D8244C00B70083EBD8 /* iOS中的线程同步方案及性能比较.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS中的线程同步方案及性能比较.jpg"; sourceTree = "<group>"; };
+		1A86F3D9244C00B70083EBD8 /* 自旋锁和互斥锁的比较.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "自旋锁和互斥锁的比较.jpg"; sourceTree = "<group>"; };
+		1A86F3DA244C00B70083EBD8 /* JPMutexDefaultDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPMutexDefaultDemo.m; sourceTree = "<group>"; };
+		1A86F3DB244C00B70083EBD8 /* JPNSConditionDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPNSConditionDemo.m; sourceTree = "<group>"; };
+		1A86F3DC244C00B70083EBD8 /* JPMutexCondDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPMutexCondDemo.h; sourceTree = "<group>"; };
+		1A86F3DD244C00B70083EBD8 /* JPSynchronizedDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPSynchronizedDemo.h; sourceTree = "<group>"; };
+		1A86F3DE244C00B70083EBD8 /* JPOSSpinLockDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPOSSpinLockDemo.m; sourceTree = "<group>"; };
+		1A86F3DF244C00B70083EBD8 /* JPBaseDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPBaseDemo.m; sourceTree = "<group>"; };
+		1A86F3E0244C00B70083EBD8 /* JPNSLockDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPNSLockDemo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1A1B2F45239A0894008813A4 /* Frameworks */ = {
+		1A86F3A7244C00970083EBD8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -80,70 +82,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A1B2F3F239A0894008813A4 = {
+		1A86F3A1244C00970083EBD8 = {
 			isa = PBXGroup;
 			children = (
-				1A1B2F4A239A0894008813A4 /* 01-多线程-线程同步（各种方案） */,
-				1A1B2F49239A0894008813A4 /* Products */,
+				1A86F3AC244C00970083EBD8 /* 01-多线程-线程同步（各种方案） */,
+				1A86F3AB244C00970083EBD8 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		1A1B2F49239A0894008813A4 /* Products */ = {
+		1A86F3AB244C00970083EBD8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A1B2F48239A0894008813A4 /* 01-多线程-线程同步（各种方案）.app */,
+				1A86F3AA244C00970083EBD8 /* 01-多线程-线程同步（各种方案）.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1A1B2F4A239A0894008813A4 /* 01-多线程-线程同步（各种方案） */ = {
+		1A86F3AC244C00970083EBD8 /* 01-多线程-线程同步（各种方案） */ = {
 			isa = PBXGroup;
 			children = (
-				1A1B2F4B239A0894008813A4 /* AppDelegate.h */,
-				1A1B2F4C239A0894008813A4 /* AppDelegate.m */,
-				1A1B2F4E239A0894008813A4 /* SceneDelegate.h */,
-				1A1B2F4F239A0894008813A4 /* SceneDelegate.m */,
-				1A1B2F51239A0894008813A4 /* ViewController.h */,
-				1A1B2F52239A0894008813A4 /* ViewController.m */,
-				1A1B2F68239A467F008813A4 /* Locks */,
-				1A1B2F54239A0894008813A4 /* Main.storyboard */,
-				1A1B2F57239A0895008813A4 /* Assets.xcassets */,
-				1A1B2F59239A0895008813A4 /* LaunchScreen.storyboard */,
-				1A1B2F5C239A0895008813A4 /* Info.plist */,
-				1A1B2F5D239A0895008813A4 /* main.m */,
+				1A86F3AD244C00970083EBD8 /* AppDelegate.h */,
+				1A86F3AE244C00970083EBD8 /* AppDelegate.m */,
+				1A86F3B0244C00980083EBD8 /* SceneDelegate.h */,
+				1A86F3B1244C00980083EBD8 /* SceneDelegate.m */,
+				1A86F3B3244C00980083EBD8 /* ViewController.h */,
+				1A86F3B4244C00980083EBD8 /* ViewController.m */,
+				1A86F3C6244C00B70083EBD8 /* Locks */,
+				1A86F3B6244C00980083EBD8 /* Main.storyboard */,
+				1A86F3B9244C009C0083EBD8 /* Assets.xcassets */,
+				1A86F3BB244C009C0083EBD8 /* LaunchScreen.storyboard */,
+				1A86F3BE244C009C0083EBD8 /* Info.plist */,
+				1A86F3BF244C009C0083EBD8 /* main.m */,
 			);
 			path = "01-多线程-线程同步（各种方案）";
 			sourceTree = "<group>";
 		};
-		1A1B2F68239A467F008813A4 /* Locks */ = {
+		1A86F3C6244C00B70083EBD8 /* Locks */ = {
 			isa = PBXGroup;
 			children = (
-				1A1B2F8B239EB646008813A4 /* iOS中的线程同步方案及性能比较.jpg */,
-				1A1EEA37239F97F7004800ED /* 自旋锁和互斥锁的比较.jpg */,
-				1A1B2F65239A431D008813A4 /* JPBaseDemo.h */,
-				1A1B2F66239A431D008813A4 /* JPBaseDemo.m */,
-				1A1B2F69239A4760008813A4 /* JPOSSpinLockDemo.h */,
-				1A1B2F6A239A4760008813A4 /* JPOSSpinLockDemo.m */,
-				1A1B2F6C239A5886008813A4 /* JPOSUnfairLockDemo.h */,
-				1A1B2F6D239A5886008813A4 /* JPOSUnfairLockDemo.m */,
-				1A1B2F70239B7E1C008813A4 /* JPMutexDefaultDemo.h */,
-				1A1B2F71239B7E1C008813A4 /* JPMutexDefaultDemo.m */,
-				1A1B2F73239CD93D008813A4 /* JPMutexRecursiveDemo.h */,
-				1A1B2F74239CD93D008813A4 /* JPMutexRecursiveDemo.m */,
-				1A1B2F76239CF9FA008813A4 /* JPMutexCondDemo.h */,
-				1A1B2F77239CF9FA008813A4 /* JPMutexCondDemo.m */,
-				1A1B2F79239E232D008813A4 /* JPNSLockDemo.h */,
-				1A1B2F7A239E232E008813A4 /* JPNSLockDemo.m */,
-				1A1B2F7C239E2AA6008813A4 /* JPNSConditionDemo.h */,
-				1A1B2F7D239E2AA6008813A4 /* JPNSConditionDemo.m */,
-				1A1B2F7F239E3F33008813A4 /* JPNSConditionLockDemo.h */,
-				1A1B2F80239E3F33008813A4 /* JPNSConditionLockDemo.m */,
-				1A1B2F82239E4897008813A4 /* JPGCDSerialQueueDemo.h */,
-				1A1B2F83239E4897008813A4 /* JPGCDSerialQueueDemo.m */,
-				1A1B2F85239E7D7B008813A4 /* JPGCDSemaphoreDemo.h */,
-				1A1B2F86239E7D7B008813A4 /* JPGCDSemaphoreDemo.m */,
-				1A1B2F88239E99C8008813A4 /* JPSynchronizedDemo.h */,
-				1A1B2F89239E99C8008813A4 /* JPSynchronizedDemo.m */,
+				1A86F3D9244C00B70083EBD8 /* 自旋锁和互斥锁的比较.jpg */,
+				1A86F3D8244C00B70083EBD8 /* iOS中的线程同步方案及性能比较.jpg */,
+				1A86F3D1244C00B70083EBD8 /* JPBaseDemo.h */,
+				1A86F3DF244C00B70083EBD8 /* JPBaseDemo.m */,
+				1A86F3D2244C00B70083EBD8 /* JPOSSpinLockDemo.h */,
+				1A86F3DE244C00B70083EBD8 /* JPOSSpinLockDemo.m */,
+				1A86F3D5244C00B70083EBD8 /* JPOSUnfairLockDemo.h */,
+				1A86F3C8244C00B70083EBD8 /* JPOSUnfairLockDemo.m */,
+				1A86F3CE244C00B70083EBD8 /* JPMutexDefaultDemo.h */,
+				1A86F3DA244C00B70083EBD8 /* JPMutexDefaultDemo.m */,
+				1A86F3D3244C00B70083EBD8 /* JPMutexRecursiveDemo.h */,
+				1A86F3CA244C00B70083EBD8 /* JPMutexRecursiveDemo.m */,
+				1A86F3DC244C00B70083EBD8 /* JPMutexCondDemo.h */,
+				1A86F3CD244C00B70083EBD8 /* JPMutexCondDemo.m */,
+				1A86F3E0244C00B70083EBD8 /* JPNSLockDemo.h */,
+				1A86F3D0244C00B70083EBD8 /* JPNSLockDemo.m */,
+				1A86F3CF244C00B70083EBD8 /* JPNSConditionDemo.h */,
+				1A86F3DB244C00B70083EBD8 /* JPNSConditionDemo.m */,
+				1A86F3D7244C00B70083EBD8 /* JPNSConditionLockDemo.h */,
+				1A86F3CB244C00B70083EBD8 /* JPNSConditionLockDemo.m */,
+				1A86F3D4244C00B70083EBD8 /* JPGCDSerialQueueDemo.h */,
+				1A86F3C9244C00B70083EBD8 /* JPGCDSerialQueueDemo.m */,
+				1A86F3C7244C00B70083EBD8 /* JPGCDSemaphoreDemo.h */,
+				1A86F3D6244C00B70083EBD8 /* JPGCDSemaphoreDemo.m */,
+				1A86F3DD244C00B70083EBD8 /* JPSynchronizedDemo.h */,
+				1A86F3CC244C00B70083EBD8 /* JPSynchronizedDemo.m */,
 			);
 			path = Locks;
 			sourceTree = "<group>";
@@ -151,38 +153,38 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1A1B2F47239A0894008813A4 /* 01-多线程-线程同步（各种方案） */ = {
+		1A86F3A9244C00970083EBD8 /* 01-多线程-线程同步（各种方案） */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1A1B2F61239A0895008813A4 /* Build configuration list for PBXNativeTarget "01-多线程-线程同步（各种方案）" */;
+			buildConfigurationList = 1A86F3C3244C009C0083EBD8 /* Build configuration list for PBXNativeTarget "01-多线程-线程同步（各种方案）" */;
 			buildPhases = (
-				1A1B2F44239A0894008813A4 /* Sources */,
-				1A1B2F45239A0894008813A4 /* Frameworks */,
-				1A1B2F46239A0894008813A4 /* Resources */,
+				1A86F3A6244C00970083EBD8 /* Sources */,
+				1A86F3A7244C00970083EBD8 /* Frameworks */,
+				1A86F3A8244C00970083EBD8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "01-多线程-线程同步（各种方案）";
-			productName = "06-多线程-线程同步";
-			productReference = 1A1B2F48239A0894008813A4 /* 01-多线程-线程同步（各种方案）.app */;
+			productName = "01-多线程-线程同步（各种方案）";
+			productReference = 1A86F3AA244C00970083EBD8 /* 01-多线程-线程同步（各种方案）.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1A1B2F40239A0894008813A4 /* Project object */ = {
+		1A86F3A2244C00970083EBD8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "周健平";
 				TargetAttributes = {
-					1A1B2F47239A0894008813A4 = {
-						CreatedOnToolsVersion = 11.2.1;
+					1A86F3A9244C00970083EBD8 = {
+						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
-			buildConfigurationList = 1A1B2F43239A0894008813A4 /* Build configuration list for PBXProject "01-多线程-线程同步（各种方案）" */;
+			buildConfigurationList = 1A86F3A5244C00970083EBD8 /* Build configuration list for PBXProject "01-多线程-线程同步（各种方案）" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -190,68 +192,70 @@
 				en,
 				Base,
 			);
-			mainGroup = 1A1B2F3F239A0894008813A4;
-			productRefGroup = 1A1B2F49239A0894008813A4 /* Products */;
+			mainGroup = 1A86F3A1244C00970083EBD8;
+			productRefGroup = 1A86F3AB244C00970083EBD8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1A1B2F47239A0894008813A4 /* 01-多线程-线程同步（各种方案） */,
+				1A86F3A9244C00970083EBD8 /* 01-多线程-线程同步（各种方案） */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1A1B2F46239A0894008813A4 /* Resources */ = {
+		1A86F3A8244C00970083EBD8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A1B2F5B239A0895008813A4 /* LaunchScreen.storyboard in Resources */,
-				1A1B2F58239A0895008813A4 /* Assets.xcassets in Resources */,
-				1A1B2F56239A0894008813A4 /* Main.storyboard in Resources */,
+				1A86F3E9244C00B70083EBD8 /* iOS中的线程同步方案及性能比较.jpg in Resources */,
+				1A86F3BD244C009C0083EBD8 /* LaunchScreen.storyboard in Resources */,
+				1A86F3BA244C009C0083EBD8 /* Assets.xcassets in Resources */,
+				1A86F3B8244C00980083EBD8 /* Main.storyboard in Resources */,
+				1A86F3EA244C00B70083EBD8 /* 自旋锁和互斥锁的比较.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1A1B2F44239A0894008813A4 /* Sources */ = {
+		1A86F3A6244C00970083EBD8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A1B2F53239A0894008813A4 /* ViewController.m in Sources */,
-				1A1B2F72239B7E1C008813A4 /* JPMutexDefaultDemo.m in Sources */,
-				1A1B2F78239CF9FA008813A4 /* JPMutexCondDemo.m in Sources */,
-				1A1B2F81239E3F33008813A4 /* JPNSConditionLockDemo.m in Sources */,
-				1A1B2F6E239A5886008813A4 /* JPOSUnfairLockDemo.m in Sources */,
-				1A1B2F67239A431D008813A4 /* JPBaseDemo.m in Sources */,
-				1A1B2F84239E4897008813A4 /* JPGCDSerialQueueDemo.m in Sources */,
-				1A1B2F4D239A0894008813A4 /* AppDelegate.m in Sources */,
-				1A1B2F75239CD93D008813A4 /* JPMutexRecursiveDemo.m in Sources */,
-				1A1B2F7B239E232E008813A4 /* JPNSLockDemo.m in Sources */,
-				1A1B2F6B239A4760008813A4 /* JPOSSpinLockDemo.m in Sources */,
-				1A1B2F7E239E2AA6008813A4 /* JPNSConditionDemo.m in Sources */,
-				1A1B2F5E239A0895008813A4 /* main.m in Sources */,
-				1A1B2F87239E7D7B008813A4 /* JPGCDSemaphoreDemo.m in Sources */,
-				1A1B2F8A239E99C8008813A4 /* JPSynchronizedDemo.m in Sources */,
-				1A1B2F50239A0894008813A4 /* SceneDelegate.m in Sources */,
+				1A86F3E1244C00B70083EBD8 /* JPOSUnfairLockDemo.m in Sources */,
+				1A86F3EE244C00B70083EBD8 /* JPBaseDemo.m in Sources */,
+				1A86F3E3244C00B70083EBD8 /* JPMutexRecursiveDemo.m in Sources */,
+				1A86F3E6244C00B70083EBD8 /* JPMutexCondDemo.m in Sources */,
+				1A86F3ED244C00B70083EBD8 /* JPOSSpinLockDemo.m in Sources */,
+				1A86F3E4244C00B70083EBD8 /* JPNSConditionLockDemo.m in Sources */,
+				1A86F3E8244C00B70083EBD8 /* JPGCDSemaphoreDemo.m in Sources */,
+				1A86F3EB244C00B70083EBD8 /* JPMutexDefaultDemo.m in Sources */,
+				1A86F3B5244C00980083EBD8 /* ViewController.m in Sources */,
+				1A86F3AF244C00980083EBD8 /* AppDelegate.m in Sources */,
+				1A86F3C0244C009C0083EBD8 /* main.m in Sources */,
+				1A86F3E7244C00B70083EBD8 /* JPNSLockDemo.m in Sources */,
+				1A86F3B2244C00980083EBD8 /* SceneDelegate.m in Sources */,
+				1A86F3EC244C00B70083EBD8 /* JPNSConditionDemo.m in Sources */,
+				1A86F3E5244C00B70083EBD8 /* JPSynchronizedDemo.m in Sources */,
+				1A86F3E2244C00B70083EBD8 /* JPGCDSerialQueueDemo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1A1B2F54239A0894008813A4 /* Main.storyboard */ = {
+		1A86F3B6244C00980083EBD8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1A1B2F55239A0894008813A4 /* Base */,
+				1A86F3B7244C00980083EBD8 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		1A1B2F59239A0895008813A4 /* LaunchScreen.storyboard */ = {
+		1A86F3BB244C009C0083EBD8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1A1B2F5A239A0895008813A4 /* Base */,
+				1A86F3BC244C009C0083EBD8 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -259,7 +263,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1A1B2F5F239A0895008813A4 /* Debug */ = {
+		1A86F3C1244C009C0083EBD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -317,7 +321,7 @@
 			};
 			name = Debug;
 		};
-		1A1B2F60239A0895008813A4 /* Release */ = {
+		1A86F3C2244C009C0083EBD8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -369,35 +373,33 @@
 			};
 			name = Release;
 		};
-		1A1B2F62239A0895008813A4 /* Debug */ = {
+		1A86F3C4244C009C0083EBD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "01-多线程-线程同步（各种方案）/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "zhoujianping.-6---------";
+				PRODUCT_BUNDLE_IDENTIFIER = "zhoujianping.-1---------------";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		1A1B2F63239A0895008813A4 /* Release */ = {
+		1A86F3C5244C009C0083EBD8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "01-多线程-线程同步（各种方案）/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "zhoujianping.-6---------";
+				PRODUCT_BUNDLE_IDENTIFIER = "zhoujianping.-1---------------";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -406,25 +408,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1A1B2F43239A0894008813A4 /* Build configuration list for PBXProject "01-多线程-线程同步（各种方案）" */ = {
+		1A86F3A5244C00970083EBD8 /* Build configuration list for PBXProject "01-多线程-线程同步（各种方案）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1A1B2F5F239A0895008813A4 /* Debug */,
-				1A1B2F60239A0895008813A4 /* Release */,
+				1A86F3C1244C009C0083EBD8 /* Debug */,
+				1A86F3C2244C009C0083EBD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1A1B2F61239A0895008813A4 /* Build configuration list for PBXNativeTarget "01-多线程-线程同步（各种方案）" */ = {
+		1A86F3C3244C009C0083EBD8 /* Build configuration list for PBXNativeTarget "01-多线程-线程同步（各种方案）" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1A1B2F62239A0895008813A4 /* Debug */,
-				1A1B2F63239A0895008813A4 /* Release */,
+				1A86F3C4244C009C0083EBD8 /* Debug */,
+				1A86F3C5244C009C0083EBD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1A1B2F40239A0894008813A4 /* Project object */;
+	rootObject = 1A86F3A2244C00970083EBD8 /* Project object */;
 }
