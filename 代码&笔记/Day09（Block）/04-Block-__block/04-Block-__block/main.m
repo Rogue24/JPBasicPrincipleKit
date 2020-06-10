@@ -160,8 +160,11 @@ int main(int argc, const char * argv[]) {
          */
         
         struct __main_block_impl_0 *stackBlockImpl = (__bridge struct __main_block_impl_0 *)stackBlock;
+        NSLog(@"在这里打断点验证一下");
         /*
-         *【问题】：访问a，访问的是被包装后的对象？还是包装后的对象里面的那个a？
+         *【问题】：a被__block修饰后，访问a，
+            · 访问的是包装后的__block结构体对象？（__main_block_impl_0 里面的 __Block_byref_a_0 *a，stackBlockImpl->a）
+            · 还是这个包装后的__block结构体对象里面的那个a？（__Block_byref_a_0 里面的 int a，stackBlockImpl->a->a）
          *
          * 打个断点可以查看：
          * 1.打印a的地址：po &a = 0x0000000100710b18
@@ -186,7 +189,7 @@ int main(int argc, const char * argv[]) {
          * 苹果表面上对其进行了【隐蔽】的效果，不公开内部实现，让开发者觉得就只是对a进行了操作
          * 实际上是包装到一个对象里面，再通过这个对象对a进行操作，类似【KVO】，便于开发时不显得复杂。
          *
-         *【答案】：访问a，访问的是包装后的对象里面的那个a。
+         *【答案】：访问a，访问的是包装后的__block结构体对象里面的那个a，确切值。(stackBlockImpl->a->a)
          */
         
         NSLog(@"====== before copy ======");
@@ -199,9 +202,9 @@ int main(int argc, const char * argv[]) {
         NSLog(@"=========================");
         /*
          * 在这打个断点在控制台打印日志查看：
-         * 输入：x/4xg 0x7ffeefbff430，查看【栈上】__block变量结构体（stackBlockImpl->a）的内容
-         * ==> 0x7ffeefbff430: 0x0000000000000000 0x00007ffeefbff430
-               0x7ffeefbff440: 0x0000002020000000 0x000000000000001d
+         * 输入：x/4xg stackBlockImpl->a，查看【栈上】__block变量结构体的内容
+         * ==> 0x7ffeefbff4b8: 0x0000000000000000 0x00007ffeefbff4b8 // __isa、__forwarding（指着自己stackBlockImpl->a）
+               0x7ffeefbff4c8: 0x0000002020000000 0x000000000000001d // 4字节的__flags + 4字节的__size、a（0x1d ==> 29）
          * 可以看到__forwarding指向的是自己的__block变量结构体，自己的a是29
          */
         
@@ -220,21 +223,26 @@ int main(int argc, const char * argv[]) {
         NSLog(@"=========================");
         /*
          * 在这打个断点在控制台打印日志查看：
-         * 输入：x/4xg 0x7ffeefbff430，查看【栈上】__block变量结构体（stackBlockImpl->a）的内容
-         * ==> 0x7ffeefbff430: 0x0000000000000000 0x0000000100576d00
-               0x7ffeefbff440: 0x0000002020000000 0x000000000000001d
-         * 可以看到此时的__forwarding指向的是【堆上】__block变量结构体，自己的a还是29
+         * 输入：x/4xg mallocBlockImpl->a，查看【堆上】__block变量结构体的内容
+         * ==> 0x103105030: 0x0000000000000000 0x0000000103105030 // __isa、__forwarding（指着自己mallocBlockImpl->a）
+               0x103105040: 0x0000002021000004 0x000000000000001f // 4字节的__flags + 4字节的__size、a（0x1f ==> 31）
+         * 输入：x/4xg stackBlockImpl->a，查看【栈上】__block变量结构体的内容
+         * ==> 0x7ffeefbff4b8: 0x0000000000000000 0x0000000103105030 // __isa、__forwarding（指着堆上的mallocBlockImpl->a）
+               0x7ffeefbff4c8: 0x0000002020000000 0x000000000000001d // 4字节的__flags + 4字节的__size、a（0x1d ==> 29）
+         * 可以看到此时【栈上】__block变量结构体的a还是29，并且__forwarding不再指向自己，而是指向的是【堆上】__block变量结构体
          */
         
         /*
          * 结论：__forwarding在Block从栈上拷贝到堆上后的指向
+         * stack a -> __forwarding -> stack a ==> stack a -> __forwarding -> malloc a
          *【栈上】的__block变量结构体的__forwarding会指向【堆上】的__block变量结构体，
          * 而堆上的__block变量结构体的__forwarding还是指向自己。
          * 由于修改变量都是通过a->__forwarding->a这样的形式进行操作，
          * 所以这样的做法就可以在Block从栈上拷贝到堆上后，
-         * 即使是修改栈上的__block变量结构体的变量，实际上修改的是堆上的__block变量结构体的变量，
+         *【即使是修改<<栈上>>的__block变量结构体的变量，实际上修改的是<<堆上>>的__block变量结构体的变量】，
          * 因为__forwarding都指着堆上的，因此栈上的__block变量结构体里面的变量还是原来的值，
-         * 毕竟栈上的__block变量结构体在{}后就被回收，再修改栈上的已经没意义了。
+         * 既然堆上有了自己的拷贝，那后续对栈上的修改变成对堆上的修改，毕竟栈上的__block变量结构体在{}后就被回收，再修改栈上的已经没意义了。
+         * 访问跟修改一样，后续访问栈上的也会变成访问堆上的那个
          */
         
         /*

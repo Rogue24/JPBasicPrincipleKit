@@ -9,6 +9,9 @@
 #import "JPOSSpinLockDemo.h"
 #import <libkern/OSAtomic.h>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @interface JPOSSpinLockDemo ()
 @property (nonatomic, assign) OSSpinLock ticketLock;
 @property (nonatomic, assign) OSSpinLock moneyLock;
@@ -113,5 +116,7 @@
     NSLog(@"ccc 解锁");
     OSSpinLockUnlock(&_lock);
 }
+
+#pragma clang diagnostic pop
 
 @end

@@ -173,9 +173,9 @@ int main(int argc, const char * argv[]) {
          */
         
         createStackBlock(); // --> 里面设置了jpBlockX，定义为StackBlock（访问了auto变量）
-        jpBlockX(); // 调用完函数再调用block --> 调用结果中的auto变量为【乱码】
+        jpBlockX(); // 调用完函数再调用block --> 调用结果中的auto变量为【乱码】（本来是99，但这里是-272632968，变成了垃圾数据）
         /**
-         * 因为这是StackBlock类型的block，【是在栈上分配的内存，jpBlockX这个全局变量只是引用这个地址】
+         * 因为这是StackBlock类型的block，【是在栈上分配的内存，jpBlockX只是个全局变量的指针，引用着这个内存地址】
          * <<StackBlock类型的block里面的impl、Desc、其他捕获的变量是存在栈上的>>
          * 当createStackBlock函数调用完，即离开了函数的作用域，系统就会自动回收{}里面的临时变量，即包括block内的成员变量
          * 之后再访问block内的成员变量，由于已经被销毁了，都变成了垃圾数据，所以得到的是一堆乱码
@@ -190,7 +190,7 @@ int main(int argc, const char * argv[]) {
         /**
          * 三种block类型进行copy操作：
          * GlobalBlock --copy--> 啥事没有
-         * MallocBlock --copy--> 还是在【堆】，引用计数+1，需要注意内存管理
+         * MallocBlock --copy--> 还是在【堆】，并不会再产生一块新的内存，而是引用计数+1，需要注意内存管理
          * StackBlock  --copy--> 内存从【栈】搬到【堆】，需要注意内存管理
          */
         NSLog(@"jpBlock2 origin is %@", [jpBlock2 class]);

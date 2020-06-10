@@ -20,9 +20,11 @@
     // 初始化属性
     pthread_mutexattr_t attr;
     pthread_mutexattr_init(&attr);
-    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_DEFAULT); // 如果传NULL也就是传PTHREAD_MUTEX_DEFAULT
+    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_DEFAULT);
+    
     // 初始化🔐
-    pthread_mutex_init(mutex, &attr);
+    pthread_mutex_init(mutex, &attr); // 如果attr传NULL创建出来的就是PTHREAD_MUTEX_DEFAULT（普通🔐）
+    
     // 销毁属性
     pthread_mutexattr_destroy(&attr);
 }

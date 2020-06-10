@@ -15,10 +15,6 @@
 
 @implementation JPBaseDemo
 
-#pragma mark - 其他演示
-
-- (void)otherTest {}
-
 #pragma mark - 卖票演示
 
 - (void)ticketTest {
@@ -58,7 +54,7 @@
     });
 }
 
-// 卖一张
+#pragma mark 卖一张
 - (void)__saleTicket {
     int originCount = self.ticketTotal;
     
@@ -104,7 +100,7 @@
     });
 }
 
-// 存钱
+#pragma mark 存钱
 - (void)__saveMoney {
     int originMoney = self.money;
     
@@ -118,7 +114,7 @@
     NSLog(@"存100块 --- 存之前有%d块（实际上存之前有%d块），现在有%d块 --- %@", originMoney, trueMoney, currentMoney, [NSThread currentThread]);
 }
 
-// 取钱
+#pragma mark 取钱
 - (void)__drawMoney {
     int originMoney = self.money;
     
@@ -131,4 +127,9 @@
     
     NSLog(@"取50块 --- 取之前有%d块（实际上取之前有%d块），现在剩%d块 --- %@", originMoney, trueMoney, currentMoney, [NSThread currentThread]);
 }
+
+#pragma mark - 其他演示
+
+- (void)otherTest {}
+
 @end

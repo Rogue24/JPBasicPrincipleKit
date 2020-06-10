@@ -14,6 +14,7 @@
 		1A10436923A4CBCF00D1B2DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A10436823A4CBCF00D1B2DF /* Assets.xcassets */; };
 		1A10436C23A4CBCF00D1B2DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A10436A23A4CBCF00D1B2DF /* LaunchScreen.storyboard */; };
 		1A10436F23A4CBCF00D1B2DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10436E23A4CBCF00D1B2DF /* main.m */; };
+		1A1F24E02490EAAA00860444 /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F24DF2490EAAA00860444 /* JPPerson.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,8 @@
 		1A10436D23A4CBCF00D1B2DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A10436E23A4CBCF00D1B2DF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1A10437523A4CC4500D1B2DF /* iOS程序的内存布局.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS程序的内存布局.jpg"; sourceTree = "<group>"; };
+		1A1F24DE2490EAAA00860444 /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
+		1A1F24DF2490EAAA00860444 /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,8 @@
 				1A10436023A4CBCD00D1B2DF /* SceneDelegate.m */,
 				1A10436223A4CBCD00D1B2DF /* ViewController.h */,
 				1A10436323A4CBCD00D1B2DF /* ViewController.m */,
+				1A1F24DE2490EAAA00860444 /* JPPerson.h */,
+				1A1F24DF2490EAAA00860444 /* JPPerson.m */,
 				1A10436523A4CBCD00D1B2DF /* Main.storyboard */,
 				1A10436823A4CBCF00D1B2DF /* Assets.xcassets */,
 				1A10436A23A4CBCF00D1B2DF /* LaunchScreen.storyboard */,
@@ -148,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A1F24E02490EAAA00860444 /* JPPerson.m in Sources */,
 				1A10436423A4CBCD00D1B2DF /* ViewController.m in Sources */,
 				1A10435E23A4CBCD00D1B2DF /* AppDelegate.m in Sources */,
 				1A10436F23A4CBCF00D1B2DF /* main.m in Sources */,

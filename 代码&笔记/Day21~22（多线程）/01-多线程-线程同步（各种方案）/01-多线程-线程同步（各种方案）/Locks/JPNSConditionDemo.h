@@ -14,7 +14,13 @@
  * PS：不是递归🔐
  */
 
-// Low-leave Lock：低级🔐，等不到🔐就会去休眠
+// Low-leave Lock：低级🔐
+// 特点：等不到🔐就会去休眠。
+/**
+ * 使用汇编跟踪等待中的线程的函数汇编代码：
+ * 最后会调用syscall，然后线程就休眠去了，可以看出这是个互斥🔐。
+ *【syscall：系统级别的函数调用】
+ */
 @interface JPNSConditionDemo : JPBaseDemo
 
 @end

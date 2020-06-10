@@ -42,7 +42,7 @@ int main(int argc, const char * argv[]) {
          */
         
         /*
-         block调用copy的情况：
+         block调用了copy的情况：
          2020-01-30 02:33:40.887758+0800 xxx[6028:273017] Hello, World!
          2020-01-30 02:33:42.124598+0800 xxx[6028:273017] <JPPerson: 0x102405890>
          2020-01-30 02:33:42.124800+0800 xxx[6028:273017] -[JPPerson dealloc]

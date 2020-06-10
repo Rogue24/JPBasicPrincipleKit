@@ -113,7 +113,7 @@
         ↓↓↓
  而使用self或super调用方法，消息接收者始终都是子类对象本身（super只是让self直接去父类的方法列表找方法去调用）
         ↓↓↓
- 并且class和superclass都是根类NSObject的方法，所以结果都一样
+ 并且class和superclass都是根类NSObject的方法，都是子类对象自身调用的，所以结果都一样
         ↓↓↓
  NSObject的class和superclass的源码实现
         ↓↓↓

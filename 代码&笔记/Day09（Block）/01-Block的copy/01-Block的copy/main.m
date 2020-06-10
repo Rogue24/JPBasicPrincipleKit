@@ -16,7 +16,7 @@
  *
  * 每一种类型的Block调用copy后的结果：
  * GlobalBlock --copy--> GlobalBlock，啥事没有
- * MallocBlock --copy--> MallocBlock，还是在【堆】，引用计数+1，需要注意内存管理
+ * MallocBlock --copy--> MallocBlock，还是在【堆】，并不会再产生一块新的内存，而是引用计数+1，需要注意内存管理
  * StackBlock  --copy--> MallocBlock，内存从【栈】搬到【堆】，引用计数+1，需要注意内存管理
  */
 

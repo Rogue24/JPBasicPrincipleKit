@@ -31,18 +31,19 @@
     // 加🔐
     /*
      * PS：void os_unfair_lock_lock(os_unfair_lock_t lock);
-     * 传入的是【os_unfair_lock_t】类型
+     * 传入的是【os_unfair_lock_t】类型 ==> 名字比os_unfair_lock后面多了“_t”
      *
      * 点进【os_unfair_lock】查看结构：
          typedef struct os_unfair_lock_s {
              uint32_t _os_unfair_lock_opaque;
          } os_unfair_lock, *os_unfair_lock_t;
+     *
      * 可以看到【os_unfair_lock_t】类型其实就是指向【os_unfair_lock】结构体的指针
      * 所以传入的是【os_unfair_lock】的地址。
      *
-     * os_unfair_lock <==> *os_unfair_lock_t
-       ↓↓↓
-       &(os_unfair_lock) <==> os_unfair_lock_t
+        *os_unfair_lock_t = os_unfair_lock
+                      ↓↓↓↓↓↓
+        os_unfair_lock_t = &(os_unfair_lock)
      *
      */
     os_unfair_lock_lock(&_ticketLock);

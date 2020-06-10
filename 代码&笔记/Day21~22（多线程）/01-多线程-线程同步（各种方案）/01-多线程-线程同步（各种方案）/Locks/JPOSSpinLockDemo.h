@@ -20,7 +20,8 @@
  * 那么thread2就一直执行不完，那就一直解不了🔐，thread1和thread2不断地卡住，造成类似【死锁】的情况（永远拿不到🔐）
  */
 
-// High-leave Lock：高级🔐，等不到🔐就一直等，不会去休眠
+// High-leave Lock：高级🔐
+// 特点：等不到🔐就一直等，不会去休眠。
 @interface JPOSSpinLockDemo : JPBaseDemo
 
 @end
