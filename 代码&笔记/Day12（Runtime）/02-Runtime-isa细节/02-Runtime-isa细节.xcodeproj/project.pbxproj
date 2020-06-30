@@ -36,6 +36,7 @@
 		1A51059D2375658200EC9F3A /* isa的位域.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "isa的位域.jpg"; sourceTree = "<group>"; };
 		1A51059F237567C000EC9F3A /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
 		1A5105A0237567C000EC9F3A /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
+		1AA468F5249BA3850081452F /* 类或元类对象的地址值.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "类或元类对象的地址值.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +71,7 @@
 			children = (
 				1A1871FC2378F3DB00B35389 /* isa结构.jpg */,
 				1A51059D2375658200EC9F3A /* isa的位域.jpg */,
+				1AA468F5249BA3850081452F /* 类或元类对象的地址值.jpg */,
 				1A5105842375618800EC9F3A /* AppDelegate.h */,
 				1A5105852375618800EC9F3A /* AppDelegate.m */,
 				1A5105872375618800EC9F3A /* SceneDelegate.h */,

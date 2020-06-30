@@ -15,6 +15,7 @@
 		1A10436C23A4CBCF00D1B2DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A10436A23A4CBCF00D1B2DF /* LaunchScreen.storyboard */; };
 		1A10436F23A4CBCF00D1B2DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10436E23A4CBCF00D1B2DF /* main.m */; };
 		1A1F24E02490EAAA00860444 /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F24DF2490EAAA00860444 /* JPPerson.m */; };
+		1A1F268224923E1900860444 /* JPDog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F268124923E1900860444 /* JPDog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,9 @@
 		1A10437523A4CC4500D1B2DF /* iOS程序的内存布局.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS程序的内存布局.jpg"; sourceTree = "<group>"; };
 		1A1F24DE2490EAAA00860444 /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
 		1A1F24DF2490EAAA00860444 /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
+		1A1F268024923E1900860444 /* JPDog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPDog.h; sourceTree = "<group>"; };
+		1A1F268124923E1900860444 /* JPDog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPDog.m; sourceTree = "<group>"; };
+		1AA468DA249B55F80081452F /* ViewController-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ViewController-arm64.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +76,11 @@
 				1A10436023A4CBCD00D1B2DF /* SceneDelegate.m */,
 				1A10436223A4CBCD00D1B2DF /* ViewController.h */,
 				1A10436323A4CBCD00D1B2DF /* ViewController.m */,
+				1AA468DA249B55F80081452F /* ViewController-arm64.cpp */,
 				1A1F24DE2490EAAA00860444 /* JPPerson.h */,
 				1A1F24DF2490EAAA00860444 /* JPPerson.m */,
+				1A1F268024923E1900860444 /* JPDog.h */,
+				1A1F268124923E1900860444 /* JPDog.m */,
 				1A10436523A4CBCD00D1B2DF /* Main.storyboard */,
 				1A10436823A4CBCF00D1B2DF /* Assets.xcassets */,
 				1A10436A23A4CBCF00D1B2DF /* LaunchScreen.storyboard */,
@@ -153,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A1F268224923E1900860444 /* JPDog.m in Sources */,
 				1A1F24E02490EAAA00860444 /* JPPerson.m in Sources */,
 				1A10436423A4CBCD00D1B2DF /* ViewController.m in Sources */,
 				1A10435E23A4CBCD00D1B2DF /* AppDelegate.m in Sources */,
@@ -298,8 +306,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
+				DEVELOPMENT_TEAM = AH737FZCJM;
 				INFOPLIST_FILE = "03-内存管理-内存布局/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,8 +324,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
+				DEVELOPMENT_TEAM = AH737FZCJM;
 				INFOPLIST_FILE = "03-内存管理-内存布局/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

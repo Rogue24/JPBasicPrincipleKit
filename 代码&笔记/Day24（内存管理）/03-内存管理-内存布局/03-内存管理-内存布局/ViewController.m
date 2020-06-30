@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <objc/runtime.h>
 #import "JPPerson.h"
+#import "JPDog.h"
 
 @interface ViewController ()
 
@@ -62,8 +63,18 @@ static int b;
     NSString *str3 = [NSString stringWithFormat:@"%@", @"鸡你太美"]; // 通过方法创建的，并且超出8字节范围的字符串，会生成【实例对象】
     
     NSObject *obj = [[NSObject alloc] init];
-    Class cls = obj.class;
-    Class mCls = object_getClass(cls);
+    Class objCls = obj.class;
+    Class objMCls = object_getClass(objCls);
+    
+    JPPerson *per0 = [[JPPerson alloc] init];
+    Class perCls = per0.class;
+    Class perMCls = object_getClass(perCls);
+    
+//    JPDog *dog = [[JPDog alloc] init];
+//    Class dogCls = dog.class;
+//    Class dogMCls = object_getClass(dogCls);
+//    NSLog(@"dogMCls -------- %p", dogMCls);
+//    NSLog(@"dogCls --- %p", dogCls);
     
     NSLog(@"【数据段/常量区】==> 字符串常量");
     NSLog(@"str1 --- %p", str1);
@@ -79,12 +90,16 @@ static int b;
     NSLog(@"b ------ %p", &b);
     
     NSLog(@"【数据段】==> meta class & class");
-    NSLog(@"meta class --- %p", &mCls);
-    NSLog(@"class -------- %p", &cls);
+    NSLog(@"objMCls --- %p", objMCls);
+    NSLog(@"objCls ---- %p", objCls);
+    
+    NSLog(@"perMCls -- %p", perMCls);
+    NSLog(@"perCls --- %p", perCls);
     
     NSLog(@"【堆】==> 实例对象"); // 分配的内存空间地址【越来越大】，不连续的
     NSLog(@"obj ---- %p", obj);
     NSLog(@"str3 --- %p", str3);
+    NSLog(@"per0 --- %p", per0);
     
     NSLog(@"【栈】==> 局部变量"); // 分配的内存空间地址【越来越小】，是连续的，不管有没有初始化都会分配
     NSLog(@"f ------ %p", &f);

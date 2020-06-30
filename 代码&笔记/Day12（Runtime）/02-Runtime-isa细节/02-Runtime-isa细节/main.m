@@ -120,12 +120,24 @@ int main(int argc, char * argv[]) {
         
         JPPerson *per = [[JPPerson alloc] init];
         
-        Class cls1 = per.class;
-        Class cls2 = object_getClass(per);
-        NSLog(@"%p %p", cls1, cls2);
+        Class perCls1 = per.class;
+        Class perCls2 = object_getClass(per);
+        NSLog(@"perCls %p %p", perCls1, perCls2);
+        
+        Class perMcls = object_getClass(perCls1);
+        NSLog(@"perMcls %p", perMcls);
         
         /*
          * 打断点，再打印：p/x per->isa，查看isa的值，把这个值丢计算器查看二进制形式（位域）
+         
+         * 真机掩码：0x0000000ffffffff8ULL
+         * 模拟器掩码：0x00007ffffffffff8ULL
+         * 验证类对象地址（以模拟器为例）：
+            1. 打印实例对象的isa地址：p/x per->isa ==> 0x000000010b882490
+            2. 通过掩码获取类对象地址：p/x 0x00007ffffffffff8ULL & 0x000000010b882490 ==> 0x000000010b882490（跟上面打印的做对比）
+         * 验证元类对象地址（以模拟器为例）：
+            1. 打印类对象的isa地址：x/1g 0x000000010b882490 ==> 0x000000010b882468
+            2. 通过掩码获取元类对象地址：p/x 0x00007ffffffffff8ULL & 0x000000010b882468 ==> 0x000000010b882468（跟上面打印的做对比）
          */
         
         // 设置了关联对象，has_assoc为1（第2位）
@@ -138,6 +150,19 @@ int main(int argc, char * argv[]) {
         
         NSLog(@"%@", weakPer);
         
+        
+        
+#pragma mark 测试验证NSObject的类对象是否为结构体、一个单纯的isa指针临时变量（这里打印的NSObject类对象的内存地址并不是在全局区，而是在栈上）
+        int a = 3;
+        NSLog(@"临时变量a %p", &a);
+        
+        Class objCls = NSObject.class;
+        NSLog(@"objCls %p", objCls);
+        
+        NSObject *obj = [[NSObject alloc] init];
+        NSLog(@"%@", obj);
+        objc_setAssociatedObject(obj, @"name", @"shuaigeping", OBJC_ASSOCIATION_COPY_NONATOMIC);
+        NSLog(@"%@", obj);
     }
     return UIApplicationMain(argc, argv, nil, appDelegateClassName);
 }
