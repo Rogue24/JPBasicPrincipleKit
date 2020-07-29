@@ -15,6 +15,32 @@
 
 @end
 
+/*
+ typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) {
+    kCFRunLoopEntry = (1UL << 0),              1   0x01
+    kCFRunLoopBeforeTimers = (1UL << 1),       2   0x02
+    kCFRunLoopBeforeSources = (1UL << 2),      4   0x04
+    kCFRunLoopBeforeWaiting = (1UL << 5),      32  0x20
+    kCFRunLoopAfterWaiting = (1UL << 6),       64  0x40
+    kCFRunLoopExit = (1UL << 7),               128 0x80
+    kCFRunLoopAllActivities = 0x0FFFFFFFU
+ };
+
+ * iOS系统在主线程的Runloop中注册了【2】个Observer，打印[NSRunLoop mainRunLoop]可以看到：
+ * 都执行了_wrapRunLoopWithAutoreleasePoolHandler这个回调
+ 
+ *【1】<CFRunLoopObserver 0x6000033005a0 [0x7fff80617cb0]>{valid = Yes, activities = 0x1, repeats = Yes, order = -2147483647, callout = _wrapRunLoopWithAutoreleasePoolHandler (0x7fff4808bf54), context = <CFArray 0x600000c4bab0 [0x7fff80617cb0]>{type = mutable-small, count = 1, values = (\n\t0 : <0x7fe83a802048>\n)}}
+ * 监听的状态：activities = 0x1 ==> 0b0001 ==>【kCFRunLoopEntry】
+ * 监听到kCFRunLoopEntry事件，会调用objc_autoreleasePoolPush()
+ 
+ *【2】<CFRunLoopObserver 0x600003300640 [0x7fff80617cb0]>{valid = Yes, activities = 0xa0, repeats = Yes, order = 2147483647, callout = _wrapRunLoopWithAutoreleasePoolHandler (0x7fff4808bf54), context = <CFArray 0x600000c4bab0 [0x7fff80617cb0]>{type = mutable-small, count = 1, values = (\n\t0 : <0x7fe83a802048>\n)}}
+ * 监听的状态：activities = 0xa0 ==> 0b10100000 ==>【kCFRunLoopBeforeWaiting | kCFRunLoopExit】
+ * 监听到kCFRunLoopBeforeWaiting事件，会调用objc_autoreleasePoolPop()，接着调用objc_autoreleasePoolPush()
+ * 监听到kCFRunLoopBeforeExit事件，会调用objc_autoreleasePoolPop()
+ *
+ * 这样能保持push和pop的成对，完美闭合。
+ */
+
 @implementation ViewController
 
 static BOOL isOver_ = NO;
@@ -110,29 +136,5 @@ static CFRunLoopObserverRef observer_;
     NSLog(@"%s", __func__);
     isOver_ = YES;
 }
-
-/*
- typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) {
-     kCFRunLoopEntry = (1UL << 0),              1   0x01
-     kCFRunLoopBeforeTimers = (1UL << 1),       2   0x02
-     kCFRunLoopBeforeSources = (1UL << 2),      4   0x04
-     kCFRunLoopBeforeWaiting = (1UL << 5),      32  0x20
-     kCFRunLoopAfterWaiting = (1UL << 6),       64  0x40
-     kCFRunLoopExit = (1UL << 7),               128 0x80
-     kCFRunLoopAllActivities = 0x0FFFFFFFU
- };
- 
- * iOS系统在主线程的Runloop中注册了【2】个Observer，打印[NSRunLoop mainRunLoop]可以看到：
- * 都执行了_wrapRunLoopWithAutoreleasePoolHandler这个回调
- 
- *【1】<CFRunLoopObserver 0x6000033005a0 [0x7fff80617cb0]>{valid = Yes, activities = 0x1, repeats = Yes, order = -2147483647, callout = _wrapRunLoopWithAutoreleasePoolHandler (0x7fff4808bf54), context = <CFArray 0x600000c4bab0 [0x7fff80617cb0]>{type = mutable-small, count = 1, values = (\n\t0 : <0x7fe83a802048>\n)}}
- * 监听的状态：activities = 0x1 ==> 0b0001 ==>【kCFRunLoopEntry】
- * 监听到kCFRunLoopEntry事件，会调用objc_autoreleasePoolPush()
- 
- *【2】<CFRunLoopObserver 0x600003300640 [0x7fff80617cb0]>{valid = Yes, activities = 0xa0, repeats = Yes, order = 2147483647, callout = _wrapRunLoopWithAutoreleasePoolHandler (0x7fff4808bf54), context = <CFArray 0x600000c4bab0 [0x7fff80617cb0]>{type = mutable-small, count = 1, values = (\n\t0 : <0x7fe83a802048>\n)}}
- * 监听的状态：activities = 0xa0 ==> 0b10100000 ==>【kCFRunLoopBeforeWaiting | kCFRunLoopExit】
- * 监听到kCFRunLoopBeforeWaiting事件，会调用objc_autoreleasePoolPop()、objc_autoreleasePoolPush()
- * 监听到kCFRunLoopBeforeExit事件，会调用objc_autoreleasePoolPop()
- */
 
 @end

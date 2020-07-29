@@ -16,6 +16,7 @@
 		1A37FCB423A1D9B100B8927F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A37FCB323A1D9B100B8927F /* main.m */; };
 		1A37FCBF23A21C3700B8927F /* JPProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A37FCBE23A21C3700B8927F /* JPProxy.m */; };
 		1A37FCC223A227BA00B8927F /* JPProxyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A37FCC123A227BA00B8927F /* JPProxyObject.m */; };
+		1AB5C8E324CD8E1F007FA965 /* JPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB5C8E224CD8E1F007FA965 /* JPViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		1A37FCBE23A21C3700B8927F /* JPProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPProxy.m; sourceTree = "<group>"; };
 		1A37FCC023A227B900B8927F /* JPProxyObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPProxyObject.h; sourceTree = "<group>"; };
 		1A37FCC123A227BA00B8927F /* JPProxyObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPProxyObject.m; sourceTree = "<group>"; };
+		1AB5C8E124CD8E1F007FA965 /* JPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPViewController.h; sourceTree = "<group>"; };
+		1AB5C8E224CD8E1F007FA965 /* JPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 				1A37FCA223A1D9B000B8927F /* AppDelegate.m */,
 				1A37FCA423A1D9B000B8927F /* SceneDelegate.h */,
 				1A37FCA523A1D9B000B8927F /* SceneDelegate.m */,
+				1AB5C8E124CD8E1F007FA965 /* JPViewController.h */,
+				1AB5C8E224CD8E1F007FA965 /* JPViewController.m */,
 				1A37FCA723A1D9B000B8927F /* ViewController.h */,
 				1A37FCA823A1D9B000B8927F /* ViewController.m */,
 				1A37FCBD23A21C3700B8927F /* JPProxy.h */,
@@ -157,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A37FCA923A1D9B000B8927F /* ViewController.m in Sources */,
+				1AB5C8E324CD8E1F007FA965 /* JPViewController.m in Sources */,
 				1A37FCC223A227BA00B8927F /* JPProxyObject.m in Sources */,
 				1A37FCA323A1D9B000B8927F /* AppDelegate.m in Sources */,
 				1A37FCBF23A21C3700B8927F /* JPProxy.m in Sources */,

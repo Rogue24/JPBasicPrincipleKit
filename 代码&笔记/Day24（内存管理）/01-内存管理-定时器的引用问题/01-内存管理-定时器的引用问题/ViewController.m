@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "JPProxyObject.h"
 #import "JPProxy.h"
+#import <objc/runtime.h>
 
 /**
  * NSTimer不准时：
@@ -23,6 +24,10 @@
 @end
 
 @implementation ViewController
+
++ (void)abc {
+    NSLog(@"caonima");
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,6 +46,7 @@
      * 注意：记得销毁timer，不然target就会一直持有着proxy，proxy就无法释放，跟不使用self一样的情况，只是对象不同了而已
      */
     
+    // 会自动转发实例方法的isKindOfClass（这方法在GNUStep里面的实现就是直接转发）：
     JPProxy *proxy = [JPProxy proxyWithTarget:self];
     JPProxyObject *proxyObj = [JPProxyObject proxyWithTarget:self];
     NSLog(@"%d", [proxy isKindOfClass:self.class]); // 1
@@ -48,6 +54,31 @@
     /*
      * JPProxy继承于NSProxy，所有方法都是通过消息转发出去的，就连isKindOfClass也是转发给self(ViewController)去执行的，所以当然是YES
      * JPProxyObject继承于NSObject，NSObject当然不属于ViewController，所以是NO
+     */
+    
+    // 类方法也可以转发
+    [JPProxy performSelector:@selector(abc)];
+    
+    //【绝】大部分的方法会自动转发，有一小部分不会，例如类方法的isKindOfClass：
+    NSLog(@"%d", [JPProxy isKindOfClass:self.class]); // 0
+    NSLog(@"%d", [JPProxy isKindOfClass:object_getClass([ViewController class])]); // 0
+    // 自身是跟NSObject同级别的根类，所以也不属于NSObject
+    NSLog(@"%d", [JPProxy isKindOfClass:NSObject.class]); // 0
+    NSLog(@"%d", [JPProxy isKindOfClass:object_getClass([NSObject class])]); // 0
+    // 证明了类方法的isKindOfClass并没有转发
+    NSLog(@"%d", [JPProxy isKindOfClass:JPProxy.class]); // 0
+    NSLog(@"%d", [JPProxy isKindOfClass:object_getClass([JPProxy class])]); // 1
+    
+    /*
+     __weak typeof(self) weakSelf = self;
+     
+     // ❌ 这种方式不能解决循环引用的问题，给到target虽然是weakSelf，不过weakSelf指向的是self的地址值，这样target还是能拿到self来做强引用
+     [NSTimer scheduledTimerWithTimeInterval:1 target:weakSelf selector:@selector(timerHandle) userInfo:nil repeats:YES];
+     
+     // ✅ __weak 只针对Block才会起作用，是用来告诉Block对外面这个变量使用弱引用
+     [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+         [weakSelf timerHandle];
+     }];
      */
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:proxy selector:@selector(timerHandle) userInfo:nil repeats:YES];

@@ -103,12 +103,13 @@
         // Runtime：例如weak指针的实现，在程序运行的过程中，监控到对象要销毁时会去清空对象的弱引用
     }
     
+#warning __unsafe_unretained修饰的指针：对象被销毁后不会自动置nil，继续访问会造成坏内存访问
     NSLog(@"嗨 -- %@", per3);
     
     /**
      * __weak和__unsafe_unretained
      * 共同点：都不会产生强引用
-     * 区别：__weak会在对象被销毁时会自动指向nil，__unsafe_unretained不会改变指向，所以会造成坏内存访问
+     * 区别：__weak会在对象被销毁时会自动指向nil，__unsafe_unretained不会改变指向，对象被销毁后继续访问会造成坏内存访问
      */
     
     /*
@@ -143,12 +144,12 @@
              {
                  if (obj) {
                      // Read all of the flags at once for performance.
-                     bool cxx = obj->hasCxxDtor();
-                     bool assoc = obj->hasAssociatedObjects();
+                     bool cxx = obj->hasCxxDtor(); ==> 是否有成员变量
+                     bool assoc = obj->hasAssociatedObjects(); ==> 是否有关联对象
 
                      // This order is important.
                      if (cxx) object_cxxDestruct(obj); ==> 清除成员变量
-                     if (assoc) _object_remove_assocations(obj);
+                     if (assoc) _object_remove_assocations(obj); ==> 清除关联对象
                      obj->clearDeallocating(); ==>【将指向当前对象的弱指针置为nil】
                  }
 
@@ -156,10 +157,10 @@
              }
         6. clearDeallocating -> clearDeallocating_slow
         7. weak_clear_no_lock(&table.weak_table, (id)this) ==> SideTable里面有个weak_table，专门存放弱指针
-        8. weak_entry_for_referent ==> 从弱引用表里面找出entry（弱指针表是个散列表，要用掩码查找）
+        8. weak_entry_for_referent ==> 从弱引用表里面找出entry（弱指针表是个散列表，要用掩码获取索引查找）
         9. 回到7，接着执行weak_entry_remove(weak_table, entry) ==> 通过entry清除弱引用表里面存储的弱引用
-       10. 回到6，接着判断如果SideTable有引用计数，清空引用计数
-       11. 回到5，接着free
+       10. 回到6，接着判断如果SideTable有引用计数，去清空引用计数
+       11. 回到5，返回obj，接着free
      
      * SideTable的结构：
          struct SideTable {

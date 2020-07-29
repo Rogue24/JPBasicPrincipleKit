@@ -21,6 +21,16 @@
 }
 
 - (IBAction)startDecode:(id)sender {
+    
+    if (self.imageView.image) {
+        [UIView transitionWithView:self.imageView duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.imageView.image = nil;
+        } completion:^(BOOL finished) {
+            [self startDecode:sender];
+        }];
+        return;
+    }
+    
     /*
      * self.imageView.image = [UIImage imageNamed:@"image111"];
         - 这种方法加载的图片其实不能直接显示到屏幕上，这本来是图片经过压缩后的二进制数据，渲染到屏幕上得需要进行解码，要解码成屏幕所需要的那种格式才能显示到屏幕上
@@ -65,7 +75,7 @@
         cgImage = CGBitmapContextCreateImage(context);
         
         // into UIImage【把图片包装成UIImage，这是解码后的UIImage】
-        UIImage *decodeImage = [UIImage imageWithCGImage:cgImage scale:image.scale orientation:image.imageOrientation];
+        UIImage *decodeImage = [UIImage imageWithCGImage:cgImage];// scale:image.scale orientation:image.imageOrientation];
         
         // release
         CGColorSpaceRelease(colorSpace);
@@ -84,6 +94,5 @@
     });
     
 }
-
 
 @end

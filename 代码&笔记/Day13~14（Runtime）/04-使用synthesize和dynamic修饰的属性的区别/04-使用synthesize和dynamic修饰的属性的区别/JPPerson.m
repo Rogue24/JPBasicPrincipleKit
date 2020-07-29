@@ -12,6 +12,12 @@
 @implementation JPPerson
 
 /*
+ * @property
+ * 以前的只会给属性的set方法和get方法的【声明】，并没有实现，也没有成员变量
+ * 现在的融合了@synthesize的特性，会自动帮属性生成下划线+属性名的成员变量、set方法和get方法的实现
+ */
+
+/*
  * @synthesize xxx = _xxx;
  * 使用@synthesize修饰的属性，编译器会自动生成该属性的成员变量、set方法和get方法的【实现】
  * 等号右边为成员变量的名字，可以随便改，如果不写，例：@synthesize yyy; 则成员变量名字就只为yyy

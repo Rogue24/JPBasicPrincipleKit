@@ -30,6 +30,7 @@
 		1A29F15423AC79C0006BBF9A /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
 		1A29F15923AE070F006BBF9A /* main-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "main-arm64.cpp"; sourceTree = "<group>"; };
 		1A29F15C23AE1FD3006BBF9A /* AutoreleasePoolPage的结构.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "AutoreleasePoolPage的结构.jpg"; sourceTree = "<group>"; };
+		1A513A5E24D0259800D46A82 /* _objc_autoreleasePoolPrint打印结果.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "_objc_autoreleasePoolPrint打印结果.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				1A29F15C23AE1FD3006BBF9A /* AutoreleasePoolPage的结构.jpg */,
+				1A513A5E24D0259800D46A82 /* _objc_autoreleasePoolPrint打印结果.jpg */,
 				1A29F14C23AC79A7006BBF9A /* main.m */,
 				1A29F15923AE070F006BBF9A /* main-arm64.cpp */,
 				1A29F15323AC79C0006BBF9A /* JPPerson.h */,

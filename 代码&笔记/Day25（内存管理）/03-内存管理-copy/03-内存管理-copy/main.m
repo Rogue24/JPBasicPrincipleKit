@@ -158,7 +158,7 @@ void dictionaryCopyTest2() {
     NSLog(@"dic3 %@ --- %zd --- %p", dic3, dic3.retainCount, dic3);
 }
 
-@interface JPPerson : NSObject
+@interface JPPerson : NSObject <NSCopying>
 @property (nonatomic, copy) NSMutableArray *mArray;
 @property (nonatomic, retain) NSArray *array;
 @property (nonatomic, assign) int age;
@@ -186,22 +186,17 @@ void dictionaryCopyTest2() {
     per.weight = self.weight;
     return per;
 }
+
+- (void)dealloc {
+    NSLog(@"%zd %s", self.hash, __func__);
+    [super dealloc];
+}
 @end
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
         NSLog(@"Hello, World!");
-        
-        copyTest3();
-        
-        copyTest4();
-        
-        // 浅拷贝 引用计数+1
-        NSString *str = [[NSString alloc] initWithFormat:@"zhoujianping"]; // 对象 str.retainCount = 1
-        NSLog(@"before copy --- %zd", str.retainCount);
-        [str copy]; // 对象 str.retainCount = 2
-        NSLog(@"after copy --- %zd", str.retainCount);
         
 //        copyTest1();
 //        copyTest2();
@@ -215,27 +210,41 @@ int main(int argc, const char * argv[]) {
 //        dictionaryCopyTest1();
 //        dictionaryCopyTest2();
         
+        // 浅拷贝 引用计数+1
+        NSString *str = [[NSString alloc] initWithFormat:@"zhoujianping"]; // 对象 str.retainCount = 1
+        NSLog(@"before copy --- %zd", str.retainCount);
+        [str copy]; // 对象 str.retainCount = 2
+        NSLog(@"after copy --- %zd", str.retainCount);
+        
         
         NSMutableArray *mArray = @[@"1", @"2", @"3"].mutableCopy;
         
         JPPerson *per = [[JPPerson alloc] init];
         
-        // mArray属性是copy类型，所以setter方法内部会再做一次copy操作，只要是copy，即便本来是可变的，copy后的都是不可变的
-        // 所以mArray虽然声明的是NSMutableArray类型，但经过setter方法后会变成NSArray类型（不可变）
+        // mArray是NSMutableArray类型，而属性是copy类型
+        // 因此setter方法内部会进行copy操作，可变的经copy之后是【不可变的新对象】（可不可变的只要经copy之后都是不可变的）
+        // 所以mArray虽然声明的是NSMutableArray类型，但实际上mArray是NSArray类型（不可变）
         per.mArray = mArray; // NSMutableArray --copy--> NSArray 深拷贝
         
         // 这时继续使用NSMutableArray的API就会报错 --- unrecognized selector sent to instance
 //        [per.mArray addObject:@"4"];
         
-        // 当外界修改了这个对象：
-        // 使用copy修饰的属性，不受影响
-        // 使用retain/strong修饰的属性，会随之变化
+        // array是NSArray类型，而属性是retain类型
+        // 因此setter方法内部只会进行retain操作，retainCount+1而已
+        // 所以array虽然声明的是NSArray类型，但实际上array是NSMutableArray类型，因为引用的还是【同一个对象】
         per.array = mArray;
         
-        [mArray addObject:@"4"];
-        NSLog(@"mArray %@", mArray);
-        NSLog(@"per.mArray %@", per.mArray);
-        NSLog(@"per.array %@", per.array);
+        NSLog(@"before change --- mArray %@", mArray);
+        NSLog(@"before change --- per.mArray %@", per.mArray);
+        NSLog(@"before change --- per.array %@", per.array);
+        
+        // 当外界修改了这个对象：
+        // 如果使用copy修饰的属性，不受影响；而使用retain/strong修饰的属性，会随之变化。
+        [mArray addObject:@"4"]; // 修改源对象
+        
+        NSLog(@"after change --- mArray %@", mArray);
+        NSLog(@"after change --- per.mArray %@", per.mArray); // 不会影响副本对象
+        NSLog(@"after change --- per.array %@", per.array); // 会随之变化
         
         // 自定义类要使用copy功能，需要内部实现<<-copyWithZone:>>方法。
         
@@ -245,6 +254,9 @@ int main(int argc, const char * argv[]) {
         JPPerson *per2 = per.copy;
         NSLog(@"per %@", per);
         NSLog(@"per2 %@", per2);
+        
+        [per release];
+        [per2 release];
     }
     return 0;
 }

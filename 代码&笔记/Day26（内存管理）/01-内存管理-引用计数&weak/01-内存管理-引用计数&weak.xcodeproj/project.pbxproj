@@ -20,7 +20,7 @@
 /* Begin PBXFileReference section */
 		1A29F15A23AE1A17006BBF9A /* 引用计数和weak引用的存储.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "引用计数和weak引用的存储.jpg"; sourceTree = "<group>"; };
 		1A29F15B23AE1A24006BBF9A /* dealloc的底层实现流程.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dealloc的底层实现流程.jpg"; sourceTree = "<group>"; };
-		1AA6F40023AA1068008EFA8B /* 01-内存管理-weak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "01-内存管理-weak.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AA6F40023AA1068008EFA8B /* 01-内存管理-引用计数&weak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "01-内存管理-引用计数&weak.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA6F40323AA1068008EFA8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AA6F40423AA1068008EFA8B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1AA6F40623AA1068008EFA8B /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		1AA6F3F723AA1068008EFA8B = {
 			isa = PBXGroup;
 			children = (
-				1AA6F40223AA1068008EFA8B /* 01-内存管理-weak */,
+				1AA6F40223AA1068008EFA8B /* 01-内存管理-引用计数&weak */,
 				1AA6F40123AA1068008EFA8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,12 +58,12 @@
 		1AA6F40123AA1068008EFA8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1AA6F40023AA1068008EFA8B /* 01-内存管理-weak.app */,
+				1AA6F40023AA1068008EFA8B /* 01-内存管理-引用计数&weak.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1AA6F40223AA1068008EFA8B /* 01-内存管理-weak */ = {
+		1AA6F40223AA1068008EFA8B /* 01-内存管理-引用计数&weak */ = {
 			isa = PBXGroup;
 			children = (
 				1A29F15A23AE1A17006BBF9A /* 引用计数和weak引用的存储.jpg */,
@@ -82,15 +82,15 @@
 				1AA6F41423AA106B008EFA8B /* Info.plist */,
 				1AA6F41523AA106B008EFA8B /* main.m */,
 			);
-			path = "01-内存管理-weak";
+			path = "01-内存管理-引用计数&weak";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1AA6F3FF23AA1068008EFA8B /* 01-内存管理-weak */ = {
+		1AA6F3FF23AA1068008EFA8B /* 01-内存管理-引用计数&weak */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1AA6F41923AA106B008EFA8B /* Build configuration list for PBXNativeTarget "01-内存管理-weak" */;
+			buildConfigurationList = 1AA6F41923AA106B008EFA8B /* Build configuration list for PBXNativeTarget "01-内存管理-引用计数&weak" */;
 			buildPhases = (
 				1AA6F3FC23AA1068008EFA8B /* Sources */,
 				1AA6F3FD23AA1068008EFA8B /* Frameworks */,
@@ -100,9 +100,9 @@
 			);
 			dependencies = (
 			);
-			name = "01-内存管理-weak";
+			name = "01-内存管理-引用计数&weak";
 			productName = "04-内存管理-weak";
-			productReference = 1AA6F40023AA1068008EFA8B /* 01-内存管理-weak.app */;
+			productReference = 1AA6F40023AA1068008EFA8B /* 01-内存管理-引用计数&weak.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -119,7 +119,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1AA6F3FB23AA1068008EFA8B /* Build configuration list for PBXProject "01-内存管理-weak" */;
+			buildConfigurationList = 1AA6F3FB23AA1068008EFA8B /* Build configuration list for PBXProject "01-内存管理-引用计数&weak" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -132,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1AA6F3FF23AA1068008EFA8B /* 01-内存管理-weak */,
+				1AA6F3FF23AA1068008EFA8B /* 01-内存管理-引用计数&weak */,
 			);
 		};
 /* End PBXProject section */
@@ -301,7 +301,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AH737FZCJM;
-				INFOPLIST_FILE = "01-内存管理-weak/Info.plist";
+				INFOPLIST_FILE = "01-内存管理-引用计数&weak/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,7 +318,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "01-内存管理-weak/Info.plist";
+				INFOPLIST_FILE = "01-内存管理-引用计数&weak/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,7 +333,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1AA6F3FB23AA1068008EFA8B /* Build configuration list for PBXProject "01-内存管理-weak" */ = {
+		1AA6F3FB23AA1068008EFA8B /* Build configuration list for PBXProject "01-内存管理-引用计数&weak" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AA6F41723AA106B008EFA8B /* Debug */,
@@ -342,7 +342,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1AA6F41923AA106B008EFA8B /* Build configuration list for PBXNativeTarget "01-内存管理-weak" */ = {
+		1AA6F41923AA106B008EFA8B /* Build configuration list for PBXNativeTarget "01-内存管理-引用计数&weak" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1AA6F41A23AA106B008EFA8B /* Debug */,

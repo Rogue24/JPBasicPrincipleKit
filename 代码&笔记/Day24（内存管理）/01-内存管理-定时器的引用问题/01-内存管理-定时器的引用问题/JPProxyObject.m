@@ -17,7 +17,9 @@
     
     // 方案1：使用runtime修改Class的isa指向
     // 虽然看上去能行，但是目标方法里面的self，就不再是target了，是me（内存地址不一样）
-    // 而且还无法释放（暂时不知道why，按道理来说target的dealloc应该会调用两次，可是就只有target自己调了）
+    // 这样timer持有的不是target而是me了
+    // 而且还无法释放
+    // 暂时不知道why，按道理来说应该会调用两次target的dealloc，第一次是target调用，接着销毁timer后，轮到me第二次去调用，然而第二次没发生
 //    object_setClass(proxy, [target class]); // 所以不好，不建议
     
     return proxy;

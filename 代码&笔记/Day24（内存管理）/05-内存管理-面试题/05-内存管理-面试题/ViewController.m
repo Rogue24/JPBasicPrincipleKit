@@ -138,8 +138,7 @@ BOOL isTaggedPointer(id pointer) {
 /*
  * why不崩溃？
  * 因为 [NSString stringWithFormat:@"zjp"] 这不是一个OC对象，而是一个TaggedPointer
- * 意味着这里的赋值不会像OC对象那样会去调用setter方法，因此不会出现连续执行release操作造成的坏内存访问（崩溃）
- * 这里是直接将TaggedPointer这个指针变量的地址值赋值给"_name"，修改地址值而已，【没有内存相关的操作】。
+ * 意味着这里的赋值不会像OC对象的setter方法那样会先release后retain或copy再赋值，而是将TaggedPointer这个指针变量的地址值【直接】赋值给"_name"这个成员变量，修改地址值而已，【完全没有内存相关的操作】，因此不会出现连续执行release操作造成的坏内存访问（崩溃）。
  */
 
 @end

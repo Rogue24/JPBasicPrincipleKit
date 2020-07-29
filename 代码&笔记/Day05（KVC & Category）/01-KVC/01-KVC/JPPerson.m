@@ -38,15 +38,23 @@
 
 #pragma mark - 是否允许访问成员变量（默认就返回YES）
 /*
- * KVC赋值/取值过程中对应的setter/getter方法都没找到时会来到这里
+ * KVC赋值/取值过程中对应的setter或getter方法没找到时会来到这里（setter和getter各来一次，有的话就不会来，没有的话要去找成员变量，得通过这里的同意）
     - YES：按优先级_key、_isKey、key、isKey的顺序查找对应的成员变量
         - 找到：赋值/取值
         - 找不到：抛出NSUnknownKeyException异常
     - NO：抛出NSUnknownKeyException异常
+ * KVO添加时对应的setter或getter方法没找到时也会来到这里（setter和getter各来一次，有的话就不会来，没有的话要去找成员变量，得通过这里的同意）
  */
 + (BOOL)accessInstanceVariablesDirectly {
     return YES;
 }
+
+//- (void)setAge:(int)age {
+//
+//}
+//- (int)age {
+//    return 1;
+//}
 
 #pragma mark - KVO相关（通过KVC赋值，不管有没有对应的setter方法都会触发KVO）
 

@@ -15,9 +15,6 @@
 @end
 
 @implementation ViewController
-{
-    NSInteger _index;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,16 +28,16 @@
 
 - (void)write:(NSInteger)index threadMsg:(NSString *)threadMsg {
     sleep(1);
-    index += 1;
-    NSLog(@"-----------------------------------------");
-    NSLog(@"正在 write %zd \n上一条线程：%@\n现在这条线程：%@", index, threadMsg, [NSThread currentThread]);
-    NSLog(@"-----------------------------------------");
-    _index = index;
+    NSLog(@"-------------------write %zd begin--------------------", index);
+    NSLog(@"【writing by %zd】\n在这条线程调用：%@\n在这条线程执行：%@", index, threadMsg, [NSThread currentThread]);
+    NSLog(@"--------------------write %zd end---------------------", index);
 }
 
-- (void)read:(NSString *)threadMsg {
+- (void)read:(NSInteger)index threadMsg:(NSString *)threadMsg {
     sleep(1);
-    NSLog(@"正在 read %zd \n上一条线程：%@\n现在这条线程：%@\n", _index, threadMsg, [NSThread currentThread]);
+    NSLog(@"-------------------read %zd begin--------------------", index);
+    NSLog(@"【reading by %zd】\n在这条线程调用：%@\n在这条线程执行：%@", index, threadMsg, [NSThread currentThread]);
+    NSLog(@"--------------------read %zd end---------------------", index);
 }
 
 /*
@@ -52,98 +49,132 @@
  * 实现方案：
  * pthread_rwlock --- 读写🔐
     - 等待锁的线程会进入休眠
- * dispatch_barrier_async/dispatch_barrier_sync --- 栅栏+并发队列
-    - 这个函数传入的并发队列【必须】是自己通过【dispatch_queue_cretate】创建的
-    - 如果传入的是一个【串行队列】或【全局并发队列】，那这个函数便等同于【dispatch_async/dispatch_sync】函数的效果
+ * dispatch_barrier_async/dispatch_barrier_sync --- 栅栏+并发队列 ==> 用于写操作
+    - 这个函数传入的【并发队列】【必须】是自己通过【dispatch_queue_cretate】创建的
+    - 如果传入的是一个【串行队列】或【全局并发队列】，那么 dispatch_barrier_async/dispatch_barrier_sync 便等同于 dispatch_async/dispatch_sync 的效果，那就没意义了
+    - 至于为什么不能使用【全局并发队列】，个人认为是系统不希望我们阻断全局并发队列的并发效率，毕竟这是一条为全局服务的队列，不可能只处理这里的任务，可不能中途插入一些超级耗时的操作卡住其他并发任务吧。
+ 
+ * 从打印结果看到：
+    - write始终保持着一个完整的begin和end闭合的打印
+    - read都是多个同时穿插交替的打印
+ * 可以看出这两种方案都可以做到：在同一时间内只会进行1次write操作，在同一时间内可以同时进行多个read操作，不会同时一起进行write和read操作。
  */
 
-#pragma mark - pthread_rwlock
+#pragma mark - pthread_rwlock【同步：在哪条线程调用，就在哪条线程操作】
 - (IBAction)pthreadRWLock:(id)sender {
-    _index = 0;
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
     for (NSInteger i = 0; i < 10; i++) {
         dispatch_async(queue, ^{
             NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-            [self pthread_write:i threadMsg:threadMsg];
+            [self __pthread_write:i threadMsg:threadMsg];
         });
+        NSInteger readIndex = i * 3;
         dispatch_async(queue, ^{
             NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-            [self pthread_read:threadMsg];
+            [self __pthread_read:readIndex threadMsg:threadMsg];
         });
+        readIndex += 1;
         dispatch_async(queue, ^{
             NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-            [self pthread_read:threadMsg];
+            [self __pthread_read:readIndex threadMsg:threadMsg];
         });
+        readIndex += 1;
         dispatch_async(queue, ^{
             NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-            [self pthread_read:threadMsg];
+            [self __pthread_read:readIndex threadMsg:threadMsg];
         });
     }
 }
-- (void)pthread_write:(NSInteger)index threadMsg:(NSString *)threadMsg {
+- (void)__pthread_write:(NSInteger)index threadMsg:(NSString *)threadMsg {
     pthread_rwlock_wrlock(&_lock);
     [self write:index threadMsg:threadMsg];
     pthread_rwlock_unlock(&_lock);
 }
-- (void)pthread_read:(NSString *)threadMsg {
+- (void)__pthread_read:(NSInteger)index threadMsg:(NSString *)threadMsg {
     pthread_rwlock_rdlock(&_lock);
-    [self read:threadMsg];
+    [self read:index threadMsg:threadMsg];
     pthread_rwlock_unlock(&_lock);
 }
 
-#pragma mark - dispatch_barrier_async
+#pragma mark - dispatch_barrier_async【异步：会开启新的线程去操作】
 - (IBAction)barrierASYNC:(id)sender {
-    _index = 0;
-    for (NSInteger i = 0; i < 10; i++) {
-        NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-        [self barrierASYNC_write:i threadMsg:threadMsg];
-        [self barrierASYNC_read:threadMsg];
-        [self barrierASYNC_read:threadMsg];
-        [self barrierASYNC_read:threadMsg];
-    }
-}
-- (void)barrierASYNC_write:(NSInteger)index threadMsg:(NSString *)threadMsg {
-    dispatch_barrier_async(self.concurrentQueue, ^{
-        [self write:index threadMsg:threadMsg];
-    });
-}
-- (void)barrierASYNC_read:(NSString *)threadMsg {
-    dispatch_async(self.concurrentQueue, ^{
-        [self read:threadMsg];
-    });
-}
-
-#pragma mark - dispatch_barrier_sync
-- (IBAction)barrierSYNC:(id)sender {
-    _index = 0;
+//    for (NSInteger i = 0; i < 10; i++) {
+//        NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
+//        [self __barrierASYNC_write:i threadMsg:threadMsg];
+//        NSInteger readIndex = i * 3;
+//        [self __barrierASYNC_read:readIndex threadMsg:threadMsg];
+//        readIndex += 1;
+//        [self __barrierASYNC_read:readIndex threadMsg:threadMsg];
+//        readIndex += 1;
+//        [self __barrierASYNC_read:readIndex threadMsg:threadMsg];
+//    }
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
     for (NSInteger i = 0; i < 10; i++) {
         dispatch_async(queue, ^{
             NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-            [self barrierSYNC_write:i threadMsg:threadMsg];
+            [self __barrierASYNC_write:i threadMsg:threadMsg];
         });
+        NSInteger readIndex = i * 3;
         dispatch_async(queue, ^{
             NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-            [self barrierSYNC_read:threadMsg];
+            [self __barrierASYNC_read:readIndex threadMsg:threadMsg];
         });
+        readIndex += 1;
         dispatch_async(queue, ^{
             NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-            [self barrierSYNC_read:threadMsg];
+            [self __barrierASYNC_read:readIndex threadMsg:threadMsg];
         });
+        readIndex += 1;
         dispatch_async(queue, ^{
             NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
-            [self barrierSYNC_read:threadMsg];
+            [self __barrierASYNC_read:readIndex threadMsg:threadMsg];
         });
     }
 }
-- (void)barrierSYNC_write:(NSInteger)index threadMsg:(NSString *)threadMsg {
+- (void)__barrierASYNC_write:(NSInteger)index threadMsg:(NSString *)threadMsg {
+    dispatch_barrier_async(self.concurrentQueue, ^{
+        [self write:index threadMsg:threadMsg];
+    });
+}
+- (void)__barrierASYNC_read:(NSInteger)index threadMsg:(NSString *)threadMsg {
+    dispatch_async(self.concurrentQueue, ^{
+        [self read:index threadMsg:threadMsg];
+    });
+}
+
+#pragma mark - dispatch_barrier_sync【同步：在哪条线程调用，就在哪条线程操作】
+- (IBAction)barrierSYNC:(id)sender {
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    for (NSInteger i = 0; i < 10; i++) {
+        dispatch_async(queue, ^{
+            NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
+            [self __barrierSYNC_write:i threadMsg:threadMsg];
+        });
+        NSInteger readIndex = i * 3;
+        dispatch_async(queue, ^{
+            NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
+            [self __barrierSYNC_read:readIndex threadMsg:threadMsg];
+        });
+        readIndex += 1;
+        dispatch_async(queue, ^{
+            NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
+            [self __barrierSYNC_read:readIndex threadMsg:threadMsg];
+        });
+        readIndex += 1;
+        dispatch_async(queue, ^{
+            NSString *threadMsg = [NSString stringWithFormat:@"%@", [NSThread currentThread]];
+            [self __barrierSYNC_read:readIndex threadMsg:threadMsg];
+        });
+    }
+}
+- (void)__barrierSYNC_write:(NSInteger)index threadMsg:(NSString *)threadMsg {
     dispatch_barrier_sync(self.concurrentQueue, ^{
         [self write:index threadMsg:threadMsg];
     });
 }
-- (void)barrierSYNC_read:(NSString *)threadMsg {
+- (void)__barrierSYNC_read:(NSInteger)index threadMsg:(NSString *)threadMsg {
     dispatch_sync(self.concurrentQueue, ^{
-        [self read:threadMsg];
+        [self read:index threadMsg:threadMsg];
     });
 }
 

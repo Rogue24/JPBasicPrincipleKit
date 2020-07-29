@@ -17,9 +17,9 @@ static NSObject *moneyLock_;
 - (instancetype)init {
     if (self = [super init]) {
         /**
-         * @synchronized(obj)内部会生成obj对应的递归锁，然后进行加锁、解锁操作
-         * 底层中是用这个obj当作key去StripedMap（是一个哈希表，作用类似于字典）来获取对应的SyncData对象（🔐放在这个对象里面）
-         * 如果全局对同一块内存进行操作，在这里面就不能用self来当作obj了，因为每次init的self都不同
+         * @synchronized(obj) 内部会生成 obj 对应的递归锁，然后进行加锁、解锁操作
+         * 底层中是用这个 obj 对象的内存地址当作 key 去 StripedMap（是一个哈希表，作用类似于字典）来获取对应的 SyncData 对象（🔐放在这个对象里面）
+         * 如果全局对同一块内存进行操作，在这里面就不能用 self 来当作 obj 了，因为每次 init 的 self 都不同
             - 可以使用类对象这种全局唯一的对象，或者全局变量
          */
         static dispatch_once_t onceToken;
@@ -36,11 +36,11 @@ static NSObject *moneyLock_;
 
 - (void)__saleTicket {
     @synchronized (ticketLock_) {
-        // 底层会在任务开始时先执行：objc_sync_enter
+        // 底层会在任务开始时先执行：objc_sync_enter(obj)
         
         [super __saleTicket];
         
-        // 底层会在任务结束前去执行：objc_sync_exit
+        // 底层会在任务结束前去执行：objc_sync_exit(obj)
     }
 }
 

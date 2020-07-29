@@ -15,9 +15,11 @@ int main(int argc, const char * argv[]) {
         NSLog(@"Hello, World!");
         
         JPPerson *per = [[JPPerson alloc] init];
+        
         // 只有这两句是保证线程安全（setterg和getter）
         per.mArray = [NSMutableArray array];
         NSMutableArray *mArray = per.mArray;
+        
         // 属性的其他使用方法（addObject）不能保证是线程安全的
         [mArray addObject:@"1"];
         [mArray addObject:@"2"];

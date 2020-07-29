@@ -10,7 +10,7 @@
 
 /*
  * atom：原子，不可再分割的单位
- * atomic：原子性（一般用在mac系统）
+ * atomic：原子性，不可分割的操作（一般用在mac系统）
  * nonatomic：非原子性
  
  * 给属性加上atomic修饰，可以保证属性的setterg和getter都是原子性操作
@@ -30,9 +30,11 @@
  * 并不能保证使用属性的【过程】是线程安全的
  * 例如：
      JPPerson *per = [[JPPerson alloc] init];
+ 
      // 只有这两句是保证线程安全（setterg和getter）
      per.mArray = [NSMutableArray array];
      NSMutableArray *mArray = per.mArray;
+ 
      // 属性的其他使用方法（addObject）不能保证是线程安全的
      [mArray addObject:@"1"];
      [mArray addObject:@"2"];

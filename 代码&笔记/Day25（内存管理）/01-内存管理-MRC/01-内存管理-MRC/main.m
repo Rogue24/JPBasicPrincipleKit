@@ -12,6 +12,7 @@
 
 #warning 当前在MRC环境下！
 
+#pragma mark - autorelease
 void autoreleaseTest() {
     /*
      * autorelease方法：
@@ -79,9 +80,9 @@ void setterTest2() {
 }
 
 // 在JPPerson的setter方法加个判断新的dog是不是旧的dog
-// 如果是一样的dog并且引用计数是1，就不能执行release后接着执行retain，这样会坏内存访问
-// 顺便在dealloc改成self.dog = nil来销毁
-// PS：想验证问题就去开启Xcode的【僵尸】模式吧
+// 如果是一样的dog并且引用计数是1，就不能执行release后接着执行retain，这样会坏内存访问（dog被重复release）
+// 顺便得在dealloc改成self.dog = nil来销毁
+// PS：想验证问题就去开启Xcode的【僵尸】模式吧（僵尸对象：对已经死掉的对象继续拿来使用）
 void setterTest3() {
     /** 人在旧狗不在 */
     
@@ -105,6 +106,8 @@ int main(int argc, const char * argv[]) {
         // insert code here...
         NSLog(@"Hello, World!");
         
+        setterTest3();
+        
         JPPerson *per0 = [[[JPPerson alloc] init] autorelease];
         NSLog(@"retainCount -- %zd", per0.retainCount);
         [per0 release]; // 使用了autorelease的对象就不要过多调用release，这样会提前释放
@@ -122,6 +125,7 @@ int main(int argc, const char * argv[]) {
         
         [per.car release];
         [per release];
+        [per retain];
         
         sleep(8);
     }

@@ -15,16 +15,16 @@
 
  * OBJC_MSB_TAGGED_POINTERS的定义：
     #if (TARGET_OS_OSX || TARGET_OS_IOSMAC) && __x86_64__
-    #   define OBJC_MSB_TAGGED_POINTERS 0 ==> Mac平台，条件是0
+    #   define OBJC_MSB_TAGGED_POINTERS 0 ==> Mac平台，条件是【0】
     #else
-    #   define OBJC_MSB_TAGGED_POINTERS 1 ==> 非Mac平台（iOS、iPadOS、watchOS），条件是1
+    #   define OBJC_MSB_TAGGED_POINTERS 1 ==> 非Mac平台（iOS、iPadOS、watchOS），条件是【1】
     #endif
 
  * _OBJC_TAG_MASK的定义：
-    #if OBJC_MSB_TAGGED_POINTERS
-    #   define _OBJC_TAG_MASK (1UL<<63) ==> 条件OBJC_MSB_TAGGED_POINTERS是1，为iOS平台，判断的是最高有效位（第64位）
+    #if OBJC_MSB_TAGGED_POINTERS ==>  判断 OBJC_MSB_TAGGED_POINTERS 的值
+    #   define _OBJC_TAG_MASK (1UL<<63) ==> 是1，为iOS平台，判断的是最高有效位（第64位）
     #else
-    #   define _OBJC_TAG_MASK 1UL ==> 条件OBJC_MSB_TAGGED_POINTERS是0，为Mac平台，判断的是最低有效位（第1位）
+    #   define _OBJC_TAG_MASK 1UL ==> 是0，为Mac平台，判断的是最低有效位（第1位）
     #endif
 
  * iOS平台的判定位为最高有效位（第64位）
@@ -32,9 +32,9 @@
  */
 
 /*
- * 分配到堆中的OC对象的内存地址最低有效位（第1位）肯定是【0】（有效位--单位是Bit--二进制0b）
+ *【OC实例对象的十六进制内存地址的最低有效位肯定是0】
  * 因为在Mac、iOS中的malloc函数分配的内存大小总是【16】的倍数（内存对齐）
- * 16 = 0x10 = 0b00010000，所以对象的地址最低有效位（第1位）肯定是【0】
+ * 16 = 0x10 = 0b00010000，所以对象的十六进制内存地址的最低有效位（第1位）肯定是【0】
  */
 
 /*
@@ -48,10 +48,18 @@
  
  * objc_msgSend 能识别TaggedPointer，比如NSNumber的intValue方法，直接从指针提取数据，节省了以前的调用开销（而且这不是真的OC对象，根本就没有isa去找方法）
  
- * 怎么识别？判定为是【1】就是TaggedPointer，否则就是OC对象。
+ * 怎么识别？判定位是【1】就是TaggedPointer，否则就是OC对象。
     - iOS平台：判定位是最高有效位（第64位）
     - Mac平台：判定位是最低有效位（第1位）
- * PS：OC对象在内存中以16对齐，因此有效位肯定是0。
+    指针地址：
+        0xde9733d5df1e1473
+          ↓              ↓
+        1101            0011
+        ↓                  ↓
+    最高有效位（第64位）  最低有效位（第1位）
+        ↓                  ↓
+   iOS平台判断这一位    Mac平台判断这一位
+  
  */
 
 #warning 当前为【Mac平台】
