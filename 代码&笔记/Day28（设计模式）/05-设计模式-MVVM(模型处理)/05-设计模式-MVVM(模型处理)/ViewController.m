@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // MVVM02：将业务逻辑（请求获取数据并创建Model等）放到ViewModel里面，并且对模型数据进行二次处理
+    // MVVM02：将业务逻辑（请求获取数据并创建Model等）放到ViewModel里面，并且根据Model数据进行二次处理
     
     self.appVM = [[JPAppViewModel alloc] init];
     [self.appVM loadApp];
