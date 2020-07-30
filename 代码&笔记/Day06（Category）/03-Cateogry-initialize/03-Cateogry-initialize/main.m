@@ -31,11 +31,11 @@ int main(int argc, const char * argv[]) {
         [JPStudent alloc];
         
         // 如果子类的initialize没有实现，父类调用完initialize后，会【再次】调用父类（JPPerson）的initialize
-        // 不信就注释上面那句再运行看看
+        // 不信就把上面那句“[JPStudent alloc]”注释了再运行看看
         [JPBoy alloc];
         
         /**
-         * initialize是通过消息机制调用，所以分类的initialize方法优先级更高
+         * initialize是通过消息机制调用，所以【分类的initialize方法优先级更高】
          * 调用顺序：
             1. objc_msgSend(JPPerson.class, @selector(initialize));
             2. objc_msgSend(JPStudent.class, @selector(initialize));

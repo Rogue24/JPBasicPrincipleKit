@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A513A6724D31D8200D46A82 /* JPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A513A6624D31D8200D46A82 /* JPViewController.m */; };
 		1A8C90ED23BA34BF005710AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C90EC23BA34BF005710AA /* AppDelegate.m */; };
 		1A8C90F023BA34BF005710AA /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C90EF23BA34BF005710AA /* SceneDelegate.m */; };
 		1A8C90F323BA34BF005710AA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C90F223BA34BF005710AA /* ViewController.m */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A513A6524D31D8200D46A82 /* JPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPViewController.h; sourceTree = "<group>"; };
+		1A513A6624D31D8200D46A82 /* JPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPViewController.m; sourceTree = "<group>"; };
 		1A8C90E823BA34BF005710AA /* 06-设计模式-分层设计.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "06-设计模式-分层设计.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A8C90EB23BA34BF005710AA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1A8C90EC23BA34BF005710AA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -80,6 +83,8 @@
 				1A8C90EF23BA34BF005710AA /* SceneDelegate.m */,
 				1A8C90F123BA34BF005710AA /* ViewController.h */,
 				1A8C90F223BA34BF005710AA /* ViewController.m */,
+				1A513A6524D31D8200D46A82 /* JPViewController.h */,
+				1A513A6624D31D8200D46A82 /* JPViewController.m */,
 				1A8C90F423BA34BF005710AA /* Main.storyboard */,
 				1A8C90F723BA34C1005710AA /* Assets.xcassets */,
 				1A8C90F923BA34C1005710AA /* LaunchScreen.storyboard */,
@@ -185,6 +190,7 @@
 				1A8C90ED23BA34BF005710AA /* AppDelegate.m in Sources */,
 				1A8C90FE23BA34C1005710AA /* main.m in Sources */,
 				1A8C90F023BA34BF005710AA /* SceneDelegate.m in Sources */,
+				1A513A6724D31D8200D46A82 /* JPViewController.m in Sources */,
 				1A8C910723BA3505005710AA /* JPNewsService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

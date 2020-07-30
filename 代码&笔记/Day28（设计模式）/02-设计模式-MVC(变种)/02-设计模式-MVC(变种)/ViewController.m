@@ -27,6 +27,10 @@
     app.name = @"QQ";
     app.imageName = @"QQ";
     
+    // 优点：View的显示实现在内部实现，只需要给View传入Model，减轻Controller的负担
+    // 缺点：View依赖Model，一对一，无法重复使用
+    // 特定：将View的实现内部封装起来，屏蔽外界，仅暴露Model接口
+    
     appView.app = app;
 }
 

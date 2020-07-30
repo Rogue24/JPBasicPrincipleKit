@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // MVP：其实就是把MVC模式的Controller的工作交给Presenter
     self.presenter = [[JPAppPresenter alloc] initWithViewController:self];
 }
 

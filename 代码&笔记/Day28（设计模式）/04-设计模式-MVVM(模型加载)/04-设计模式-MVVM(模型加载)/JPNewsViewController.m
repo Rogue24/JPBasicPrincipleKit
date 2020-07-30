@@ -21,6 +21,8 @@
     
     self.newsVM = [[JPNewsViewModel alloc] init];
     
+    // MVVM01：将业务逻辑（请求获取数据并创建Model等）放到ViewModel里面
+    
     [self.newsVM loadNewData:^(NSArray *newsData) {
         self.newsData = newsData;
     }];

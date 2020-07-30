@@ -176,7 +176,7 @@ int main(int argc, const char * argv[]) {
         jpBlockX(); // 调用完函数再调用block --> 调用结果中的auto变量为【乱码】（本来是99，但这里是-272632968，变成了垃圾数据）
         /**
          * 因为这是StackBlock类型的block，【是在栈上分配的内存，jpBlockX只是个全局变量的指针，引用着这个内存地址】
-         * <<StackBlock类型的block里面的impl、Desc、其他捕获的变量是存在栈上的>>
+         * <<StackBlock类型的block里面的impl、Desc、其他捕获的变量是存在栈上的，而函数是在代码段>>
          * 当createStackBlock函数调用完，即离开了函数的作用域，系统就会自动回收{}里面的临时变量，即包括block内的成员变量
          * 之后再访问block内的成员变量，由于已经被销毁了，都变成了垃圾数据，所以得到的是一堆乱码
          */

@@ -74,7 +74,7 @@ int main(int argc, const char * argv[]) {
          * 使用__block修饰变量来解决循环引用，首先【必须】得在block内部逻辑的最后【对其置为nil】，并且【必须要调用】block
          * 因为，在__block变量结构体里面的对象，是被__strong引用着
          * 所以，如果一直不执行这个block，就会一直循环引用
-         * 另外，如果执行了这个block之后再执行，里面的这个变量则为nil
+         * 另外，如果执行了这个block之后再执行一次这个block，里面的这个变量则为nil，因为上一次执行的最后已经置nil
          */
         
         NSLog(@"调用block之后，per2 is %@", per2);
