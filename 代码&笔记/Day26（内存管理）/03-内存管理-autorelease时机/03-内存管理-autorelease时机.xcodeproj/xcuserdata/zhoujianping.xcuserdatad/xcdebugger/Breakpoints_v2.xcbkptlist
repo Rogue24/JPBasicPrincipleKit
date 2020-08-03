@@ -18,22 +18,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6B5AE08C-1AEC-483E-A1E6-37ABB3DF12D2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "03-&#x5185;&#x5b58;&#x7ba1;&#x7406;-autorelease&#x65f6;&#x673a;/ViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "30CFE73B-8439-4D8D-81BC-F07ACFAB218C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -50,15 +34,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "84354BDC-F45E-494E-83E2-3EC02EF153F8"
+            uuid = "C95ADBB8-A3C7-47D6-BDF3-5B3EEC975FF0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "03-&#x5185;&#x5b58;&#x7ba1;&#x7406;-autorelease&#x65f6;&#x673a;/ViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "-viewDidAppear:"
             landmarkType = "7">
          </BreakpointContent>

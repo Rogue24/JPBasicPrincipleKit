@@ -128,12 +128,12 @@ static CFRunLoopObserverRef observer_;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSLog(@"%s", __func__);
+    NSLog(@"%s", __func__); // 打个断点使用“bt”查看函数调用栈
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSLog(@"%s", __func__);
+    NSLog(@"%s", __func__); // 打个断点使用“bt”查看函数调用栈
     isOver_ = YES;
 }
 

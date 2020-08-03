@@ -58,9 +58,18 @@
     
     // 启动RunLoop
     [[NSRunLoop currentRunLoop] run];
-    // [[NSRunLoop currentRunLoop] run] 相当于下面这两个方法的默认调用：
-    // [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-    // [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
+    
+    // [[NSRunLoop currentRunLoop] run] 相当于下面这两个方法其中一个不断地重复调用：
+    // 1.[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    // 2.[[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
+    /*
+     * 默认的 -run 方法其实就是套个while(1)循环调用 -runMode:beforeDate: 来实现线程不被销毁 --- 不断开启RunLoop
+        while (1) {
+            // [NSDate distantFuture]：遥远的未来
+            // beforeDate:[NSDate distantFuture]：在这个未来到来之前一直运行，保证永不超时，除非你能活几百年
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+     */
     
     // 启动了RunLoop，就会不断地等待和处理消息，所以线程不会死
     // 并且阻塞当前线程（没事做时会让线程休眠），所以不会执行后面的代码

@@ -25,6 +25,7 @@
     
     [self.newsVM loadNewData:^(NSArray *newsData) {
         self.newsData = newsData;
+        [self.tableView reloadData];
     }];
     
 }

@@ -133,17 +133,17 @@ static int32_t __CFRunLoopRun(CFRunLoopRef rl, CFRunLoopModeRef rlm, CFTimeInter
         
         // 设置返回值
         if (sourceHandledThisLoop && stopAfterHandle) {
-            retVal = kCFRunLoopRunHandledSource;
-            } else if (timeout_context->termTSR < mach_absolute_time()) {
-                retVal = kCFRunLoopRunTimedOut;
+            retVal = kCFRunLoopRunHandledSource; // 4
+        } else if (timeout_context->termTSR < mach_absolute_time()) {
+            retVal = kCFRunLoopRunTimedOut; // 3
         } else if (__CFRunLoopIsStopped(rl)) {
-                __CFRunLoopUnsetStopped(rl);
-            retVal = kCFRunLoopRunStopped;
+            __CFRunLoopUnsetStopped(rl);
+            retVal = kCFRunLoopRunStopped; // 2
         } else if (rlm->_stopped) {
             rlm->_stopped = false;
-            retVal = kCFRunLoopRunStopped;
+            retVal = kCFRunLoopRunStopped; // 2
         } else if (__CFRunLoopModeIsEmpty(rl, rlm, previousMode)) {
-            retVal = kCFRunLoopRunFinished;
+            retVal = kCFRunLoopRunFinished; // 1
         }
         
         voucher_mach_msg_revert(voucherState);

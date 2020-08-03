@@ -81,7 +81,7 @@
  */
 
 void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {
-    // 【监听RunLoop各种状态的改变】
+    //【监听RunLoop各种状态的改变】
     switch (activity) {
         case kCFRunLoopEntry:
             NSLog(@"即将进入Loop");

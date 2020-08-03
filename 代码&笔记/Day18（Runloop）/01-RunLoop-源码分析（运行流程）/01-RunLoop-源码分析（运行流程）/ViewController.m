@@ -46,7 +46,7 @@
     5.AutoreleasePool（Observers）
 
  *【RunLoop处理各种事件的底层调用】
- * 去调用外部的具体操作：xxx_CALLING_OUT_TO_xxx
+ * 真正去调用【外部的具体操作】：xxx_CALLING_OUT_TO_xxx
  * 通知Observers：
     __CFRunLoopDoObservers --> __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__
  * 处理Source0：
@@ -65,8 +65,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // 可以往RunLoop添加【Block】去处理（调用时机：在休眠之前处理Source0的前或后、或结束休眠处理完其他事情后）
+    CFRunLoopPerformBlock(CFRunLoopGetCurrent(), kCFRunLoopDefaultMode, ^{
+        NSLog(@"block，打断点，bt查看，这是RunLoop调用了__CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__才来到这里");
+    });
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        // GCD需要用到RunLoop的地方：回到主队列 async/sync/after
+        // GCD需要用到RunLoop的地方：回到主队列 async/sync/after，调用的都是__CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"async，打断点，bt查看，这是RunLoop调用了__CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__才来到这里");
         });

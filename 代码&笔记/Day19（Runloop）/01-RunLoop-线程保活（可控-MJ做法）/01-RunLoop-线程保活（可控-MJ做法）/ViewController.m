@@ -109,7 +109,7 @@
     if (!self.thread) return;
     
     /*
-     * 在dealloc中使用performSelector去执行stopRunLoop，这种方式stopRunLoop会迟一点点才开始执行，很有可能dealloc执行完stopRunLoop才开始执行，由于dealloc执行完self就立马被销毁，所以当stopRunLoop用到self时，self很大几率是死了的，因此造成坏内存访问。
+     * 在dealloc中使用performSelector去执行stopRunLoop，这种方式stopRunLoop会迟一点点才开始执行，很有可能dealloc执行完stopRunLoop才开始执行，由于dealloc执行完self就立马被销毁，所以当stopRunLoop用到self时，self很大几率是死了的，因此造成【坏内存访问】。
      * 解决方法：waitUntilDone:YES
      * 意思是，在dealloc方法过程中，必须得等stopRunLoop执行完才继续后面代码（在dealloc方法的作用域内self就死不了）
      * 这样可以确保stopRunLoop方法内的self没有被销毁，能彻底执行完（停止RunLoop）

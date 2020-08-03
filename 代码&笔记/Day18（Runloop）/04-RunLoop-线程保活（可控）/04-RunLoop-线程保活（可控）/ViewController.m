@@ -58,7 +58,8 @@
          * In other words, this method effectively begins an infinite loop that processes data from the run loop’s input sources and timers.
            换句话说，该方法有效地开始了一个无限循环，该循环处理来自运行循环的输入源和计时器的数据。
          *
-         * 也就是说，当添加了port（source），调用run，底层会开启一个无限循环去执行<<-runMode:beforeDate:>>方法。
+         * 也就是说，当添加了port（用来处理source，如：performSelector:onThread:），再调用run
+         * 底层会开启一个无限循环去执行<<-runMode:beforeDate:>>方法。
          * 相当于酱紫：
              while (1) {
                  // [NSDate distantFuture]：遥远的未来
