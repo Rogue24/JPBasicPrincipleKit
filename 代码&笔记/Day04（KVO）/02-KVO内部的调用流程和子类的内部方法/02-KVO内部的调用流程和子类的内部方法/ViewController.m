@@ -31,10 +31,10 @@
     /*
      * 假设 keyPath 为 xxx
      * 没有xxx这个属性的情况下KVO也能生效的条件（属性本来就满足这些条件）：
-     * 1.必须要有 -setXxx: 这样的set方法，必须要用驼峰法，返回值类型必须要为void
+     * 1.必须要有 -setXxx: 这样的set方法，或者是 -_setXxx:，必须要用驼峰法，返回值类型必须要为void（KVC那套判定）
      * 2.必须要有 -xxx 这样的get方法，返回值类型最好跟set方法的参数类型一致
      * 如果条件1不成立，不会触发KVO，因为KVO生成的子类找不到对应的set方法来重写；
-     * 如果条件1成立，会触发KVO，但如果条件2不成立，那必须要有 _xxx、_isXxx、xxx、isXxx 其中一个这样的成员变量（优先级从左到右），否则当调用set方法程序会【崩溃】。
+     * 如果条件1成立，会触发KVO，但如果条件2不成立，那必须要有 _xxx、_isXxx、xxx、isXxx 其中一个这样的成员变量（优先级从左到右），否则当调用set方法程序会【崩溃】（在willChangeValueForKey的时候，其实是使用了KVC去获取旧值，所以走的是KVC那套流程）。
      */
     
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
@@ -120,22 +120,22 @@
 
 #pragma mark - 能触发KVO的例子
 
-//【例1】
+#pragma mark 【例1】：点语法
 - (IBAction)action1:(id)sender {
     // 点语法、set方法的使用
     self.per1.age += 1; // 本质上调用了-setAge:方法
 }
 
-//【例2】
+#pragma mark 【例2】：set方法
 - (IBAction)action2:(id)sender {
     // ❌ 直接修改成员变量不会触发KVO
     self.per1->isHeight += 1;
     // ✅ 这样才会触发KVO，说明NSKVONotifying_Xxx内部重写的是这个属性的-setXxx:方法
     // 并且是在重写的set方法里面触发了KVO
-    [self.per1 setHeight:10];
+    [self.per1 _setHeight:10];
 }
 
-//【例3】
+#pragma mark 【例3】：手动触发KVO
 - (IBAction)action3:(id)sender {
     // 手动触发KVO（必须先willChangeValueForKey后didChangeValueForKey，且缺一不可）
     // 要先调用 willChangeValueForKey 之后再调用 didChangeValueForKey 其内部才会调用 observer的observeValueForKeyPath:ofObject:change:context:
@@ -144,13 +144,12 @@
     // 也就是说重写的set方法里面是有调用这两个方法的
 }
 
-//【例4】
+#pragma mark 【例4】：没有成员变量但只要同时有set方法和get方法也可以触发KVO
 - (IBAction)action4:(id)sender {
-    // 没有成员变量但只要同时有set方法和get方法也可以触发KVO
     [self.per1 setMoney:999];
 }
 
-// 当把监听的属性全部移除后就会变回原本的类
+#pragma mark 当把监听的属性全部移除后就会变回原本的类
 - (IBAction)action5:(id)sender {
     [self.per1 removeObserver:self forKeyPath:@"age"];
     NSLog(@"移除age per1 %@", object_getClass(self.per1));

@@ -10,7 +10,14 @@
 
 @implementation JPPerson
 
-- (void)setHeight:(int)height {
+// KVO底层是按照KVC的流程走，先找方法，找到就重写，找不到就来这里看看是否能访问成员变量
+// 添加KVO和使用KVC都会【各自】调用这里最多二次，setter和getter各来一次，之后重复访问这个成员变量就不会再来了
+// 例如这里的height，只有setter方法，没有getter方法，当添加KVO和使用KVC（valueForKey:）时都会各自来一次这里
++ (BOOL)accessInstanceVariablesDirectly {
+    return YES;
+}
+
+- (void)_setHeight:(int)height {
     isHeight = height;
     NSLog(@"setHeight");
 }

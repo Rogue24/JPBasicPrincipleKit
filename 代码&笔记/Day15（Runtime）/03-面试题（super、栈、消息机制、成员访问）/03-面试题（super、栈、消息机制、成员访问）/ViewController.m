@@ -33,10 +33,13 @@
      * 注意：编译的C++代码只能用作参考，并不是所有代码都是肯定对的（只是大部分是对的），而查看汇编肯定是对的（只是看不懂）
      
      *【objc_msgSendSuper】：
-         objc_msgSendSuper({
-             self;
-             class_getSuperclass(objc_getClass("ViewController"); // 父类是UIViewController
-         }, sel_registerName("viewDidLoad"));
+         objc_msgSendSuper(
+            {
+                self;
+                class_getSuperclass(objc_getClass("ViewController"); // 父类是UIViewController
+            },
+            sel_registerName("viewDidLoad")
+         );
          ↓↓↓
          第一个参数是这种结构体
          ↓↓↓
@@ -46,10 +49,13 @@
          };
      
      *【objc_msgSendSuper2】：
-         objc_msgSendSuper2({
-             self;
-             objc_getClass("ViewController");
-         }, sel_registerName("viewDidLoad"));
+         objc_msgSendSuper2(
+            {
+                self;
+                objc_getClass("ViewController");
+            },
+            sel_registerName("viewDidLoad")
+         );
          ↓↓↓
          第一个参数是这种结构体
          ↓↓↓
@@ -157,8 +163,7 @@
             NSString *_nickname;
         };
      * 由此可以看作这样：
-        obj   <---> per
-        cls   <---> per->isa
+        obj   <---> cls <---> per <---> per->isa
         hi    <---> per->_name
         hello <---> per->_nickname
      */

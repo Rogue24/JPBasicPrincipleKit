@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "JPPerson.h"
 
 typedef NS_ENUM(NSUInteger, JPOptions) {
     JPOptions_A = 1<<0, // 0b00000001
@@ -24,6 +25,14 @@ typedef NS_ENUM(NSUInteger, JPOptions) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 这里的局部变量地址不会被干扰
+    int a = 3;
+    NSLog(@"临时变量a %p", &a);
+    int b = 4;
+    NSLog(@"临时变量b %p", &b);
+    long c = 5;
+    NSLog(@"临时变量c %p", &c);
      
     JPOptions option = JPOptions_A | JPOptions_C | JPOptions_E;
     /*

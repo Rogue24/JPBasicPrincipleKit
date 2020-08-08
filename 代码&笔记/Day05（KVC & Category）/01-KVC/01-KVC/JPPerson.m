@@ -38,6 +38,7 @@
 
 #pragma mark - 是否允许访问成员变量（默认就返回YES）
 /*
+ * 添加KVO和使用KVC都会【各自】调用这里最多二次，setter和getter各来一次，之后重复访问这个成员变量就不会再来了
  * KVC赋值/取值过程中对应的setter或getter方法没找到时会来到这里（setter和getter各来一次，有的话就不会来，没有的话要去找成员变量，得通过这里的同意）
     - YES：按优先级_key、_isKey、key、isKey的顺序查找对应的成员变量
         - 找到：赋值/取值

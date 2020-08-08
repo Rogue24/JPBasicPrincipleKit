@@ -155,9 +155,15 @@ int main(int argc, char * argv[]) {
 #pragma mark 测试验证NSObject的类对象是否为结构体、一个单纯的isa指针临时变量（这里打印的NSObject类对象的内存地址并不是在全局区，而是在栈上）
         int a = 3;
         NSLog(@"临时变量a %p", &a);
+        int b = 4;
+        NSLog(@"临时变量b %p", &b);
+        long c = 5; // 占8个字节
+        NSLog(@"临时变量c %p", &c); // 打印”x &c“，看到b和c之间掺杂了4个字节大小的不知道什么东西，导致c和b之间相差了12个字节
         
         Class objCls = NSObject.class;
         NSLog(@"objCls %p", objCls);
+        Class viewCls = UIView.class;
+        NSLog(@"viewCls %p", viewCls);
         
         NSObject *obj = [[NSObject alloc] init];
         NSLog(@"%@", obj);

@@ -10,6 +10,6 @@
 
 @implementation JPPerson
 - (void)test {
-    NSLog(@"test");
+    NSLog(@"%@ %s", self, __func__);
 }
 @end

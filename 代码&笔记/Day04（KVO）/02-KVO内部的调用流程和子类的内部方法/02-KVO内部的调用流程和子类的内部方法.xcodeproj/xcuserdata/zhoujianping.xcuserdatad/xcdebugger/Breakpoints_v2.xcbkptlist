@@ -55,32 +55,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1394C9F7-4592-49DA-A57B-FEF1851381C9"
-            shouldBeEnabled = "Yes"
+            uuid = "A5F0F581-9E9D-4B3C-BF81-3E2DE8BACF4F"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "02-KVO&#x5185;&#x90e8;&#x7684;&#x8c03;&#x7528;&#x6d41;&#x7a0b;&#x548c;&#x5b50;&#x7c7b;&#x7684;&#x5185;&#x90e8;&#x65b9;&#x6cd5;/JPPerson.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-didChangeValueForKey:"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "-willChangeValueForKey:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6282D16A-CDD0-4AF9-8495-79A73F67E665"
-            shouldBeEnabled = "Yes"
+            uuid = "1DD2B929-2305-486B-BE24-A8ABF7D125B3"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "02-KVO&#x5185;&#x90e8;&#x7684;&#x8c03;&#x7528;&#x6d41;&#x7a0b;&#x548c;&#x5b50;&#x7c7b;&#x7684;&#x5185;&#x90e8;&#x65b9;&#x6cd5;/JPPerson.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "-willChangeValueForKey:"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "-didChangeValueForKey:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

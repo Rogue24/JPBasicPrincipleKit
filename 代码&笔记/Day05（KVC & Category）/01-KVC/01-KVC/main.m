@@ -42,6 +42,15 @@ int main(int argc, const char * argv[]) {
         // 3. [per didChangeValueForKey:@"age"];
         NSLog(@"成员变量通过KVC赋值会触发KVO");
         
+//        [per setValue:@(21) forKey:@"_age"];
+//        [per setValue:@(22) forKey:@"_age"];
+//        
+//        [per setValue:@(23) forKey:@"_isAge"];
+//        [per setValue:@(24) forKey:@"_isAge"];
+//
+//        [per setValue:@(25) forKey:@"isAge"];
+//        [per setValue:@(26) forKey:@"isAge"];
+        
         NSLog(@"_age %d", per->_age);
         NSLog(@"_isAge %d", per->_isAge);
         NSLog(@"age %d", per->age);

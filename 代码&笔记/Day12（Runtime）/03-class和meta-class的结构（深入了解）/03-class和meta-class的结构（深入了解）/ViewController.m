@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "JPSon.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // 这里证明一下performSelector也是走消息发送流程
+    JPSon *son = [JPSon new];
+    [son performSelector:@selector(test)];
+    [son performSelector:@selector(test) onThread:[NSThread currentThread] withObject:nil waitUntilDone:YES];
+    [JPSon performSelector:@selector(test)];
 }
 
 

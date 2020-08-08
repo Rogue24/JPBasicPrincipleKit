@@ -14,7 +14,7 @@
     @public
     int isHeight; // 优先级：_height、_isHeight、height、isHeight
 }
-- (void)setHeight:(int)height;
+- (void)_setHeight:(int)height;
 
 - (void)setMoney:(int)money;
 - (NSString *)money;

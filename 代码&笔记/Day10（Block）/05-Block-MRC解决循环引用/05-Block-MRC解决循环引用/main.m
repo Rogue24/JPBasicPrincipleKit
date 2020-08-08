@@ -51,16 +51,30 @@ int main(int argc, const char * argv[]) {
         JPPerson *per2 = [[JPPerson alloc] init];
         per2.age = 31;
         
-        __block JPPerson *blockPer = per2;
+        __block JPPerson *blockPer = [[JPPerson alloc] init];
+        blockPer.age = 13;
+        NSLog(@"blockPer %@", blockPer);
+        
         per2.block = [^{
-            NSLog(@"使用__block修饰 %d", blockPer.age);
+            NSLog(@"使用__block修饰 %@ %d", blockPer, blockPer.age);
         } copy];
-        per2.block();
+        
+        //【错误演示】
+        // 如果提前release，之后继续使用会造成坏内存访问
+        [blockPer release];
+        // 这里要多次调用才能测出问题，因为释放对象需要一些时间，不然只调用几次期间这个对象是还没完全释放掉的，还能访问
+        for (NSInteger i = 0; i < 105; i++) {
+            per2.block();
+        }
+        //【防止错误】：确定不再使用后才release，否则使用__block也是会造成坏内存访问
+//        [blockPer release];
+        
         [per2 release];
         
         /*
          * __block：对象被包装成__block变量结构体，不会对原有的对象进行retain操作，不会产生强引用（推荐）
          * PS：__block变量结构体的_Block_object_assign函数，在【ARC】环境下，会根据所指向对象的修饰符（__strong、__weak、__unsafe_unretained）做出相应的操作，形成强引用（retain）或者弱引用，而在【MRC】环境下是不会retain的
+         *【注意】：在【MRC】环境下，__block不会产生强引用，而且指向的对象销毁时不会自动将指针置为nil，所以要注意的是：确定不再使用后才release，否则也是会造成坏内存访问。
          */
         
         

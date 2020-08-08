@@ -82,24 +82,25 @@
 
 void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {
     //【监听RunLoop各种状态的改变】
+    CFRunLoopMode mode = CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent());
     switch (activity) {
         case kCFRunLoopEntry:
-            NSLog(@"即将进入Loop");
+            NSLog(@"即将进入Loop --- %@", mode);
             break;
         case kCFRunLoopBeforeTimers:
-            NSLog(@"即将处理Times");
+            NSLog(@"即将处理Times --- %@", mode);
             break;
         case kCFRunLoopBeforeSources:
-            NSLog(@"即将处理Sources");
+            NSLog(@"即将处理Sources --- %@", mode);
             break;
         case kCFRunLoopBeforeWaiting:
-            NSLog(@"即将进入休眠");
+            NSLog(@"即将进入休眠 --- %@", mode);
             break;
         case kCFRunLoopAfterWaiting:
-            NSLog(@"刚从休眠中唤醒");
+            NSLog(@"刚从休眠中唤醒 --- %@", mode);
             break;
         case kCFRunLoopExit:
-            NSLog(@"即将退出Loop");
+            NSLog(@"即将退出Loop --- %@", mode);
             break;
         default:
             break;

@@ -20,6 +20,8 @@
 		1A1872352379506F00B35389 /* method_t的结构.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A18722D2379506D00B35389 /* method_t的结构.jpg */; };
 		1A1872362379506F00B35389 /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A18722F2379506E00B35389 /* JPPerson.m */; };
 		1A1872372379506F00B35389 /* TypeEncoding对应表.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A1872302379506F00B35389 /* TypeEncoding对应表.jpg */; };
+		1AA955C324DA558C00411773 /* JPSon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA955C224DA558C00411773 /* JPSon.m */; };
+		1AA955C624DA566D00411773 /* NSObject+JPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA955C524DA566D00411773 /* NSObject+JPExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,10 @@
 		1A18722F2379506E00B35389 /* JPPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
 		1A1872302379506F00B35389 /* TypeEncoding对应表.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "TypeEncoding对应表.jpg"; sourceTree = "<group>"; };
 		1A1872312379506F00B35389 /* MJClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJClassInfo.h; sourceTree = "<group>"; };
+		1AA955C124DA558C00411773 /* JPSon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPSon.h; sourceTree = "<group>"; };
+		1AA955C224DA558C00411773 /* JPSon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPSon.m; sourceTree = "<group>"; };
+		1AA955C424DA566D00411773 /* NSObject+JPExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+JPExtension.h"; sourceTree = "<group>"; };
+		1AA955C524DA566D00411773 /* NSObject+JPExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JPExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,10 @@
 				1A1872312379506F00B35389 /* MJClassInfo.h */,
 				1A18722E2379506E00B35389 /* JPPerson.h */,
 				1A18722F2379506E00B35389 /* JPPerson.m */,
+				1AA955C124DA558C00411773 /* JPSon.h */,
+				1AA955C224DA558C00411773 /* JPSon.m */,
+				1AA955C424DA566D00411773 /* NSObject+JPExtension.h */,
+				1AA955C524DA566D00411773 /* NSObject+JPExtension.m */,
 			);
 			path = "03-class和meta-class的结构（深入了解）";
 			sourceTree = "<group>";
@@ -173,10 +183,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AA955C324DA558C00411773 /* JPSon.m in Sources */,
 				1A1872362379506F00B35389 /* JPPerson.m in Sources */,
 				1A1872192379504900B35389 /* ViewController.m in Sources */,
 				1A1872132379504800B35389 /* AppDelegate.m in Sources */,
 				1A1872242379504900B35389 /* main.mm in Sources */,
+				1AA955C624DA566D00411773 /* NSObject+JPExtension.m in Sources */,
 				1A1872162379504800B35389 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

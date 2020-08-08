@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A1871FD2378F3DB00B35389 /* isa结构.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A1871FC2378F3DB00B35389 /* isa结构.jpg */; };
 		1A5105862375618800EC9F3A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5105852375618800EC9F3A /* AppDelegate.m */; };
 		1A5105892375618800EC9F3A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5105882375618800EC9F3A /* SceneDelegate.m */; };
 		1A51058C2375618800EC9F3A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A51058B2375618800EC9F3A /* ViewController.m */; };
@@ -15,7 +14,6 @@
 		1A5105912375618900EC9F3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A5105902375618900EC9F3A /* Assets.xcassets */; };
 		1A5105942375618900EC9F3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5105922375618900EC9F3A /* LaunchScreen.storyboard */; };
 		1A5105972375618900EC9F3A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5105962375618900EC9F3A /* main.m */; };
-		1A51059E2375658200EC9F3A /* isa的位域.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A51059D2375658200EC9F3A /* isa的位域.jpg */; };
 		1A5105A1237567C000EC9F3A /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5105A0237567C000EC9F3A /* JPPerson.m */; };
 /* End PBXBuildFile section */
 
@@ -146,9 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A51059E2375658200EC9F3A /* isa的位域.jpg in Resources */,
 				1A5105942375618900EC9F3A /* LaunchScreen.storyboard in Resources */,
-				1A1871FD2378F3DB00B35389 /* isa结构.jpg in Resources */,
 				1A5105912375618900EC9F3A /* Assets.xcassets in Resources */,
 				1A51058F2375618800EC9F3A /* Main.storyboard in Resources */,
 			);
@@ -306,7 +302,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AH737FZCJM;
+				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				INFOPLIST_FILE = "02-Runtime-isa细节/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -323,7 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AH737FZCJM;
+				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				INFOPLIST_FILE = "02-Runtime-isa细节/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
