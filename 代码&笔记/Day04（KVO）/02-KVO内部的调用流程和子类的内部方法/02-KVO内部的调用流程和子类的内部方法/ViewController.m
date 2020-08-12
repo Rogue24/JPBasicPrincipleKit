@@ -34,7 +34,11 @@
      * 1.必须要有 -setXxx: 这样的set方法，或者是 -_setXxx:，必须要用驼峰法，返回值类型必须要为void（KVC那套判定）
      * 2.必须要有 -xxx 这样的get方法，返回值类型最好跟set方法的参数类型一致
      * 如果条件1不成立，不会触发KVO，因为KVO生成的子类找不到对应的set方法来重写；
-     * 如果条件1成立，会触发KVO，但如果条件2不成立，那必须要有 _xxx、_isXxx、xxx、isXxx 其中一个这样的成员变量（优先级从左到右），否则当调用set方法程序会【崩溃】（在willChangeValueForKey的时候，其实是使用了KVC去获取旧值，所以走的是KVC那套流程）。
+     * 如果条件1成立，会触发KVO，但如果条件2不成立，那必须要有 _xxx、_isXxx、xxx、isXxx 其中一个这样的成员变量（优先级从左到右），否则当调用set方法程序会【崩溃】
+        - 重写的set方法：
+            [self willChangeValueForKey:@"xxx"]; ==> 使用了KVC去获取【旧】值（没有get方法就去查找对应的成员变量，都没有就崩溃）
+            [self setXxx:123]; ==> 原来的setter方法
+            [self didChangeValueForKey:@"xxx"]; ==> 使用了KVC去获取【新】值，到这里就会触发KVO的回调（把旧值和新值回传出去）
      */
     
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;

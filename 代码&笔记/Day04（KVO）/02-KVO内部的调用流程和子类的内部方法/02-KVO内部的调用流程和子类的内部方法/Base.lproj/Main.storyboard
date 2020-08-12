@@ -18,7 +18,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eol-3h-l2z">
                                 <rect key="frame" x="20" y="168" width="374" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="正常属性监听"/>
+                                <state key="normal" title="例1：正常属性监听"/>
                                 <connections>
                                     <action selector="action1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Bg-Qe-xSE"/>
                                 </connections>
@@ -26,7 +26,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kq-fe-kFh">
                                 <rect key="frame" x="20" y="221" width="374" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="有成员变量、set方法，没有get方法"/>
+                                <state key="normal" title="例2：有成员变量、set方法，没有get方法"/>
                                 <connections>
                                     <action selector="action2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oM9-Bw-tjj"/>
                                 </connections>
@@ -34,7 +34,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-LV-v8n">
                                 <rect key="frame" x="20" y="272" width="374" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="手动触发KVO"/>
+                                <state key="normal" title="例3：手动触发KVO"/>
                                 <connections>
                                     <action selector="action3:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uBC-3D-DVQ"/>
                                 </connections>
@@ -42,7 +42,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QGj-2t-ubK">
                                 <rect key="frame" x="20" y="327" width="374" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="没有成员变量，有set方法和get方法"/>
+                                <state key="normal" title="例4：没有成员变量，有set方法和get方法"/>
                                 <connections>
                                     <action selector="action4:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rzs-kY-pOD"/>
                                 </connections>
@@ -50,7 +50,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAU-ry-3FX">
                                 <rect key="frame" x="20" y="389" width="374" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="当把监听的属性全部移除后就会变回原本的类"/>
+                                <state key="normal" title="把监听的属性全部移除后就会变回原本的类"/>
                                 <connections>
                                     <action selector="action5:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XIw-6J-fr5"/>
                                 </connections>

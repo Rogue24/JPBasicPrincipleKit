@@ -12,7 +12,12 @@
 
 // KVO底层是按照KVC的流程走，先找方法，找到就重写，找不到就来这里看看是否能访问成员变量
 // 添加KVO和使用KVC都会【各自】调用这里最多二次，setter和getter各来一次，之后重复访问这个成员变量就不会再来了
-// 例如这里的height，只有setter方法，没有getter方法，当添加KVO和使用KVC（valueForKey:）时都会各自来一次这里
+/*
+ 例如这里的height，只有setter方法，没有getter方法：
+    1.当添加KVO时，找不到getter方法，会来一次这里
+    2.当KVO【第一次】监听到属性被修改时，又或者手动【第一次】使用了KVC（valueForKey:）
+        - 被KVO监听的属性被修改时会先执行willChangeValueForKey，这里面其实是使用KVC（valueForKey:）获取旧值，同样也是找不到getter方法，所以会再来一次这里，之后执行didChangeValueForKey也会使用KVC，不过前面已经来过这里获取过权限了，所以后面就不会再来了（没获取的话就已经崩溃了）
+ */
 + (BOOL)accessInstanceVariablesDirectly {
     return YES;
 }
