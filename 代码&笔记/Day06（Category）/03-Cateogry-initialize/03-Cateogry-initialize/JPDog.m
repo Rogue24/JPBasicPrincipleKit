@@ -9,6 +9,7 @@
 #import "JPDog.h"
 
 @implementation JPDog
+
 + (void)load {
     NSLog(@"load --- JPDog");
 }

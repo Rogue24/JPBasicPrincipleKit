@@ -18,13 +18,13 @@
 //    char _tallRichHandsome;
     
     struct {
-        char tall : 1;
+        char tall : 1; // : 1 -> 只占1bit的意思
         char rich : 1;
         char handsome : 1;
     } _tallRichHandsome;
-    // ”: 1” ==> 位域，1代表只占1位的意思，这里声明的这3个成员就各占1bit，共3bit
+    // ”: 1” ==>【位域】，其中1代表只占1位的意思，这里声明的这3个成员就各占1bit，共3bit。
     // 所以这个结构体只需要用到3bit的内存，这样系统只需要分配1个字节就够用了（内存分配至少也得1个字节）
-    // 在结构体编写的顺序，在字节里面是从右边开始排起
+    // 在结构体编写的顺序，在字节里面是从右边开始排起：
     // 0b00000 0    0    0
     //         ↓    ↓    ↓
     //    handsome rich tall
@@ -32,7 +32,8 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        NSLog(@"%lu", sizeof(_tallRichHandsome)); // 1，占1个字节大小
+        // 1，只占1个字节大小
+        NSLog(@"_tallRichHandsome size is %lu", sizeof(_tallRichHandsome));
         
         /*
          * Byte的值域范围为 -128 ~ 127（0, 1, ... 127, -128, ... -2, -1）【有符号的存值】
@@ -57,9 +58,11 @@
 - (void)setTall:(BOOL)tall {
     _tallRichHandsome.tall = tall; // 0b0000000x
 }
+
 - (void)setRich:(BOOL)rich {
     _tallRichHandsome.rich = rich; // 0b000000x0
 }
+
 - (void)setHandsome:(BOOL)handsome {
     _tallRichHandsome.handsome = handsome; // 0b00000x00
 }
@@ -77,19 +80,28 @@
     //    ↓↓↓↓↓↓↓  覆盖
     // 0b[0000000]1 -> 0b11111111 -> 255 -> -1（255用BOOL表示则为-1）
     
+    // 位域的特点
+    // 少数位强转成多数位，强转时以【最前面的那一位】去拉伸/扩展/填充其他位
+    // 0b1 ====> 0b11111111
+    // 0b01 ===> 0b00000001
+    // 0b101 ==> 0b11111101
+    // 0b011 ==> 0b00000011
+    
     // 解决方法1：将成员扩展成2位：char tall : 2;
-    // 此时为01，用【第一位】去覆盖其他位（这是位域的特点，强转时以最前面的那一位拉伸/扩展/填充其他位）
+    // 此时为01，用【第一位】去覆盖其他位
     //         [0]1
     //    ↓↓↓↓↓↓↓  覆盖
     // 0b[0000000]1 -> 0b00000001 -> 1 -> 1
     
-    // 解决方法2：!!（推荐，毕竟省内存，效率也高）
+    // 解决方法2：!! 【推荐】（毕竟省内存，效率也高）
     
     return !!_tallRichHandsome.tall;
 }
+
 - (BOOL)isRich {
     return !!_tallRichHandsome.rich;
 }
+
 - (BOOL)isHandsome {
     return !!_tallRichHandsome.handsome;
 }

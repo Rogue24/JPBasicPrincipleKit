@@ -17,13 +17,15 @@
 
 - (void)willChangeValueForKey:(NSString *)key {
     [super willChangeValueForKey:key];
+    // 保存旧值，【标识】等会调用`didChangeValueForKey`（调用setter方法之后）
     NSLog(@"willChangeValueForKey --- %@", key);
 }
 
 - (void)didChangeValueForKey:(NSString *)key {
     NSLog(@"begin didChangeValueForKey");
-    [super didChangeValueForKey:key];
-    NSLog(@"end didChangeValueForKey --- %@", key);
+    [super didChangeValueForKey:key]; // 通知监听器，XX属性值发送了改变：在这里执行的KVO代理方法
+    NSLog(@"ended didChangeValueForKey --- %@", key);
+    NSLog(@"==============================================");
 }
 
 - (void)setHeight:(int)height {

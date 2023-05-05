@@ -16,11 +16,63 @@
 #import "JPStudent+JPTest2.h"
 #import "NSObject+JPExtension.h"
 
+/*
+ * 总结：
+ 
+ * 编译顺序：
+    - JPSubXxx
+    - JPXxx
+    - JPXxx+JPTest1
+    - JPSubXxx+JPTest
+    - JPXxx+JPTest2
+ 
+ * 重名方法的调用优先级（消息机制）：
+    1. 分类：按照编译顺序 >>> 从【低】到【高】
+    2. 主类：子类 > 父类
+ 🌰 方法的查找顺序_不涉及子类的情况：
+      JPXxx+JPTest2 > JPXxx+JPTest1 > JPXxx > NSObject
+ 🌰 方法的查找顺序_子类调用自己没实现的方法：
+      JPSubXxx+JPTest > JPSubXxx > JPXxx+JPTest2 > JPXxx+JPTest1 > JPXxx > NSObject
+ 
+ * Runtime加载类、分类时，load方法的调用顺序（直接通过函数地址调用）：
+    1. 主类：父类 > 子类
+        -【不同类别】之间的load调用优先级，按照编译顺序 >>> 从【高】到【低】
+    2. 分类：所有的分类
+        -【不管父类子类的继承顺序】，全部按照编译顺序 >>> 从【高】到【低】
+ 🌰 Runtime加载类、分类时load方法的调用顺序：
+      NSObject > JPXxx > JPSubXxx > JPXxx+JPTest1 > JPSubXxx+JPTest > JPXxx+JPTest2
+ */
+
+/*
+ * 当前的编译顺序：
+    JPStudent+JPTest2
+    JPPerson+JPTest2
+    JPPerson+JPTest1
+    JPStudent+JPTest1
+    JPCat
+    JPStudent
+    NSObject+JPExtension
+    JPPerson
+    JPDog
+    
+ * 打印：
+    load --- JPCat
+    load --- JPPerson
+    load --- JPStudent
+    load --- JPDog
+    load --- JPStudent+JPTest2
+    load --- JPPerson+JPTest2
+    load --- JPPerson+JPTest1
+    load --- JPStudent+JPTest1
+    load --- NSObject+JPExtension
+ */
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         /**
-         * load方法在是在Runtime加载这个类/分类时（_objc_init）就会调用
+         * load方法在是在Runtime加载这个类/分类时（_objc_init）就会调用，
+         * 是直接取到【方法地址】去调用，并不是经过objc_msgSend函数（发消息）调用。
          */
         
         // insert code here...
@@ -37,6 +89,9 @@ int main(int argc, const char * argv[]) {
         [per xixi];
         [stu xixi];
         
+        // 子类没实现，但父类及其分类有实现，优先调用<父类的分类>
+        [stu haha];
+        
         // 查看JPPerson的类方法列表：
         [object_getClass(JPPerson.class) jp_lookMethods];
         // 共有3个load方法
@@ -46,6 +101,10 @@ int main(int argc, const char * argv[]) {
         
         [JPPerson load];
         [JPStudent load];
+        
+        // 子类的分类能调用父类的方法，说明super指针指向正确，
+        // 证明分类方法确实合并到类/元类对象里面。
+        [JPStudent test];
     }
     return 0;
 }

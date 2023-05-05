@@ -18,6 +18,7 @@
     int age;
     int isAge;
     // -------- 低 --------
+    // PS：这个优先级顺序是固定的，即便这里成员变量的编写排布不一样，也不会影响KVC赋值/取值的顺序。
 }
 //@property (nonatomic, assign) int age;
 @end

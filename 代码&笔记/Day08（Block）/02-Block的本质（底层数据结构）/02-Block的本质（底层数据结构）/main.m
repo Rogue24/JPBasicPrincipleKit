@@ -52,44 +52,53 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         void (^jpBlock)(void) = ^{
-            // 这些代码会被封装成__main_block_func_0函数
+            // 这些代码会被封装成`__main_block_func_0`函数
             NSLog(@"Hello, Block!");
         };
         /*
-         * 定义block变量
-         * __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0)
+         * 定义block变量的底层代码实现：
          
          void (*jpBlock)(void) =
                     &__main_block_impl_0(
                                          __main_block_func_0,
                                          &__main_block_desc_0_DATA
                                          );
-         
-         * __main_block_impl_0：block结构体的构造函数（类似OC的init方法），返回block结构体对象
+                              ↓↓↓
+         __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0)
+         * 这是block结构体的【构造函数】（类似OC的init方法），返回block结构体对象
             * 参数1：block执行逻辑的函数地址
                 * void *fp = __main_block_func_0
             * 参数2：block的描述信息（占内存大小）
                 * __main_block_desc_0 *desc = __main_block_desc_0_DATA
+                                                        ↓↓↓
                     * __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0)}
-                        * 参数2：计算了这个block结构体的总大小，保存到__main_block_desc_0的Block_size里面
-            * 参数3：不用管，并且已经有默认值了（flags=0）
+                                                                  ↓↓↓
+                        * 参数2：计算了这个block结构体的总大小，然后保存到`__main_block_desc_0`这个结构体的`Block_size`成员里面
+            * 参数3：不用管，已经有默认值了
+                * int flags=0
          */
         
         jpBlock();
         /*
-         * 执行block内部的代码
+         * 执行block的底层代码实现：
          
          ((void (*)(__block_impl *))((__block_impl *)jpBlock)->FuncPtr)((__block_impl *)jpBlock);
-         ↓
+         ↓↓↓
          去掉强制转换
-         ↓
-         jpBlock->FuncPtr(jpBlock);  // 为啥jpBlock可以直接调用FuncPtr？
+         ↓↓↓
+         jpBlock->FuncPtr(jpBlock);
          
-         * 因为jpBlock的impl是jpBlock结构体的【第一个成员】，所以impl的内存地址就是jpBlock的内存地址。
-         * 所以jpBlock可以直接强制转换成 impl = ((__block_impl *)jpBlock)
+         * 为啥`jpBlock`可以直接调用`FuncPtr`？
+         * 那是经过了强制转换：__block_impl impl = ((__block_impl *)jpBlock);
+           - 因为`jpBlock`的`impl`是`jpBlock`结构体的【第一个成员】，所以`impl`的内存地址就是`jpBlock`的内存地址，
+           - 所以`jpBlock`可以直接强制转换成`__block_impl`这种类型，然后去调用它的`FuncPtr`。
          
-         * 再使用impl调用FuncPtr：impl.FuncPtr(jpBlock) <=相当于=> jpBlock->FuncPtr(jpBlock)
-         * PS：FuncPtr的参数为block结构体 void __main_block_func_0(struct __main_block_impl_0 *__cself)
+         * impl.FuncPtr(jpBlock) <==相当于==> jpBlock->FuncPtr(jpBlock)
+           - `impl.FuncPtr(jpBlock)`这句代码，无非就是从`impl`的地址往下搜索xx个字节找到`FuncPtr`的地址，然后执行它，
+           - `jpBlock`的地址就是`impl`的地址，所以可以去执行同样的命令，毕竟都是一样的内存结构。
+         
+         * PS1：`FuncPtr`就是`__main_block_func_0`，也就是定义block时，把^{}里面的执行逻辑封装好的函数地址；
+         * PS2：`FuncPtr`的参数就是【block结构体本身】==> void __main_block_func_0(struct __main_block_impl_0 *__cself)，所以是这样调用`jpBlock->FuncPtr(jpBlock)`。
          */
         
     }

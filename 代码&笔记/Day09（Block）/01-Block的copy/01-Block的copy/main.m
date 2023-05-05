@@ -10,9 +10,11 @@
 
 /*
  * Block的类型及其由来：
- * GlobalBlock：【没有访问任何auto变量】的block（只访问了static变量也是Global）
+ * GlobalBlock：【没有访问任何auto变量】的block
  * MallocBlock：对StackBlock调用了copy（StackBlock升级为MallocBlock）
- * StackBlock：访问了auto变量
+ * StackBlock：【只要有访问了auto变量】的block
+ *
+ * PS：static变量不是auto变量，跟全局变量一样，都是一直存在内存中
  *
  * 每一种类型的Block调用copy后的结果：
  * GlobalBlock --copy--> GlobalBlock，啥事没有
@@ -21,8 +23,7 @@
  */
 
 typedef void (^JPBlock)(void);
-
-JPBlock jpblock() {
+JPBlock jpblock(void) {
     int a = 9;
     return ^{
         NSLog(@"Hello, Block! %d", a);
@@ -49,10 +50,12 @@ int main(int argc, const char * argv[]) {
         };
         NSLog(@"【2】将block赋值给__strong指针 %@", [strongBlock class]);
         
+        // ARC环境下还会存在StackBlock的情况1：
         NSLog(@"【2.1】没有赋值给__strong指针 %@", [^{
             NSLog(@"Hello, Block! %d", b);
         } class]);
         
+        // ARC环境下还会存在StackBlock的情况2：
         __weak JPBlock weakBlock = ^{
             NSLog(@"Hello, Block! %d", b);
         }; // 将block赋值给__weak指针时还是StackBlock类型
@@ -72,10 +75,10 @@ int main(int argc, const char * argv[]) {
         });
         
         /**
-         * MRC环境下block属性的建议方法：用copy修饰
+         *【MRC环境】下 block 属性的建议：用`copy`修饰
          * @property (nonatomic, copy) void (^blockName)(void);
          *
-         * ARC环境下block属性的建议方法：用copy or strong修饰
+         *【ARC环境】下 block 属性的建议：用`copy` or `strong`修饰
          * @property (nonatomic, copy) void (^blockName)(void);
          * @property (nonatomic, strong) void (^blockName)(void);
          */

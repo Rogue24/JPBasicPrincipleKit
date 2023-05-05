@@ -26,6 +26,7 @@
 		1A36B134236054A6003920D5 /* OC对象.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "OC对象.jpg"; sourceTree = "<group>"; };
 		1AB15520235DF57F00363D92 /* 03-OC对象的本质(meta-class对象) */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "03-OC对象的本质(meta-class对象)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AB15523235DF57F00363D92 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1AFBD1A329F51E9700732268 /* 元类对象和类对象.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "元类对象和类对象.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 		1AB15522235DF57F00363D92 /* 03-OC对象的本质(meta-class对象) */ = {
 			isa = PBXGroup;
 			children = (
+				1AFBD1A329F51E9700732268 /* 元类对象和类对象.jpg */,
 				1A36B134236054A6003920D5 /* OC对象.jpg */,
 				1AB15523235DF57F00363D92 /* main.m */,
 			);

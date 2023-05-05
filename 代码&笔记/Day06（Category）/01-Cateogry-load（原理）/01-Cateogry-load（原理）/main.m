@@ -20,8 +20,8 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         /**
-         * load方法在是在Runtime加载这个类/分类时（_objc_init）就会调用
-         * 根据方法地址直接调用，并不是经过objc_msgSend函数调用
+         * load方法在是在Runtime加载这个类/分类时（_objc_init）就会调用，
+         * 是直接取到【方法地址】去调用，并不是经过objc_msgSend函数（发消息）调用。
          */
         
         // insert code here...

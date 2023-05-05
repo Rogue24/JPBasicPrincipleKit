@@ -47,6 +47,7 @@
  */
 void _NSSetIntValueAndNotify() {
     // 1.调用willChangeValueForKey:
+    // 保存旧值，【标识】等会调用`didChangeValueForKey`（调用原来的setter方法之后）
     [self willChangeValueForKey:@"age"];
     
     // 2.调用原来的setter实现

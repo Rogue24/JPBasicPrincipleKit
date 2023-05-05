@@ -7,33 +7,97 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6EA69147-27E6-468C-8464-2EF2B174E1A4"
+            uuid = "81162F7B-4B08-4B1B-92B7-3A089BB5B9AC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "01-Block&#x7684;&#x672c;&#x8d28;&#xff08;&#x9a8c;&#x8bc1;&#x662f;&#x5426;&#x4e3a;&#x5bf9;&#x8c61;&#xff09;/main.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "81162F7B-4B08-4B1B-92B7-3A089BB5B9AC - cf6c3f18fdfcf4b0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__main_block_invoke"
+                  moduleName = "01-Block&#x7684;&#x672c;&#x8d28;&#xff08;&#x9a8c;&#x8bc1;&#x662f;&#x5426;&#x4e3a;&#x5bf9;&#x8c61;&#xff09;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day08%EF%BC%88Block%EF%BC%89/01-Block%E7%9A%84%E6%9C%AC%E8%B4%A8%EF%BC%88%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E4%B8%BA%E5%AF%B9%E8%B1%A1%EF%BC%89/01-Block%E7%9A%84%E6%9C%AC%E8%B4%A8%EF%BC%88%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E4%B8%BA%E5%AF%B9%E8%B1%A1%EF%BC%89/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  uuid = "81162F7B-4B08-4B1B-92B7-3A089BB5B9AC - cf6c3f18fdfcf49f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__main_block_invoke"
+                  moduleName = "01-Block&#x7684;&#x672c;&#x8d28;&#xff08;&#x9a8c;&#x8bc1;&#x662f;&#x5426;&#x4e3a;&#x5bf9;&#x8c61;&#xff09;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day08%EF%BC%88Block%EF%BC%89/01-Block%E7%9A%84%E6%9C%AC%E8%B4%A8%EF%BC%88%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E4%B8%BA%E5%AF%B9%E8%B1%A1%EF%BC%89/01-Block%E7%9A%84%E6%9C%AC%E8%B4%A8%EF%BC%88%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E4%B8%BA%E5%AF%B9%E8%B1%A1%EF%BC%89/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "26">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8F6D7CA7-0D0E-495E-9366-9822D2AA354A"
+            uuid = "725B6617-D755-4FEC-B9FC-0FBBDDC6B7F8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "01-Block&#x7684;&#x672c;&#x8d28;&#xff08;&#x9a8c;&#x8bc1;&#x662f;&#x5426;&#x4e3a;&#x5bf9;&#x8c61;&#xff09;/main.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "725B6617-D755-4FEC-B9FC-0FBBDDC6B7F8 - fdf627bcd402f0d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "01-Block&#x7684;&#x672c;&#x8d28;&#xff08;&#x9a8c;&#x8bc1;&#x662f;&#x5426;&#x4e3a;&#x5bf9;&#x8c61;&#xff09;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day08%EF%BC%88Block%EF%BC%89/01-Block%E7%9A%84%E6%9C%AC%E8%B4%A8%EF%BC%88%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E4%B8%BA%E5%AF%B9%E8%B1%A1%EF%BC%89/01-Block%E7%9A%84%E6%9C%AC%E8%B4%A8%EF%BC%88%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E4%B8%BA%E5%AF%B9%E8%B1%A1%EF%BC%89/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "725B6617-D755-4FEC-B9FC-0FBBDDC6B7F8 - fdf627bcd402f0f6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "01-Block&#x7684;&#x672c;&#x8d28;&#xff08;&#x9a8c;&#x8bc1;&#x662f;&#x5426;&#x4e3a;&#x5bf9;&#x8c61;&#xff09;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day08%EF%BC%88Block%EF%BC%89/01-Block%E7%9A%84%E6%9C%AC%E8%B4%A8%EF%BC%88%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E4%B8%BA%E5%AF%B9%E8%B1%A1%EF%BC%89/01-Block%E7%9A%84%E6%9C%AC%E8%B4%A8%EF%BC%88%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E4%B8%BA%E5%AF%B9%E8%B1%A1%EF%BC%89/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "112">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -1,9 +1,9 @@
 1. 通过KVC修改属性会触发KVO么？
-	- 会触发
+	- 会触发（不管有没有对应的setter方法）
 		- 通过-_isKVOA方法判定是否有监听器（_isKVOA为KVO生成的NSKVONotifying_XXX的方法）
 		- 内部实现：
 			1. [per willChangeValueForKey:@"age"]; // 保存旧值，标识等会调用didChangeValueForKey
-			2. 执行setter方法，没有则直接对成员变量赋值：per->_age = 20;
+			2. 执行setter方法，如果没有则直接对成员变量赋值：per->_age = 20;
 			3. [per didChangeValueForKey:@"age"]; // 通知监听器，XX属性值发送了改变
 
 2. KVC的赋值和取值过程是怎样的？原理是什么？

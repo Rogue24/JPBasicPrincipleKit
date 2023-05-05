@@ -35,6 +35,7 @@
 		1A76F29023796688008D16FE /* class和meta-class的结构图.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "class和meta-class的结构图.jpg"; sourceTree = "<group>"; };
 		1A76F291237966EE008D16FE /* cache_t的结构和缓存.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "cache_t的结构和缓存.jpg"; sourceTree = "<group>"; };
 		1A8BF7E7237B966F009E7B8F /* MJClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJClassInfo.h; sourceTree = "<group>"; };
+		1ACAB1902A050265006E583D /* 方法缓存查找过程.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "方法缓存查找过程.jpg"; sourceTree = "<group>"; };
 		1AD36B2E23F0628300BCB941 /* JPPomeranin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPomeranin.h; sourceTree = "<group>"; };
 		1AD36B2F23F0628300BCB941 /* JPPomeranin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPomeranin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +72,7 @@
 			children = (
 				1A76F29023796688008D16FE /* class和meta-class的结构图.jpg */,
 				1A76F291237966EE008D16FE /* cache_t的结构和缓存.jpg */,
+				1ACAB1902A050265006E583D /* 方法缓存查找过程.jpg */,
 				1A76F28623795B86008D16FE /* main.mm */,
 				1A8BF7E7237B966F009E7B8F /* MJClassInfo.h */,
 				1A76F28D237960CC008D16FE /* JPPerson.h */,

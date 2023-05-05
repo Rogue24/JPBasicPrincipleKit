@@ -64,7 +64,7 @@ dispatch_semaphore_wait(jp_semaphore, DISPATCH_TIME_FOREVER);
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.demo = [[JPNSConditionDemo alloc] init];
+    self.demo = [[JPMutexRecursiveDemo alloc] init];
     NSString *className = NSStringFromClass(self.demo.class);
     self.lockNameLabel.text = [className substringWithRange:NSMakeRange(2, className.length - 6)];
     [self.lockNameLabel sizeToFit];

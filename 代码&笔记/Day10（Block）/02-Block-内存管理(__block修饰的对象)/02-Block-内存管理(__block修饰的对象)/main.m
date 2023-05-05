@@ -25,8 +25,8 @@ struct __main_block_desc_0 {
     size_t reserved;
     size_t Block_size;
     
-    void (*copy)(void); // void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
-    void (*dispose)(void); // void (*dispose)(struct __main_block_impl_0*);
+    void (*copy)(void); // 参数有警告，所以换成void，原本长这样：void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
+    void (*dispose)(void); // 参数有警告，所以换成void，原本长这样：void (*dispose)(struct __main_block_impl_0*);
     
 }; // __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
 
@@ -168,6 +168,9 @@ int main(int argc, const char * argv[]) {
              *【ARC】环境下：__strong就强引用（retain），__weak就弱引用（不会retain）
              *【MRC】环境下：不管是什么引用修饰符，都不会强引用，即不会进行retain操作
              * PS：由于MRC环境没有weak指针，所以在MRC环境下是用__block来解决循环引用的问题
+             * ↓↓
+             * 注意的是，这仅仅只是解决了循环引用，一旦对象销毁后，block内部引用的这个对象并不会自动置nil，
+             * 接着再调用block的话，block内部就会访问到这个已被销毁的地址，坏内存访问导致崩溃（MRC环境）。
              *
              *【当block从堆上移除时】：
              * ↓
@@ -187,10 +190,12 @@ int main(int argc, const char * argv[]) {
             JPPerson *per1 = [[JPPerson alloc] init];
             JPPerson *per2 = [[JPPerson alloc] init];
             /*
-             * __weak：弱引用，只针对OC对象，不会影响__block变量结构体（这个一直是__strong引用）
+             * __weak：弱引用，只能修饰【OC对象】，不能作用于【__block变量结构体】，
+             * 所以`MallocBlock`对【__block变量结构体】只有强引用。
              * 因此这两种修饰方式是一样的：
              * 1. __weak __block JPPerson *block_per1 = per1;
              * 2. __block __weak JPPerson *block_per2 = per2;
+             * 最终都是包装成【__block变量结构体】，其内部__weak引用本体。
              */
             __weak __block JPPerson *block_per1 = per1;
             __block __weak JPPerson *block_per2 = per2;
@@ -269,19 +274,28 @@ int main(int argc, const char * argv[]) {
          * 只要block捕获的变量是【对象类型的auto变量】
          * Block的结构体的Desc结构体里面就会多了copy和dispose这两个函数指针，用于进行内存管理操作的
          * 在编译的C++文件里面分别是：__main_block_copy_0 和 __main_block_dispose_0
-         *
-         *
+         */
+        
+        /*
          * 总结2：block的内存管理
          *
-         *【栈空间的block】
-         * 不会对捕获的auto变量产生强引用，【永远都是弱引用】
-         * <<毕竟自身随时被销毁，也就没必要强引用其他对象>>
-         * PS1：执行block时，捕获的auto变量有可能就已经被销毁了，就会造成坏内存访问的错误
-         * PS2：要后续执行block只能赋值给__strong指针，
-         * 不过在ARC环境下会自动进行copy操作升级为MallocBlock，因此block会保住auto变量的命，
-         * 所以，想证明执行block时捕获的auto变量会不会已经被销毁了就只能在MRC环境下进行。
+         * StackBlock【栈空间的block】
+         *  - 永远都不会对`捕获的auto变量`产生【强引用】！相当于只存储指向的地址值，并不会改变它的引用计数！
+         *  <<毕竟自身随时被销毁，也就没必要强引用其他对象>>
+         *  - 执行 StackBlock 时（在另一个作用域），`捕获的auto变量`有可能就已经被销毁了，就会造成坏内存访问的错误
+         * 所以 StackBlock 存活期间【不会】保住`对象类型的auto变量`的命
          *
-         * 当block从【栈空间】copy到【堆空间】，同时也会将捕获的对象拷贝过去：
+         * 证明：在另一个作用域执行 StackBlock 时，`捕获的auto变量`会不会已经被销毁？
+         *  - 只能在MRC环境下证明，因为想在另一个作用域执行block，只能赋值给__strong指针，
+         *  - 但在ARC环境下这操作会自动升级为MallocBlock，这样block就会保住auto变量的命。
+         * ==> 已证明：在另一个作用域执行 StackBlock 时，`捕获的auto变量`已经被销毁了，
+         * ==> 说明 StackBlock 存活期间【不会】保住`auto变量`的命。
+         *
+         *
+         * MallocBlock【堆空间的block】
+         *  - 拷贝到堆上时，会自动根据`捕获的auto变量`的修饰符形成【强引用】或者【弱引用】
+         *  - 从堆上移除时，会自动释放`捕获的auto变量`
+         *
          * 1.拷贝到堆上时：
          * block会调用Desc的copy函数，内部调用_Block_object_assign函数
          * 对【对象类型的auto变量】进行类似retain操作形成对应的强、弱引用
@@ -292,6 +306,8 @@ int main(int argc, const char * argv[]) {
          * block会调用Desc的dispose函数，内部调用_Block_object_dispose函数
          * 对【对象类型的auto变量】进行类似release操作
          * PS：引用计数为0时则销毁
+         *
+         * 所以 MallocBlock 存活期间【会】保住`对象类型的auto变量`的命
          */
     }
     return 0;

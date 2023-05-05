@@ -21,4 +21,8 @@
     NSLog(@"xixi --- JPPerson+JPTest2");
 }
 
+- (void)haha {
+    NSLog(@"haha --- JPPerson+JPTest2");
+}
+
 @end

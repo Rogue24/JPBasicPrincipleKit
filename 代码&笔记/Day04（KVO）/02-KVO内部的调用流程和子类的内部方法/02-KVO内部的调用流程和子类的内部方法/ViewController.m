@@ -31,14 +31,16 @@
     /*
      * 假设 keyPath 为 xxx
      * 没有xxx这个属性的情况下KVO也能生效的条件（属性本来就满足这些条件）：
-     * 1.必须要有 -setXxx: 这样的set方法，或者是 -_setXxx:，必须要用驼峰法，返回值类型必须要为void（KVC那套判定）
-     * 2.必须要有 -xxx 这样的get方法，返回值类型最好跟set方法的参数类型一致
+     * 1.必须要有`-setXxx:`这样的set方法，或者是`-_setXxx:`（名字前多一个下划线），必须要用驼峰法，返回值类型必须要为void（KVC那套判定）
+     * 2.必须要有`-xxx`这样的get方法，返回值类型最好跟set方法的参数类型一致
      * 如果条件1不成立，不会触发KVO，因为KVO生成的子类找不到对应的set方法来重写；
      * 如果条件1成立，会触发KVO，但如果条件2不成立，那必须要有 _xxx、_isXxx、xxx、isXxx 其中一个这样的成员变量（优先级从左到右），否则当调用set方法程序会【崩溃】
         - 重写的set方法：
             [self willChangeValueForKey:@"xxx"]; ==> 使用了KVC去获取【旧】值（没有get方法就去查找对应的成员变量，都没有就崩溃）
             [self setXxx:123]; ==> 原来的setter方法
             [self didChangeValueForKey:@"xxx"]; ==> 使用了KVC去获取【新】值，到这里就会触发KVO的回调（把旧值和新值回传出去）
+     * 漏了！还有最后一种！！！只有成员变量，没有set方法，使用【KVC】设值也会触发KVO！！！
+     * 注意：最好别乱写get方法，因为KVO的回调是从get方法这里取值的！点击🌰【例5】看看就知道了！！
      */
     
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
@@ -58,6 +60,11 @@
     // 没有money属性，也没有”_money“成员变量
     // 想要KVO生效不仅需要有-setMoney:方法，还要有-money方法
     [self.per1 addObserver:self forKeyPath:@"money" options:options context:nil];
+    
+    //【例5】
+    // 只有成员变量，没有set方法
+    // 想要KVO生效：使用KVC方式设值！
+    [self.per1 addObserver:self forKeyPath:@"douer" options:options context:nil];
     
     NSLog(@"per1 %@, per2 %@", object_getClass(self.per1), object_getClass(self.per2));
     NSLog(@"per1 %@, per2 %@", self.per1.class, self.per2.class);
@@ -115,11 +122,11 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     NSValue *oldValue = change[NSKeyValueChangeOldKey];
     NSValue *newValue = change[NSKeyValueChangeNewKey];
-    NSLog(@"========监听回调========");
+    NSLog(@"****** KVO代理方法_begin ******");
     NSLog(@"%@ --- %@", object, keyPath);
     NSLog(@"old --- %@", oldValue);
     NSLog(@"new --- %@", newValue);
-    NSLog(@"========监听回调========");
+    NSLog(@"****** KVO代理方法_ended ******");
 }
 
 #pragma mark - 能触发KVO的例子
@@ -153,8 +160,14 @@
     [self.per1 setMoney:999];
 }
 
-#pragma mark 当把监听的属性全部移除后就会变回原本的类
+#pragma mark 【例5】：只有成员变量，没有set方法，使用KVC设值才可以触发KVO
 - (IBAction)action5:(id)sender {
+    [self.per1 setValue:@888 forKey:@"douer"];
+    NSLog(@"douer: %d", self.per1->douer);
+}
+
+#pragma mark 当把监听的属性全部移除后就会变回原本的类
+- (IBAction)action6:(id)sender {
     [self.per1 removeObserver:self forKeyPath:@"age"];
     NSLog(@"移除age per1 %@", object_getClass(self.per1));
     [self.per1 removeObserver:self forKeyPath:@"height"];

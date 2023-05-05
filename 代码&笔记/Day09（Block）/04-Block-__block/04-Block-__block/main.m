@@ -87,6 +87,7 @@ struct __main_block_impl_1 {
 };
 
 #warning 当前在MRC环境下！
+// 关闭ARC：Targets --> Build Settings --> 搜索automatic reference --> 设置为NO
 
 /*
  *【注意】
@@ -114,25 +115,29 @@ int main(int argc, const char * argv[]) {
         __block int a = 29;
         /*
          __attribute__((__blocks__(byref))) __Block_byref_a_0 a = {(void*)0,(__Block_byref_a_0 *)&a, 0, sizeof(__Block_byref_a_0), 29};
-         ↓↓↓
-         简化一下
-         ↓↓↓
-         __Block_byref_a_0 a = {0,
-                                &a,
-                                0,
-                                sizeof(__Block_byref_a_0),
-                                29};
+                ↓↓↓
+              简化一下
+                ↓↓↓
+         __Block_byref_a_0 a = {
+             0,
+             &a, // 这个定义好的结构体变量的地址，也就是自己
+             0,
+             sizeof(__Block_byref_a_0),
+             29
+         };
+                ↓↓↓
          赋值给【__block结构体对象的底层结构】的对应成员：
          struct __Block_byref_a_0 {
-             __isa ==> 0
-             __forwarding ==> &a
-             __flags ==> 0
-             __size ==> sizeof(__Block_byref_a_0)
-             a ==> 29
+             __isa        ==> 0
+             __forwarding ==> &a // 指向自己的指针
+             __flags      ==> 0
+             __size       ==> sizeof(__Block_byref_a_0)
+             a            ==> 29
          };
         */
         
         // NSMutableArray *arr = [NSMutableArray array];
+        
         JPBlock stackBlock = ^{
             // [arr addObject:@"1"]; // 这是使用这个变量，所以不需要__block修饰
             
@@ -144,7 +149,7 @@ int main(int argc, const char * argv[]) {
              __Block_byref_a_0 *a = __cself->a; // bound by ref
              (a->__forwarding->a) = 31;
                  ↓↓↓
-             * 并不是直接赋值，而是由包装好的对象通过forwarding(指向自身的指针)再找到这个a来进行赋值
+             * 并不是直接赋值，而是由包装好的对象通过forwarding(指向自己的指针)再找到这个a来进行赋值
              * ==> a->__forwarding->a = 31;
              */
             
@@ -163,8 +168,8 @@ int main(int argc, const char * argv[]) {
         NSLog(@"在这里打断点验证一下");
         /*
          *【问题】：a被__block修饰后，访问a，
-            · 访问的是包装后的__block结构体对象？（__main_block_impl_0 里面的 __Block_byref_a_0 *a，stackBlockImpl->a）
-            · 还是这个包装后的__block结构体对象里面的那个a？（__Block_byref_a_0 里面的 int a，stackBlockImpl->a->a）
+            · 访问的是包装后的__block结构体对象？（`__Block_byref_a_0 *a`，可以通过`stackBlockImpl->a`查看它的地址）
+            · 还是这个包装后的__block结构体对象里面的那个a？（`__Block_byref_a_0 *a`里面的`int a`，可以通过`stackBlockImpl->a->a`查看它的地址）
          *
          * 打个断点可以查看：
          * 1.打印a的地址：po &a = 0x0000000100710b18
@@ -189,7 +194,7 @@ int main(int argc, const char * argv[]) {
          * 苹果表面上对其进行了【隐蔽】的效果，不公开内部实现，让开发者觉得就只是对a进行了操作
          * 实际上是包装到一个对象里面，再通过这个对象对a进行操作，类似【KVO】，便于开发时不显得复杂。
          *
-         *【答案】：访问a，访问的是包装后的__block结构体对象里面的那个a，确切值。(stackBlockImpl->a->a)
+         *【答案】：访问a，访问的是包装后的__block结构体对象里面的那个a，确切值。(a->__forwarding->a)
          */
         
         NSLog(@"====== before copy ======");
@@ -234,7 +239,7 @@ int main(int argc, const char * argv[]) {
         
         /*
          * 结论：__forwarding在Block从栈上拷贝到堆上后的指向
-         * stack a -> __forwarding -> stack a ==> stack a -> __forwarding -> malloc a
+         * stack a -> __forwarding -> stack a ===copy后===> stack a -> __forwarding -> malloc a
          *【栈上】的__block变量结构体的__forwarding会指向【堆上】的__block变量结构体，
          * 而堆上的__block变量结构体的__forwarding还是指向自己。
          * 由于修改变量都是通过a->__forwarding->a这样的形式进行操作，

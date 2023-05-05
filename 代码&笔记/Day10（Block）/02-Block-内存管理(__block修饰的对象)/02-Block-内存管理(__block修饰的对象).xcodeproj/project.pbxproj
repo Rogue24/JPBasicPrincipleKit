@@ -24,6 +24,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A1F93182A019026000EB64F /* __block的__forwarding指针的操作流程.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block的__forwarding指针的操作流程.jpg"; sourceTree = "<group>"; };
+		1A1F931A2A01B0A0000EB64F /* Block的内存管理.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Block的内存管理.jpg"; sourceTree = "<group>"; };
 		1A2C61D3236F48FF00E5998A /* 对象类型的__blcok变量和auto变量.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "对象类型的__blcok变量和auto变量.jpg"; sourceTree = "<group>"; };
 		1A2C61D6236FD17600E5998A /* __block的__forwarding指针.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "__block的__forwarding指针.jpg"; sourceTree = "<group>"; };
 		1A2C61D8236FD95500E5998A /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
@@ -71,11 +73,13 @@
 			children = (
 				1A7FB92A236EC45800C859DC /* __block修饰符.jpg */,
 				1A2C61D6236FD17600E5998A /* __block的__forwarding指针.jpg */,
+				1A1F93182A019026000EB64F /* __block的__forwarding指针的操作流程.jpg */,
 				1A7FB92B236EED6000C859DC /* __block的内存管理（引用）.jpg */,
 				1A7FB92C236EED6B00C859DC /* __block的内存管理（释放）.jpg */,
 				1A2C61D3236F48FF00E5998A /* 对象类型的__blcok变量和auto变量.jpg */,
 				1AEAE04D23E1FF7D00CBA2CF /* 对象类型的__blcok变量的内存管理.jpg */,
 				1A78376623FFB0F200AB6AAC /* Block和__block的内存管理.jpg */,
+				1A1F931A2A01B0A0000EB64F /* Block的内存管理.jpg */,
 				1A470817236E9FA7005E9641 /* main.m */,
 				1AB3B9C323702C2500A4836A /* main-arc-arm64.cpp */,
 				1AB3B9C22370226500A4836A /* main-mrc-arm64.cpp */,

@@ -10,6 +10,20 @@
 
 #warning 当前在MRC环境下！
 
+@interface Dog: NSObject
+@end
+@implementation Dog
+- (void)dealloc {
+    NSLog(@"死求");
+}
+@end
+
+@interface Person: NSObject
+@property (atomic, retain) Dog *dog;
+@end
+@implementation Person
+@end
+
 @interface ViewController ()
 @property (nonatomic, retain) NSMutableArray *dataArray;
 @end
@@ -18,6 +32,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Test~
+//    Person *p1 = [[Person alloc] init];
+//    Person *p2 = [[Person alloc] init];
+//
+//    Dog *d = [[Dog alloc] init];
+//    NSLog(@"count:%ld", d.retainCount);
+//
+//    p1.dog = d;
+//    NSLog(@"count:%ld", d.retainCount);
+//    
+//    p2.dog = p1.dog;
+//    NSLog(@"count:%ld", d.retainCount);
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        NSLog(@"count:%ld", d.retainCount);
+//        [d release];
+//    });
+//
+//    [p1.dog release];
+//    p1.dog = nil;
+//    NSLog(@"count:%ld", d.retainCount);
+//
+//    [p2.dog release];
+//    p2.dog = nil;
+//    NSLog(@"count:%ld", d.retainCount);
+//
+//    [p1 release];
+//    [p2 release];
     
     
     /*

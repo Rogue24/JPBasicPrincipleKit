@@ -10,6 +10,10 @@
 
 @implementation JPPerson
 
++ (void)hi {
+    NSLog(@"hi");
+}
+
 - (void)run {
     NSLog(@"I am running");
 }

@@ -3,7 +3,7 @@
 	- 在程序运行的时候，Runtime会将Category的数据，合并附加到类信息中（class对象、meta-class对象）
 	- PS1：Runtime将分类的方法放在原来的方法的前面，因此分类的方法优先级更高，所以如果有重名的方法，会优先调用分类的方法
 	- PS2：如果多个分类有重名的方法，【后】编译的分类的方法优先级更高，因为Runtime里面的方法列表附加操作的顺序是下标从大到小进行的，越往后越靠前
-	· PS3：在 Tatgets -> Build Phases -> Compile Sources 中可以控制编译顺序，编译是从上到下的顺序，想调用的优先级高的就往下放
+	- PS3：在 Tatgets -> Build Phases -> Compile Sources 中可以控制编译顺序，编译是从上到下的顺序，想调用的优先级高的就往下放
 
 2. Category和Class Extension的区别是什么？
 	- Class Extension在编译的时候，它的数据就已经包含在类信息中

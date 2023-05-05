@@ -11,7 +11,7 @@
 @implementation JPPerson (JPOther)
 
 - (void)eat {
-    NSLog(@"I am eatting");
+    NSLog(@"I am eatting --- JPOther");
 }
 
 - (void)sleep {

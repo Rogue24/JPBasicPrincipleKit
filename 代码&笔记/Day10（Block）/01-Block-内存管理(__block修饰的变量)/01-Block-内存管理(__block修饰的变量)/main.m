@@ -42,8 +42,8 @@ struct __main_block_desc_0 {
     size_t reserved;
     size_t Block_size;
     
-    void (*copy)(void); // void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
-    void (*dispose)(void); // void (*dispose)(struct __main_block_impl_0*);
+    void (*copy)(void); // 参数有警告，所以换成void，原本长这样：void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
+    void (*dispose)(void); // 参数有警告，所以换成void，原本长这样：void (*dispose)(struct __main_block_impl_0*);
 
 }; // __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
 
@@ -205,19 +205,28 @@ int main(int argc, const char * argv[]) {
          * 只要block捕获的变量是【对象类型的auto变量】
          * Block的结构体的Desc结构体里面就会多了copy和dispose这两个函数指针，用于进行内存管理操作的
          * 在编译的C++文件里面分别是：__main_block_copy_0 和 __main_block_dispose_0
-         *
-         *
+         */
+        
+        /*
          * 总结2：block的内存管理
          *
-         *【栈空间的block】
-         * 不会对捕获的auto变量产生强引用，【永远都是弱引用】
-         * <<毕竟自身随时被销毁，也就没必要强引用其他对象>>
-         * PS1：执行block时，捕获的auto变量有可能就已经被销毁了，就会造成坏内存访问的错误
-         * PS2：要后续执行block只能赋值给__strong指针，
-         * 不过在ARC环境下会自动进行copy操作升级为MallocBlock，因此block会保住auto变量的命，
-         * 所以，想证明执行block时捕获的auto变量会不会已经被销毁了就只能在MRC环境下进行。
+         * StackBlock【栈空间的block】
+         *  - 永远都不会对`捕获的auto变量`产生【强引用】！相当于只存储指向的地址值，并不会改变它的引用计数！
+         *  <<毕竟自身随时被销毁，也就没必要强引用其他对象>>
+         *  - 执行 StackBlock 时（在另一个作用域），`捕获的auto变量`有可能就已经被销毁了，就会造成坏内存访问的错误
+         * 所以 StackBlock 存活期间【不会】保住`对象类型的auto变量`的命
          *
-         * 当block从【栈空间】copy到【堆空间】，同时也会将捕获的对象拷贝过去：
+         * 证明：在另一个作用域执行 StackBlock 时，`捕获的auto变量`会不会已经被销毁？
+         *  - 只能在MRC环境下证明，因为想在另一个作用域执行block，只能赋值给__strong指针，
+         *  - 但在ARC环境下这操作会自动升级为MallocBlock，这样block就会保住auto变量的命。
+         * ==> 已证明：在另一个作用域执行 StackBlock 时，`捕获的auto变量`已经被销毁了，
+         * ==> 说明 StackBlock 存活期间【不会】保住`auto变量`的命。
+         *
+         *
+         * MallocBlock【堆空间的block】
+         *  - 拷贝到堆上时，会自动根据`捕获的auto变量`的修饰符形成【强引用】或者【弱引用】
+         *  - 从堆上移除时，会自动释放`捕获的auto变量`
+         *
          * 1.拷贝到堆上时：
          * block会调用Desc的copy函数，内部调用_Block_object_assign函数
          * 对【对象类型的auto变量】进行类似retain操作形成对应的强、弱引用
@@ -228,6 +237,8 @@ int main(int argc, const char * argv[]) {
          * block会调用Desc的dispose函数，内部调用_Block_object_dispose函数
          * 对【对象类型的auto变量】进行类似release操作
          * PS：引用计数为0时则销毁
+         *
+         * 所以 MallocBlock 存活期间【会】保住`对象类型的auto变量`的命
          */
     }
     return 0;

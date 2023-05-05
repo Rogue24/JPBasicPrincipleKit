@@ -21,9 +21,10 @@ int main(int argc, const char * argv[]) {
         /**
          * 散列表（哈希表）
          * 牺牲内存换取执行效率 ---> 空间换时间
-         * 初始或扩容会开辟一整块内存空间，里面都是NULL，预留着存放bucket_t
-         * 因为方法的sel地址是不确定的，但能确定的是sel & mask的索引值是在散列表范围之内
-         * 例如：散列表长度为10，mask则为9，因此&上这个mask得到的索引值绝对不会超过9（索引值有冲突就-1，散列表都放满了就扩容）
+         * 初始或扩容会开辟一整块内存空间，里面都是`NULL`，预留着存放`bucket_t`
+         * 因为方法的`sel`地址是不确定的，但能确定的是`sel & mask`得到的索引值是在散列表范围之内
+         * 例如：散列表长度为10，mask则为9，&上这个mask得到的索引值为`0~9`，绝对不会超过9
+         *  - 索引值有冲突就-1、散列表都放满了就扩容
          */
         
 #pragma mark 验证使用runtime进行方法交换后，会不会影响原先的缓存。
@@ -36,7 +37,7 @@ int main(int argc, const char * argv[]) {
         mj_objc_class *mj_dogCls = (__bridge mj_objc_class *)(dog.class);
         int dog_mask = mj_dogCls->cache._mask; // 散列表长度 - 1
         int dog_length = dog_mask ? (dog_mask + 1) : 0; // 散列表长度
-        NSLog(@"一开始：dog_length = %d", dog_length); // 一开始长度是4，临界点为 4 / 4 * 3 = 3
+        NSLog(@"一开始：dog_length = %d，临界点为 4 / 4 * 3 = 3", dog_length); // 一开始长度是4，临界点为 4 / 4 * 3 = 3
         
         JPDog *d = [[JPDog alloc] init]; // 1
         mj_objc_class *mj_dCls = (__bridge mj_objc_class *)(d.class);
@@ -57,13 +58,13 @@ int main(int argc, const char * argv[]) {
         
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
-        NSLog(@"第一次扩容后：dog_length = %d", dog_length);
+        NSLog(@"第一次扩容后：dog_length = %d，新临界点为 8 / 4 * 3 = 6", dog_length); // 8
         
 //        [d test1]; 2
 //        [d test2]; 3
         d_mask = mj_dCls->cache._mask;
         d_length = d_mask ? (d_mask + 1) : 0;
-        NSLog(@"子类扩容了，如果父类也缓存的话，那应该也会扩容，看看：d_length = %d", d_length);
+        NSLog(@"子类扩容了，如果父类也缓存的话，那应该也会扩容，看看：d_length = %d", d_length); // 4
         NSLog(@"还是一样，说明子类调用父类的方法，父类不会将其放入缓存。");
         
         NSLog(@"父类交换方法");
@@ -72,7 +73,7 @@ int main(int argc, const char * argv[]) {
         method_exchangeImplementations(originMethod, exchangeMethod);
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
-        NSLog(@"交换方法后：dog_length = %d", dog_length);
+        NSLog(@"交换方法后：dog_length = %d", dog_length); // 8
         
         [dog eat1]; // 3？ 1
         [dog eat2]; // 4？ 2
@@ -80,24 +81,24 @@ int main(int argc, const char * argv[]) {
         [dog eat4]; // 6？ 4
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
-        NSLog(@"如果没有清空缓存（或者是重新放入缓存），此时数量应该达到临界点，长度就会变为16，看看：dog_length = %d", dog_length);
+        NSLog(@"如果没有清空缓存（或者是重新放入缓存），此时数量应该达到临界点，长度就会变为16，看看：dog_length = %d", dog_length); // 8
         NSLog(@"然而实际上并没有出现第二次扩容，说明（自己类或父类）交换方法后，所有缓存都被清空了");
         
         [dog test1]; // 5
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
-        NSLog(@"此时数量应该为5，还没到临界点，长度还是8，看看：dog_length = %d", dog_length);
+        NSLog(@"此时数量应该为5，还没到临界点，长度还是8，看看：dog_length = %d", dog_length); // 8
         
         [dog test2]; // 6
         dog_mask = mj_dogCls->cache._mask;
         dog_length = dog_mask ? (dog_mask + 1) : 0;
-        NSLog(@"这时候应该达到临界点了，会进行第二次扩容，长度为16，看看：dog_length = %d", dog_length);
+        NSLog(@"这时候应该达到临界点了，会进行第二次扩容，长度为16，看看：dog_length = %d", dog_length); // 16
         NSLog(@"的确扩容了，说明runtime交换方法会清空方法缓存");
         
         d_mask = mj_dCls->cache._mask;
         d_length = d_mask ? (d_mask + 1) : 0;
-        NSLog(@"交换方法后的父类：d_length = %d", d_length);
-        NSLog(@"交换方法后父类扩容了，说明runtime交换方法，即便这2个方法从来没调用过，交换过程也会进行是否需要扩容的操作");
+        NSLog(@"交换方法后的父类：d_length = %d", d_length); // 8
+        NSLog(@"交换方法后父类扩容了，说明runtime交换方法，即便这2个方法从来没调用过，交换过程也会进行是否需要扩容的操作"); // 1 + 2 = 3，达到一开始的临界点，扩容！
         
         NSLog(@"不过缓存也是被清空的，不信看看这样过后扩容没？");
         [d eat1]; // 3？ 1
@@ -106,13 +107,13 @@ int main(int argc, const char * argv[]) {
         [d eat4]; // 6？ 4
         d_mask = mj_dCls->cache._mask;
         d_length = d_mask ? (d_mask + 1) : 0;
-        NSLog(@"没扩容哦：d_length = %d", d_length);
+        NSLog(@"没扩容哦：d_length = %d", d_length); // 8
         
         [d test1]; // 5？ 3
         [d test2]; // 6？ 4
         d_mask = mj_dCls->cache._mask;
         d_length = d_mask ? (d_mask + 1) : 0;
-        NSLog(@"这样就扩容了吧：d_length = %d", d_length);
+        NSLog(@"这样就扩容了吧：d_length = %d", d_length); // 16
         
         NSLog(@"这次验证说明了：");
         NSLog(@"1.子类调用父类的方法，方法只会放入子类的缓存，不会放入父类的缓存，不影响父类的缓存");
@@ -120,9 +121,10 @@ int main(int argc, const char * argv[]) {
         NSLog(@"PS：也就是说，如果这2个方法没缓存过，那么如果当前的缓存数量加2达到了临界点，那就会扩容");
         NSLog(@"3.runtime交换方法后，会【清空】方法缓存（包括其子类的）");
         NSLog(@"综上所述，不用担心调用过的方法其imp被交换后，再调用会不会调用回原本方法，不会有问题的。");
+        NSLog(@"=========================================================================");
         
-        
-#pragma mark 仿runtime的方法缓存过程
+#pragma mark 模拟runtime的方法缓存过程
+        NSLog(@"模拟runtime的方法缓存过程");
         
         Class perCls = [JPPerson class];
         mj_objc_class *mj_perCls = (__bridge mj_objc_class *)perCls;
@@ -149,10 +151,10 @@ int main(int argc, const char * argv[]) {
                     continue;
                 }
                 
-                // 存之前会先判断，如果【已经缓存的方法数量 + 1】超过【散列表长度】的【四分之三】，就会进行扩容
+                // 存之前会先判断，如果【已经缓存的方法数量 + 1】超过【散列表长度】的【四分之三】，就会先进行扩容
                 if (mj_perCls->cache._mask > mask) {
                     // 需要扩容
-                    NSLog(@"(length / 4 * 3 = %d) < (currentCount + 1 = %zd) ==> 扩容", length / 4 * 3, occupiedArr.count + 1);
+                    NSLog(@"(currentCount + 1 = %zd) > (length / 4 * 3 = %d) ==> 扩容", occupiedArr.count + 1, length / 4 * 3);
                     mask = mj_perCls->cache._mask;
                     length = mask + 1;
                     
@@ -215,7 +217,7 @@ int main(int argc, const char * argv[]) {
                         begin = cacheIndex; // 跳出循环
                     } else {
                         cacheIndex = cacheIndex ? (cacheIndex - 1) : mask; // 这里已经有缓存，索引冲突 ==> 减1往上挪1位
-                        begin = cacheIndex ? (cacheIndex - 1) : mask; // 继续循环
+                        begin = cacheIndex ? (cacheIndex - 1) : mask; // 继续循环，或者 begin == cacheIndex，跳出循环
                     }
                 } while (cacheIndex != begin); // YES->继续，NO->跳出
                 

@@ -14,12 +14,7 @@
 		1A18721E2379504900B35389 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A18721D2379504900B35389 /* Assets.xcassets */; };
 		1A1872212379504900B35389 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A18721F2379504900B35389 /* LaunchScreen.storyboard */; };
 		1A1872242379504900B35389 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A1872232379504900B35389 /* main.mm */; };
-		1A1872322379506F00B35389 /* class和meta-class的结构图.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A18722A2379506C00B35389 /* class和meta-class的结构图.jpg */; };
-		1A1872332379506F00B35389 /* class_ro_t的结构.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A18722B2379506C00B35389 /* class_ro_t的结构.jpg */; };
-		1A1872342379506F00B35389 /* class_rw_t的结构.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A18722C2379506D00B35389 /* class_rw_t的结构.jpg */; };
-		1A1872352379506F00B35389 /* method_t的结构.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A18722D2379506D00B35389 /* method_t的结构.jpg */; };
 		1A1872362379506F00B35389 /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A18722F2379506E00B35389 /* JPPerson.m */; };
-		1A1872372379506F00B35389 /* TypeEncoding对应表.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A1872302379506F00B35389 /* TypeEncoding对应表.jpg */; };
 		1AA955C324DA558C00411773 /* JPSon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA955C224DA558C00411773 /* JPSon.m */; };
 		1AA955C624DA566D00411773 /* NSObject+JPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA955C524DA566D00411773 /* NSObject+JPExtension.m */; };
 /* End PBXBuildFile section */
@@ -165,13 +160,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A1872322379506F00B35389 /* class和meta-class的结构图.jpg in Resources */,
-				1A1872372379506F00B35389 /* TypeEncoding对应表.jpg in Resources */,
-				1A1872332379506F00B35389 /* class_ro_t的结构.jpg in Resources */,
 				1A1872212379504900B35389 /* LaunchScreen.storyboard in Resources */,
 				1A18721E2379504900B35389 /* Assets.xcassets in Resources */,
-				1A1872342379506F00B35389 /* class_rw_t的结构.jpg in Resources */,
-				1A1872352379506F00B35389 /* method_t的结构.jpg in Resources */,
 				1A18721C2379504900B35389 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

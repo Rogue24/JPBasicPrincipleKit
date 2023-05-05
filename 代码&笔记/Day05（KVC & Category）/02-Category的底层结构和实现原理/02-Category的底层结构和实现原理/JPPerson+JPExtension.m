@@ -10,12 +10,13 @@
 
 @implementation JPPerson (JPExtension)
 
+// 可以重写主类的方法并且【优先】调用 --- ⚠️不建议这么做⚠️
 + (void)hi {
     NSLog(@"hi --- JPExtension");
 }
 
 - (void)fuck {
-    NSLog(@"I am fucking");
+    NSLog(@"I am fucking --- JPExtension");
 }
 
 - (void)sleep {
@@ -75,7 +76,7 @@
  ↓
  remethodizeClass ===> 重新组织类对象/元类对象的方法
  ↓
- attachCategories ===> 将分类信息附加到类对象/元类对象里面去（把分类的方法是合并进去）
+ attachCategories ===> 将分类信息附加到类对象/元类对象里面去（把分类的方法合并进去）
  ↓
  attachCategories函数实现的源码：
  // 参数cls ===> 目标类对象：[JPPerson class]
@@ -143,16 +144,16 @@
  
      // 通过attachLists函数实现【附加操作】
  
-     // 将所有分类的实例方法，附加到类对象的方法列表中
+     // 将所有分类的实例方法，附加到类对象的方法列表中 ---【attachLists】
      rw->methods.attachLists(mlists, mcount);
      free(mlists);
      if (flush_caches  &&  mcount > 0) flushCaches(cls);
 
-     // 将所有分类的属性，附加到类对象的属性列表中
+     // 将所有分类的属性，附加到类对象的属性列表中 ---【attachLists】
      rw->properties.attachLists(proplists, propcount);
      free(proplists);
 
-     // 将所有分类的协议，附加到类对象的协议列表中
+     // 将所有分类的协议，附加到类对象的协议列表中 ---【attachLists】
      rw->protocols.attachLists(protolists, protocount);
      free(protolists);
  }
@@ -173,23 +174,24 @@
          array()->count = newCount;
  
          // 2.将【原来的方法列表】挪到后面
-         // array()->lists：原来的方法列表
+         // array()->lists：原来的方法列表（是个指针，指向原来的方法列表所在的位置）
          memmove(array()->lists + addedCount,
                  array()->lists,
                  oldCount * sizeof(array()->lists[0]));
          // 因为这是一块连续的内存，所以往后挪的区域一般都会有重叠的部分，得用memmove防止数据被覆盖
          // 除非挪的区域比这部分长，就不会有重叠部分，不过基本没有这种情况，有的话还得了啊
  
-         // 3.将【所有分类的方法列表】拷贝到【原来的方法列表挪动前的位置】
+         // 3.将【所有分类的方法列表】拷贝到【原来的方法列表】的位置（挪动前的位置）
+         // array()->lists：原来的方法列表（是个指针，上面已经将原来的方法列表挪到后面了，所以此时指向的是挪动前的位置）
          // addedLists：所有分类的方法列表（二维数组）
          memcpy(array()->lists, addedLists,
                 addedCount * sizeof(array()->lists[0]));
          // 这个二维数组跟这块挪出来的内存空间并没有重叠的部分，使用memcpy拷贝（memcpy效率比memmove高）
          
-         // 由此可见，由于分类的方法排在前面，所以分类的方法优先级更高，如果有重名的方法，会优先调用分类的方法
+         // 由此可见，由于分类的方法排在前面，所以分类的方法【优先级】更高，如果有重名的方法，会优先调用分类的方法
          // 如果多个分类有重名的方法，【后】编译的分类的方法优先级更高，因为循环是while (i--)，是从最后编译的分类开始插入方法（倒序），例如最后编译的那个分类是放在这个二维数组第一位，然后把原来方法挪后，再把这一整个二维数组丢在前面。所以越晚编译的分类，其方法优先级越靠前。
          // PS：如何控制编译顺序？
-         // 在 Tatgets -> Build Phases -> Compile Sources 中控制，编译是从上到下的顺序，想调用的优先级高的，就调整编译顺序，往下放。
+         // 在 Tatgets -> Build Phases -> Compile Sources 中控制，编译是从上到下的顺序，越靠下优先级越高，所以想优先调用的，就调整编译顺序，把文件往下放。
      }
      else if (!list  &&  addedCount == 1) {
          // 0 lists -> 1 list
@@ -211,9 +213,9 @@
  * memmove和memcpy都是拷贝，区别是memmove会判断方向
  * 如果有重叠的区域那么memcpy就会有问题
  * 例：初始为：1234 --将12挪到中间--> 最终是：1124，这里重叠区域为第二和第三位
-    - 如果是memcpy，固定会先从低地址开始拷贝，所以会从第一位的1开始，拷贝至第二位，第一步就变成：1134，这时原本第二位的2变成1，接着将第二位的1拷贝至第三位，最后就变成：1114（坑爹啊）
-    - 如果是memmove，会先判断往哪边挪，例如现在先判断了是往高地址挪，就会先从第二位的2开始，拷贝至第三位，第一步变成：1224，接着将第一位的1拷贝至第二位，最后变成：1124（达成目标）
- * 因此，有重叠的地方就用memmove，判断方向防止被覆盖；没有重叠的地方使用memcpy，少了些判断效率就会快点
+    - 如果是memcpy，固定会先从【低地址】开始拷贝。所以会从第一位的1开始，拷贝至第二位，第一步就变成：1134，这时原本第二位的2变成1，接着将第二位的1拷贝至第三位，最后就变成：1114（坑爹啊）
+    - 如果是memmove，会先根据目标地址【判断】往哪边挪，往高地址挪就先从高地址开始拷贝，往低地址挪就先从低地址开始拷贝。例如现在先判断了是往高地址挪，就会先从第二位的2开始，拷贝至第三位，第一步变成：1224，接着将第一位的1拷贝至第二位，最后变成：1124（达成目标）
+ * 因此，有重叠的地方就用memmove，判断方向防止被覆盖；没有重叠的地方使用memcpy，少了些判断效率就会快点。
  */
 
 @end

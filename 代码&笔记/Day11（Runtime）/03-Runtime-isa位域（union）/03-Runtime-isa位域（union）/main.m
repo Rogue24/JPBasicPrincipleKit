@@ -29,8 +29,6 @@ int main(int argc, const char * argv[]) {
         NSLog(@"per isTall? %d", per.isTall);
         NSLog(@"per isRich? %d", per.isRich);
         NSLog(@"per isHandsome? %d", per.isHandsome);
-        
-        
     }
     return 0;
 }

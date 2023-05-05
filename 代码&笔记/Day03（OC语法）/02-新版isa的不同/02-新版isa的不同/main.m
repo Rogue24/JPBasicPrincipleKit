@@ -100,15 +100,17 @@ int main(int argc, const char * argv[]) {
         NSLog(@"JPPerson的元类对象 %p", perMCls);
         
         //【3】superclass指针【不需要】进行位运算，直接指向父类的类对象/元类对象
-        /**
-         * 如何查看类对象和元类对象的isa和superclass：
-         * 因为类对象和元类对象都是struct objc_class，不能直接查看isa和superclass
-         * 自定义一个差不多的struct，转换过来查看
-         */
         struct jp_objc_class *jp_stuCls = (__bridge struct jp_objc_class *)([JPStudent class]);
         // ↓↓↓
         NSLog(@"JPStudent的superclass存放的地址 %p", jp_stuCls->superclass);
         NSLog(@"看看是不是跟JPPerson的类对象的地址一样？%p", perCls);
+        
+        /**
+         *【类对象无法直接获取isa和superclass，需要强制转型获取】
+         * 如何查看类对象和元类对象的isa和superclass：
+         * 因为类对象和元类对象都是struct objc_class，不能直接查看isa和superclass，
+         * 自定义一个差不多的struct（jp_objc_class），强制转换后打断点查看。
+         */
     }
     return 0;
 }

@@ -35,12 +35,12 @@ struct __main_block_impl_0 {
   struct __main_block_desc_0* Desc;
   int money; // 外部参数
     
-    // 创建block的函数：
-    // void *fp：就是__main_block_impl_0的地址，即将来block要调用的函数的地址
+  // 创建block的函数：
+  // void *fp ==> 就是__main_block_func_0的地址，是将来block要调用的函数的地址
 //  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _money, int flags=0) : money(_money) {
 //    impl.isa = &_NSConcreteStackBlock;
 //    impl.Flags = flags;
-//    impl.FuncPtr = fp; --> 将函数的地址保存到impl的FuncPtr里面
+//    impl.FuncPtr = fp; --> 将函数的地址保存到impl的FuncPtr里面（__main_block_func_0的地址）
 //    Desc = desc;
 //  }
 };
@@ -49,7 +49,7 @@ struct __main_block_impl_0 {
 /*
 
 // 创建block
-// __main_block_impl_0：将要执行的代码封装好的函数
+// __main_block_func_0 ==> 将要执行的代码封装好的函数
 void (*jpBlock)(int, int) = ((void (*)(int, int))&__main_block_impl_0((void *)__main_block_func_0, &__main_block_desc_0_DATA, money));
 
 // 调用block
@@ -59,6 +59,8 @@ void (*jpBlock)(int, int) = ((void (*)(int, int))&__main_block_impl_0((void *)__
 
 /*
 // 将执行的代码封装成这个函数
+// __main_block_impl_0 ==> 持有这个函数地址的block对象：主要是为了在函数中能获取这个block的成员变量（函数调用环境）
+// PS：block对象持有的成员变量就是捕获的【外部参数】
 static void __main_block_func_0(struct __main_block_impl_0 *__cself, int a, int b) {
     int money = __cself->money; // bound by copy
     NSLog((NSString *)&__NSConstantStringImpl__var_folders_d5_lk44v2y52fb93pytpn58wc800000gn_T_main_51a537_mi_0, a);
@@ -90,9 +92,14 @@ int main(int argc, const char * argv[]) {
         // 在控制台通过打印”p blockStruct->impl.FuncPtr“lldb指令
         // 查看到impl.FuncPtr的地址为0x0000000100000ea0
         
+        money += 100; // 不会影响已被block捕获的money
+        NSLog(@"111 money is %d", money);
+        
         jpBlock(100, 200);
         
         // *【1】跟【2】的地址是一致，证明了函数地址的确是存放在block里面的impl.FuncPtr。*
+        
+        NSLog(@"222 money is %d", money);
     }
     return 0;
 }

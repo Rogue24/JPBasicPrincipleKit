@@ -9,6 +9,7 @@
 #import "JPCat.h"
 
 @implementation JPCat
+
 + (void)load {
     NSLog(@"load --- JPCat");
 }

@@ -111,12 +111,18 @@ int main(int argc, char * argv[]) {
         // C++泛型语法：list_array_tt<method_t, method_list_t>，上面那3个列表都使用这种泛型
            * 例如：method_array_t类型的二维数组里面放的每一个元素都是method_list_t类型的一维数组；
            * method_list_t类型的一维数组里面放的每一个元素都是method_t类型的结构体（对方法\函数的封装）。
+           * 类似酱紫的结构：
+             list_array_tt = [
+                method_list_t = [method_t1, method_t2, method_t3],
+                method_list_t = [method_t1, method_t2, method_t3],
+                method_list_t = [method_t1, method_t2, method_t3],
+             ]
         ↓↓↓
-        // 一开始是没有rw的，bits指向的是ro
-        // 初始化时创建rw
-        // 将ro里面的初始信息、其他分类的信息列表作为元素分别合并到rw里面这3个二维数组对应的那个
+        // 一开始是没有rw的，bits指向的是ro，
+        // 初始化时创建rw，
+        // 将ro里面的初始信息、其他分类的信息列表作为元素，分别合并到rw里面那3个二维数组对应的那个，
         // rw的ro指向ro，
-        // 然后bits改成指向rw
+        // 然后bits改成指向rw。
      
         Class firstSubclass;
         Class nextSiblingClass;
@@ -168,7 +174,7 @@ int main(int argc, char * argv[]) {
                                ↓↓          ↓        ↓         ↓      ↓
                                24    =     8   +    8    +    4   +  4  ==> 所有参数总共所占字节数
                                            ↓        ↓         ↓      ↓
-                                           0        8         16     20 ==> 各个参数在函数首地址后第几个字节开始的位置
+                                           0        8         16     20 ==> 各个参数在函数的【首地址】起第几个字节开始的位置
  
          MethodListIMP imp; // 指向函数的指针（函数地址）
                             //【using MethodListIMP = IMP】==> IMP代表函数的具体实现

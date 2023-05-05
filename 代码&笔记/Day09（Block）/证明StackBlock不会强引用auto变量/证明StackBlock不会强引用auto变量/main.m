@@ -20,13 +20,14 @@ int main(int argc, const char * argv[]) {
             JPPerson *per = [[JPPerson alloc] init];
             
             block = ^{
-                NSLog(@"%@", per);
+                NSLog(@"hi, %@", per);
             };
-            
             block = [block copy];
             
             [per release];
         }
+        
+        NSLog(@"%@", [block class]);
         
         block();
         [block release];
@@ -35,18 +36,19 @@ int main(int argc, const char * argv[]) {
         
         /*
          block不调用copy的情况：
-         2020-01-30 02:33:17.500656+0800 xxx[6016:272801] Hello, World!
-         2020-01-30 02:33:17.501100+0800 xxx[6016:272801] -[JPPerson dealloc]
-         2020-01-30 02:33:18.748698+0800 xxx[6016:272801] <JPPerson: 0x103201c10>
-         2020-01-30 02:33:20.055453+0800 xxx[6016:272801] GoodBye, World!
+         2023-05-02 02:25:23.967466+0800 xxx[56526:15380258] Hello, World!
+         2023-05-02 02:25:23.968630+0800 xxx[56526:15380258] -[JPPerson dealloc]
+         2023-05-02 02:25:23.968706+0800 xxx[56526:15380258] __NSStackBlock__
+         Thread 1: EXC_BAD_ACCESS (code=1, address=0x3eaddeac0018)
          */
         
         /*
          block调用了copy的情况：
-         2020-01-30 02:33:40.887758+0800 xxx[6028:273017] Hello, World!
-         2020-01-30 02:33:42.124598+0800 xxx[6028:273017] <JPPerson: 0x102405890>
-         2020-01-30 02:33:42.124800+0800 xxx[6028:273017] -[JPPerson dealloc]
-         2020-01-30 02:33:43.774439+0800 xxx[6028:273017] GoodBye, World!
+         2023-05-02 02:26:20.693644+0800 xxx[56553:15382056] Hello, World!
+         2023-05-02 02:26:20.694615+0800 xxx[56553:15382056] __NSMallocBlock__
+         2023-05-02 02:26:20.694811+0800 xxx[56553:15382056] hi, <JPPerson: 0x600000018000>
+         2023-05-02 02:26:20.694857+0800 xxx[56553:15382056] -[JPPerson dealloc]
+         2023-05-02 02:26:20.694884+0800 xxx[56553:15382056] GoodBye, World!
          */
     }
     return 0;

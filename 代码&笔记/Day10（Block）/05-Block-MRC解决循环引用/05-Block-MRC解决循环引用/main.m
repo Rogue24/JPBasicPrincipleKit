@@ -10,6 +10,7 @@
 #import "JPPerson.h"
 
 #warning 当前在MRC环境下！
+// 关闭ARC：Targets --> Build Settings --> 搜索automatic reference --> 设置为NO
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -64,6 +65,7 @@ int main(int argc, const char * argv[]) {
         [blockPer release];
         // 这里要多次调用才能测出问题，因为释放对象需要一些时间，不然只调用几次期间这个对象是还没完全释放掉的，还能访问
         for (NSInteger i = 0; i < 105; i++) {
+            NSLog(@"第%zd次执行per2.block()", i);
             per2.block();
         }
         //【防止错误】：确定不再使用后才release，否则使用__block也是会造成坏内存访问

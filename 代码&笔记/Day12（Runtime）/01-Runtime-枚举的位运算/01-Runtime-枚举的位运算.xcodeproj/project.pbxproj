@@ -14,7 +14,6 @@
 		1A5105912375618900EC9F3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A5105902375618900EC9F3A /* Assets.xcassets */; };
 		1A5105942375618900EC9F3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5105922375618900EC9F3A /* LaunchScreen.storyboard */; };
 		1A5105972375618900EC9F3A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5105962375618900EC9F3A /* main.m */; };
-		1A51059E2375658200EC9F3A /* isa的位域.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A51059D2375658200EC9F3A /* isa的位域.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,7 +135,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A51059E2375658200EC9F3A /* isa的位域.jpg in Resources */,
 				1A5105942375618900EC9F3A /* LaunchScreen.storyboard in Resources */,
 				1A5105912375618900EC9F3A /* Assets.xcassets in Resources */,
 				1A51058F2375618800EC9F3A /* Main.storyboard in Resources */,

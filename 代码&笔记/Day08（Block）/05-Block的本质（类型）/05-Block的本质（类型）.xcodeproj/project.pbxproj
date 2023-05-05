@@ -24,6 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A1F92D229FFFCA7000EB64F /* Block的类型.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Block的类型.jpg"; sourceTree = "<group>"; };
 		1A805A9D236AEFB200AFA58A /* Block的变量捕获.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Block的变量捕获.jpg"; sourceTree = "<group>"; };
 		1A805A9E236B03B900AFA58A /* JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPerson.h; sourceTree = "<group>"; };
 		1A805A9F236B03B900AFA58A /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
@@ -67,6 +68,7 @@
 				1AA7FF0523698B8700CB3B1F /* Block的本质.jpg */,
 				1AA7FF0623698B9400CB3B1F /* Block的结构.jpg */,
 				1A805A9D236AEFB200AFA58A /* Block的变量捕获.jpg */,
+				1A1F92D229FFFCA7000EB64F /* Block的类型.jpg */,
 				1AA7FEFD236970E800CB3B1F /* main.m */,
 				1A805A9E236B03B900AFA58A /* JPPerson.h */,
 				1A805A9F236B03B900AFA58A /* JPPerson.m */,

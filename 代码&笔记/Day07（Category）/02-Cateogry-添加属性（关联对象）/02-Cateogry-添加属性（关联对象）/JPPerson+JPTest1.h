@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) int weight;
 @property (nonatomic, assign) int height;
+@property (nonatomic, assign, class) int money;
 @end
 
 NS_ASSUME_NONNULL_END

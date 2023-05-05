@@ -17,4 +17,8 @@
     NSLog(@"load --- JPStudent+JPTest1");
 }
 
++ (void)test {
+    [super help];
+}
+
 @end

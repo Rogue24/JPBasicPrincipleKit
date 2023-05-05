@@ -62,17 +62,20 @@
     
     per1MCls = object_getClass(per1Cls);
     per2MCls = object_getClass(per2Cls);
-    NSLog(@"元类对象：per1：%@ --- %p --- %d， per2：%@ --- %p", per1MCls, per1MCls, class_isMetaClass(per1MCls), per2MCls, per2MCls);
+    NSLog(@"元类对象：per1：%@ --- %p --- %d， per2：%@ --- %p --- %d", per1MCls, per1MCls, class_isMetaClass(per1MCls), per2MCls, per2MCls, class_isMetaClass(per2MCls));
     // 可以看到，添加KVO之后类对象的isa已经指向一个新的元类对象（NSKVONotifying_JPPerson）
     // 这应该也是一个继承JPPerson元类对象的子类（类对象和元类对象名字是一样的）
     
     // 打个断点：输入“p (IMP)方法地址”以查看方法的信息
+    NSLog(@"给你打断点用滴");
     
     // 查看per1IMP方法的两个地址
     // 第一个：(IMP) $0 = 0x000000010d93bd60 (01-KVO`-[JPPerson setAge:] at JPPerson.m:13)
     // 第二个：(IMP) $1 = 0x00007fff257223da (Foundation`_NSSetIntValueAndNotify)
-    // 可以看出两个per1IMP的地址在添加KVO之后就分别是不同的类的方法了
+    // ****** 可以看出两个per1IMP的地址在添加KVO之后就分别是不同的类的方法了 ******
+    
     // _NSSetIntValueAndNotify：没有加减号也没有方括号，这是个C语言函数。
+    // KVO的具体实现就在`_NSSetIntValueAndNotify`这个函数里，可以去看【NSKVONotifying_JPPerson.m】里面的伪代码。
 }
 
 - (void)dealloc {
@@ -112,8 +115,8 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    NSLog(@"oldValue --- %@", change[NSKeyValueChangeOldKey]);
-    NSLog(@"newValue --- %@", change[NSKeyValueChangeNewKey]);
+    NSLog(@"KVO代理方法 oldValue --- %@", change[NSKeyValueChangeOldKey]);
+    NSLog(@"KVO代理方法 newValue --- %@", change[NSKeyValueChangeNewKey]);
 }
 
 @end

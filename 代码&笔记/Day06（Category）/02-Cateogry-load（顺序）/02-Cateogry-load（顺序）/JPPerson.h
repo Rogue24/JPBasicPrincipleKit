@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JPPerson : NSObject
 - (void)sleep;
++ (void)help;
 @end
 
 NS_ASSUME_NONNULL_END

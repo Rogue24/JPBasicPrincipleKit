@@ -164,16 +164,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AD2BF692363F4760006B201 /* JPStudent+JPTest1.m in Sources */,
 				1AD2BF6C2363F4810006B201 /* JPStudent+JPTest2.m in Sources */,
-				1AD2BF602363F1350006B201 /* JPPerson+JPTest1.m in Sources */,
 				1AD2BF632363F1440006B201 /* JPPerson+JPTest2.m in Sources */,
+				1AD2BF602363F1350006B201 /* JPPerson+JPTest1.m in Sources */,
+				1AD2BF692363F4760006B201 /* JPStudent+JPTest1.m in Sources */,
 				1AADB8CA2364589F009CB10A /* JPCat.m in Sources */,
+				1AD2BF662363F1D10006B201 /* JPStudent.m in Sources */,
+				1AD2BF6F23641F2D0006B201 /* NSObject+JPExtension.m in Sources */,
 				1AD2BF5D2363F1210006B201 /* JPPerson.m in Sources */,
 				1AADB8C723645896009CB10A /* JPDog.m in Sources */,
 				1AD2BF522363F0E80006B201 /* main.m in Sources */,
-				1AD2BF662363F1D10006B201 /* JPStudent.m in Sources */,
-				1AD2BF6F23641F2D0006B201 /* NSObject+JPExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

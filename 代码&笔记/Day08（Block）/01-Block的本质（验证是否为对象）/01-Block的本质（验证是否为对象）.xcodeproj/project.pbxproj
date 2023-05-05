@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A257EA02369C22B00064A5F /* main-arm64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A257E9C2369C22B00064A5F /* main-arm64.cpp */; };
 		1A257EA12369C22B00064A5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A257E9D2369C22B00064A5F /* main.m */; };
 /* End PBXBuildFile section */
 
@@ -127,7 +126,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A257EA12369C22B00064A5F /* main.m in Sources */,
-				1A257EA02369C22B00064A5F /* main-arm64.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

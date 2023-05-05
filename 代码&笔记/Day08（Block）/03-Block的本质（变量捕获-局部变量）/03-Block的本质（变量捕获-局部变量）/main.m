@@ -36,7 +36,7 @@ struct __test_block_impl_0 {
 //      impl.FuncPtr = fp;
 //      Desc = desc;
 //    }
-    // money(_money)、car(_car)：C++语法，想当于自动将_xxx这个值赋值给xxx这个成员 ==> xxx = _xxx;
+    // money(_money)、car(_car)：C++语法，想当于自动将传进来的_xxx这个参数赋值给xxx这个成员 ==> xxx = _xxx;
     // int money --> 值传递
     // int *car --> 指针传递
 };
@@ -57,22 +57,29 @@ void __test_block_func_0(struct __test_block_impl_0 *__cself) {
 
 void (^jpBlock)(void);
 
-void test() {
+void test(void) {
     
-    // 局部变量默认就自动定义为auto，所以不用自己加上auto关键字
-    // auto：自动变量，离开作用域就销毁
+    // 局部变量的类型：
+    // - auto：自动变量，离开作用域就销毁
+    // - static：静态局部变量，会一直保存在内存中
+    // - register：使用寄存器存储变量，基本不会用，忽略
+    
+    // 如果没加`static`关键字，默认就自动定义为`auto`（不用自己加`auto`关键字）
     int money = 30; // -> auto int money = 30;
     
-    // static：静态局部变量，会一直保存在内存中
     static int car = 100;
     
     jpBlock = ^{
+        // block的变量捕获（capture）：block内部会专门新增一个成员来存储外部局部变量的值/指针。
+        
         /*
-         * 只要是局部变量，block要访问这个局部变量，都会将之捕获进来
-         * block将money的值捕获进来（capture）--> 值传递
-            - money是自动变量（auto），离开作用域就销毁，之后就无法访问（不然就会坏内存访问，即野指针），所以auto进行的是值传递，捕获【当前值】
-         * block将car的指针捕获进来（capture）--> 指针传递
-            - car是静态变量（static），会一直保存在内存中，有地址就能一直访问（不然就只能在作用域内访问），所以static进行的是指针传递，捕获地址随时去访问【最新值】
+         * 只要是【局部变量】，`block`要访问这个局部变量，都会将之捕获进来：
+         * `block`将`money`的【值】捕获进来（capture）--> 值传递
+            - money是【自动变量（auto）】，离开作用域就销毁，之后就无法访问（不然就会坏内存访问，即野指针），
+            - 所以auto进行的是值传递，捕获【当前值】。
+         * `block`将`car`的【指针】捕获进来（capture）--> 指针传递
+            - car是【静态变量（static）】，会一直保存在内存中，有地址就能一直访问（不然就只能在作用域内访问），
+            - 所以static进行的是指针传递，捕获地址随时去访问【最新值】。
          */
         NSLog(@"Hello, Block! %d, car %d", money, car);
     };
@@ -83,7 +90,7 @@ void test() {
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        test(); // 这里之后money就会销毁，car还在内存中
+        test(); // 这句之后，test方法里面的`money`变量的内存就会销毁，而`car`变量还在内存中
         jpBlock();
     }
     return 0;

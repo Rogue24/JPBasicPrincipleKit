@@ -64,43 +64,55 @@
 
 - (void)setTall:(BOOL)tall {
     if (tall) {
+        // 或上 0b00000001，保证只有第一位变为1，不影响其他位
         _tallRichHandsome |= JPTallMask;
     } else {
+        // 与上 0b11111110，保证只有第一位变为0，不影响其他位
         _tallRichHandsome &= ~JPTallMask;
     }
 }
+
 - (void)setRich:(BOOL)rich {
     if (rich) {
+        // 或上 0b00000010，保证只有第二位变为1，不影响其他位
         _tallRichHandsome |= JPRichMask;
     } else {
+        // 与上 0b11111101，保证只有第二位变为0，不影响其他位
         _tallRichHandsome &= ~JPRichMask;
     }
 }
+
 - (void)setHandsome:(BOOL)handsome {
     if (handsome) {
+        // 或上 0b00000100，保证只有第三位变为1，不影响其他位
         _tallRichHandsome |= JPHandsomeMask;
     } else {
+        // 与上 0b11111011，保证只有第三位变为0，不影响其他位
         _tallRichHandsome &= ~JPHandsomeMask;
     }
 }
 
 /*
- *【!!】：通过&运算得出的值，要么大于0，要么等于0，可以根据这个值取【两次】非获得对应布尔值
- * << 为啥要两次取非？>>
- * ==> 1.因为大于0的数值不止只有1，还有2、4、8等，连续两次取非，可以把大于0的数值都转成1；
- * ==> 2.取反比强制转换的效率高。
- * 第一次取非：为了转成布尔值（0或1），不过是反的
- * 第二次取非：再取反获得正确的布尔值
+ * 📢📢📢：通过&运算得出的值，要么大于0，要么等于0，可以根据这个值取【两次】非获得对应布尔值
+ * 🤔为啥要两次取非？
+ *   1. 取反会自动变成布尔类型的值，也就是0或1；
+ *   2. 因为大于0的数值不止只有1，还有2、4、8等，连续两次取非，可以把大于0的数值都转成1；
+ *   3. 取反比强制转换的效率高。
+ * 第一次取非：为了转成布尔值（0或1），不过是反的；
+ * 第二次取非：再取反获得正确的布尔值。
  */
 - (BOOL)isTall {
     return !!(_tallRichHandsome & JPTallMask);     // ==> & 0b00000001 取出第1位
 }
+
 - (BOOL)isRich {
     return !!(_tallRichHandsome & JPRichMask);     // ==> & 0b00000010 取出第2位
 }
+
 - (BOOL)isHandsome {
     return !!(_tallRichHandsome & JPHandsomeMask); // ==> & 0b00000100 取出第3位
 }
+
 //- (BOOL)isTall {
 //    return (_tallRichHandsome & JPTallMask) > 0;     // ==> & 0b00000001 取出第1位
 //}

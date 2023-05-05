@@ -84,9 +84,17 @@ int main(int argc, const char * argv[]) {
         [stuCls personClassMethod];
         // class(JPStudent) --isa--> meta-class(JPStudent) --superclass--> meta-class(JPPerson) ==> +personClassMethod
         
-        // isa指针：instance对象指向class对象，class对象指向meta-class对象，（所有）meta-class对象指向基类的meta-class对象（包括基类自己的meta-class对象也是指向自己本身）
+        // isa指针的指向：
+        // instance对象指向class对象，
+        // class对象指向meta-class对象，
+        //（所有）meta-class对象指向基类的meta-class对象（包括基类自己的meta-class对象也是指向自己本身）。
         
-        // superclass指针：instance对象没有superclass指针，class对象指向父类的class对象，meta-class对象指向父类的meta-class对象，基类的class对象指向空，基类的meta-class对象指向基类的class对象
+        // superclass指针的指向：
+        // instance对象没有superclass指针，
+        // class对象指向父类的class对象，
+        // meta-class对象指向父类的meta-class对象，
+        // 基类的class对象指向空，
+        // 基类的meta-class对象指向基类的class对象。
         
         NSLog(@"JPStudent Class --- %p", [JPStudent class]);
         [JPStudent test];

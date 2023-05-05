@@ -30,21 +30,21 @@
     //    handsome rich tall
     
     /*
-     * union：共同体，所有成员共用一块内存（内存大小以成员所占内存最大的那一个来分配）
+     * union：共用体，所有成员共用一块内存（内存大小以成员所占内存最大的那一个来分配）
      * 例：
          union {
              char a; // 占1字节
              int b;  // 占4字节
-         } _jpunion; // 以最大的那一个成员的内存来分配，所以共同体占4字节
+         } _jpunion; // 以最大的那一个成员的内存来分配，所以共用体占4字节
          _jpunion.a = 3;
          _jpunion.b = 10;
          // 此时再次访问 _jpunion.a 就不再是3，而是10了，因为这两个成员共用一块内存，之前的3被覆盖了
      */
     union {
         char bits;
-        //【这个结构体纯属摆设】，只为了提高可读性，用来说明bits里面存放的是这3个成员信息，并且每一个成员占1位
-        // 而且这个结构体也只占1个字节（3个成员才各占1位，总共3位不及8位），不会超出char的存储范围（1字节占8位）
-        // 自始至终只操作bits，也没有用到这个结构体，不影响存储
+        //【这个结构体纯属摆设】，只为了提高可读性，用来说明bits里面存放的是这3个成员信息，并且每一个成员只占1位。
+        // 首先这个结构体也只占1个字节（实际占3位，只是内存分配至少1字节），不会超出char的存储范围（1字节），
+        // 而且自始至终只操作bits，并没有用到这个结构体，所以不影响共用体的存储。
         struct {   // >>>>> 纯属摆设，只用来看存的什么成员，占多少位而已
             char tall : 1;
             char rich : 1;
@@ -107,7 +107,7 @@
      *
      * shiftcls：存储着Class、Meta-Class对象的内存地址信息
      * 从arm64架构开始：
-        · Class、Meta-Class对象都是通过isa & ISA_MASK获取
+        · Class、Meta-Class对象都是通过`isa & ISA_MASK`获取
         · 把ISA_MASK放计算机里面可以看出，Class、Meta-Class对象的地址值最后3位肯定是0
      */
 }
@@ -133,6 +133,7 @@
         _tallRichHandsome.bits &= ~JPTallMask;
     }
 }
+
 - (void)setRich:(BOOL)rich {
     if (rich) {
         _tallRichHandsome.bits |= JPRichMask;
@@ -140,6 +141,7 @@
         _tallRichHandsome.bits &= ~JPRichMask;
     }
 }
+
 - (void)setHandsome:(BOOL)handsome {
     if (handsome) {
         _tallRichHandsome.bits |= JPHandsomeMask;
@@ -151,9 +153,11 @@
 - (BOOL)isTall {
     return !!(_tallRichHandsome.bits & JPTallMask);     // ==> & 0b00000001 取出第1位
 }
+
 - (BOOL)isRich {
     return !!(_tallRichHandsome.bits & JPRichMask);     // ==> & 0b00000010 取出第2位
 }
+
 - (BOOL)isHandsome {
     return !!(_tallRichHandsome.bits & JPHandsomeMask); // ==> & 0b00000100 取出第3位
 }

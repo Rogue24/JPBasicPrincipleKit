@@ -18,6 +18,38 @@
             endingLineNumber = "144"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "94F933A5-4C25-48F9-8561-AAACD407658B - 6301af9c53c867"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "02-Runtime-isa&#x7ec6;&#x8282;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day12%EF%BC%88Runtime%EF%BC%89/02-Runtime-isa%E7%BB%86%E8%8A%82/02-Runtime-isa%E7%BB%86%E8%8A%82/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  uuid = "94F933A5-4C25-48F9-8561-AAACD407658B - 6301af9c53c867"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "02-Runtime-isa&#x7ec6;&#x8282;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day12%EF%BC%88Runtime%EF%BC%89/02-Runtime-isa%E7%BB%86%E8%8A%82/02-Runtime-isa%E7%BB%86%E8%8A%82/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "220">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -34,22 +66,134 @@
             endingLineNumber = "171"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "55A8065F-9E05-4F14-8B0B-7E4EB6CFD1BC - 6301af9c53c5ea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "02-Runtime-isa&#x7ec6;&#x8282;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day12%EF%BC%88Runtime%EF%BC%89/02-Runtime-isa%E7%BB%86%E8%8A%82/02-Runtime-isa%E7%BB%86%E8%8A%82/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "171"
+                  endingLineNumber = "171"
+                  offsetFromSymbolStart = "612">
+               </Location>
+               <Location
+                  uuid = "55A8065F-9E05-4F14-8B0B-7E4EB6CFD1BC - 6301af9c53c5ea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "02-Runtime-isa&#x7ec6;&#x8282;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day12%EF%BC%88Runtime%EF%BC%89/02-Runtime-isa%E7%BB%86%E8%8A%82/02-Runtime-isa%E7%BB%86%E8%8A%82/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "171"
+                  endingLineNumber = "171"
+                  offsetFromSymbolStart = "640">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0A97607C-BB41-4BB2-B73A-7784AF16E4B0"
+            uuid = "08482340-1537-4D98-A525-68CBDD0C56D0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "02-Runtime-isa&#x7ec6;&#x8282;/main.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "08482340-1537-4D98-A525-68CBDD0C56D0 - 6301af9c53c71c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "02-Runtime-isa&#x7ec6;&#x8282;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day12%EF%BC%88Runtime%EF%BC%89/02-Runtime-isa%E7%BB%86%E8%8A%82/02-Runtime-isa%E7%BB%86%E8%8A%82/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "272">
+               </Location>
+               <Location
+                  uuid = "08482340-1537-4D98-A525-68CBDD0C56D0 - 6301af9c53c71c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "02-Runtime-isa&#x7ec6;&#x8282;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day12%EF%BC%88Runtime%EF%BC%89/02-Runtime-isa%E7%BB%86%E8%8A%82/02-Runtime-isa%E7%BB%86%E8%8A%82/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "276">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F0669E29-E3F3-4D46-AD15-8D6A1CEC059C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "02-Runtime-isa&#x7ec6;&#x8282;/main.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "main(argc, argv)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "F0669E29-E3F3-4D46-AD15-8D6A1CEC059C - 6301af9c53c7fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "02-Runtime-isa&#x7ec6;&#x8282;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day12%EF%BC%88Runtime%EF%BC%89/02-Runtime-isa%E7%BB%86%E8%8A%82/02-Runtime-isa%E7%BB%86%E8%8A%82/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "376">
+               </Location>
+               <Location
+                  uuid = "F0669E29-E3F3-4D46-AD15-8D6A1CEC059C - 6301af9c53c7fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "02-Runtime-isa&#x7ec6;&#x8282;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhoujianping/Documents/%E9%9D%A2%E8%AF%95/iOS%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/JP/%E4%BB%A3%E7%A0%81&amp;%E7%AC%94%E8%AE%B0/Day12%EF%BC%88Runtime%EF%BC%89/02-Runtime-isa%E7%BB%86%E8%8A%82/02-Runtime-isa%E7%BB%86%E8%8A%82/main.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "340">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

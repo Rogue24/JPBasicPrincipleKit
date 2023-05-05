@@ -11,15 +11,20 @@
 
 @implementation NSObject (JPExtension)
 
++ (void)load {
+    NSLog(@"load --- NSObject+JPExtension");
+}
+
 + (void)jp_lookIvars {
+    BOOL isMetaClass = class_isMetaClass(self);
     unsigned int count = 0;
     Ivar *ivars = class_copyIvarList(self.class, &count);
-    NSLog(@"=================== %@ start ===================", NSStringFromClass(self));
+    NSLog(@"=================== %@%@ start ===================", NSStringFromClass(self), isMetaClass ? @"(MetaClass)" : @"");
     for (NSInteger i = 0; i < count; i++) {
         Ivar ivar = ivars[i]; // ivars[i] 等价于 *(ivars+i)，指针挪位
         NSLog(@"%s --- %s", ivar_getName(ivar), ivar_getTypeEncoding(ivar));
     }
-    NSLog(@"=================== %@ end ===================", NSStringFromClass(self));
+    NSLog(@"=================== %@%@ end ===================", NSStringFromClass(self), isMetaClass ? @"(MetaClass)" : @"");
     free(ivars);
     
     /**
@@ -37,13 +42,14 @@
 }
 
 + (void)jp_lookMethods {
+    BOOL isMetaClass = class_isMetaClass(self);
     unsigned int count;
     Method *methods = class_copyMethodList(self.class, &count);
-    NSLog(@"=================== %@ start ===================", NSStringFromClass(self));
+    NSLog(@"=================== %@%@ start ===================", NSStringFromClass(self), isMetaClass ? @"(MetaClass)" : @"");
     for (int i = 0; i < count; i++) {
         NSLog(@"%s", sel_getName(method_getName(methods[i])));
     }
-    NSLog(@"=================== %@ end ===================", NSStringFromClass(self));
+    NSLog(@"=================== %@%@ end ===================", NSStringFromClass(self), isMetaClass ? @"(MetaClass)" : @"");
     free(methods);
 }
 

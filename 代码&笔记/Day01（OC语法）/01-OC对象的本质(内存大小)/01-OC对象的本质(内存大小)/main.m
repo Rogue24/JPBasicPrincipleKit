@@ -24,18 +24,23 @@
  */
 
 // NSObject在OC中的定义
-//@interface NSObject <NSObject> {
-//    Class isa;
-//}
-//@end
+/*
+@interface NSObject <NSObject> {
+    Class isa;
+}
+@end
+*/
 
-// NSObject的底层实现（在C++里面的实现）
+// NSObject转成C++后的定义（在C++里面的底层实现）
 struct NSObject_IMPL { // -> NSObject_Implementation
     Class isa;
 };
-// Class：typedef struct objc_class *Class;
-// Class是一个指向结构体的指针（指针类型在64位里面占8个字节，32位占4个字节）
-// NSObject_IMPL只有一个Class类型的成员变量isa，所以NSObject_IMPL只占8个字节，并且isa所在的地址就是这个结构体的地址
+
+// Class的定义：typedef struct objc_class *Class;
+// 所以`isa`属于Class类型，是一个指向【结构体struct】的指针（指针类型在64位里面占8个字节，32位占4个字节）
+
+// `NSObject/NSObject_IMPL`只有一个Class类型的成员变量isa，
+// 所以`NSObject/NSObject_IMPL`只占8个字节，并且isa所在的地址就是这个结构体的地址。
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {

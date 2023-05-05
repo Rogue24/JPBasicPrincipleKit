@@ -24,6 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A1F93142A018E0E000EB64F /* Block捕获的对象类型的auto变量-栈与堆中的内存管理.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Block捕获的对象类型的auto变量-栈与堆中的内存管理.jpg"; sourceTree = "<group>"; };
 		1A85245B236DFA8D00D07874 /* Block捕获的对象类型的auto变量.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Block捕获的对象类型的auto变量.jpg"; sourceTree = "<group>"; };
 		1ACBEB5E236D5212006EFFA8 /* 03-Block-对象类型的auto变量（栈与堆中的底层实现） */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "03-Block-对象类型的auto变量（栈与堆中的底层实现）"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ACBEB61236D5212006EFFA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				1A85245B236DFA8D00D07874 /* Block捕获的对象类型的auto变量.jpg */,
+				1A1F93142A018E0E000EB64F /* Block捕获的对象类型的auto变量-栈与堆中的内存管理.jpg */,
 				1ACBEB61236D5212006EFFA8 /* main.m */,
 				1AE96DD4236DDDA600DCF377 /* main-arm64.cpp */,
 				1ACBEB68236D632D006EFFA8 /* JPPerson.h */,

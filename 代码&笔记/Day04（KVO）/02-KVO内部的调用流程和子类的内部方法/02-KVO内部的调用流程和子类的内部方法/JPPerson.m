@@ -44,15 +44,21 @@
     NSLog(@"setWeight");
 }
 
+// 注意：最好别乱写get方法，因为KVO的回调是从get方法这里取值的！
+- (void)douer {
+    NSLog(@"模拟douer的get方法");
+}
+
 - (void)willChangeValueForKey:(NSString *)key {
     [super willChangeValueForKey:key];
-    NSLog(@"willChangeValueForKey:%@", key);
+    NSLog(@"willChangeValueForKey: %@", key);
 }
 
 - (void)didChangeValueForKey:(NSString *)key {
-    NSLog(@"didChangeValueForKey:%@ --- begin", key);
+    NSLog(@"didChangeValueForKey: %@ --- begin", key);
     [super didChangeValueForKey:key];
-    NSLog(@"didChangeValueForKey:%@ --- end", key);
+    NSLog(@"didChangeValueForKey: %@ --- ended", key);
+    NSLog(@"==============================================");
 }
 
 @end

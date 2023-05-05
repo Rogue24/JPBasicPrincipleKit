@@ -14,4 +14,12 @@
     NSLog(@"load --- JPPerson");
 }
 
++ (void)help {
+    NSLog(@"help --- JPPerson");
+}
+
+- (void)haha {
+    NSLog(@"haha --- JPPerson");
+}
+
 @end

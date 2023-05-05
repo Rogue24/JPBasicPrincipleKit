@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A577DE02372615E002F0702 /* 使用KVO之后.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A577DDE2372615E002F0702 /* 使用KVO之后.jpg */; };
-		1A577DE12372615E002F0702 /* 使用KVO之前.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A577DDF2372615E002F0702 /* 使用KVO之前.jpg */; };
 		1AD2BEB52361F7F50006B201 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2BEB42361F7F50006B201 /* AppDelegate.m */; };
 		1AD2BEB82361F7F50006B201 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2BEB72361F7F50006B201 /* SceneDelegate.m */; };
 		1AD2BEBB2361F7F50006B201 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2BEBA2361F7F50006B201 /* ViewController.m */; };
@@ -17,7 +15,6 @@
 		1AD2BEC32361F7F70006B201 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AD2BEC12361F7F70006B201 /* LaunchScreen.storyboard */; };
 		1AD2BEC62361F7F70006B201 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2BEC52361F7F70006B201 /* main.m */; };
 		1AD2BECE2361F8070006B201 /* JPPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2BECD2361F8070006B201 /* JPPerson.m */; };
-		1AD2BED5236290A80006B201 /* KVO生成的子类_NSSetXXXValueAndNotify.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AD2BED4236290A80006B201 /* KVO生成的子类_NSSetXXXValueAndNotify.jpg */; };
 		1AD2BEDB23629CA30006B201 /* NSObject+JPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2BEDA23629CA30006B201 /* NSObject+JPExtension.m */; };
 /* End PBXBuildFile section */
 
@@ -40,9 +37,9 @@
 		1AD2BECD2361F8070006B201 /* JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPerson.m; sourceTree = "<group>"; };
 		1AD2BED1236209020006B201 /* NSKVONotifying_JPPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSKVONotifying_JPPerson.h; sourceTree = "<group>"; };
 		1AD2BED2236209020006B201 /* NSKVONotifying_JPPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSKVONotifying_JPPerson.m; sourceTree = "<group>"; };
-		1AD2BED4236290A80006B201 /* KVO生成的子类_NSSetXXXValueAndNotify.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "KVO生成的子类_NSSetXXXValueAndNotify.jpg"; sourceTree = "<group>"; };
 		1AD2BED923629CA20006B201 /* NSObject+JPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JPExtension.h"; sourceTree = "<group>"; };
 		1AD2BEDA23629CA30006B201 /* NSObject+JPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JPExtension.m"; sourceTree = "<group>"; };
+		1AF186D029F6EA7B00BB7580 /* KVO生成的子类调用_NSSetXXXValueAndNotify函数的内部实现.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "KVO生成的子类调用_NSSetXXXValueAndNotify函数的内部实现.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +74,7 @@
 			children = (
 				1A577DDE2372615E002F0702 /* 使用KVO之后.jpg */,
 				1A577DDF2372615E002F0702 /* 使用KVO之前.jpg */,
-				1AD2BED4236290A80006B201 /* KVO生成的子类_NSSetXXXValueAndNotify.jpg */,
+				1AF186D029F6EA7B00BB7580 /* KVO生成的子类调用_NSSetXXXValueAndNotify函数的内部实现.jpg */,
 				1AD2BEB32361F7F50006B201 /* AppDelegate.h */,
 				1AD2BEB42361F7F50006B201 /* AppDelegate.m */,
 				1AD2BEB62361F7F50006B201 /* SceneDelegate.h */,
@@ -156,11 +153,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AD2BED5236290A80006B201 /* KVO生成的子类_NSSetXXXValueAndNotify.jpg in Resources */,
 				1AD2BEC32361F7F70006B201 /* LaunchScreen.storyboard in Resources */,
-				1A577DE12372615E002F0702 /* 使用KVO之前.jpg in Resources */,
 				1AD2BEC02361F7F70006B201 /* Assets.xcassets in Resources */,
-				1A577DE02372615E002F0702 /* 使用KVO之后.jpg in Resources */,
 				1AD2BEBE2361F7F50006B201 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
