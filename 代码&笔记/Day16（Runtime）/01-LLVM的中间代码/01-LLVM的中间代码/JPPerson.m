@@ -12,7 +12,7 @@
 
 /*
  * Objective-C在变为机器代码之前，会被LLVM编译器转换为中间代码（Intermediate Representation）
- * OC --> 中间代码（后缀为 .ll ） --> 汇编、机器代码
+ * OC --> 中间代码（后缀为`.ll`）--> 汇编、机器代码
  * 中间代码是LLVM特有的，并且通用、跨平台的，介于开发语言和最终的机器语言之间的一种代码
  * 命令行生成中间代码的指令：clang -emit-llvm -S JPPerson.m
  * 官方文档：https://llvm.org/docs/LangRef.html

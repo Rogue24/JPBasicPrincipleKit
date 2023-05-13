@@ -17,11 +17,48 @@
 #import "NSObject+JPExtension.h"
 #import "JPBoy.h"
 
+/*
+ * 当前的编译顺序：
+    JPStudent+JPTest1
+    JPStudent+JPTest2
+    JPPerson+JPTest1
+    JPPerson+JPTest2
+    JPCat
+    JPBoy
+    JPPerson
+    JPDog
+    main
+    JPStudent
+    NSObject+JPExtension
+ 
+ * 打印：
+     load --- JPCat
+     load --- JPPerson
+     load --- JPDog
+     load --- JPStudent
+     load --- JPStudent+JPTest1
+     load --- JPStudent+JPTest2
+     load --- JPPerson+JPTest1
+     load --- JPPerson+JPTest2
+     load --- NSObject+JPExtension
+     Hello, World!
+     initialize --- JPPerson+JPTest2
+     initialize --- JPStudent+JPTest2
+     initialize --- JPPerson+JPTest2
+     Goodbye, World!
+ */
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         /**
-         * initialize方法会在类【第一次接收到消息】时调用，load方法是初始化Runtime时直接拿到方法地址去调用
-         * 如果整个程序都没有使用过这个类，就不会调用initialize
+         * `+initialize`方法会在类【第一次接收到消息】时调用，`+load`方法是初始化Runtime时直接拿到方法地址去调用
+         * 如果整个程序都没有使用过这个类，就不会调用`+initialize`方法
+         */
+        
+        /**
+         * `+initialize`和`+load`最大的区别是：`+initialize`是通过`objc_msgSend`进行调用的
+         * 所以有以下特点：
+         * - 如果子类没有实现`+initialize`，会调用父类的`+initialize`（所以父类的`+initialize`可能会被调用多次）
+         * - 如果【分类】实现了`+initialize`，就覆盖类本身的`+initialize`调用
          */
         
         // insert code here...
@@ -33,7 +70,7 @@ int main(int argc, const char * argv[]) {
         
         // 🌰2_子类没实现initialize：
         // 如果子类的initialize没有实现，父类调用完initialize后，会【再次】调用父类（JPPerson）的initialize。
-        // 不信就把上面那句“[JPStudent alloc]”注释了再运行看看，父类的initialize会被连续调用两次。
+        // 不信就把上面那句`[JPStudent alloc]`注释了再运行看看，父类的initialize会被连续调用两次。
         [JPBoy alloc];
         
         /*
@@ -103,9 +140,10 @@ int main(int argc, const char * argv[]) {
      if (!leaveLocked) lock.unlock();
      return cls;
  }
- →→→ YES，【确保了已经调用过initialize方法，继续去寻找要去调用的方法】
  ↓
- NO，没有则继续往下
+ ↓→→→→→→→→→→→→→→→→→→→→→→→
+ ↓                      ↓
+ NO，没有则继续往下       YES，【确保了已经调用过initialize方法，继续去寻找要去调用的方法】
  ↓
  initializeNonMetaClass
  ↓↑ 递归（确保是从第一任父类开始依次调用，保证先执行完所有父类的initialize方法）

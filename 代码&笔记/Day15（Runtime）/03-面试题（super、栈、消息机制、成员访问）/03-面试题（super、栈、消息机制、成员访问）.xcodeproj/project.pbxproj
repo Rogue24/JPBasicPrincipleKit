@@ -39,6 +39,7 @@
 		1A8D39D4238945FA00FB1D9F /* 面试题-print中访问成员变量1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "面试题-print中访问成员变量1.jpg"; sourceTree = "<group>"; };
 		1A8D39D623894FFF00FB1D9F /* ViewController-arm64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ViewController-arm64.cpp"; sourceTree = "<group>"; };
 		1A8D39D7238A412E00FB1D9F /* 面试题-print中访问成员变量2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "面试题-print中访问成员变量2.jpg"; sourceTree = "<group>"; };
+		1AFA79852A0D6E2F00BB4FC6 /* 面试题-局部变量在栈空间的地址分配.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "面试题-局部变量在栈空间的地址分配.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +75,7 @@
 				1A8D39D2238945E500FB1D9F /* 面试题-obj能调用print的原因.jpg */,
 				1A8D39D4238945FA00FB1D9F /* 面试题-print中访问成员变量1.jpg */,
 				1A8D39D7238A412E00FB1D9F /* 面试题-print中访问成员变量2.jpg */,
+				1AFA79852A0D6E2F00BB4FC6 /* 面试题-局部变量在栈空间的地址分配.jpg */,
 				1A8D39B62388EC4B00FB1D9F /* AppDelegate.h */,
 				1A8D39B72388EC4B00FB1D9F /* AppDelegate.m */,
 				1A8D39B92388EC4B00FB1D9F /* SceneDelegate.h */,

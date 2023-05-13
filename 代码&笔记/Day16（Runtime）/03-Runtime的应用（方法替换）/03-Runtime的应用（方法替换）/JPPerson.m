@@ -10,6 +10,6 @@
 
 @implementation JPPerson
 - (void)run {
-    NSLog(@"%s", __func__);
+    NSLog(@"runing origin");
 }
 @end

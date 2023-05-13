@@ -14,6 +14,7 @@
 
 @implementation ViewController
 
+#pragma mark - 拦截button事件
 - (IBAction)buttonDicClick111:(UIButton *)sender {
     NSLog(@"%s", __func__);
 }
@@ -26,6 +27,7 @@
     - NSMutableDictionary 实际上是 __NSDictionaryM 这个类。
  */
 
+#pragma mark - 数组元素防空措施
 // NSMutableArray+JPExtension：数组元素防空措施
 - (IBAction)buttonDicClick222:(UIButton *)sender {
     NSString *obj = nil;
@@ -34,7 +36,7 @@
     NSMutableArray *arrayM = [NSMutableArray array];
     NSLog(@"======= %@ =======", arrayM.class);
     // -addObject: 内部调用的是 -insertObject:atIndex
-    [arrayM addObject:@"0"];
+    [arrayM addObject:@"xbl"];
     [arrayM addObject:obj];
     NSLog(@"arrayM %@", arrayM);
     
@@ -46,6 +48,7 @@
     // I：immutable（不可变），M：mutable（可变的）
 }
 
+#pragma mark - 字典键防空措施
 // NSMutableDictionary+JPExtension：字典键防空措施
 - (IBAction)buttonDicClick333:(UIButton *)sender {
     NSString *obj = nil;
@@ -53,12 +56,10 @@
     // __NSDictionaryM
     NSMutableDictionary *dicM = [NSMutableDictionary dictionary];
     NSLog(@"======= %@ =======", dicM.class);
-    dicM[@"abc"] = @"123";
-
     // 存
+    dicM[@"abc"] = @"123";
     dicM[obj] = @"456";
     NSLog(@"dicM %@", dicM);
-
     // 取
     id value = dicM[obj];
     NSLog(@"value %@", value);

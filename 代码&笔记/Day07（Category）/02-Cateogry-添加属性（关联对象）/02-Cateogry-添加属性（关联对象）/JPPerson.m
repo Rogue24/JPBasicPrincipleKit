@@ -10,4 +10,8 @@
 
 @implementation JPPerson
 
+- (void)dealloc {
+    NSLog(@"%s %d", __func__, self.age);
+}
+
 @end

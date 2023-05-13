@@ -23,6 +23,16 @@
     return self;
 }
 
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    if ([self respondsToSelector:aSelector]) {
+        NSLog(@"父类JPPerson那边找不到%s方法的实现，所以才来到这里", aSelector);
+        NSLog(@"但其实self(JPStudent)里面是有%s方法的实现", aSelector);
+    }
+    // 去JPPerson那边处理methodSignatureForSelector，不然这里返回nil直接崩溃
+    return [super methodSignatureForSelector:aSelector];
+//    return nil;
+}
+
 - (void)eat {
     [super eat];
     NSLog(@"student eat");
@@ -86,14 +96,17 @@
  
         // PS1：父类的类对象已经放在struct objc_super的super_class，通过这个直接去到父类的方法列表找方法
         // PS2：通过self去调用父类的方法，所以这时候父类方法里的self并不是父类的对象，而是消息接收者自身（子类）
+        // PS3：这里的父类并不是用self拿的父类，而是【当前执行的这个方法的这个类】的父类，self是不确定的
     }
  
  * 结论：
  * [super run] ==> 使用super调用方法的本质：
-    · objc_msgSendSuper({self, [JPPersion class]}, @selector(run)})；
+    · objc_msgSendSuper({self, [JPPersion class]}, @selector(run)});
     · self（子类对象自身、方法调用者、消息接收者）绕过第一个isa直接从父类的方法列表开始查询方法并执行；
     · 所以这个super其实就是self，只是执行的是父类的方法；
-    · 目的就是为了直接去调用父类的方法，而不是调用自己的方法。
+    · 目的就是为了直接去调用父类的方法，而不是调用自己的方法；
+    · 这里的父类并不是用self拿的父类，而是【当前执行的这个方法的这个类】的父类，self是不确定的：
+      ==> [JPPersion class]是通过objc_getClass("JPStudent")获取的，并非self.class
  
  * PS：super调用，实际上底层会转换为objc_msgSendSuper2函数的调用，在后面会讲到。
  */

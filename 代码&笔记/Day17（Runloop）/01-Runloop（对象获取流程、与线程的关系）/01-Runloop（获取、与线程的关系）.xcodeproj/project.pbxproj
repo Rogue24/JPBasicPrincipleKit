@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1A6130BB238E1C07002DB6DB /* JPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6130BA238E1C07002DB6DB /* JPViewController.m */; };
-		1A6130CE238EDCB6002DB6DB /* RunLoop对象.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A6130CD238EDCB6002DB6DB /* RunLoop对象.jpg */; };
 		1ABD6EBD238D35960022BE40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6EBC238D35960022BE40 /* AppDelegate.m */; };
 		1ABD6EC0238D35960022BE40 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6EBF238D35960022BE40 /* SceneDelegate.m */; };
 		1ABD6EC3238D35960022BE40 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6EC2238D35960022BE40 /* ViewController.m */; };
@@ -152,7 +151,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ABD6ECB238D35970022BE40 /* LaunchScreen.storyboard in Resources */,
-				1A6130CE238EDCB6002DB6DB /* RunLoop对象.jpg in Resources */,
 				1ABD6EC8238D35970022BE40 /* Assets.xcassets in Resources */,
 				1ABD6EC6238D35960022BE40 /* Main.storyboard in Resources */,
 			);

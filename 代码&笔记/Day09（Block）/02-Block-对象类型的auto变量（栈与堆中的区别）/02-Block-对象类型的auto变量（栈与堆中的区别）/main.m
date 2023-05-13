@@ -34,7 +34,7 @@ int main(int argc, const char * argv[]) {
         void (^jpblock)(void);
         
         {
-            JPPerson *per = [[JPPerson alloc] init];
+            JPPerson *per = [[JPPerson alloc] init]; // per.retainCount = 1
             per.age = 19;
             NSLog(@"per %@", per);
             
@@ -66,26 +66,26 @@ int main(int argc, const char * argv[]) {
             
             //【MRC】StackBlock ---copy---> MallocBlock
             NSLog(@"jpblock before copy: %@", [jpblock class]);
-            jpblock = [jpblock copy]; // per.retainCount += 1 拷贝到堆上，对per进行一次retain
+            jpblock = [jpblock copy]; // 拷贝到堆上，并对per进行一次retain：jpblock.retainCount = 1, per.retainCount += 1 (2)
             NSLog(@"jpblock after copy: %@", [jpblock class]);
             
             NSLog(@"11 retainCount %zd", [per retainCount]);
             
             //【MRC】
-            [per release]; // per.retainCount -= 1 引用计数为0就会销毁
+            [per release]; // per.retainCount -= 1 (1) 引用计数为0就会销毁
             
             NSLog(@"22 retainCount %zd", [per retainCount]);
             
-//            jpblock = [jpblock copy];
+//            jpblock = [jpblock copy]; // jpblock.retainCount = 2, per.retainCount = 1
 //            NSLog(@"33 retainCount %zd", [per retainCount]);
-//            jpblock = [jpblock copy];
+//            jpblock = [jpblock copy]; // jpblock.retainCount = 3, per.retainCount = 1
 //            NSLog(@"55 retainCount %zd", [per retainCount]);
-//            [jpblock release];
+//            [jpblock release]; // jpblock.retainCount = 2, per.retainCount = 1
 //            NSLog(@"55 retainCount %zd", [per retainCount]);
-//            [jpblock release];
+//            [jpblock release]; // jpblock.retainCount = 1, per.retainCount = 1
 //            NSLog(@"66 retainCount %zd", [per retainCount]);
-//            [jpblock release];
-//            NSLog(@"77 retainCount %zd", [per retainCount]);
+//            [jpblock release]; // jpblock.retainCount = 0, per.retainCount -= 1 (0)
+//            NSLog(@"77 retainCount %zd", [per retainCount]); // 崩溃
             // 📢 注意：
             // `block`只有【拷贝到堆上时】，才会对捕获的auto变量进行一次`retain`操作，
             // 同理，也只有【从堆上移除时】，才会对捕获的auto变量进行一次`release`操作，
@@ -99,14 +99,14 @@ int main(int argc, const char * argv[]) {
         jpblock();
         
         // 注意：对MallocBlock再进行一次copy操作，引用计数会+1
-        jpblock = [jpblock copy];
+        jpblock = [jpblock copy]; // jpblock.retainCount = 2, per.retainCount = 1
         
         //【PS2】如果block在堆上，per会跟随block一起被销毁
         
         //【MRC】
         // copy了几次就得release几次，否则内存泄漏。
-        [jpblock release];
-        [jpblock release];
+        [jpblock release]; // jpblock.retainCount = 1, per.retainCount = 1
+        [jpblock release]; // jpblock.retainCount = 0, per.retainCount -= 1 (0)
     }
     return 0;
 }

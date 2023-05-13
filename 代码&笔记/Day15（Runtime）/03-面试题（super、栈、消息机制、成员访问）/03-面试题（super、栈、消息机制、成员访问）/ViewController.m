@@ -16,6 +16,11 @@
 
 @end
 
+//typedef struct {
+//    NSString *aaa;
+//    NSString *bbb;
+//} JPStruct;
+
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -30,7 +35,7 @@
                         ↓↓↓
                         ↓↓↓
      * super调用，其实底层会转换为【objc_msgSendSuper2】函数的调用，接收2个参数：1.struct objc_super2，2.SEL
-     * 注意：编译的C++代码只能用作参考，并不是所有代码都是肯定对的（只是大部分是对的），而查看汇编肯定是对的（只是看不懂）
+     * 注意：编译的C++代码只能用作【参考】，并不是所有代码都是肯定对的（只是大部分是对的），而查看汇编肯定是对的（只是看不懂）
      
      *【objc_msgSendSuper】：
          objc_msgSendSuper(
@@ -61,18 +66,29 @@
          ↓↓↓
          struct objc_super2 {
              id receiver;
-             Class current_class; ==> 自己类，objc_msgSendSuper2函数内部会通过该类的superclass来获取其父类
+             Class current_class; ==> 当前类，`objc_msgSendSuper2`函数内部会调用它的`superclass`来获取它的父类
          };
-     * objc_msgSendSuper2是个汇编使用的函数，在runtime源码里面得加个下划线搜（”_objc_msgSendSuper2“），其实现是在 objc-msg-arm64 这个文件里面
-     * ENTRY _objc_msgSendSuper2 -> ldr p16, [x16, #SUPERCLASS] // p16 = class->superclass -> 利用传进来的类通过superclass找到父类，然后去父类里面搜索方法。
+     * `objc_msgSendSuper2`是个汇编使用的函数，在runtime源码里面得加个下划线搜（”_objc_msgSendSuper2“），可以在 objc-msg-arm64.s 这个文件里看到调用的地方
+     * ENTRY _objc_msgSendSuper2 -> ldr p16, [x16, #SUPERCLASS] // p16 = class->superclass -> 利用传进来的类通过`superclass`找到其父类，然后去父类里面搜索方法。
      
-     * 综上所述，所以这里地址最低的临时变量是ViewController这个类对象，而不是他的父类
+     * 综上所述，这里地址最低的临时变量是`ViewController`这个类对象，并不是他的父类`UIViewController`。
      */
     
+    // 测试用的：print3打印`My littlename is 789`，print4打印`My othername is 654`
+//    JPStruct stu = (JPStruct){
+//        // 低地址
+//        @"789",
+//        @"654"
+//        // 高地址
+//    };
+    
+    // 高地址
     NSString *hello = @"J了个P";
     NSString *hi = @"健了个平";
     id cls = [JPPerson class];
     void *obj = &cls;
+    // 低地址
+    
     // (__bridge id)obj：强转成OC类型 --- 只要是OC对象就可以调用方法
     [(__bridge id)obj print1]; // My name is 健了个平
     [(__bridge id)obj print2]; // My nickname is J了个P
@@ -83,7 +99,7 @@
      * 注意2：这里的self和ViewController是属于（使用了super生成的）结构体里面的成员，都是临时变量，第一个成员是指向self的指针变量，第二个成员是指向ViewController的指针变量；
      * 注意3：要是没用过super，就没有指向self和ViewController这两个指针变量了，self是方法的参数，其地址不是在栈空间上，虽然也是局部变量，但这是【存放在别处】的变量；
        ↓↓↓↓↓
-     * 方法的参数（包括隐式参数self和_cmd）：在【arm64架构】中可不是在栈空间上，而是存放在【寄存器】中（寄存器的访问效率比内存更高），因此self的地址并不是紧跟在后面的，再往上的可是野指针！
+     * 方法的参数（包括隐式参数self和_cmd）：在【arm64架构】中可不是在栈空间上，而是存放在【寄存器】中（寄存器的访问效率比内存更高），因此`参数self`的地址并不是紧跟在后面的，再往上的可是野指针！
      */
     
     /*
@@ -127,9 +143,12 @@
              NSLog(@"My name is %@", self.name);
          }
      
-     * 因为本质上obj和per其实是一样的，obj->cls是模仿实例对象在内存中的指引
-     * print方法里面的“self.name”相当于self->_name，是为了去获取_name这个成员变量
-     * _name作为JPPerson的第一个成员，这个成员的内存地址是紧挨在isa后面（按照实例对象的结构排布，是isa地址+8）
+     * 因为本质上obj和per其实是一样的，obj->cls是模仿了实例对象在内存中的指向。
+     * `print`方法里面打印了`self.name`，相当于要去获取`_name`这个成员变量，
+     * `_name`作为JPPerson的第一个成员，按照实例对象的结构排布，
+     * 这个成员的内存地址是紧挨在isa后面，也就是isa地址+8。
+     * 既然`obj->cls`是模仿了`per->isa`，而访问`_name`就是`per->isa + 8`的行为，
+     * 所以`self.name`相当于`obj->cls + 8` <==> `obj + 16`。
      
      * hello、hi、cls、obj都为局部变量，此时在viewDidLoad作用域范围内的内存排布为：
      
@@ -146,10 +165,10 @@
      
      * 当obj调用print方法，里面的“self”为obj
      * 此时执行self.name，就是操控obj这个指针，从指向的地址开始跳过前8个字节，去获取后面8个字节（属性是个指针变量，占8字节）
-     * 而obj指向的地址的前8个字节为cls的地址，之后那8个字节即为hi的地址
+     * 而obj从指向的地址开始的前8个字节是cls这个指针（这8个字节存储着JPPerson类对象的地址），之后那8个字节就是hi
      * 所以“self.name”获取到的值是hi
      
-     * obj指向的地址跳过16个字节（cls、hi）之后为hello的地址
+     * obj从指向的地址开始跳过16个字节（cls、hi）之后的8个字节为hello
      * 所以obj调用print2方法，里面的“self.nickname”为hello的值
      
      * <<本质来说，只要有指向类对象地址的指针，就可以调用实例方法，方法里面的self为消息接收者（同理元类对象的类方法）>>
@@ -163,9 +182,9 @@
             NSString *_nickname;
         };
      * 由此可以看作这样：
-        obj   <---> cls <---> per <---> per->isa
-        hi    <---> per->_name
-        hello <---> per->_nickname
+        obj   <===> cls <===> per <===> per->isa
+        hi    <===> per->_name
+        hello <===> per->_nickname
      */
     
     
@@ -177,7 +196,7 @@
      * 因为此时紧挨在后面的是【struct objc_super2】这种结构的临时变量
      * 这是前面 [super viewDidLoad] 里面使用super所生成的临时变量
      
-     * 因为前面[super viewDidLoad]里面使用了super
+     * 因为前面 [super viewDidLoad] 里面使用了super
      * super调用，底层会转换为objc_msgSendSuper2函数的调用：
          
      * 生成了【struct objc_super2】这种结构体里面两个临时变量
@@ -186,17 +205,19 @@
      * 再再接着后面就啥都没了~
      
      * PS：为什么栈里是这种结构体的内部成员，而不是一个指向这种结构体的指针？
-     * 因为这个结构体是执行objc_msgSendSuper2函数时【直接在函数调用里创建】的：
+     * 因为这个结构体是在执行objc_msgSendSuper2函数时【直接在传参那里创建】的：
          objc_msgSendSuper2({
              self;
              [ViewController class];
          }, sel_registerName("viewDidLoad"));
      * 而不是先赋值给一个指针再传进去：
-         struct objc_super2 arg = xxx;
+         struct objc_super2 *arg = &{xxx};
          objc_msgSendSuper2(arg, sel_registerName("viewDidLoad"));
-     * 这是有区别的，不然 [(__bridge id)obj print3] 打印的是 ---- My littlename is 这个指针的地址
+     * 这是有区别的，不然 [(__bridge id)obj print3] 打印的是 ---- My littlename is <arg这个指针变量的地址>
      
-     * 又因为结构体里面的self的地址比[ViewController class]的地址低，所以最终的内存分布为：
+     * 又因为在【结构体】中，成员的地址是按顺序【从低到高】分配的，
+     * `self`是第一个成员，所以`self`的地址比`[ViewController class]`的地址【低】。
+     * 因此最终的内存分布为：
      
      【栈】（地址是从高往低分配）
         - 低地址 -

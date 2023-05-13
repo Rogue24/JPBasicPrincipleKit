@@ -34,6 +34,7 @@
 		1A988A1A237A8CA900543E27 /* JPStudent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPStudent.m; sourceTree = "<group>"; };
 		1A988A1F237A8CC600543E27 /* JPSBStudent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPSBStudent.h; sourceTree = "<group>"; };
 		1A988A20237A8CC600543E27 /* JPSBStudent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPSBStudent.m; sourceTree = "<group>"; };
+		1ACAB1912A052CA2006E583D /* 查找方法索引重复的情况.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "查找方法索引重复的情况.jpg"; sourceTree = "<group>"; };
 		1AD1597A237AA1D9000F6632 /* MJClassInfo_New.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJClassInfo_New.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +68,7 @@
 		1A988A0E237A8BA500543E27 /* 05-class和meta-class的结构（查看缓存） */ = {
 			isa = PBXGroup;
 			children = (
+				1ACAB1912A052CA2006E583D /* 查找方法索引重复的情况.jpg */,
 				1AD1597A237AA1D9000F6632 /* MJClassInfo_New.h */,
 				1A988A0F237A8BA500543E27 /* main.mm */,
 				1A988A16237A8C9000543E27 /* JPPerson.h */,

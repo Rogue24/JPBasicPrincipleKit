@@ -10,7 +10,7 @@
 #import "JPPerson.h"
 #import <objc/runtime.h>
 
-void myRun() {
+void myRun(void) {
     NSLog(@"runing man");
 }
 

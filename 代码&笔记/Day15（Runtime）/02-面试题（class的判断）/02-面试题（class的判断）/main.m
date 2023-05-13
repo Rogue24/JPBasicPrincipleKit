@@ -35,11 +35,16 @@ int main(int argc, const char * argv[]) {
          * 因为superclass通过for循环最后会来到根类（NSObject）的元类对象，
          * 而根类的元类对象的superclass就是指向根类的类对象（ [NSObject class] ），所以相等（YES）。
          *
-         * 也就是说，所有【元类对象】都属于【NSObject的类对象】的子类。
-         * ==> [任意对象 isKindOfClass:[NSObject class]] ==> YES
+         * 可以这么说：所有【元类对象】都属于【NSObject的类对象】的子类
+         * ==> `[任意对象 isKindOfClass:[NSObject class]]` ==> `YES`
          */
         
         JPPerson *per = [[JPPerson alloc] init];
+        
+        NSLog(@"%d", [per isMemberOfClass:per.class]); // 1
+        NSLog(@"%d", [per.class isMemberOfClass:per.class]); // 0
+        NSLog(@"%d", [per isKindOfClass:per.class]); // 1
+        NSLog(@"%d", [per.class isKindOfClass:per.class]); // 0
         
         NSLog(@"==========实例方法==========");
         NSLog(@"%d", [per isMemberOfClass:[JPPerson class]]); // 1
@@ -58,7 +63,10 @@ int main(int argc, const char * argv[]) {
         NSLog(@"==========特殊情况==========");
         NSLog(@"%d", [JPPerson isKindOfClass:[NSObject class]]); // 1
         NSLog(@"%d", [NSObject isKindOfClass:[NSObject class]]); // 1
-        NSLog(@"%d", [object_getClass([NSObject class]) isKindOfClass:[NSObject class]]); // 1
+        NSLog(@"%d", [object_getClass([JPPerson class]) isMemberOfClass:object_getClass([JPPerson class])]); // 0
+        NSLog(@"%d", [object_getClass([JPPerson class]) isMemberOfClass:object_getClass([NSObject class])]); // 1
+        NSLog(@"%d", [object_getClass([JPPerson class]) isKindOfClass:[NSObject class]]); // 1
+        NSLog(@"%d", [object_getClass([NSObject class]) isMemberOfClass:[NSObject class]]); // 0
         
         NSLog(@"==========面试题==========");
         NSLog(@"%d", [NSObject isKindOfClass:[NSObject class]]); // 1
@@ -69,7 +77,7 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-/** NSObject的源码 */
+#pragma mark - NSObject的源码
 //@implementation NSObject
 //+ (BOOL)isMemberOfClass:(Class)cls {
 //    return object_getClass((id)self) == cls;

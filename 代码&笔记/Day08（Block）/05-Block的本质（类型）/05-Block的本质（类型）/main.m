@@ -171,14 +171,14 @@ int main(int argc, const char * argv[]) {
         // 这些代码不一定就是OC实际转成的C++代码，例如类型可能不一样，但总体来说差别不大，可以作为【参考】。
         // 一切以【运行时的结果】为准！！！（打印出来的就是运行时的结果）
         //
-        // `clang`编译后的的类型：
-        // _NSConcreteGlobalBlock, _NSConcreteMallocBlock, _NSConcreteStackBlock
+        // `clang`编译后的的block类型：
+        // _NSConcreteGlobalBlock, _NSConcreteMallocBlock, _NSConcreteStackBlock  ---- 这一行仅供参考
         //        ↓                       ↓                       ↓
-        // 运行时打印的类型才是真正的类型：
-        // __NSGlobalBlock__,      __NSMallocBlock__,      __NSStackBlock__
+        // 运行时打印的block类型才是真正的类型：
+        // __NSGlobalBlock__,      __NSMallocBlock__,      __NSStackBlock__  ---- ✅
         //        ↓                       ↓                       ↓
         // 📢 最新版iOS已经不存在`__NSXXXBlock`这种类型了，`__NSXXXBlock__`直接继承自`NSBlock`
-        // __NSGlobalBlock,        __NSMallocBlock,        __NSStackBlock   ❌
+        // __NSGlobalBlock,        __NSMallocBlock,        __NSStackBlock  ---- ❌忽略这一行
         // ↓↓↓
         // NSBlock
         // ↓

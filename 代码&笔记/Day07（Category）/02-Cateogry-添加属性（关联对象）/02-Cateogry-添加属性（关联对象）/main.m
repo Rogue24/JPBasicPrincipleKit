@@ -74,6 +74,7 @@ int main(int argc, const char * argv[]) {
         // 注意：关联对象没有弱引用的存储策略（毕竟不是属性，只是Runtime的一种API）
         {
             JPPerson *tmpPer = [[JPPerson alloc] init];
+            tmpPer.age = 77;
             objc_setAssociatedObject(per2, @"tmpPer", tmpPer, OBJC_ASSOCIATION_ASSIGN);
             
             // PS：调用NSLog或重写dealloc相关使用到临时对象的方法，可能会导致这个临时对象并不会在{}之后立即销毁。
@@ -83,6 +84,9 @@ int main(int argc, const char * argv[]) {
         // 所以{}之后再访问这个地址就会造成【坏内存访问】
         JPPerson *tmpPer = objc_getAssociatedObject(per2, @"tmpPer");
         NSLog(@"tmpPer死后再访问会崩溃！ %p", tmpPer);
+        
+        // 如果使用关联对象持有另一个对象时，当自己死掉后，关联对象会不会一直存活在AssociationsManager中死不掉呢？
+        // 不会，不用担心，因为对象销毁前会先移除自己的关联对象。
     }
 }
 

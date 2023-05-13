@@ -27,7 +27,7 @@
             - 然后在父类JPPerson的方法列表里面找不到这个方法，所以才会来到这里
             - respondsToSelector = yes
          */
-        if (![self.class isMemberOfClass:self.class]) {
+        if (![self isMemberOfClass:JPPerson.class]) {
             NSLog(@"我是子类 %@", self); // JPStudent
         }
         
@@ -36,8 +36,9 @@
          * 答案：不会。
          *
          * [super methodSignatureForSelector:aSelector]的底层实现：
-         * objc_msgSendSuper({self, class_getSuperclass(objc_getClass("JPPerson"))}, sel_registerName("methodSignatureForSelector:"), aSelector); ---- 对比之前多出来的这个aSelector是参数
-         * 可以看出，这是通过self（JPStudent），去JPPerson的父类（NSObject）里面找methodSignatureForSelector方法调用，所以这里【不会】再执行一次。
+         * objc_msgSendSuper({self, class_getSuperclass(objc_getClass("JPPerson"))}, sel_registerName("methodSignatureForSelector:"), aSelector); ---- 对比之前多出来的这个aSelector就是这里的【参数】
+         * 注意：这里的`objc_getClass("JPPerson")`中的"JPPerson"是直接“写死”的，并不是用self，所以class_getSuperclass拿到的是JPPerson的父类NSObject。
+         * 可以看出，这是让self（JPStudent），去JPPerson的父类（NSObject）里面找methodSignatureForSelector方法调用，所以这里【不会】再执行一次。
          * 从而得出另一个结论：super并不是用self拿父类，而是拿【这个文件的这个类的父类】，self是不确定的。
          */
         return [super methodSignatureForSelector:aSelector];

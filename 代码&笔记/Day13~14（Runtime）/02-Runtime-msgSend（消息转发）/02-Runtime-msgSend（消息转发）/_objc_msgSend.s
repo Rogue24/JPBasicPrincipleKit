@@ -2,11 +2,11 @@
 【objc-msg-arm64.s】
 ENTRY _objc_msgSend
 ↓
-判断消息接收者是否为空 →为空→ LNilOrTagged → LReturnZero → 给空对象发消息 → 退出函数
+判断消息接收者是否为空 -[为空]-> LNilOrTagged → LReturnZero → 给空对象发消息 → 退出函数
 ↓
 不为空，查找缓存（参数是NORMAL）
 ↓
-.macro CacheLookup →找到缓存方法→ .macro CacheHit → 执行方法
+.macro CacheLookup -[找到缓存方法]-> .macro CacheHit → 执行方法
 ↓
 没有缓存（参数是NORMAL）
 ↓
@@ -18,7 +18,7 @@ STATIC_ENTRY __objc_msgSend_uncached（参数是NORMAL，对应的是这个）
 ↓
 __class_lookupMethodAndLoadCache3
 ↓
-搜索 _class_lookupMethodAndLoadCache3
+搜索 _class_lookupMethodAndLoadCache3 // 这是一个C语言函数
 PS：C语言编写的函数名，编译成汇编后函数名会在前面多了一个“_”，所以搜索汇编里面的C语言函数要去掉第一个“_”
 ↓
 【objc-runtime-new.mm】
@@ -28,9 +28,9 @@ _class_lookupMethodAndLoadCache3
 ↓
 0.会跳过首次缓存查找（NO/*cache*/），毕竟刚在上面汇编部分找过了，接着往下走
 ↓
-1.又去自己的类对象的缓存里再找一遍，这是为了防止来到这一步时缓存里面已经有了 // Try this class's cache.
+1.又去自己的类对象的缓存里再找一遍，这是为了防止来到这一步时缓存里面可能已经有了 // Try this class's cache.
 ↓
-cache_getImp →找到了→ goto done → 执行方法
+cache_getImp -[找到了]-> goto done → 执行方法
 ↓
 还是找不到
 ↓
@@ -38,11 +38,11 @@ cache_getImp →找到了→ goto done → 执行方法
 ↓
 getMethodNoSuper_nolock
 ↓
-cls->data()->methods 获取类对象的方法列表，搜索列表
+cls->data()->methods 获取类对象的方法列表（二维数组），通过for循环，从每一个分类和本类原有的方法列表中搜索
 ↓
 search_method_list
 ↓
-如果没排好序，线性查找；
+如果没排好序，线性查找（普通for循环）；
 如果排好序的，二分查找（findMethodInSortedMethodList，每一次拿中间值对比，不是就对比大小确定在左半部分还是右半部分，再取那部分的中间值来对比，以此类推）
 ↓                    ↓
 找不到                找到，填充缓存，放入到cache_t里面
@@ -62,7 +62,7 @@ search_method_list
 ↓                                                               ↑          ↓
 cache_getImp、getMethodNoSuper_nolock，跟查找自己类对象的方式一样 → 找不到        ↓
 ↓                                                                          ↓
-找到，填充缓存，放入到【自己的（消息接收者）】cache_t里面。                          ↓
+找到，填充缓存，放入到【自己（消息接收者）】的cache_t里面。                          ↓
 ↓                                                                          ↓
 log_and_fill_cache → cache_fill → cache_fill_nolock                        ↓
 ↓                                                                          ↓
@@ -106,7 +106,7 @@ class_addMethod                                                   ↓
 ↓
 标记已经动态解析了
 ↓
-triedResolver = YES;
+triedResolver = YES; // 这里是写死的YES，并不是resolveXXXMethod返回的布尔值，因此不会重复
 ↓
 goto retry;
 ↓
@@ -122,6 +122,10 @@ goto done              跳过解析判断
 放入缓存，执行方法        进入【消息转发】阶段
                        ↓
                        _objc_msgForward_impcache
+
+为什么动态解析后要回去前面重新走一遍查找方法流程？
+- 因为如果动态解析阶段添加了方法，那新方法也是放在【方法列表】里面，所以肯定要回去找啦
+- 况且已经标记了，就算回去前面找不到，也不会重复再走一遍动态解析的
 *********************************【2】动态方法解析阶段 *********************************
 
 

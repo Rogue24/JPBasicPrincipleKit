@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-void test() {
+void test(void) {
     long long a = 1; // 0x7ffedfd3eaa8
     long long b = 2; // 0x7ffedfd3eaa0
     long long c = 3; // 0x7ffedfd3ea98

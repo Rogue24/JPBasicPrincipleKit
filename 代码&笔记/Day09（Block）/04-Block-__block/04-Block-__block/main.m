@@ -172,7 +172,7 @@ int main(int argc, const char * argv[]) {
             · 还是这个包装后的__block结构体对象里面的那个a？（`__Block_byref_a_0 *a`里面的`int a`，可以通过`stackBlockImpl->a->a`查看它的地址）
          *
          * 打个断点可以查看：
-         * 1.打印a的地址：po &a = 0x0000000100710b18
+         * 1.打印本体a的地址：po &a = 0x0000000100710b18
          * 2.打印block中的“a”：po stackBlockImpl->a = 0x0000000100710b00（这是将a包装在里面的那个对象的地址值）
          * 3.打印“a”里面的a的地址：po &(stackBlockImpl->a->a) = 0x0000000100710b18
          * 1和3的地址是一样的：&a == &(stackBlockImpl->a->a)，并且这个地址保存着a的值，这个才是本来的a

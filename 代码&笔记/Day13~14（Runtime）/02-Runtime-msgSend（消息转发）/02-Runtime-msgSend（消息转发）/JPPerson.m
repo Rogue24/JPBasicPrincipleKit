@@ -43,7 +43,7 @@
     return target;
 }
 
-// -forwardingTargetForSelector: -> nil -> -methodSignatureForSelector:
+// -forwardingTargetForSelector: -> return nil -> -methodSignatureForSelector:
 
 #pragma mark - 第三次（最后）机会：methodSignatureForSelector+forwardInvocation（方法签名+方法调用）
 //【NSMethodSignature】：方法签名，包含返回值类型、参数类型（TypeEncoding编码）的信息
@@ -55,16 +55,17 @@
         
         // 如果只是为了不让程序崩溃，那随便返回一个TypeEncoding编码就好了（不是TypeEncoding编码的会崩）
         // 然后在forwardInvocation里面啥都不干就OJBK。
-        return [NSMethodSignature signatureWithObjCTypes:":"];
+        return [NSMethodSignature signatureWithObjCTypes:":"]; // "v16@0:8" ":"
     }
     NSMethodSignature *methodSignature = [super methodSignatureForSelector:aSelector];
     // 默认返回nil
     return methodSignature;
 }
 
-// -methodSignatureForSelector: -> methodSignature -> invocation -> -forwardInvocation:
+// 上面返回一个方法签名后，将其封装到一个方法调用invocation中，接着调用-forwardInvocation:方法，给到我们使用。
+// -methodSignatureForSelector: -> return methodSignature -> 创建invocation，调用-forwardInvocation:invocation
 //             ↓
-//            nil
+//         return nil
 //             ↓
 // unrecognized selector sent to instance（崩溃）
 
@@ -75,6 +76,14 @@
  * [anInvocation getArgument:NULL atIndex:0]：获取方法参数
  */
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
+    // 直接调用的后果：
+    // 1.如果上面返回的`methodSignature`的方法签名跟原方法签名【对得上】，那么`anInvocation.target`则是【原消息调用者】
+    //  - 直接调用：死循环
+    // 2.如果上面返回的`methodSignature`的方法签名跟原方法签名【对不上】，那么`anInvocation.target`则指向一个【坏内存】
+    //  - 直接调用：坏内存访问
+//    NSLog(@"anInvocation.target %@", anInvocation.target);
+//    [anInvocation invoke];
+    
     // 切换其他方法调用者：
     // 方式1：
 //    anInvocation.target = [[JPDog alloc] init];

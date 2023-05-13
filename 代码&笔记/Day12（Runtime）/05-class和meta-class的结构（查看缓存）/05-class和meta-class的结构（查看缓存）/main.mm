@@ -39,36 +39,43 @@ int main(int argc, const char * argv[]) {
         
         JPSBStudent *sbStu = [[JPSBStudent alloc] init]; // 1
         
-        [sbStu personTest]; // 2
+        [sbStu sbStudentTest]; // 2
         
 //        NSLog(@"--------- 扩容前遍历 begin ---------");
 //        lookCaches(mj_sbStuCls);
 //        NSLog(@"--------- 扩容前遍历 end ---------");
         
-        NSLog(@"再放就满了，得扩容，先清空之前的缓存，然后才放入studentTest方法，之前的得再次调用重新放入缓存");
+        NSLog(@"调用studentTest方法前，发现缓存快满了，得先扩容");
         // 包括基类的init方法也会清掉的喔~
         [sbStu studentTest]; // 3 -> 1
+        NSLog(@"扩容后，清空了之前的缓存，然后才放入现在调用的studentTest方法");
         
 //        NSLog(@"--------- 扩容后遍历 begin ---------");
 //        lookCaches(mj_sbStuCls);
 //        NSLog(@"--------- 扩容后遍历 end ---------");
         
+        NSLog(@"之前调用的方法得再次调用，重新放入缓存");
         [sbStu sbStudentTest]; // 2
         [sbStu personTest]; // 3
         
-        NSLog(@"全部缓存好了，下面开始查看");
+        NSLog(@"全部缓存好了，下面开始查看\n");
         
         cache_t cache = mj_sbStuCls->cache;
         bucket_t *buckets = cache._buckets;
         
-        SEL sel1 = @selector(studentTest); // 2
-        SEL sel2 = @selector(sbStudentTest); // 6
-        SEL sel3 = @selector(personTest); // 2，跟sel1重复，放到3
+        SEL sel1 = @selector(studentTest);
+        SEL sel2 = @selector(sbStudentTest);
+        SEL sel3 = @selector(personTest);
+        
+        // 由于内存地址不是固定的，所以有可能会有重复的索引
+        NSLog(@"mask: %d", cache._mask);
+        NSLog(@"sel1: %lu, sel2: %lu, sel3: %lu", (long long)sel1, (long long)sel2, (long long)sel3);
+        NSLog(@"index1: %lu, index2: %lu, index3: %lu", (long long)sel1 & cache._mask, (long long)sel2 & cache._mask, (long long)sel3 & cache._mask);
         
         //【1】遍历
         NSLog(@"--------- 完整遍历 begin ---------");
         lookCaches(mj_sbStuCls);
-        NSLog(@"--------- 完整遍历 end ---------");
+        NSLog(@"--------- 完整遍历 ended ---------\n");
         
         //【2】直接通过索引
         // 注意：不同的sel&mask得到的索引有可能是【重复的】，因此直接通过索引获取的bucket有可能不是想要的那个
@@ -82,20 +89,30 @@ int main(int argc, const char * argv[]) {
         NSLog(@"%d, %s(%lu), %p", index2, sel2, sel2, bucket2._imp);
         
         int index3 = (long long)sel3 & cache._mask;
-        // 这里就有重复的情况了，按照x86_64架构和不能用最后一个索引(mask)的规则，获取下一个索引。
-        while (index3 == index1 || index3 == cache._mask) {
-            index3 = (index3 + 1) & cache._mask;
-        }
         bucket_t bucket3 = buckets[index3];
+        // 可能会有索引重复的情况（这里只是演示，才判断了一种情况）
+        //  - 实际上通过索引获取，如果不为空还得判断key（也就是sel）是否一致，具体去看`cache.imp(sel1)`里面的实现。
+        if (index3 == index1 || index3 == cache._mask) {
+            if (index3 == index1) {
+                NSLog(@"index3与index1重复了！寻找下一个索引！");
+            } else {
+                NSLog(@"居然是最后一个索引 %d，不给用的，寻找下一个索引！", index3);
+            }
+            // x86_64架构获取【下一个索引】的方式是：(i+1) & mask; // 参考MJClassInfo_New
+            while (index3 == index1 || index3 == cache._mask) { // 不能用最后一个索引(mask)！会崩！
+                index3 = (index3 + 1) & cache._mask;
+            }
+            bucket3 = buckets[index3];
+        }
         NSLog(@"%d, %s(%lu), %p", index3, sel3, sel3, bucket3._imp);
-        NSLog(@"--------- 直接通过索引 end ---------");
+        NSLog(@"--------- 直接通过索引 ended ---------\n");
         
         //【3】仿照源码获取
         NSLog(@"--------- 仿照源码获取 begin ---------");
         NSLog(@"%s(%lu), %p", sel1, sel1, cache.imp(sel1));
         NSLog(@"%s(%lu), %p", sel2, sel2, cache.imp(sel2));
         NSLog(@"%s(%lu), %p", sel3, sel3, cache.imp(sel3));
-        NSLog(@"--------- 仿照源码获取 end ---------");
+        NSLog(@"--------- 仿照源码获取 ended ---------\n");
         
 //        IMP imp = cache.imp(sel1);
 //        NSLog(@"%p", imp);

@@ -1,9 +1,9 @@
 1. 讲一下OC的消息机制
 	- OC中的方法调用其实都是转成了objc_msgSend函数的调用，给receiver（方法调用者）发送一条消息（selector方法名）
 	- objc_msgSend底层有3大阶段：
-		1. 消息发送（当前类、父类中查找）
+		1. 消息发送（当前类、父类中查找，先查找缓存，再查找方法列表）
 		2. 动态方法解析（resolveInstanceMethod、resolveClassMethod）
-		3. 消息转发
+		3. 消息转发（forwardingTargetForSelector、methodSignatureForSelector、forwardInvocation）
 
 2. 消息转发机制流程       
 	- 调用forwardingTargetForSelector:方法，返回转发对象
