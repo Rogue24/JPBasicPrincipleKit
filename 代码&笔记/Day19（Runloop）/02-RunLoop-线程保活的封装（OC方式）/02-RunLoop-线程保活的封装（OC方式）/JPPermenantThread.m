@@ -35,6 +35,7 @@
         
         __weak typeof(self) weakSelf = self;
         self.innerThread = [[JPThread alloc] initWithBlock:^{
+            // 添加一个port，用于线程间通信，相当于添加了个Source1，捕获事件给Source0处理（performSelector:onThread:）
             [[NSRunLoop currentRunLoop] addPort:[[JPPort alloc] init] forMode:NSDefaultRunLoopMode];
             while (weakSelf && !weakSelf.isStopped) {
                 // 有了Port，启动RunLoop就不会立马退出
@@ -61,7 +62,7 @@
 
 - (void)stop {
     if (!self.innerThread) return;
-    [self performSelector:@selector(__stop) onThread:self.innerThread withObject:nil waitUntilDone:YES];
+    [self performSelector:@selector(__stop) onThread:self.innerThread withObject:nil waitUntilDone:YES]; // waitUntilDone要为YES，确保RunLoop退出了再继续
 }
 
 - (void)executeTask:(JPPermenantThreadTask)task {

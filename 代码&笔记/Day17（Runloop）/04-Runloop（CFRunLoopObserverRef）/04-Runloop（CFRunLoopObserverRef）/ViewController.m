@@ -17,10 +17,10 @@
 /*
  *【RunLoop与线程】
  * 每条线程都有唯一的一个与之对应的RunLoop对象
- * RunLoop 保存在全局的Dictionary，线程作为key，RunLoop作为value ==> @ {线程：RunLoop}
+ * RunLoop 保存在全局的Dictionary，线程作为key，RunLoop作为value ==> 就像 NSDictionary<NSThread *, NSRunLoop *> *runLoops;
  * 线程刚创建时并没有RunLoop对象，RunLoop会在第一次获取它时创建（懒加载，主线程的RunLoop是在UIApplicationMain()里面获取过的）
  * RunLoop会在线程结束时销毁（一对一的关系，共生体）
- * 主线程的RunLoop已经自动获取（创建），子线程默认没有开启RunLoop
+ * 主线程的RunLoop已经自动获取（创建），子线程默认没有开启RunLoop（除非子线程里面调用`[NSRunLoop currentRunLoop]`就会自动创建）
 
  *【获取RunLoop对象】
  * 获取当前线程的RunLoop：<<子线程的RunLoop第一次获取时才创建>>
@@ -105,6 +105,7 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
         default:
             break;
     }
+    CFRelease(mode); // Copy的记得最后要手动释放
 }
 
 - (void)viewDidLoad {
@@ -124,13 +125,14 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
     // 1.创建Observer
     
     //【方式一：通过回调函数监听】
-    // 参数1：allocator --> 分配器
-    // 参数2：activities --> 要监听的状态
-    // 参数3：repeats --> 是否重复监听
-    // 参数4：order --> 是否考虑顺序（0：不需要考虑）
-    // 参数5：callout --> 回调函数的指针（地址）
-    // 参数6：context --> 需要回调的信息，执行回调函数时经由里面的info回传
-//    CFRunLoopObserverRef observer = CFRunLoopObserverCreate(kCFAllocatorDefault, kCFRunLoopAllActivities, YES, 0, runLoopObserverCallBack, NULL);
+//    CFRunLoopObserverRef observer = CFRunLoopObserverCreate(
+//        kCFAllocatorDefault,     // 参数1：allocator --> 分配器
+//        kCFRunLoopAllActivities, // 参数2：activities --> 要监听的状态
+//        YES,                     // 参数3：repeats --> 是否重复监听
+//        0,                       // 参数4：order --> 是否考虑顺序（0：不需要考虑）
+//        runLoopObserverCallBack, // 参数5：callout --> 回调函数的指针（地址）
+//        NULL                     // 参数6：context --> 需要回调的信息，执行回调函数时经由里面的info回传
+//    );
     
     //【方式二：通过block监听】
     CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, kCFRunLoopAllActivities, YES, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
@@ -142,14 +144,14 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
             {
                 CFRunLoopMode mode = CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent());
                 NSLog(@"kCFRunLoopEntry --- %@", mode);
-                CFRelease(mode);
+                CFRelease(mode); // Copy的记得最后要手动释放
                 break;
             }
             case kCFRunLoopExit:
             {
                 CFRunLoopMode mode = CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent());
                 NSLog(@"kCFRunLoopExit --- %@", mode);
-                CFRelease(mode);
+                CFRelease(mode); // Copy的记得最后要手动释放
                 break;
             }
             default:
@@ -170,9 +172,14 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
     // scheduledTimerWithTimeInterval创建的定时器默认添加在默认模式（NSDefaultRunLoopMode）
     // 默认模式下，一旦Runloop进入其他模式（例如滚动的mode），这个定时器就不会工作
     [NSTimer scheduledTimerWithTimeInterval:5.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-        // 定时器能唤醒线程，是在kCFRunLoopAfterWaiting(刚从休眠中唤醒)的状态下执行的
+        // 定时器能唤醒线程，是在【kCFRunLoopAfterWaiting(刚从休眠中唤醒)】的状态下执行的
         NSLog(@"hello~");
     }];
 }
+
+// 定时器能唤醒线程，是在【kCFRunLoopAfterWaiting(刚从休眠中唤醒)】的状态下执行的
+// 2023-05-13 18:13:21.090673+0800 [95338:28030915] 刚从休眠中唤醒 --- kCFRunLoopDefaultMode
+// 2023-05-13 18:13:21.091004+0800 [95338:28030915] hello~
+// 2023-05-13 18:13:21.091312+0800 [95338:28030915] 即将处理Times --- kCFRunLoopDefaultMode
 
 @end

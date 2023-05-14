@@ -14,8 +14,6 @@
 		1AB219E5238F7E490041210E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AB219E4238F7E490041210E /* Assets.xcassets */; };
 		1AB219E8238F7E490041210E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AB219E6238F7E490041210E /* LaunchScreen.storyboard */; };
 		1AB219EB238F7E490041210E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB219EA238F7E490041210E /* main.m */; };
-		1AB219F5238FC3E40041210E /* RunLoop的运行逻辑（图文）.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AB219F4238FC3E40041210E /* RunLoop的运行逻辑（图文）.jpg */; };
-		1AB219F7238FC3EE0041210E /* RunLoop的运行逻辑（文字）.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AB219F6238FC3EE0041210E /* RunLoop的运行逻辑（文字）.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,11 +141,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AB219F7238FC3EE0041210E /* RunLoop的运行逻辑（文字）.jpg in Resources */,
 				1AB219E8238F7E490041210E /* LaunchScreen.storyboard in Resources */,
 				1AB219E5238F7E490041210E /* Assets.xcassets in Resources */,
 				1AB219E3238F7E470041210E /* Main.storyboard in Resources */,
-				1AB219F5238FC3E40041210E /* RunLoop的运行逻辑（图文）.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

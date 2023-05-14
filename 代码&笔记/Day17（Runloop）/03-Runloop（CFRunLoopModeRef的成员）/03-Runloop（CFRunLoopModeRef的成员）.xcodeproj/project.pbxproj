@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A6130BD238E5FAB002DB6DB /* 查看完整的函数调用栈.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A6130BC238E5FAB002DB6DB /* 查看完整的函数调用栈.jpg */; };
-		1A6130C7238EDC47002DB6DB /* RunLoop对象.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A6130C5238EDC46002DB6DB /* RunLoop对象.jpg */; };
-		1A6130C8238EDC47002DB6DB /* RunLoop相关的类和结构.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A6130C6238EDC46002DB6DB /* RunLoop相关的类和结构.jpg */; };
 		1ABD6EBD238D35960022BE40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6EBC238D35960022BE40 /* AppDelegate.m */; };
 		1ABD6EC0238D35960022BE40 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6EBF238D35960022BE40 /* SceneDelegate.m */; };
 		1ABD6EC3238D35960022BE40 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6EC2238D35960022BE40 /* ViewController.m */; };
@@ -142,11 +139,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A6130BD238E5FAB002DB6DB /* 查看完整的函数调用栈.jpg in Resources */,
-				1A6130C8238EDC47002DB6DB /* RunLoop相关的类和结构.jpg in Resources */,
 				1ABD6ECB238D35970022BE40 /* LaunchScreen.storyboard in Resources */,
 				1ABD6EC8238D35970022BE40 /* Assets.xcassets in Resources */,
-				1A6130C7238EDC47002DB6DB /* RunLoop对象.jpg in Resources */,
 				1ABD6EC6238D35960022BE40 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

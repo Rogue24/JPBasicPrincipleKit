@@ -26,23 +26,21 @@
 
 3. RunLoop和线程的关系
 	- 每条线程都有唯一的一个与之对应的RunLoop对象
-	- RunLoop 保存在全局的Dictionary，线程作为key，RunLoop作为value ==> @ {线程：RunLoop}
-	- 线程刚创建时并没有RunLoop对象，RunLoop会在第一次获取它时创建（懒加载，主线程的RunLoop是在UIApplicationMain()里面获取过的）
+	- RunLoop 保存在全局的Dictionary，线程作为key，RunLoop作为value，就像`NSDictionary<NSThread *, NSRunLoop *> *runLoops;`
+	- 线程刚创建时并没有RunLoop对象，RunLoop会在第一次获取它时创建（懒加载，主线程的RunLoop是在`UIApplicationMain()`里面获取过的）
 	- RunLoop会在线程结束时销毁（一对一的关系）
 	- 主线程的RunLoop已经自动获取（创建），子线程默认没有开启RunLoop
 
 4. timer与RunLoop的关系
-	- timer是存放在RunLoop对象中的``_modes集合``里面指定的那个Mode的``_timers数组``中（``runLoop._modes[x]._timers = [timer]``），如果是``commonMode模式``下，就存放在RunLoop对象的``_commonModeItems集合``中（``runLoop._commonModeItems = [timer]``）
-	- timer是在RunLoop的运行流程中工作的，是RunLoop来控制timer什么时候执行的，首先会通知Observers即将处理timer，然后唤醒线程，通知Observers结束休眠，去处理timer
+	- timer是存放在RunLoop对象中的``_modes集合``里面指定的那个Mode的``_timers数组``中（``runLoop._modes[x]._timers = [timer]``），如果是``common模式``下，就存放在RunLoop对象的``_commonModeItems集合``中（``runLoop._commonModeItems = [timer]``）
+	- timer是在RunLoop的执行流程中工作的，首先RunLoop会通知Observers即将处理timer，然后timer会唤醒线程，RunLoop就会通知Observers结束休眠，接着去处理timer
 
 5. 程序中添加每3秒响应一次的NSTimer，当拖动tableView时timer可能无法响应要怎么解决？
-	- 将timer添加到``commonMode模式``下，这不是真的模式，只是一个标记，RunLoop真正切换的还是``kCFRunLoopDefaultMode``和``UITrackingRunLoopMode``这两种模式，这只是告诉RunLoop要这样做：
-		1. 将``kCFRunLoopDefaultMode``和``UITrackingRunLoopMode``放入到``_commonModes集合``中（这两个模式本来也存放在``_modes``中）
-		2. 将timer放入到``_commonModeItems集合``中
+	- 将timer添加到``common模式``下，这不是真的模式，只是一个标记，RunLoop真正切换的还是``kCFRunLoopDefaultMode``和``UITrackingRunLoopMode``这两种模式，这是告诉RunLoop将timer放入到``_commonModeItems集合``中
 	- 因为``_commonModeItems集合``里面的timer可以在``_commonModes集合``里面存放的所有模式下运行，所以无论有无滚动，timer都能运行
 
 6. RunLoop是怎么响应用户操作的，具体流程是怎么样？
-	- 由Source1捕捉系统事件，将事件放到事件队列里面（EventQueue），再由Source0去处理这些事件。
+	- 由Source1捕捉触摸/响应事件，将事件放到事件队列里（EventQueue），交由Source0去处理这些事件。
 
 7. 说说RunLoop的几种状态
 	- kCFRunLoopEntry：即将进入Loop
@@ -57,5 +55,5 @@
 		1. kCFRunLoopDefaultMode：App的默认Mode，通常主线程是在这个Mode下运行
 		2. UITrackingRunLoopMode：界面跟踪 Mode，用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他 Mode 影响
 		3. UIInitializationRunLoopMode: 在刚启动 App 时第进入的第一个 Mode，启动完成后就不再使用 ---- <用不上>
-		4. GSEventReceiveRunLoopMode: 接受系统事件的内部 Mode ---- <用不上>
-		5. kCFRunLoopCommonModes: 这是一个标记（默认和滚动的Mode），不是一种真正的Mode
+		4. GSEventReceiveRunLoopMode: 接收系统事件的内部 Mode ---- <用不上>
+		5. kCFRunLoopCommonModes: 这是一个标记（允许在默认和滚动的Mode下运行），不是一种真正的Mode

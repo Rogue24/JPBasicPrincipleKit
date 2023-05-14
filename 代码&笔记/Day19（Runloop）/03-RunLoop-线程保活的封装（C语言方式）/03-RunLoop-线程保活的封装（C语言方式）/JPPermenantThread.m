@@ -30,7 +30,7 @@
         self.innerThread = [[JPThread alloc] initWithBlock:^{
             
             // 1.创建上下文
-            //【注意】：没有初始化的局部变量，数据有可能是错乱的，因为当前的栈空间有可能是上一个函数剩下的，这样不初始化会报错。
+            //【注意】：没有初始化的局部变量，数据有可能是错乱的，因为当前的栈空间有可能是上一个函数剩下的，如果不初始化会报错。
             CFRunLoopSourceContext context = {0}; // 初始化结构体：{0} --> 初始化里面的成员都为0
             
             // 2.创建source
@@ -45,17 +45,19 @@
             
             // 5.启动RunLoop
             // 参数2 seconds：1.0e10，代表RunLoop的持续时间
-            // 参数3 returnAfterSourceHandled：false，代表执行完source后函数不返回（不退出当前RunLoop）
+            // 参数3 returnAfterSourceHandled：false，代表处理完source后函数【不】返回（不退出当前RunLoop）
             CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.0e10, false);
             /*
              * 参数2：1.0e10是一个超大的值，参考自源码的CFRunLoopRunSpecific函数中的调用
              *
-             * 参数3：如果设置为true，代表执行完一次source后就会退出RunLoop，
+             * 参数3：如果设置为true，代表处理完source后就会退出RunLoop，
              * 这时想要继续使用该线程就得跟之前那样套个循环来重新启动RunLoop：
                  while (weakSelf || !weakSelf.isStopped) {
                      CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.0e10, true);
                  }
-             * 由此可见，C语言的方式对比OC的方式会更加精简，不需要手动添加循环，设置参数3为false即可。
+             * 由此可见，C语言的方式对比OC的方式会更加精简，不需要手动添加循环，只要设置参数3为【false】即可，
+             * 并且只需要调用`CFRunLoopStop(CFRunLoopGetCurrent())`就可以彻底停止和退出RunLoop，
+             * 不需要再依赖和维护isStopped了（现在只是用来防止重复start）。
              */
             
             NSLog(@"RunLoop is done.");
@@ -79,7 +81,7 @@
 
 - (void)stop {
     if (!self.innerThread) return;
-    [self performSelector:@selector(__stop) onThread:self.innerThread withObject:nil waitUntilDone:YES];
+    [self performSelector:@selector(__stop) onThread:self.innerThread withObject:nil waitUntilDone:YES]; // waitUntilDone要为YES，确保RunLoop退出了再继续
 }
 
 - (void)executeTask:(JPPermenantThreadTask)task {
