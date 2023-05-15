@@ -9,8 +9,8 @@
 #import "JPBaseDemo.h"
 
 /**
- * NSCondition是对pthread_mutex普通锁（PTHREAD_MUTEX_DEFAULT）和pthread_cond的封装
- * 查看GNUstep的源码可以看到NSLock初始化的是PTHREAD_MUTEX_NORMAL的pthread_mutex，并且也初始化了条件_condition
+ * `NSCondition`是对`pthread_mutex`普通锁（`PTHREAD_MUTEX_DEFAULT`）和`pthread_cond`的封装
+ * 查看`GNUstep`的源码可以看到`NSCondition`初始化的是`PTHREAD_MUTEX_NORMAL`的`pthread_mutex`，并且也初始化了条件`_condition`
  * PS：不是递归🔐
  */
 
@@ -18,8 +18,8 @@
 // 特点：等不到🔐就会去休眠。
 /**
  * 使用汇编跟踪等待中的线程的函数汇编代码：
- * 最后会调用syscall，然后线程就休眠去了，可以看出这是个互斥🔐。
- *【syscall：系统级别的函数调用】
+ * 最后会调用`syscall`，然后线程就休眠去了，可以看出这是个互斥🔐。
+ * `syscall`：系统级别的函数调用
  */
 @interface JPNSConditionDemo : JPBaseDemo
 

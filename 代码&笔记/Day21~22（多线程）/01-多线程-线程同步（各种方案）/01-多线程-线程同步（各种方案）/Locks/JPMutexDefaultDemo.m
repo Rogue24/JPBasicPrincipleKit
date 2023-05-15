@@ -31,6 +31,10 @@
 
 - (instancetype)init {
     if (self = [super init]) {
+        // 静态初始化
+//        _ticketMutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+//        _moneyMutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+        
         // 初始化🔐
         [self __initMutex:&_ticketMutex];
         [self __initMutex:&_moneyMutex];

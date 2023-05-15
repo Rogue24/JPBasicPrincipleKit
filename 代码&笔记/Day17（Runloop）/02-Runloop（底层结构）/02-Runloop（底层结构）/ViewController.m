@@ -88,7 +88,7 @@
     NSLog(@"oc %p", runLoop); // 0x6080000bd820
     NSLog(@"c  %p", runLoopRef); // 0x6040001f5600
     
-    NSLog(@"%@", runLoop); // <CFRunLoop 0x6040001f5600 ...>
+    NSLog(@"runLoop %@", runLoop); // <CFRunLoop 0x6040001f5600 ...>
     
     /*
      * 直接打印地址oc对象和c对象地址不同，直接打印oc对象，指向对象的地址却跟c对象一样

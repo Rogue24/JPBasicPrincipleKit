@@ -17,7 +17,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        // 初始化🔐
+        // 初始化串行Queue
         self.ticketQueue = dispatch_queue_create("ticketQueue", DISPATCH_QUEUE_SERIAL);
         self.moneyQueue = dispatch_queue_create("moneyQueue", DISPATCH_QUEUE_SERIAL);
     }
@@ -25,21 +25,23 @@
 }
 
 /**
- * dispatch_sync + serialQueue：同步执行+串行队列
- * serialQueue：串行队列，里面的任务是排队、按顺序执行，一个任务执行完毕后，再执行下一个任务
- * dispatch_sync：同步执行，在【当前】线程中执行任务，不会开启新线程
- * 不要在自己的串行队列的任务里面再同步执行新任务，会造成死锁，例：
-    dispatch_sync(serialQueue, ^{
-        任务1
+ * `dispatch_sync` + `serialQueue`：同步执行 + 串行队列
+ * `serialQueue`：串行队列，里面的任务是排队、按顺序执行，一个任务执行完毕后，再执行下一个任务
+ * `dispatch_sync`：同步执行，在【当前】线程中执行任务，不会开启新线程
+ *
+ * ⚠️不要在自己的串行队列的任务里面再同步执行新任务，会造成死锁，例：
+ *
         dispatch_sync(serialQueue, ^{
-            任务2
+            任务1
+            dispatch_sync(serialQueue, ^{
+                任务2
+            });
         });
-    });
  *
  * 为什么要使用【同步执行+串行队列】的方式就可以实现加🔐的效果？
- * 由于这里的任务都是全局并发队列异步执行的任务（async + globalQueue）：
- * 1. serialQueue：因为每个任务可能分别在不同的子线程，并且是并发执行的，所以放到串行队列可以让多个任务排队去执行
- * 2. dispatch_sync：让串行队列的任务在当前线程执行，因为任务本来就是在子线程执行的，所以没必要再开启新线程
+ * 由于这里的任务都是【全局并发队列】异步执行的（`globalQueue` + `async`）：
+ * 1. `serialQueue`：因为每个任务可能分别在不同的子线程，并且是并发执行的，所以放到串行队列可以让多个任务排队去执行
+ * 2. `dispatch_sync`：让串行队列的任务在当前线程执行，因为任务本来就是在子线程执行的，所以没必要再开启新线程
  */
 
 #pragma mark - 卖票操作

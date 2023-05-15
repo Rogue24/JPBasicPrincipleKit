@@ -42,8 +42,8 @@
 #pragma mark - 其他：递归演示
 
 /**
- * 递归🔐：允许【同一个线程】对一把🔐进行【重复】加🔐
- * 属性设置为PTHREAD_MUTEX_RECURSIVE
+ * 递归🔐：允许【同一个线程】对同一把🔐进行【重复】加🔐
+ * 属性设置为`PTHREAD_MUTEX_RECURSIVE`
  * How to work？
     线程1：
         otherTest（加🔐）--- 1（加锁次数）
@@ -74,6 +74,9 @@
     
     // 解🔐
     pthread_mutex_unlock(&_mutex);
+    
+    // 能来到这里就说明递归到头了，重置一下
+    count = 0;
 }
 
 @end

@@ -258,14 +258,14 @@
     
     // doing1{}异步执行->新线程
     dispatch_async(concurrentQueue, ^{
-        NSLog(@"doing1 --- %@", [NSThread currentThread]);
+        NSLog(@"doing1 begin --- %@", [NSThread currentThread]);
         
         // doing2{}异步执行->新线程
         dispatch_async(concurrentQueue, ^{
             NSLog(@"doing2 --- %@", [NSThread currentThread]);
         });
         
-        // doing3{}跟doing1{}同一线程，doing3{}执行完继续doing1{}，同步执行->doing1{}线程
+        // doing3{}跟doing1{}同一线程，doing1{}会卡住等doing3{}执行完再继续，并发执行->不用等doing1{}执行完才开始
         dispatch_sync(concurrentQueue, ^{
             NSLog(@"doing3 --- %@", [NSThread currentThread]);
         });
@@ -280,10 +280,12 @@
             NSLog(@"doing4 --- %@", [NSThread currentThread]);
         });
         
-        // doing5{}跟doing1{}同一线程，doing3{}执行完再执行doing5{}再继续doing1{}，同步执行->doing1{}线程
+        // doing5{}跟doing1{}同一线程，doing1{}会卡住等doing5{}执行完再继续，并发执行->不用等doing1{}执行完才开始
         dispatch_sync(concurrentQueue, ^{
             NSLog(@"doing5 --- %@", [NSThread currentThread]);
         });
+        
+        NSLog(@"doing1 end --- %@", [NSThread currentThread]);
     });
     
 //    NSInteger c = 0;

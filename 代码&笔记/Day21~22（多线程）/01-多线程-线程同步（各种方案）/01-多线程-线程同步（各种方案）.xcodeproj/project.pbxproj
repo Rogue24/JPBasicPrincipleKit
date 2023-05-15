@@ -22,8 +22,6 @@
 		1A86F3E6244C00B70083EBD8 /* JPMutexCondDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3CD244C00B70083EBD8 /* JPMutexCondDemo.m */; };
 		1A86F3E7244C00B70083EBD8 /* JPNSLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3D0244C00B70083EBD8 /* JPNSLockDemo.m */; };
 		1A86F3E8244C00B70083EBD8 /* JPGCDSemaphoreDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3D6244C00B70083EBD8 /* JPGCDSemaphoreDemo.m */; };
-		1A86F3E9244C00B70083EBD8 /* iOS中的线程同步方案及性能比较.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A86F3D8244C00B70083EBD8 /* iOS中的线程同步方案及性能比较.jpg */; };
-		1A86F3EA244C00B70083EBD8 /* 自旋锁和互斥锁的比较.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A86F3D9244C00B70083EBD8 /* 自旋锁和互斥锁的比较.jpg */; };
 		1A86F3EB244C00B70083EBD8 /* JPMutexDefaultDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3DA244C00B70083EBD8 /* JPMutexDefaultDemo.m */; };
 		1A86F3EC244C00B70083EBD8 /* JPNSConditionDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3DB244C00B70083EBD8 /* JPNSConditionDemo.m */; };
 		1A86F3ED244C00B70083EBD8 /* JPOSSpinLockDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A86F3DE244C00B70083EBD8 /* JPOSSpinLockDemo.m */; };
@@ -207,11 +205,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A86F3E9244C00B70083EBD8 /* iOS中的线程同步方案及性能比较.jpg in Resources */,
 				1A86F3BD244C009C0083EBD8 /* LaunchScreen.storyboard in Resources */,
 				1A86F3BA244C009C0083EBD8 /* Assets.xcassets in Resources */,
 				1A86F3B8244C00980083EBD8 /* Main.storyboard in Resources */,
-				1A86F3EA244C00B70083EBD8 /* 自旋锁和互斥锁的比较.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

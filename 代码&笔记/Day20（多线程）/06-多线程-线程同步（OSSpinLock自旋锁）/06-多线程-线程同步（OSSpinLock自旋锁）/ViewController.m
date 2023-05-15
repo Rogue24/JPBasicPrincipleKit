@@ -20,14 +20,14 @@
 @implementation ViewController
 
 /**
- * OSSpinLock（自旋锁），使用while循环来实现加锁效果，一直占用CPU资源
+ * `OSSpinLock`（自旋锁），使用while循环来实现加锁效果，一直占用CPU资源
  *【已经不再安全】，可能会出现【优先级反转问题】。
  * 例如：
  * thread1：优先级高
  * thread2：优先级低
  * 1. 先执行 thread2，加🔐
  * 2. 接着执行 thread1，发现已经加🔐了，那就等 thread2 解🔐
-    - 由于 OSSpinLock 使用的是通过while循环实现的加锁效果，因此等待中的 thread1 是一直活跃着；
+    - 由于 `OSSpinLock`使用的是通过while循环实现的加锁效果，因此等待中的 thread1 是一直活跃着；
     - 又因为【线程调度】，而 thread1 的优先级高，所以CPU就会不断地分配大量时间给 thread1（一直无意义的循环），从而没时间分配给 thread2；
     - 那么 thread2 就没有资源的分配，一直执行不完，导致 thread2 一直解不了🔐， thread1 一直干等着，造成类似【死锁】的情况。
  * 解决：
@@ -41,7 +41,7 @@
 #pragma mark - OSSpinLockTry 和 OSSpinLockLock 的区别
 
 /**
- * OSSpinLockTry尝试加🔐，返回bool，true就是【已经】成功加🔐，false就是加🔐失败
+ * `OSSpinLockTry`：尝试加🔐，返回`true`就是【已经】成功加🔐，返回`false`就是加🔐失败
  * 如果这个🔐已经有线程用着，那就是失败，返回false，【不会加🔐也不会等待】，代码往下继续
  */
 - (IBAction)lockTryTest {
@@ -138,7 +138,7 @@
        ==> while(是不是加了锁) {}
      */
     
-    // OSSpinLockTry尝试加🔐，返回bool，true就是【已经】成功加🔐，false就是加🔐失败
+    // OSSpinLockTry：尝试加🔐，返回true就是【已经】成功加🔐，返回false就是加🔐失败
     // 如果这个🔐已经有线程用着，那就是失败，返回false，【不会加🔐也不会等待】，代码往下继续
 //    if (!OSSpinLockTry(&_ticketLock)) return;
     

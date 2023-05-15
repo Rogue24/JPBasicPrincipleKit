@@ -31,7 +31,7 @@
     // 加🔐
     /*
      * PS：void os_unfair_lock_lock(os_unfair_lock_t lock);
-     * 传入的是【os_unfair_lock_t】类型 ==> 名字比os_unfair_lock后面多了“_t”
+     * 传入的是【os_unfair_lock_t】类型 ==> 名字比 os_unfair_lock 后面多了“_t”
      *
      * 点进【os_unfair_lock】查看结构：
          typedef struct os_unfair_lock_s {

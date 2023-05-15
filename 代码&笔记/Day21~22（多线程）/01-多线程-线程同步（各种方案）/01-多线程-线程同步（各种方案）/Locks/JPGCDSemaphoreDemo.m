@@ -19,17 +19,17 @@
 - (instancetype)init {
     if (self = [super init]) {
         /**
-         * semaphore叫做“信号量”
+         * `semaphore`叫做【信号量】
          * 信号量的初始值，可以用来控制线程并发访问的最大数量
          * 信号量的初始值为1，代表同时只允许1条线程访问资源，保证线程同步
          *
          * 其实就是用信号量的值来判定目前剩多少条线程可以用，当执行任务：
-         * 任务开始：dispatch_semaphore_wait
-            - 如果信号量大于0（semaphore > 0）==> 信号量减1（semaphore - 1），往下执行代码
-            - 如果信号量小于等于0（semaphore <= 0）==> 让线程休眠等待，直到信号大于0 ==> 唤醒线程，信号量减1（semaphore - 1），接着执行后面的代码
-         * 任务最后：dispatch_semaphore_signal ==> 信号量加1（semaphore + 1），告诉等待中的线程有信号量了！
+         * 任务开始：`dispatch_semaphore_wait`
+            - 如果信号量大于0（`semaphore > 0`）==> 信号量减1（`semaphore - 1`），往下执行代码
+            - 如果信号量小于等于0（`semaphore <= 0`）==> 让线程休眠等待，直到信号大于0 ==> 唤醒线程，信号量减1（`semaphore - 1`），接着执行后面的代码
+         * 任务最后：`dispatch_semaphore_signal` ==> 信号量加1（`semaphore + 1`），告诉等待中的线程有信号量了！
          *
-         * PS：【dispatch_semaphore_wait】和【dispatch_semaphore_signal】要配套使用，缺一不可
+         * PS：`dispatch_semaphore_wait`和`dispatch_semaphore_signal`要配套使用，【缺一不可】。
          */
         
         // 最多可以5个线程同时执行
@@ -71,7 +71,7 @@
         
          // 减1后如果等于0，那么其他还在等这个信号量的线程只能继续等，而这条线程会继续往下执行。
      
-     * 参数2的作用是当<<信号量的值小于等于0>>时线程会等多久：
+     * 参数2的作用是【当信号量的值小于等于0时】线程会等多久：
         - DISPATCH_TIME_FOREVER：一直等待（休眠），直到这个信号量的值大于0
         - DISPATCH_TIME_NOW：不会等待，继续往下执行代码（这样就没法实现线程同步的效果）
      */

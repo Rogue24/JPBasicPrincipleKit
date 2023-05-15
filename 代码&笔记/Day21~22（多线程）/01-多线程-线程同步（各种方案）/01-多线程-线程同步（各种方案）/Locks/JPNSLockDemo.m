@@ -24,14 +24,14 @@
         self.recursiveLock = [[NSRecursiveLock alloc] init];
         
         /**
-         * - (BOOL)tryLock;
-         * 尝试加🔐，返回BOOL，YES就是【已经】成功加🔐，NO就是加🔐失败
+         * `- (BOOL)tryLock;`
+         * 尝试加🔐，返回YES就是【已经】成功加🔐，返回NO就是加🔐失败
          * 如果这个🔐已经有线程用着，那就是失败，返回NO，不会加🔐也不会等待，代码往下继续
          *
-         * - (BOOL)lockBeforeDate:(NSDate *)limit;
-         * 如果这个🔐已经有线程用着，当前线程会在给到的日期limit到来之前一直等待（阻塞、休眠）
-         * 在limit到来之前，这个🔐可以使用了，那就加🔐，返回YES，代码往下继续
-         * 当超过了limit，当前线程就不再等待，返回NO，不会加🔐也不会等待，代码往下继续
+         * `- (BOOL)lockBeforeDate:(NSDate *)limit;`
+         * 如果这个🔐已经有线程用着，当前线程会在给到的日期`limit`到来之前一直等待（阻塞、休眠）
+         * 在`limit`到来之前，这个🔐可以使用了，那就加🔐，返回YES，代码往下继续
+         * 当超过了`limit`，当前线程就不再等待，返回NO，不会加🔐也不会等待，代码往下继续
          */
     }
     return self;
@@ -74,7 +74,7 @@
 #pragma mark - 其他：递归演示
 
 /**
- * 递归🔐：允许【同一个线程】对一把🔐进行【重复】加🔐
+ * 递归🔐：允许【同一个线程】对同一把🔐进行【重复】加🔐
  * How to work？
     线程1：
         otherTest（加🔐）--- 1

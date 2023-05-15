@@ -14,7 +14,7 @@
 - (void)moneyTest;
 - (void)otherTest;
 
-#pragma mark 留给子类重写的方法
+#pragma mark 暴露给子类去重写的方法（加锁/解锁）
 - (void)__saleTicket;
 - (void)__saveMoney;
 - (void)__drawMoney;
