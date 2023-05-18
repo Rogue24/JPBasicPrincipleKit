@@ -19,8 +19,8 @@ int main(int argc, const char * argv[]) {
         NSLog(@"Hello, World!");
         
         /**
-         * `isMemberOfClass`： 对比是不是等同于【此类】
-         * `isKindOfClass`：       对比是不是等同于【此类或其子类】
+         * `isMemberOfClass`：对比是不是等同于【此类】
+         * `isKindOfClass`：对比是不是等同于【此类或其子类】
          *
          * 实例对象调用：
          * `isMemberOfClass`：直接通过`[self class]`获取自己的【类对象】去对比传进来的Class
