@@ -24,7 +24,6 @@ int main(int argc, const char * argv[]) {
         [mArray addObject:@"1"];
         [mArray addObject:@"2"];
         [mArray addObject:@"3"];
-        
     }
     return 0;
 }

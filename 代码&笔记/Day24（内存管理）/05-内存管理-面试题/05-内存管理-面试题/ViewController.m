@@ -28,8 +28,8 @@
     #   define _OBJC_TAG_MASK 1UL ==> 条件是0，则为Mac平台，判断的是最低有效位（第1位）
     #endif
  
- * iOS平台的判定位为最高有效位（第64位）
- * Mac平台的判定位为最低有效位（第1位）
+ * iOS平台的判定位为【最高】有效位（第64位）
+ * Mac平台的判定位为【最低】有效位（第1位）
  */
 
 @interface ViewController ()
@@ -41,7 +41,7 @@
 #warning 当前为【iOS平台】
 
 BOOL isTaggedPointer(id pointer) {
-    return (long)(__bridge void *)pointer & (long)(1UL<<63); // iOS平台是最高有效位（第64位）
+    return (long)(__bridge void *)pointer & (1UL << 63); // iOS平台是最高有效位（第64位）
 }
 
 - (void)viewDidLoad {
@@ -92,7 +92,7 @@ BOOL isTaggedPointer(id pointer) {
     NSLog(@"hello~");
 }
 
-// 会崩溃
+#pragma mark - 会崩溃
 - (IBAction)action1:(id)sender {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     for (NSInteger i = 0; i < 1000; i++) {
@@ -104,16 +104,16 @@ BOOL isTaggedPointer(id pointer) {
 
 /*
  * why崩溃？
- * 属性name的setter方法在MRC环境下（<<ARC环境下编译后也会转成MRC模式下的代码>>）是酱紫：
+ * 属性name的setter方法在MRC环境下（<<ARC环境下的代码编译后会转成MRC的代码>>）是酱紫的：
      - (void)setName:(NSString *)name {
          if (_name != name) {
              [_name release];
              _name = [name copy];
          }
      }
- * 由于上面方法是【同时】开启【多个线程】去进行setter操作
+ * 因为上面方法是几乎【同时】开启【多个线程】去进行setter操作，
  * 会极大几率导致其中一条线程release操作刚执行完，都还没进行赋值，另一条线程这时又执行了release操作，所以崩溃。
- * 原因就是【连续执行release操作】造成的【坏内存访问】。
+ * 所以原因就是对同一个对象【连续执行release操作】造成的【坏内存访问】（尝试去释放一个已经释放掉的对象）。
  */
 
 /*
@@ -125,7 +125,7 @@ BOOL isTaggedPointer(id pointer) {
      解🔐
  */
 
-// 不会崩溃
+#pragma mark - 不会崩溃
 - (IBAction)action2:(id)sender {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     for (NSInteger i = 0; i < 1000; i++) {
@@ -137,8 +137,10 @@ BOOL isTaggedPointer(id pointer) {
 
 /*
  * why不崩溃？
- * 因为 [NSString stringWithFormat:@"zjp"] 这不是一个OC对象，而是一个TaggedPointer
- * 意味着这里的赋值不会像OC对象的setter方法那样会先release后retain或copy再赋值，而是将TaggedPointer这个指针变量的地址值【直接】赋值给"_name"这个成员变量，修改地址值而已，【完全没有内存相关的操作】，因此不会出现连续执行release操作造成的坏内存访问（崩溃）。
+ * 因为 [NSString stringWithFormat:@"zjp"] 这不是一个OC对象，而是一个`TaggedPointer`。
+ * 意味着这里的赋值并不会像OC对象的setter方法那样操作（先release旧对象，再retain或copy新对象，然后才赋值），
+ * 而是将`TaggedPointer`这个指针变量的【地址值】直接赋值给"_name"这个成员变量，
+ * 仅仅修改【地址值】而已，【完全没有内存管理相关的操作】，因此不会出现连续执行release操作造成的坏内存访问。
  */
 
 @end

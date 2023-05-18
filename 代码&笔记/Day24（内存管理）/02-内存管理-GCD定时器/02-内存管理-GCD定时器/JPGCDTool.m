@@ -47,7 +47,7 @@ static dispatch_semaphore_t semaphore_;
 
 + (void)mainQueueSyncExecTask:(void(^)(void))task {
     if ([NSThread currentThread] == [NSThread mainThread]) {
-        NSLog(@"在主线程同步执行主队列的任务会死🔐的啊 哥");
+        NSLog(@"在主线程同步执行主队列的任务会死🔐的啊，哥");
         return;
     }
     [self syncExecTask:task onQueue:[self getMainQueue]];
@@ -93,8 +93,8 @@ static dispatch_semaphore_t semaphore_;
     
     static int timerKeyIndex_ = 0;
     // 不建议用timers_.count，不安全，有可能会覆盖掉已经存在的timer
-    // 例如，timer_[0] = timer0，timer_[1] = timer1
-    // 然后取消timer0并移除，这时timers_.count变为1
+    // 例如：timer_[0] = timer0，timer_[1] = timer1
+    // 然后取消timer0并移除，这时timers_.count变为1，
     // 接着添加新的timer2，但key为1，这样就会覆盖掉timer1，timer1就无法取消了。
     
     dispatch_semaphore_wait(semaphore_, DISPATCH_TIME_FOREVER);

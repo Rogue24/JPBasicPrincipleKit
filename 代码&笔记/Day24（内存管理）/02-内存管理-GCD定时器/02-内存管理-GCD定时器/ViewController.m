@@ -17,15 +17,15 @@
 @implementation ViewController
 
 /**
- * NSTimer不准时：
- * 因为NSTimer依赖于RunLoop，RunLoop每跑一圈就会累积这一圈的时间，然后在循环的开头查看累积的时间是否达到NSTimer要触发的时间
- * 但是RunLoop每一圈所花费的时间是不固定的（RunLoop的任务过于繁重的话就会长一点），所以可能会导致NSTimer不准时
- * 例：timer设置为每隔1s触发任务，RunLoop第1圈0.2s，第2圈0.3s，第3圈0.3s，差0.2s，但第4圈却0.4s，加起来0.2+0.3+0.3+0.4=1.2 > 1.0
+ * `NSTimer`不准时：
+ * 因为`NSTimer`依赖于`RunLoop`，`RunLoop`每跑一圈就会累积这一圈的时间，然后在循环的开头查看累积的时间是否达到`NSTimer`要触发的时间。
+ * 但是`RunLoop`每一圈所花费的时间是不固定的（`RunLoop`的任务过于繁重的话就会长一点），所以可能会导致`NSTimer`不准时。
+ * 例：`timer`设置为每隔1s触发任务，`RunLoop`第1圈0.2s，第2圈0.3s，第3圈0.3s，差0.2s，但第4圈却用了0.4s，加起来`0.2 + 0.3 + 0.3 + 0.4 = 1.2 > 1.0`，超时！
  */
 
 /**
- * GCD定时器会更加准时：
- * 因为GCD定时器是直接跟系统内核挂钩的，而且不依赖RunLoop。
+ * `GCD定时器`会更加准时：
+ * 因为`GCD定时器`是直接跟【系统内核】挂钩的，而且不依赖`RunLoop`。
  */
 
 - (void)viewDidLoad {
@@ -103,6 +103,5 @@
 void timerHandle(void *param) {
     NSLog(@"hello~ %@", [NSThread currentThread]);
 }
-
 
 @end

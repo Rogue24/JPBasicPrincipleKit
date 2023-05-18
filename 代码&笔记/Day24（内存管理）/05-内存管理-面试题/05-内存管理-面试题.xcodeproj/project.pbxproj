@@ -29,7 +29,7 @@
 		1A1043A423A622EB00D1B2DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A1043A623A622EB00D1B2DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A1043A723A622EB00D1B2DF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1AE758B023B39E7C00955316 /* iOS13起就不同了（应该打了掩码）.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS13起就不同了（应该打了掩码）.jpg"; sourceTree = "<group>"; };
+		1AE758B023B39E7C00955316 /* iOS13起就不同了(应该打了掩码).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS13起就不同了(应该打了掩码).jpg"; sourceTree = "<group>"; };
 		1AE758B123B39E8900955316 /* iOS13之前直接存储.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iOS13之前直接存储.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,7 +63,7 @@
 		1A10439423A622EA00D1B2DF /* 05-内存管理-面试题 */ = {
 			isa = PBXGroup;
 			children = (
-				1AE758B023B39E7C00955316 /* iOS13起就不同了（应该打了掩码）.jpg */,
+				1AE758B023B39E7C00955316 /* iOS13起就不同了(应该打了掩码).jpg */,
 				1AE758B123B39E8900955316 /* iOS13之前直接存储.jpg */,
 				1A10439523A622EA00D1B2DF /* AppDelegate.h */,
 				1A10439623A622EA00D1B2DF /* AppDelegate.m */,

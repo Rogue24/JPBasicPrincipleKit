@@ -28,16 +28,16 @@
 
 - (void)write:(NSInteger)index threadMsg:(NSString *)threadMsg {
     sleep(1);
-    NSLog(@"-------------------write %zd begin--------------------", index);
-    NSLog(@"【writing by %zd】\n在这条线程调用：%@\n在这条线程执行：%@", index, threadMsg, [NSThread currentThread]);
-    NSLog(@"--------------------write %zd end---------------------", index);
+    NSLog(@"------------------[write %zd begin]-------------------", index);
+    NSLog(@"\n【writing: %zd】\n在这条线程调用：%@\n在这条线程执行：%@", index, threadMsg, [NSThread currentThread]);
+    NSLog(@"-------------------[write %zd end]--------------------", index);
 }
 
 - (void)read:(NSInteger)index threadMsg:(NSString *)threadMsg {
     sleep(1);
-    NSLog(@"-------------------read %zd begin--------------------", index);
-    NSLog(@"【reading by %zd】\n在这条线程调用：%@\n在这条线程执行：%@", index, threadMsg, [NSThread currentThread]);
-    NSLog(@"--------------------read %zd end---------------------", index);
+    NSLog(@"------------------[read %zd begin]-------------------", index);
+    NSLog(@"\n【reading: %zd】\n在这条线程调用：%@\n在这条线程执行：%@", index, threadMsg, [NSThread currentThread]);
+    NSLog(@"-------------------[read %zd end]--------------------", index);
 }
 
 /*
@@ -55,8 +55,8 @@
     - 至于为什么不能使用【全局并发队列】，个人认为是系统不希望我们阻断全局并发队列的并发效率，毕竟这是一条为全局服务的队列，不可能只处理这里的任务，可不能中途插入一些超级耗时的操作卡住其他并发任务吧。
  
  * 从打印结果看到：
-    - write始终保持着一个完整的begin和end闭合的打印
-    - read都是多个同时穿插交替的打印
+    - write：始终保持着【一个完整的begin和end闭合】的打印
+    - read：都是【多个同时】穿插交替的打印
  * 可以看出这两种方案都可以做到：在同一时间内只会进行1次write操作，在同一时间内可以同时进行多个read操作，不会同时一起进行write和read操作。
  */
 

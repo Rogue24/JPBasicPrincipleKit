@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #warning 当前在MRC环境下！
+// 关闭ARC：Targets --> Build Settings --> 搜索automatic reference --> 设置为NO
 
 /**
  * 拷贝的目的：产生一个副本对象，跟源对象互不影响
@@ -16,7 +17,7 @@
  * 修改了副本对象，不会影响源对象
  */
 
-void copyTest1() {
+void copyTest1(void) {
     NSLog(@"-----------------copyTest1-----------------");
     
     // 系统的类方法创建的对象已经调用过autorelease，不需要手动内存管理
@@ -29,9 +30,10 @@ void copyTest1() {
     NSLog(@"str3 %@ --- %p", str3, str3);
 }
 
-// 常量区的数据（字符串常量）、TaggedPointer的引用计数一直都为【-1】，TaggedPointer不是对象，是个指针
+// 常量区的数据（字符串常量）、TaggedPointer的引用计数一直都为【-1】
+// TaggedPointer：不是对象，是个指针。
 static NSString *str_;
-void copyTest2() {
+void copyTest2(void) {
     NSLog(@"-----------------copyTest2-----------------");
     
     str_ = @"zjp"; // 直接写出来的，不是通过方法创建的字符串，编译时会生成为【字符串常量】
@@ -64,7 +66,7 @@ void copyTest2() {
  * 可变  ---mutableCopy--> 可变 ==> 深拷贝
  */
 
-void copyTest3() {
+void copyTest3(void) {
     NSLog(@"-----------------copyTest3-----------------");
     
     NSString *str1 = [[NSString alloc] initWithFormat:@"zjp"]; // TaggedPointer
@@ -77,7 +79,7 @@ void copyTest3() {
     NSLog(@"str3 %@ --- %zd --- %p", str3, str3.retainCount, str3);
 }
 
-void copyTest4() {
+void copyTest4(void) {
     NSLog(@"-----------------copyTest4-----------------");
     
     NSMutableString *str1 = [[NSMutableString alloc] initWithFormat:@"zjp"]; // 对象
@@ -92,7 +94,7 @@ void copyTest4() {
     NSLog(@"str3 %@ --- %zd --- %p", str3, str3.retainCount, str3);
 }
 
-void copyTest5() {
+void copyTest5(void) {
     NSLog(@"-----------------copyTest5-----------------");
     
     NSString *str1 = [[NSString alloc] initWithFormat:@"zhoujianping"]; // 对象 str1.retainCount = 1
@@ -104,7 +106,7 @@ void copyTest5() {
     NSLog(@"str3 %@ --- %zd --- %p", str3, str3.retainCount, str3);
 }
 
-void arrayCopyTest1() {
+void arrayCopyTest1(void) {
     NSLog(@"-----------------arrayCopyTest1-----------------");
     
     NSArray *array1 = [[NSArray alloc] initWithObjects:@"1", @"2", nil]; // 对象 array1.retainCount = 1
@@ -116,7 +118,7 @@ void arrayCopyTest1() {
     NSLog(@"array3 %@ --- %zd --- %p", array3, array3.retainCount, array3);
 }
 
-void arrayCopyTest2() {
+void arrayCopyTest2(void) {
     NSLog(@"-----------------arrayCopyTest2-----------------");
     
     NSMutableArray *array1 = [[NSMutableArray alloc] initWithObjects:@"1", @"2", nil]; // 对象
@@ -131,7 +133,7 @@ void arrayCopyTest2() {
     NSLog(@"array3 %@ --- %zd --- %p", array3, array3.retainCount, array3);
 }
 
-void dictionaryCopyTest1() {
+void dictionaryCopyTest1(void) {
     NSLog(@"-----------------dictionaryCopyTest1-----------------");
     
     NSDictionary *dic1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"z", @"1", @"j", @"2", nil]; // 对象 dic1.retainCount = 1
@@ -143,7 +145,7 @@ void dictionaryCopyTest1() {
     NSLog(@"dic3 %@ --- %zd --- %p", dic3, dic3.retainCount, dic3);
 }
 
-void dictionaryCopyTest2() {
+void dictionaryCopyTest2(void) {
     NSLog(@"-----------------dictionaryCopyTest2-----------------");
     
     NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"z", @"1", @"j", @"2", nil]; // 对象
@@ -177,7 +179,7 @@ void dictionaryCopyTest2() {
     return [NSString stringWithFormat:@"\n%p\n%@\n%@\n%d\n%d", self, self.mArray, self.array, self.age, self.weight];
 }
 
-// 自定义类要使用copy功能，需要内部实现<<-copyWithZone:>>方法。
+// 自定义类要使用copy功能，需要内部实现`-copyWithZone:`方法。
 - (id)copyWithZone:(struct _NSZone *)zone {
     JPPerson *per = [[JPPerson allocWithZone:zone] init];
     per.mArray = self.mArray;
@@ -210,6 +212,7 @@ int main(int argc, const char * argv[]) {
 //        dictionaryCopyTest1();
 //        dictionaryCopyTest2();
         
+        
         // 浅拷贝 引用计数+1
         NSString *str = [[NSString alloc] initWithFormat:@"zhoujianping"]; // 对象 str.retainCount = 1
         NSLog(@"before copy --- %zd", str.retainCount);
@@ -234,29 +237,56 @@ int main(int argc, const char * argv[]) {
         // 所以array虽然声明的是NSArray类型，但实际上array是NSMutableArray类型，因为引用的还是【同一个对象】
         per.array = mArray;
         
-        NSLog(@"before change --- mArray %@", mArray);
-        NSLog(@"before change --- per.mArray %@", per.mArray);
-        NSLog(@"before change --- per.array %@", per.array);
+        NSLog(@"=================[before change]=================");
+        NSLog(@"mArray %@", mArray);
+        NSLog(@"per.mArray %@", per.mArray);
+        NSLog(@"per.array %@", per.array);
         
         // 当外界修改了这个对象：
         // 如果使用copy修饰的属性，不受影响；而使用retain/strong修饰的属性，会随之变化。
         [mArray addObject:@"4"]; // 修改源对象
         
-        NSLog(@"after change --- mArray %@", mArray);
-        NSLog(@"after change --- per.mArray %@", per.mArray); // 不会影响副本对象
-        NSLog(@"after change --- per.array %@", per.array); // 会随之变化
+        NSLog(@"=================[after change]=================");
+        NSLog(@"mArray %@", mArray);
+        NSLog(@"per.mArray %@", per.mArray); // 不会影响副本对象
+        NSLog(@"per.array %@", per.array); // 会随之变化
         
-        // 自定义类要使用copy功能，需要内部实现<<-copyWithZone:>>方法。
+        
+        NSLog(@"=================[自定义类的copy]=================");
+        // 自定义类要使用copy功能，需要内部实现`-copyWithZone:`方法。
         
         per.age = 18;
         per.weight = 160;
         
         JPPerson *per2 = per.copy;
+        
+        per.age = 33;
+        per.weight = 250;
+        
         NSLog(@"per %@", per);
         NSLog(@"per2 %@", per2);
         
+        
+        NSLog(@"=============[表面类型虽骗人，但身体却很诚实]=============");
+        // 表面可变，实际不可变
+        NSLog(@"111 per.mArray --- %zd", per.mArray.retainCount);
+        NSMutableArray *iArray1 = per.mArray; // copy修饰符只会在set方法进行copy，get方法是不会的~
+        NSLog(@"222 per.mArray --- %zd", per.mArray.retainCount); // 没变，说明get方法是直接取。
+        NSMutableArray *iArray2 = per.mArray.copy; // 不可变的copy，浅拷贝
+        NSLog(@"333 per.mArray --- %zd", per.mArray.retainCount); // +1
+        NSMutableArray *iArray3 = per.mArray.mutableCopy;
+        NSLog(@"%@ %@ %@ %@", per.mArray.class, iArray1.class, iArray2.class, iArray3.class);
+        NSLog(@"%p %p %p %p", per.mArray, iArray1, iArray2, iArray3);
+        // 表面不可变，实际可变
+        NSArray *mArray1 = per.array;
+        NSArray *mArray2 = per.array.copy; // 可变的copy，深拷贝
+        NSArray *mArray3 = per.array.mutableCopy;
+        NSLog(@"%@ %@ %@ %@", per.array.class, mArray1.class, mArray2.class, mArray3.class);
+        NSLog(@"%p %p %p %p", per.array, mArray1, mArray2, mArray3);
+        
         [per release];
         [per2 release];
+        // PS：严谨来说还有一些临时数组要release的，不过懒得搞了，毕竟只是个demo。
     }
     return 0;
 }

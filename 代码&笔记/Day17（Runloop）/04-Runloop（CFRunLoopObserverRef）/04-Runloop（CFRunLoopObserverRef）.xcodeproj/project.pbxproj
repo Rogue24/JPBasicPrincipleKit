@@ -17,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A35B6BF2A15699E00D2AA58 /* RunLoop的运行逻辑（图文）.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "RunLoop的运行逻辑（图文）.jpg"; path = "../../../Day18（Runloop）/01-RunLoop-源码分析（运行流程）/01-RunLoop-源码分析（运行流程）/RunLoop的运行逻辑（图文）.jpg"; sourceTree = "<group>"; };
 		1A6130BC238E5FAB002DB6DB /* 查看完整的函数调用栈.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "查看完整的函数调用栈.jpg"; sourceTree = "<group>"; };
 		1A6130C1238EDB1B002DB6DB /* RunLoop相关的类和结构.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "RunLoop相关的类和结构.jpg"; sourceTree = "<group>"; };
 		1A6130C3238EDBED002DB6DB /* RunLoop对象.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "RunLoop对象.jpg"; sourceTree = "<group>"; };
@@ -67,6 +68,7 @@
 				1A6130C3238EDBED002DB6DB /* RunLoop对象.jpg */,
 				1A6130C1238EDB1B002DB6DB /* RunLoop相关的类和结构.jpg */,
 				1A6130BC238E5FAB002DB6DB /* 查看完整的函数调用栈.jpg */,
+				1A35B6BF2A15699E00D2AA58 /* RunLoop的运行逻辑（图文）.jpg */,
 				1ABD6EBB238D35960022BE40 /* AppDelegate.h */,
 				1ABD6EBC238D35960022BE40 /* AppDelegate.m */,
 				1ABD6EBE238D35960022BE40 /* SceneDelegate.h */,

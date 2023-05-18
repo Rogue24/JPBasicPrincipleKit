@@ -19,21 +19,21 @@ int main(int argc, const char * argv[]) {
         NSLog(@"Hello, World!");
         
         /**
-         * isMemberOfClass： 对比是不是等同于【此类】
-         * isKindOfClass：       对比是不是等同于【此类或其子类】
+         * `isMemberOfClass`： 对比是不是等同于【此类】
+         * `isKindOfClass`：       对比是不是等同于【此类或其子类】
          *
          * 实例对象调用：
-         * isMemberOfClass：直接通过 [self class] 获取自己的【类对象】去对比传进来的Class
-         * isKindOfClass：通过superclass进行for循环 ，每次通过 [self class] 获取自己的【类对象】去对比传进来的Class
+         * `isMemberOfClass`：直接通过`[self class]`获取自己的【类对象】去对比传进来的Class
+         * `isKindOfClass`：通过`superclass`进行for循环 ，每次通过`[self class]`获取自己的【类对象】去对比传进来的Class
          *
          * 类对象调用：
-         * isMemberOfClass：直接通过 object_getClass(self) 获取自己的【元类对象】去对比传进来的Class
-         * isKindOfClass：通过superclass进行for循环 ，每次通过 object_getClass(self) 获取自己的【元类对象】去对比传进来的Class
+         * `isMemberOfClass`：直接通过`object_getClass(self)`获取自己的【元类对象】去对比传进来的Class
+         * `isKindOfClass`：通过`superclass`进行for循环 ，每次通过`object_getClass(self)`获取自己的【元类对象】去对比传进来的Class
          *
-         * 特殊情况： [JPPerson isKindOfClass:[NSObject class]]，[NSObject isKindOfClass:[NSObject class]] ==> YES
+         * 特殊情况：`[JPPerson isKindOfClass:[NSObject class]]`、`[NSObject isKindOfClass:[NSObject class]]` ==> YES
          * 为啥用【元类对象】跟【类对象】对比会是YES？
-         * 因为superclass通过for循环最后会来到根类（NSObject）的元类对象，
-         * 而根类的元类对象的superclass就是指向根类的类对象（ [NSObject class] ），所以相等（YES）。
+         * 因为`superclass`通过for循环最后会来到根类（`NSObject`）的元类对象，
+         * 而根类的元类对象的`superclass`就是指向根类的类对象（`[NSObject class]`），所以相等（YES）。
          *
          * 可以这么说：所有【元类对象】都属于【NSObject的类对象】的子类
          * ==> `[任意对象 isKindOfClass:[NSObject class]]` ==> `YES`

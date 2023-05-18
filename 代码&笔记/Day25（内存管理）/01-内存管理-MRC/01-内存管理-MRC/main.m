@@ -11,13 +11,14 @@
 #import "JPNewPerson.h"
 
 #warning 当前在MRC环境下！
+// 关闭ARC：Targets --> Build Settings --> 搜索automatic reference --> 设置为NO
 
 #pragma mark - autorelease
-void autoreleaseTest() {
+void autoreleaseTest(void) {
     /*
      * autorelease方法：
      * 调用了autorelease的对象，会在一个【恰当】的时刻（不再使用对象时）自动去执行一次release操作
-     * 这里是在main函数的@autoreleasepool的{}结束后，对【在{}里面调用过autorelease的对象】自动调用一次release
+     * 这里是在main函数的`@autoreleasepool`的{}结束后，对【在{}里面调用过autorelease的对象】自动调用一次release
      */
     JPPerson *per = [[[JPPerson alloc] init] autorelease];
     NSLog(@"retainCount -- %zd", per.retainCount);
@@ -25,7 +26,7 @@ void autoreleaseTest() {
 
 // 在JPPerson的setter方法给dog添加retain操作
 // 在dealloc方法给dog添加release操作
-void setterTest1() {
+void setterTest1(void) {
     /** 人在狗在 */
     
     JPDog *dog = [[JPDog alloc] init]; // dog.retainCount = 1
@@ -54,7 +55,7 @@ void setterTest1() {
 }
 
 // 在JPPerson的setter方法给旧的dog添加release操作
-void setterTest2() {
+void setterTest2(void) {
     /** 人在旧狗不在 */
     
     JPDog *dog1 = [[JPDog alloc] init]; // dog1.retainCount = 1
@@ -83,7 +84,7 @@ void setterTest2() {
 // 如果是一样的dog并且引用计数是1，就不能执行release后接着执行retain，这样会坏内存访问（dog被重复release）
 // 顺便得在dealloc改成self.dog = nil来销毁
 // PS：想验证问题就去开启Xcode的【僵尸】模式吧（僵尸对象：对已经死掉的对象继续拿来使用）
-void setterTest3() {
+void setterTest3(void) {
     /** 人在旧狗不在 */
     
     JPDog *dog = [[JPDog alloc] init]; // dog.retainCount = 1
@@ -109,9 +110,10 @@ int main(int argc, const char * argv[]) {
         setterTest3();
         
         JPPerson *per0 = [[[JPPerson alloc] init] autorelease];
-        NSLog(@"retainCount -- %zd", per0.retainCount);
+        NSLog(@"per0.retainCount --- %zd", per0.retainCount);
         [per0 release]; // 使用了autorelease的对象就不要过多调用release，这样会提前释放
-        // 使用了autorelease的对象，会自动在某个时机去执行一次release操作，但该对象已经释放的话，这样就会报错
+        // 📢 使用了autorelease的对象，会自动在某个时机去执行一次release操作，
+        // 如果在这里提前释放该对象的话，就会报错（尝试去释放一个已经释放掉的对象）。
         
         JPNewPerson *per = [[JPNewPerson alloc] init];
         
@@ -119,15 +121,21 @@ int main(int argc, const char * argv[]) {
 //
 //        per.car = car;
         
+        // per的car属性使用了retain修饰符
         per.car = [[JPCar alloc] init];
         
-        NSLog(@"%zd", per.car.retainCount);
+        NSLog(@"per.car.retainCount --- %zd", per.car.retainCount);
         
         [per.car release];
+        
+        NSLog(@"per.car.retainCount --- %zd", per.car.retainCount);
+        
         [per release];
-        [per retain];
+//        [per retain]; // 来到这里时，per已经被释放掉了，retain会报错
         
         sleep(8);
+        NSLog(@"Goodbye, World!");
     }
+    NSLog(@"end");
     return 0;
 }

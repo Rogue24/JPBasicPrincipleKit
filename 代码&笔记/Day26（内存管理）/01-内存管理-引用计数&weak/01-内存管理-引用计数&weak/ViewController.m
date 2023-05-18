@@ -107,9 +107,11 @@
     NSLog(@"嗨 -- %@", per3);
     
     /**
-     * __weak和__unsafe_unretained
+     * `__weak`和`__unsafe_unretained`
      * 共同点：都不会产生强引用
-     * 区别：__weak会在对象被销毁时会自动指向nil，__unsafe_unretained不会改变指向，对象被销毁后继续访问会造成坏内存访问
+     * 区别：
+     *  - `__weak`会在对象被销毁时会自动指向nil
+     *  - `__unsafe_unretained`不会改变指向，对象被销毁后继续访问会造成坏内存访问
      */
     
     /*
@@ -170,6 +172,5 @@
          };
      */
 }
-
 
 @end

@@ -9,9 +9,9 @@
 #import "JPProxy.h"
 #import <objc/runtime.h>
 
-@implementation JPProxy2
-
 static Class targetCls_;
+
+@implementation JPProxy2
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
     if (self.target) {
@@ -55,7 +55,7 @@ static Class targetCls_;
 }
 
 - (void)dealloc {
-    NSLog(@"%s", __func__);
+    NSLog(@"%s %@", __func__, self);
 }
 
 @end

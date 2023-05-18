@@ -116,8 +116,11 @@
         // 除非给RunLoop放点东西，就可以启动一次
         [self performSelector:@selector(interviewTest) withObject:nil afterDelay:3.0];
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        NSLog(@"111 %@", [NSThread currentThread]); // 来到这里说明定时器处理完了，已经退出RunLoop。
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        NSLog(@"222 %@", [NSThread currentThread]);
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        NSLog(@"333 %@", [NSThread currentThread]);
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
         
         NSLog(@"退出RunLoop openSubThreadAndRunLoop --- %@", [NSThread currentThread]);

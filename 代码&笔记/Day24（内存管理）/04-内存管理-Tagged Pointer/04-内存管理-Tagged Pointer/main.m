@@ -21,14 +21,14 @@
     #endif
 
  * _OBJC_TAG_MASK的定义：
-    #if OBJC_MSB_TAGGED_POINTERS ==>  判断 OBJC_MSB_TAGGED_POINTERS 的值
+    #if OBJC_MSB_TAGGED_POINTERS ==> 判断 OBJC_MSB_TAGGED_POINTERS 的值
     #   define _OBJC_TAG_MASK (1UL<<63) ==> 是1，为iOS平台，判断的是最高有效位（第64位）
     #else
     #   define _OBJC_TAG_MASK 1UL ==> 是0，为Mac平台，判断的是最低有效位（第1位）
     #endif
 
- * iOS平台的判定位为最高有效位（第64位）
- * Mac平台的判定位为最低有效位（第1位）
+ * iOS平台的判定位为【最高】有效位（第64位）
+ * Mac平台的判定位为【最低】有效位（第1位）
  */
 
 /*
@@ -46,7 +46,7 @@
  
  * 当存值很大，指针不够存储数据时（超过64位），才会使用动态分配内存的方式来存储数据（创建OC对象）
  
- * objc_msgSend 能识别TaggedPointer，比如NSNumber的intValue方法，直接从指针提取数据，节省了以前的调用开销（而且这不是真的OC对象，根本就没有isa去找方法）
+ * objc_msgSend 能识别TaggedPointer，比如NSNumber的intValue方法，直接从指针提取数据，节省了以前的调用开销（而且这不是真的OC对象，根本就没有通过isa去找方法的操作）
  
  * 怎么识别？判定位是【1】就是TaggedPointer，否则就是OC对象。
     - iOS平台：判定位是最高有效位（第64位）
@@ -58,7 +58,7 @@
         ↓                  ↓
     最高有效位（第64位）  最低有效位（第1位）
         ↓                  ↓
-   iOS平台判断这一位    Mac平台判断这一位
+    iOS平台判断这一位     Mac平台判断这一位
   
  */
 
@@ -71,7 +71,7 @@
    0000001
 */
 BOOL isTaggedPointer(id pointer) {
-    return (long)(__bridge void *)pointer & (long)1; // Mac平台是最低有效位（第1位）
+    return (long)(__bridge void *)pointer & (1UL << 0); // Mac平台是最低有效位（第1位）
 }
 
 int main(int argc, const char * argv[]) {
@@ -88,18 +88,22 @@ int main(int argc, const char * argv[]) {
         NSLog(@"%p %p %p %p", num1, num2, num3, num4); // 0x327 0x427 0x527 0x103210340
         
         // Tagged Pointer的NSNumber指针里面存储的数据变成了：Tag + Data，也就是将数据直接存储在了指针中
-        // 例如：0x327 ==> 0x3(Data)27(Tag)
+        // 例如：0x327 ==> 0x3(Data)27(Tag) // 0x27可能代表是NSNumber类型
         
         /*
-         * PS：例如@3
+         * PS：例如`@3`
          * 在以前版本的地址是0x327（第3位就是存值3，0x27是标识）
-         * 现在版本（macOS 10.15.4）地址却是0x429707dbd8281ae5，一堆乱码似的，应该是底层多加了一层掩码（加密了？）
+         * 现在版本（macOS 10.15.4）地址却是0x429707dbd8281ae5，一堆乱码似的，应该是底层多&了一层掩码（加密了？）
          */
         
         // 如何判断指针是否TaggedPointer：将指针地址&判定用的掩码，查看判定位是什么（Mac是第1位，iOS是第64位）
         // 判定位是【0】，这是分配到堆中的OC对象的内存地址（OC对象在内存中以16对齐，因此有效位肯定是0）
         // 判定位是【1】，这是Tagged Pointer
-        NSLog(@"%d %d %d %d", isTaggedPointer(num1), isTaggedPointer(num2), isTaggedPointer(num3), isTaggedPointer(num4));
+        NSLog(@"%d %d %d %d",
+              isTaggedPointer(num1),
+              isTaggedPointer(num2),
+              isTaggedPointer(num3),
+              isTaggedPointer(num4));
         // 1 1 1 0
         
         /*
@@ -114,7 +118,7 @@ int main(int argc, const char * argv[]) {
         /*
          * TaggedPointer技术的好处：
          * 1.存值：直接把值存到指针中，不需要再新建一个OC对象来保存（额外多分配至少16个字节）--- 省内存
-         * 2.取值：直接从指针中把目标值抽取出来，不需要像OC对象那样，先从类对象的方法列表中查找再调用来获取那么麻烦 --- 性能好、效率高
+         * 2.取值：直接从指针中把目标值抽取出来，不需要像以前那样还得通过消息机制先找到intValue方法再调用才能获取那么麻烦 --- 性能好、效率高
          */
         
     }

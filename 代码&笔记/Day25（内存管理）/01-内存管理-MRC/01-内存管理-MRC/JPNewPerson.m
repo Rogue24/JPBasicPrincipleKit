@@ -17,6 +17,7 @@
     [super dealloc];
 }
 
+#pragma mark - 使用【retain】修饰自动生成的setter和getter的实现
 //- (void)setCar:(JPCar *)car {
 //    if (_car == car) {
 //        return;
@@ -29,7 +30,8 @@
 //- (JPCar *)car {
 //    return _car;
 //}
-//
+
+#pragma mark - 使用【assign】修饰自动生成的setter和getter的实现
 //- (void)setAge:(int)age {
 //    _age = age;
 //}

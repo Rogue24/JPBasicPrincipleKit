@@ -9,12 +9,14 @@
 #import "ViewController.h"
 
 #warning 当前在MRC环境下！
+// 关闭ARC：Targets --> Build Settings --> 搜索automatic reference --> 设置为NO
 
 @interface Dog: NSObject
 @end
 @implementation Dog
 - (void)dealloc {
     NSLog(@"死求");
+    [super dealloc];
 }
 @end
 

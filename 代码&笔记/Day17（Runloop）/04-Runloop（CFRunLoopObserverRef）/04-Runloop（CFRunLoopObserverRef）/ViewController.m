@@ -85,22 +85,22 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
     CFRunLoopMode mode = CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent());
     switch (activity) {
         case kCFRunLoopEntry:
-            NSLog(@"即将进入Loop --- %@", mode);
+            NSLog(@"Entry 即将进入Loop --- %@", mode);
             break;
         case kCFRunLoopBeforeTimers:
-            NSLog(@"即将处理Times --- %@", mode);
+            NSLog(@"BeforeTimers 即将处理Times --- %@", mode);
             break;
         case kCFRunLoopBeforeSources:
-            NSLog(@"即将处理Sources --- %@", mode);
+            NSLog(@"BeforeSources 即将处理Sources --- %@", mode);
             break;
         case kCFRunLoopBeforeWaiting:
-            NSLog(@"即将进入休眠 --- %@", mode);
+            NSLog(@"BeforeWaiting 即将进入休眠 --- %@", mode);
             break;
         case kCFRunLoopAfterWaiting:
-            NSLog(@"刚从休眠中唤醒 --- %@", mode);
+            NSLog(@"AfterWaiting 刚从休眠中唤醒 --- %@", mode);
             break;
         case kCFRunLoopExit:
-            NSLog(@"即将退出Loop --- %@", mode);
+            NSLog(@"Exit 即将退出Loop --- %@", mode);
             break;
         default:
             break;
@@ -147,6 +147,13 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
                 CFRelease(mode); // Copy的记得最后要手动释放
                 break;
             }
+//            case kCFRunLoopBeforeWaiting:
+//            {
+//                CFRunLoopMode mode = CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent());
+//                NSLog(@"kCFRunLoopBeforeWaiting --- %@", mode);
+//                CFRelease(mode); // Copy的记得最后要手动释放
+//                break;
+//            }
             case kCFRunLoopExit:
             {
                 CFRunLoopMode mode = CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent());
@@ -178,8 +185,11 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
 }
 
 // 定时器能唤醒线程，是在【kCFRunLoopAfterWaiting(刚从休眠中唤醒)】的状态下执行的
-// 2023-05-13 18:13:21.090673+0800 [95338:28030915] 刚从休眠中唤醒 --- kCFRunLoopDefaultMode
-// 2023-05-13 18:13:21.091004+0800 [95338:28030915] hello~
-// 2023-05-13 18:13:21.091312+0800 [95338:28030915] 即将处理Times --- kCFRunLoopDefaultMode
+// 2023-05-18 04:00:51.174885+0800 [84960:32878653] BeforeWaiting 即将进入休眠 --- kCFRunLoopDefaultMode
+// 2023-05-18 04:00:56.089082+0800 [84960:32878653] AfterWaiting 刚从休眠中唤醒 --- kCFRunLoopDefaultMode  <~~~ 5秒后
+// 2023-05-18 04:00:56.089448+0800 [84960:32878653] hello~
+// 2023-05-18 04:00:56.089757+0800 [84960:32878653] BeforeTimers 即将处理Times --- kCFRunLoopDefaultMode
+// 2023-05-18 04:00:56.090007+0800 [84960:32878653] BeforeSources 即将处理Sources --- kCFRunLoopDefaultMode
+// 2023-05-18 04:00:56.090229+0800 [84960:32878653] BeforeWaiting 即将进入休眠 --- kCFRunLoopDefaultMode
 
 @end
