@@ -86,6 +86,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    // 由【Source1】捕获这个触摸事件，然后再分发给【Source0】来处理，触发UIKit的代码来到这里
     NSLog(@"打断点，bt查看，这是RunLoop调用了__CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__才来到这里");
 }
 

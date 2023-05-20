@@ -8,9 +8,11 @@
 
 #import "JPAppView.h"
 #import "JPApp.h"
+#import "NSObject+FBKVOController.h"
 
 @interface JPAppView ()
-
+@property (nonatomic, weak) UIImageView *iconView;
+@property (nonatomic, weak) UILabel *nameLabel;
 @end
 
 @implementation JPAppView
@@ -33,6 +35,22 @@
         _nameLabel = nameLabel;
     }
     return self;
+}
+
+- (void)setAppVM:(JPAppViewModel *)appVM {
+    _appVM = appVM;
+    
+    // 监听ViewModel的属性改变随之刷新UI
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self.KVOController observe:appVM keyPath:@"imageName" options:NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSKeyValueChangeKey,id> * _Nonnull change) {
+        weakSelf.iconView.image = [UIImage imageNamed:change[NSKeyValueChangeNewKey]];
+    }];
+    
+    [self.KVOController observe:appVM keyPath:@"name" options:NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSKeyValueChangeKey,id> * _Nonnull change) {
+        weakSelf.nameLabel.text = change[NSKeyValueChangeNewKey];
+    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

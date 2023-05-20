@@ -18,18 +18,12 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        UIImageView *iconView = ({
-            UIImageView *aImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-            aImgView;
-        });
+        UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
         [self addSubview:iconView];
         self.iconView = iconView;
         
-        UILabel *nameLabel = ({
-            UILabel *aLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 100, 30)];
-            aLabel.textAlignment = NSTextAlignmentCenter;
-            aLabel;
-        });
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 100, 30)];
+        nameLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:nameLabel];
         self.nameLabel = nameLabel;
     }

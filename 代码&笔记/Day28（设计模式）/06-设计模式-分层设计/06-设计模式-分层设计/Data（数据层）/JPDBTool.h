@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JPDBTool : NSObject
-
++ (NSArray * _Nullable)loadLocalData;
 @end
 
 NS_ASSUME_NONNULL_END

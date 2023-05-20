@@ -9,5 +9,7 @@
 #import "JPDBTool.h"
 
 @implementation JPDBTool
-
++ (NSArray *)loadLocalData {
+    return nil;
+}
 @end

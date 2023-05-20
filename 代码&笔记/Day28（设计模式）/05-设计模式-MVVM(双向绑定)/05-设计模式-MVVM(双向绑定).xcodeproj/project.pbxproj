@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A35B6D32A18B88B00D2AA58 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A35B6D02A18B88A00D2AA58 /* NSObject+FBKVOController.m */; };
+		1A35B6D42A18B88B00D2AA58 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A35B6D12A18B88A00D2AA58 /* FBKVOController.m */; };
 		1A8C90B923B8B195005710AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C90B823B8B195005710AA /* AppDelegate.m */; };
 		1A8C90BC23B8B195005710AA /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C90BB23B8B195005710AA /* SceneDelegate.m */; };
 		1A8C90BF23B8B195005710AA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C90BE23B8B195005710AA /* ViewController.m */; };
@@ -20,7 +22,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A8C90B423B8B195005710AA /* 05-设计模式-MVVM(模型处理).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "05-设计模式-MVVM(模型处理).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A35B6CF2A18B88A00D2AA58 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
+		1A35B6D02A18B88A00D2AA58 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
+		1A35B6D12A18B88A00D2AA58 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
+		1A35B6D22A18B88A00D2AA58 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
+		1A8C90B423B8B195005710AA /* 05-设计模式-MVVM(双向绑定).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "05-设计模式-MVVM(双向绑定).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A8C90B723B8B195005710AA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1A8C90B823B8B195005710AA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1A8C90BA23B8B195005710AA /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
@@ -52,10 +58,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A35B6CE2A18B88A00D2AA58 /* KVOController */ = {
+			isa = PBXGroup;
+			children = (
+				1A35B6CF2A18B88A00D2AA58 /* FBKVOController.h */,
+				1A35B6D12A18B88A00D2AA58 /* FBKVOController.m */,
+				1A35B6D22A18B88A00D2AA58 /* NSObject+FBKVOController.h */,
+				1A35B6D02A18B88A00D2AA58 /* NSObject+FBKVOController.m */,
+			);
+			path = KVOController;
+			sourceTree = "<group>";
+		};
 		1A8C90AB23B8B195005710AA = {
 			isa = PBXGroup;
 			children = (
-				1A8C90B623B8B195005710AA /* 05-设计模式-MVVM(模型处理) */,
+				1A8C90B623B8B195005710AA /* 05-设计模式-MVVM(双向绑定) */,
 				1A8C90B523B8B195005710AA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,15 +80,16 @@
 		1A8C90B523B8B195005710AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A8C90B423B8B195005710AA /* 05-设计模式-MVVM(模型处理).app */,
+				1A8C90B423B8B195005710AA /* 05-设计模式-MVVM(双向绑定).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1A8C90B623B8B195005710AA /* 05-设计模式-MVVM(模型处理) */ = {
+		1A8C90B623B8B195005710AA /* 05-设计模式-MVVM(双向绑定) */ = {
 			isa = PBXGroup;
 			children = (
 				1A8C911023BA3AC5005710AA /* MVVM.jpg */,
+				1A35B6CE2A18B88A00D2AA58 /* KVOController */,
 				1A8C90B723B8B195005710AA /* AppDelegate.h */,
 				1A8C90B823B8B195005710AA /* AppDelegate.m */,
 				1A8C90BA23B8B195005710AA /* SceneDelegate.h */,
@@ -90,15 +108,15 @@
 				1A8C90C823B8B196005710AA /* Info.plist */,
 				1A8C90C923B8B196005710AA /* main.m */,
 			);
-			path = "05-设计模式-MVVM(模型处理)";
+			path = "05-设计模式-MVVM(双向绑定)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1A8C90B323B8B195005710AA /* 05-设计模式-MVVM(模型处理) */ = {
+		1A8C90B323B8B195005710AA /* 05-设计模式-MVVM(双向绑定) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1A8C90CD23B8B196005710AA /* Build configuration list for PBXNativeTarget "05-设计模式-MVVM(模型处理)" */;
+			buildConfigurationList = 1A8C90CD23B8B196005710AA /* Build configuration list for PBXNativeTarget "05-设计模式-MVVM(双向绑定)" */;
 			buildPhases = (
 				1A8C90B023B8B195005710AA /* Sources */,
 				1A8C90B123B8B195005710AA /* Frameworks */,
@@ -108,9 +126,9 @@
 			);
 			dependencies = (
 			);
-			name = "05-设计模式-MVVM(模型处理)";
+			name = "05-设计模式-MVVM(双向绑定)";
 			productName = "02-设计模式-MVC(变种)";
-			productReference = 1A8C90B423B8B195005710AA /* 05-设计模式-MVVM(模型处理).app */;
+			productReference = 1A8C90B423B8B195005710AA /* 05-设计模式-MVVM(双向绑定).app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,7 +145,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1A8C90AF23B8B195005710AA /* Build configuration list for PBXProject "05-设计模式-MVVM(模型处理)" */;
+			buildConfigurationList = 1A8C90AF23B8B195005710AA /* Build configuration list for PBXProject "05-设计模式-MVVM(双向绑定)" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -140,7 +158,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1A8C90B323B8B195005710AA /* 05-设计模式-MVVM(模型处理) */,
+				1A8C90B323B8B195005710AA /* 05-设计模式-MVVM(双向绑定) */,
 			);
 		};
 /* End PBXProject section */
@@ -167,6 +185,8 @@
 				1A8C90B923B8B195005710AA /* AppDelegate.m in Sources */,
 				1A8C90CA23B8B196005710AA /* main.m in Sources */,
 				1A8C90BC23B8B195005710AA /* SceneDelegate.m in Sources */,
+				1A35B6D42A18B88B00D2AA58 /* FBKVOController.m in Sources */,
+				1A35B6D32A18B88B00D2AA58 /* NSObject+FBKVOController.m in Sources */,
 				1A8C90D523B8B43D005710AA /* JPAppView.m in Sources */,
 				1A8C90D223B8B274005710AA /* JPApp.m in Sources */,
 				1A8C90DE23B9F786005710AA /* JPAppViewModel.m in Sources */,
@@ -310,7 +330,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "05-设计模式-MVVM(模型处理)/Info.plist";
+				INFOPLIST_FILE = "$(PROJECT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -326,7 +346,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "05-设计模式-MVVM(模型处理)/Info.plist";
+				INFOPLIST_FILE = "$(PROJECT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,7 +360,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1A8C90AF23B8B195005710AA /* Build configuration list for PBXProject "05-设计模式-MVVM(模型处理)" */ = {
+		1A8C90AF23B8B195005710AA /* Build configuration list for PBXProject "05-设计模式-MVVM(双向绑定)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A8C90CB23B8B196005710AA /* Debug */,
@@ -349,7 +369,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1A8C90CD23B8B196005710AA /* Build configuration list for PBXNativeTarget "05-设计模式-MVVM(模型处理)" */ = {
+		1A8C90CD23B8B196005710AA /* Build configuration list for PBXNativeTarget "05-设计模式-MVVM(双向绑定)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A8C90CE23B8B196005710AA /* Debug */,

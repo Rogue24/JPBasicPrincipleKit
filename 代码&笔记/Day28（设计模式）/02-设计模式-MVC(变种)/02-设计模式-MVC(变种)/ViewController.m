@@ -37,7 +37,7 @@
 #pragma mark - <JPAppViewDelegate>
 
 - (void)appViewDidClick:(JPAppView *)appView {
-    NSLog(@"点击了%@", appView);
+    NSLog(@"点击了 --- %@", appView);
 }
 
 @end

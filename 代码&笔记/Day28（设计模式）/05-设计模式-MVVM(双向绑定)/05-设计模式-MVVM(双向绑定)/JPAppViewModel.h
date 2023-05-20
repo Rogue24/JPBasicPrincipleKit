@@ -6,10 +6,9 @@
 //  Copyright © 2019 周健平. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface JPAppViewModel : NSObject
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *imageName;
-- (void)loadApp;
+- (instancetype)initWithViewController:(UIViewController *)vc;
+- (void)refreshName;
 @end

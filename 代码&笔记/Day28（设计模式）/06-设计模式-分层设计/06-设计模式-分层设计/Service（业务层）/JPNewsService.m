@@ -15,15 +15,18 @@
 + (void)loadNews:(NSDictionary *)params success:(void(^)(NSArray *newsData))sucess failure:(void(^)(NSError *error))failure {
     
     // 先取出本地数据
-//    [JPDBTool loadLocalData];
+    NSArray *newsData = [JPDBTool loadLocalData];
+    if (newsData) {
+        sucess(newsData);
+        return;
+    }
     
     // 如果没有本地数据，就加载网络数据
     [JPHTTPTool GET:@"123" params:@{} success:^(NSArray * _Nonnull newsData) {
-//        sucess();
+        sucess(newsData);
     } failure:^(NSError * _Nonnull error) {
-//        failure();
+        failure(error);
     }];
-    
 }
 
 @end

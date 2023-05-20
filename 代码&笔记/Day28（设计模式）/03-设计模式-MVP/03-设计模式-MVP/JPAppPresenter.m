@@ -22,7 +22,7 @@
         
         JPAppView *appView = [[JPAppView alloc] initWithFrame:CGRectMake(100, 100, 100, 130)];
         appView.delegate = self;
-        [self.vc.view addSubview:appView];
+        [vc.view addSubview:appView];
         
         JPApp *app = [[JPApp alloc] init];
         app.name = @"QQ";

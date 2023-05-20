@@ -107,7 +107,8 @@
          frame #16: 0x000000010719dc25 libdyld.dylib`start + 1
      
      * 通过bt打印的函数调用栈中可以看到：
-     * 是由 __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__ 触发了 __handleEventQueueInternal 去处理点击事件，最后执行到这里
+     * 是由`__CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__`触发了UIKit的`__handleEventQueueInternal`去处理点击事件，最后执行到这里
+     *
      * 看得出【Source0】是用来进行触摸事件处理（_A_SOURCE0_PERFORM_FUNCTION_）
      */
 }

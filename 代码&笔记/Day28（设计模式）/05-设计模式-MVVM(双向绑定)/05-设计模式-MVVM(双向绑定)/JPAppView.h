@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JPApp, JPAppView;
+@class JPAppView, JPAppViewModel;
 
 @protocol JPAppViewDelegate <NSObject> // 同时也遵守<NSObject>协议，这样才能调用respondsToSelector方法
 @optional
@@ -15,8 +15,7 @@
 @end
 
 @interface JPAppView : UIView
-@property (nonatomic, weak, readonly) UIImageView *iconView;
-@property (nonatomic, weak, readonly) UILabel *nameLabel;
 @property (nonatomic, weak) id<JPAppViewDelegate> delegate;
+@property (nonatomic, weak) JPAppViewModel *appVM;
 @end
 
