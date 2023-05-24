@@ -186,8 +186,8 @@ void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity ac
 
 // 定时器能唤醒线程，是在【kCFRunLoopAfterWaiting(刚从休眠中唤醒)】的状态下执行的
 // 2023-05-18 04:00:51.174885+0800 [84960:32878653] BeforeWaiting 即将进入休眠 --- kCFRunLoopDefaultMode
-// 2023-05-18 04:00:56.089082+0800 [84960:32878653] AfterWaiting 刚从休眠中唤醒 --- kCFRunLoopDefaultMode  <~~~ 5秒后
-// 2023-05-18 04:00:56.089448+0800 [84960:32878653] hello~
+// 2023-05-18 04:00:56.089082+0800 [84960:32878653] AfterWaiting 刚从休眠中唤醒 --- kCFRunLoopDefaultMode // 5秒后，被Timer唤醒
+// 2023-05-18 04:00:56.089448+0800 [84960:32878653] hello~ // 处理Timer
 // 2023-05-18 04:00:56.089757+0800 [84960:32878653] BeforeTimers 即将处理Times --- kCFRunLoopDefaultMode
 // 2023-05-18 04:00:56.090007+0800 [84960:32878653] BeforeSources 即将处理Sources --- kCFRunLoopDefaultMode
 // 2023-05-18 04:00:56.090229+0800 [84960:32878653] BeforeWaiting 即将进入休眠 --- kCFRunLoopDefaultMode

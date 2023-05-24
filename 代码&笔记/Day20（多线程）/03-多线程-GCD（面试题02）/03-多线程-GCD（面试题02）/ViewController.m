@@ -5,6 +5,7 @@
 //  Created by 周健平 on 2019/12/5.
 //  Copyright © 2019 周健平. All rights reserved.
 //
+//  结论：在等待过程中线程一旦退出（或者在线程退出后再等待）就会报错：目标线程在等待执行时退出。
 
 #import "ViewController.h"
 
@@ -55,6 +56,8 @@
 }
 
 #pragma mark - 测试perform后再start会不会一样崩
+// 结果：即便`perform`后再`start`也一样，`start`就立马执行`block`的代码，执行完`thread`就立马退出了，因此崩溃。
+// 结论：在等待过程中线程一旦退出（或者在线程退出后再等待）就会报错：目标线程在等待执行时退出。
 - (IBAction)interview2:(id)sender {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"begin --- %@", [NSThread currentThread]);
@@ -77,7 +80,7 @@
 
 #pragma mark - 证明
 
-// 解决方法1：`waitUntilDone:NO`，不等，不用管`interviewTest`有没执行完，别卡住当前线程
+#pragma mark 解决方法1：`waitUntilDone:NO`，不等，不用管`interviewTest`有没执行完，别卡住当前线程
 - (IBAction)prove1:(id)sender {
     NSThread *thread = [[NSThread alloc] initWithBlock:^{
         NSLog(@"1 --- %@", [NSThread currentThread]);
@@ -91,7 +94,7 @@
     // 打印：1，没有崩溃。
 }
 
-// 解决方法2：启动子线程`thread`的`RunLoop`，暂时保住`thread`的命去执行`interviewTest`
+#pragma mark 解决方法2：启动子线程`thread`的`RunLoop`，暂时保住`thread`的命去执行`interviewTest`
 - (IBAction)prove2:(id)sender {
     NSThread *thread = [[NSThread alloc] initWithBlock:^{
         NSLog(@"1 --- %@", [NSThread currentThread]);
@@ -109,6 +112,39 @@
     [self performSelector:@selector(interviewTest) onThread:thread withObject:nil waitUntilDone:YES];
     
     // 打印：1、2，也没有崩溃。
+}
+
+#pragma mark 测试：在【当前线程】等待是否会有问题
+/**
+ * 结果：没问题
+ *
+ * 个人猜测：
+ * 调用`-performSelector:onThread:withObject:waitUntilDone:`，如果`onThread`为`【当前线程】`并且`waitUntilDone`为`YES`，
+ * 相当于是在`【当前线程】`使用了`【递归🔐】`来执行SEL的方法。
+ *
+ * 相当于（伪代码）：
+ 
+       @synchronized ([NSThread currentThread]) {
+           [self test2];
+       }
+ 
+ */
+- (IBAction)test:(id)sender {
+    NSLog(@"111 --- %@", [NSThread currentThread]);
+    [self performSelector:@selector(test2) onThread:[NSThread currentThread] withObject:nil waitUntilDone:YES];
+    NSLog(@"333 --- %@", [NSThread currentThread]);
+    
+    NSThread *thread = [[NSThread alloc] initWithBlock:^{
+        NSLog(@"111 --- %@", [NSThread currentThread]);
+        [self performSelector:@selector(test2) onThread:[NSThread currentThread] withObject:nil waitUntilDone:YES];
+        NSLog(@"333 --- %@", [NSThread currentThread]);
+    }];
+    [thread start];
+}
+
+- (void)test2 {
+    NSLog(@"222 --- %@", [NSThread currentThread]);
+    sleep(3);
 }
 
 @end

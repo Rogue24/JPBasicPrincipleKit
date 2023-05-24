@@ -39,8 +39,6 @@ void setterTest1(void) {
     
     [dog release]; // dog.retainCount = 2
     
-    // release操作后并不是立马就销毁，虽然已经执行了dealloc，但这是一个过程，会慢一点才彻底销毁
-    // 有时候CPU的执行的速度比销毁的速度快，就不会崩，所以为了验证问题，弄个循环呗
     for (NSInteger i = 0; i < 5; i++) {
         [per1.dog run];
     }
@@ -81,9 +79,9 @@ void setterTest2(void) {
 }
 
 // 在JPPerson的setter方法加个判断新的dog是不是旧的dog
-// 如果是一样的dog并且引用计数是1，就不能执行release后接着执行retain，这样会坏内存访问（dog被重复release）
+// 如果是一样的dog并且引用计数是1，就不能先执行release接着执行retain，这样会坏内存访问（dog已经被释放了还执行retain）
 // 顺便得在dealloc改成self.dog = nil来销毁
-// PS：想验证问题就去开启Xcode的【僵尸】模式吧（僵尸对象：对已经死掉的对象继续拿来使用）
+// PS：想验证问题就去开启Xcode的【僵尸】模式和注释setter方法的判断吧（僵尸对象：对已经死掉的对象继续拿来使用）
 void setterTest3(void) {
     /** 人在旧狗不在 */
     
@@ -113,7 +111,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"per0.retainCount --- %zd", per0.retainCount);
         [per0 release]; // 使用了autorelease的对象就不要过多调用release，这样会提前释放
         // 📢 使用了autorelease的对象，会自动在某个时机去执行一次release操作，
-        // 如果在这里提前释放该对象的话，就会报错（尝试去释放一个已经释放掉的对象）。
+        // 如果在这里提前释放该对象的话，就会在{}结束的时候报错（尝试去释放一个已经释放掉的对象）。
         
         JPNewPerson *per = [[JPNewPerson alloc] init];
         
@@ -133,7 +131,8 @@ int main(int argc, const char * argv[]) {
         [per release];
 //        [per retain]; // 来到这里时，per已经被释放掉了，retain会报错
         
-        sleep(8);
+        NSLog(@"睡一会先");
+        sleep(5);
         NSLog(@"Goodbye, World!");
     }
     NSLog(@"end");
